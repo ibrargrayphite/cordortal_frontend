@@ -1,0 +1,154 @@
+.marginCustom{
+  margin-top: 130px;
+}
+.heading {
+  color: var(--headline-color);
+  margin-top: 125px;
+  text-align: center;
+  font-size: 70px;
+  font-weight: 700;
+  line-height: 128.571%; /* 128.571% */
+}
+.text {
+  color: var(--content-color);
+  text-align: center;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 177.778%; /* 177.778% */
+}
+.button {
+  margin-top: 10px;
+  height: 67px;
+  background-color: var(--main-accent-dark);
+  border: 1px solid var(--main-accent-dark);
+  transition: 0.3s;
+  padding: 0px 40px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  border-radius: 49px;
+}
+.button:hover {
+  background-color: #ffffff;
+  color: var(--main-accent-dark);
+}
+.title {
+  margin-top: 16px;
+  color: #212121;
+  font-family: "Josefin Sans";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 120%; /* 24px */
+}
+.desc {
+  margin-top: 24px;
+  color: #3d3d3d;
+  font-family: "Josefin Sans";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%; /* 150% */
+}
+.name {
+  color: #212121;
+  font-feature-settings: "clig" off, "liga" off;
+  font-family: "Josefin Sans";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 140%; /* 140% */
+  letter-spacing: -0.2px;
+}
+.desig {
+  color: #828487;
+  font-feature-settings: "clig" off, "liga" off;
+  font-family: "Josefin Sans";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%; /* 150% */
+}
+/* .reviewsContainer {
+  margin-top: 60px;
+} */
+.feedbackContainer {
+  margin-top: 191px;
+}
+.getTouchContainer {
+  margin-top: 251px;
+}
+.pagination {
+  margin-top: 118px;
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+}
+.mobileStar {
+  display: none;
+}
+.desktopStar {
+  display: flex;
+}
+.videoContainer {
+  margin-top: 100px;
+  text-align: center;
+}
+.video {
+  width: 600px;
+}
+@media only screen and (max-width: 767px) {
+  .marginCustom{
+    margin-top: 90px;
+  }
+  .videoContainer {
+    margin-top: 50px;
+  }
+  .desktopStar {
+    display: none;
+  }
+  .mobileStar {
+    display: flex;
+  }
+  .title {
+    text-align: center;
+  }
+  .pagination {
+    margin-top: 50px;
+  }
+  .getTouchContainer {
+    margin-top: 125px;
+  }
+  .feedbackContainer {
+    margin-top: 30px;
+  }
+  /* .reviewsContainer {
+    margin-top: 30px;
+  } */
+  .desig {
+    font-size: 16px;
+  }
+  .desc {
+    font-size: 16px;
+    text-align: center;
+  }
+  .text {
+    font-size: 16px;
+  }
+  .heading {
+    font-size: 50px;
+  }
+  .button {
+    margin-top: 21px;
+    font-size: 16px;
+    height: 45px;
+    padding: 0px 16px;
+    margin-bottom: 50px;
+  }
+  .columns {
+    display: none;
+  }
+  .video {
+    width: 205px;
+  }
+}

@@ -1,0 +1,143 @@
+.customMargin{
+  margin-top: 90px;
+}
+.services {
+  color: var(--headline-color);
+  text-align: center;
+  font-size: 70px;
+  font-weight: 700;
+}
+.solutionsContainer0 {
+  /* margin-top: 216px; */
+  background-color: var(--bg-color);
+}
+.text {
+  color: var(--content-color);
+  text-align: center;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 177.778%; /* 177.778% */
+}
+.comprehensive {
+  color: var(--headline-color);
+  text-align: center;
+  font-size: 70px;
+  font-weight: 700;
+  line-height: 101.429%; /* 101.429% */
+  text-transform: capitalize;
+}
+.solutionsHeading {
+  padding-top: 65px;
+  color: var(--headline-color);
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 70px;
+  font-weight: 700;
+  line-height: 101.429%;
+  text-transform: capitalize;
+}
+.solutionsContainer {
+  padding-top: 150px;
+}
+.solutionsRow2 {
+  margin-top: 117px;
+}
+.solutionsTitle {
+  margin-top: 24px;
+  color: var(--subheadline-color);
+  text-transform: uppercase;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: normal;
+}
+.button {
+  height: 67px;
+  background-color: var(--main-accent-dark);
+  border: 1px solid var(--main-accent-dark);
+  transition: 0.3s;
+  padding: 0px 40px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  border-radius: 49px;
+}
+.button:hover {
+  background-color: #ffffff;
+  color: var(--main-accent-dark);
+}
+.headingBackground {
+  text-align: center;
+  -webkit-text-stroke-width: 1;
+  /* -webkit-text-stroke-color: var(--main-accent-color); */
+  -webkit-text-stroke: 1px var(--main-accent-color);
+  -webkit-text-fill-color: transparent;
+  font-family: "Josefin Sans";
+  font-size: 200px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 101.429%; /* 42% */
+}
+.headingContainer {
+  padding-top: 139px;
+}
+.getTouchContainer {
+  margin-top: 251px;
+}
+.solutionsCol {
+  cursor: pointer;
+}
+@media only screen and (max-width: 767px) {
+  .customMargin{
+    margin-top: 70px;
+  }
+  .getTouchContainer {
+    margin-top: 125px;
+  }
+  .solutionsTitle {
+    font-size: 20px;
+  }
+  .text {
+    font-size: 16px;
+  }
+  .solutionsContainer {
+    padding-top: 50px;
+  }
+  .headingContainer {
+    padding-top: 39px;
+  }
+  .solutionsContainer0 {
+    margin-top: 50px;
+  }
+  .services {
+    font-size: 50px;
+  }
+  .solutionsHeading {
+    font-size: 30px;
+    padding-top: 5px;
+  }
+  .button {
+    margin-top: 21px;
+    font-size: 16px;
+    height: 45px;
+    padding: 0px 16px;
+  }
+  .solutionsRow2 {
+    margin-top: 0px;
+  }
+  .solutionIcons {
+    display: flex;
+    gap: 0px;
+    justify-content: center;
+  }
+  .solutionsTitle {
+    text-align: center;
+  }
+  .sectionText {
+    text-align: center;
+    font-size: 16px;
+  }
+  .solutionsCol {
+    padding-top: 50px;
+  }
+}

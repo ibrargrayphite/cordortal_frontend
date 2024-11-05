@@ -1,0 +1,225 @@
+.trusted {
+  color: var(--headline-color);
+  font-size: 70px;
+  font-weight: 700;
+  text-align: center;
+  line-height: 101.429%;
+}
+
+.section2 {
+  display: flex;
+  gap: 21px;
+  margin-top: 65px;
+}
+
+.buttonContainer {
+  display: flex;
+  margin-top: 20px;
+  gap: 98px;
+}
+
+.button {
+  height: 67px;
+  background-color: var(--main-accent-dark);
+  border: 1px solid var(--main-accent-dark);
+  transition: 0.3s;
+  padding: 0px 40px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+  width: 300px;
+  border-radius: 49px;
+}
+
+.button:hover {
+  background-color: #ffffff;
+  color: var(--main-accent-dark);
+}
+
+.paragraph {
+  color: var(--content-color);
+  font-size: 20px;
+  line-height: 160%;
+}
+
+.button2 {
+  border: none;
+  background: none;
+  color: #49545a;
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.headerGroup2 {
+  display: flex;
+  justify-content: center;
+  height: 350px;
+}
+
+.rightArrowAlign {
+  margin-top: 29px;
+  cursor: pointer;
+}
+
+.appointment {
+  background: none;
+  border: none;
+  color: var(--subheadline-color);
+  font-size: 18px;
+  width: -webkit-fill-available;
+}
+
+.customButtonFirst {
+  width: 50%;
+}
+/* heart div css  */
+.heartContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+
+.leftSide, .rightSide {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Half heart styling */
+.halfHeart1, .halfHeart2, .halfHeart3, .halfHeart4 {
+  background-color: var(--main-accent-dark);
+  position: relative;
+}
+.halfHeart1, .halfHeart4 {
+  overflow: hidden; /* Ensure the image doesn't overflow the container */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.halfHeart1 img, .halfHeart4 img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* half heart style for all 4 div  */
+.halfHeart1 {
+  width: 160px;
+  height: 174px;
+  border-top-left-radius: 134px;
+  border-top-right-radius: 150px;
+  border-bottom-left-radius: 200px;
+  margin-right: 10px;
+}
+
+.halfHeart2, .halfHeart3 {
+  width: 101px;
+  height: 118px;
+  border-top-left-radius: 134px;
+  border-top-right-radius: 150px;
+  border-bottom-left-radius: 200px;
+}
+
+/* Heart shape adjustments and rotations for indvidual div */
+.halfHeart1 {
+}
+.halfHeart2 {
+  transform: rotate(-90deg);
+  margin-left: 50px;
+  margin-top: -3px;
+}
+.halfHeart3 {
+  transform: rotate(90deg);
+  margin-bottom: -4px;
+  margin-left: 3px;
+}
+.halfHeart4 {
+      /* transform: rotate(180deg); */
+      margin-left: -5px;
+      width: 160px;
+      height: 174px;
+      border-bottom-left-radius: 134px;
+      border-bottom-right-radius: 150px;
+      border-top-right-radius: 200px;
+  
+}
+
+/* Responsive design adjustments */
+@media only screen and (max-width: 767px) {
+  .rightArrowAlign {
+    margin-top: 0px;
+    cursor: pointer;
+  }
+
+  .trusted {
+    font-size: 30px;
+  }
+
+  .headerGroup2 {
+    display: flex;
+    justify-content: center;
+    height: 300px;
+  }
+
+  .paragraph {
+    text-align: center;
+    font-size: 16px;
+  }
+
+  .buttonContainer {
+    margin-top: 20px;
+    text-align: center;
+    display: block;
+  }
+
+  .button {
+    font-size: 16px;
+    height: 45px;
+    padding: 0px 16px;
+    width: fit-content;
+  }
+
+  .button2 {
+    font-size: 16px;
+  }
+
+  .appointment {
+    font-size: 16px;
+    display: block !important;
+    cursor: pointer !important;
+    width: -webkit-fill-available !important;
+    margin-top: 20px;
+  }
+
+  /* Responsive half heart sizes */
+  .halfHeart1 {
+    width: 150px;
+    height: 160px;
+    border-top-left-radius: 100px;
+    border-top-right-radius: 110px;
+    border-bottom-left-radius: 150px;
+  }
+
+  .halfHeart2, .halfHeart3 {
+    width: 100px;
+    height: 120px;
+    border-top-left-radius: 100px;
+    border-top-right-radius: 110px;
+    border-bottom-left-radius: 150px;
+  }
+  .halfHeart4{
+    /* margin-left: 7px; */
+    width: 150px;
+    height: 160px;
+    border-bottom-left-radius: 134px;
+    border-bottom-right-radius: 150px;
+    border-top-right-radius: 200px;
+  }
+
+  .halfHeart2 {
+    margin-left: 38px;
+  }
+}
+
+

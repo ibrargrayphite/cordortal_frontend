@@ -1,0 +1,76 @@
+.cardParent {
+  border: none;
+  border-radius: 30px!important;
+  background: #fff;
+  box-shadow: 0px 0px 20px 0px rgba(0, 40, 255, 0.1);
+  text-align: center;
+  margin-bottom: 25px;
+  border: none!important;
+}
+.servicePriceCard {
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.cardHeading {
+  color: #000;
+  font-size: 33px;
+  font-weight: 700;
+  margin-top: 30px;
+  line-height: normal;
+  margin-bottom: 20px;
+}
+
+.cardPricing {
+  color: var(--main-accent-color);
+  font-size: 40px;
+  font-weight: 700;
+}
+
+.cardDescription {
+  color: #878787;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 141.176%;
+  margin-bottom: 10px;
+}
+.servicePricing {
+  color: var(--main-accent-color);
+}
+.serviceDetail {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 400;
+  color: #000;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.packageDetail {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 400;
+  color: #000;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+.customButton {
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+@media (max-width: 768px) {
+  .cardHeading {
+    font-size: 24px;
+  }
+  .cardPricing {
+    color: var(--main-accent-color);
+    font-size: 35px;
+  }
+  .packageDetail {
+    margin-bottom: 15px;
+    margin-top: 15px;
+  }
+}

@@ -1,0 +1,83 @@
+/* p {
+  margin: 0; 
+  padding: 0; 
+} */
+.heading {
+  margin-top: 138px;
+  color: var(--headline-color);
+  text-align: center;
+  font-size: 70px;
+  font-weight: 700;
+  line-height: 128.571%; /* 128.571% */
+}
+.text {
+  margin-top: 10px;
+  color: var(--content-color);
+  text-align: center;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 177.778%; /* 177.778% */
+}
+.button {
+  margin-top: 10px;
+  height: 67px;
+  background-color: var(--main-accent-color);
+  border: 1px solid var(--main-accent-color);
+  transition: 0.3s;
+  padding: 0px 40px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  border-radius: 49px;
+}
+.button:hover {
+  background-color: #ffffff;
+  color: var(--main-accent-color);
+}
+.title {
+  color: var(--main-accent-color);
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 118.182%; /* 118.182% */
+}
+
+.description {
+  color: #000;
+  font-family: "Josefin Sans";
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 26px;
+}
+.infoContainer{
+  margin-top: 146px;
+}
+.getTouchContainer{
+  margin-top: 251px;
+}
+@media only screen and (max-width: 767px) {
+  .getTouchContainer{
+    margin-top: 125px;
+  }
+  .infoContainer{
+    margin-top: 30px;
+  }
+  .heading {
+    font-size: 50px;
+  }
+  .solutionsHeading {
+    font-size: 30px;
+    padding-top: 5px;
+  }
+  .button {
+    margin-top: 21px;
+    font-size: 16px;
+    height: 45px;
+    padding: 0px 16px;
+  }
+  .listStyle {
+    text-align: center;
+  }
+}

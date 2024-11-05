@@ -1,0 +1,26 @@
+.listStyle {
+  color: var(--main-accent-color);
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 205%; /*  */
+  text-decoration: none;
+  cursor: pointer;
+}
+.noBullets {
+  list-style-type: none; /* Removes default bullet points */
+  padding: 0; /* Removes padding */
+  margin: 0; /* Removes margin */
+}
+.solutionsContainer0{
+  background-color: var(--bg-color);
+  padding-top: 50px;
+}
+.listStyle:hover {
+  color: #001f75;
+}
+@media only screen and (max-width: 767px) {
+  .listStyle {
+    text-align: center;
+  }
+}

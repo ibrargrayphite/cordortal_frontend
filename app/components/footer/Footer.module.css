@@ -1,0 +1,123 @@
+.footerTopWhiteSpace {
+  height: 45px;
+}
+.hideOnMobile {
+  text-align: center;
+}
+.contentMain {
+  margin-top: 35px;
+  margin-right: 0px;
+}
+
+/* Refined styling for better alignment */
+.footerContentGreeting {
+  color: var(--content-color);
+  font-size: 1.063rem;
+}
+
+.button {
+  height: 67px;
+  background-color: var(--main-accent-dark);
+  border: 1px solid var(--main-accent-dark);
+  transition: 0.3s;
+  padding: 0px 40px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  border-radius: 31px;
+}
+
+.button:hover {
+  background-color: #ffffff;
+  color: var(--main-accent-dark);
+}
+
+.button:focus,
+.button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+.footerLink li {
+  list-style: none;
+  margin: 0px;
+}
+
+.footerLink {
+  color: var(--content-color);
+  font-size: 1.063rem;
+  padding: 0px;
+}
+
+.footerLink li:hover {
+  color: var(--main-accent-dark);
+}
+
+.copywrightText {
+  text-align: center;
+  padding: 30px;
+  color: var(--content-color);
+  font-size: 1.063rem;
+}
+
+.affiliated {
+  margin-top: 160px;
+}
+.mobileBookingButton {
+  display: none;
+}
+
+@media only screen and (max-width: 767px) {
+  .contentMain {
+    margin-top: 0px; 
+  }
+  .hideOnMobile {
+    display: none;
+  }
+  .mobileBookingButton {
+    display: block;
+  }
+  .bookingButton{
+    margin-top: 10px;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  .mobileCenter{
+    text-align: center;
+  }
+  .affiliated {
+    text-align: center;
+    margin-top: -75px;
+  }
+
+  .footerLink {
+    text-align: center;
+    margin-top: 15px;
+  }
+
+  .contactCard {
+    display: flex;
+    justify-content: center;
+    margin-bottom: -75px;
+  }
+
+  .footerContentGreeting {
+    font-size: 16px;
+    text-align: center;
+    padding-top: 80px; 
+  }
+
+  .buttonContainer {
+    display: flex;
+    justify-content: center;
+  }
+
+  .button {
+    font-size: 18px;
+    padding: 8px 14px;
+    height: 55px;
+  }
+
+  /* li {
+    font-size: 16px;
+  } */
+}

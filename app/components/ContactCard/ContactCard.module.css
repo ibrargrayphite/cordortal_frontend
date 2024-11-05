@@ -1,0 +1,77 @@
+.footerContactCard {
+  max-width: 450px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 60px;
+  box-shadow: 0px 0px 25px 0px rgba(0, 40, 255, 0.15);
+  border-radius: 0 50px 0 50px;
+  position: absolute;
+  right: -150px;
+  margin-right: 200px;
+  background-color: white;
+}
+
+.brandLogo {
+  width: 100%;
+  cursor: pointer;
+  max-height: 100px;
+}
+
+.contactCardTagline {
+  margin-top: 29px;
+  font-size: 1.063rem;
+  color: var(--content-color);
+}
+.address {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  margin: 10px 0px;
+}
+.cardIcons {
+  margin: 0px;
+  max-width: 60px;
+  max-height: 60px;
+}
+.contactCardHeading {
+  font-weight: 300 !important;
+  margin-bottom: 0px;
+}
+
+.contactCardEmail {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  margin: 10px 0px;
+}
+.addressDetails {
+  color: #1b262c;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 28px;
+}
+
+@media only screen and (max-width: 767px) {
+  .contactCardTagline {
+    font-size: 16px;
+  }
+  .footerContactCard {
+    position: static;
+    right: 0px;
+    margin-right: 0px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .footerContactCard {
+    max-width: 300px;
+    padding: 30px;
+    /* width: --we; */
+  }
+  .addressDetails {
+    font-size: 14px;
+  }
+}

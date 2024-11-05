@@ -1,0 +1,190 @@
+.MarginTopDefault {
+  margin-top: 100px;
+}
+.heading {
+  color: var(--headline-color);
+  text-align: center;
+  font-size: 70px;
+  font-weight: 700;
+}
+.text {
+  color: var(--content-color);
+  text-align: center;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 177.778%; /* 177.778% */
+}
+.section2 {
+  display: flex;
+  gap: 21px;
+  margin-top: 10px;
+}
+.headerGroup2 {
+  height: 350px;
+  margin-top: 60px;
+}
+.desc2 {
+  color: var(--content-color);
+  margin-top: 64px;
+  font-size: 20px;
+  line-height: 160%;
+}
+.heading2 {
+  margin-top: 147px;
+  color: var(--headline-color);
+  text-align: center;
+  font-size: 51px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 176.471%; /* 176.471% */
+}
+.card {
+  margin-top: 58px;
+  border: none;
+  border-radius: 30px;
+  background: #fff;
+  box-shadow: 0px 0px 20px 0px rgba(0, 40, 255, 0.1);
+}
+.cardHeading {
+  margin-top: 49px;
+  color: #000;
+  text-align: center;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+.change {
+  margin-top: 9px;
+  color: #878787;
+  text-align: center;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 141.176%;
+}
+.routineButtonContainer {
+  text-align: center;
+  margin-top: 70px;
+  margin-bottom: 42px;
+}
+.cardButton {
+  padding: 24px 64px;
+  border-radius: 31px;
+  border: 1px solid var(--main-accent-dark);
+  background: var(--main-accent-dark);
+  box-shadow: 0px 0px 20px 0px rgba(0, 40, 255, 0.3);
+  transition: 0.3s;
+  color: #fff;
+  text-align: center;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+.cardButton:hover {
+  background-color: #ffffff;
+  color: var(--main-accent-dark);
+}
+.cosmaticButtonContainer {
+  text-align: center;
+  margin-top: 122px;
+  margin-bottom: 40px;
+}
+.hygeinistButtonContainer {
+  text-align: center;
+  margin-top: 282px;
+  margin-bottom: 42px;
+}
+.implantsButtonContainer {
+  text-align: center;
+  margin-top: 204px;
+  margin-bottom: 42px;
+}
+.button {
+  height: 67px;
+  background-color: var(--main-accent-dark);
+  border: 1px solid var(--main-accent-dark);
+  transition: 0.3s;
+  padding: 0px 40px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  border-radius: 49px;
+}
+.button:hover {
+  background-color: #ffffff;
+  color: var(--main-accent-dark);
+}
+@media only screen and (max-width: 767px) {
+    .MarginTopDefault {
+      margin-top: 75px;
+    }
+  .heading {
+    font-size: 50px;
+  }
+  .text {
+    font-size: 16px;
+  }
+  .button {
+    margin-top: 21px;
+    font-size: 16px;
+    height: 45px;
+    padding: 0px 16px;
+  }
+  .section2 {
+    margin-top: 10px;
+  }
+  .headerGroup2 {
+    margin-top: 50px;
+    height: 300px;
+  }
+  .headerGroup2 {
+    display: flex;
+    justify-content: center;
+  }
+  .desc2 {
+    font-size: 16px;
+    text-align: center;
+  }
+  .heading2 {
+    margin-top: 50px;
+  }
+  .routineButtonContainer {
+    margin-top: 35px;
+    margin-bottom: 35px;
+  }
+  .cardButton {
+    margin-top: 21px;
+    font-size: 16px;
+    height: 45px;
+    padding: 0px 16px;
+  }
+  .cosmaticButtonContainer {
+    margin-top: 35px;
+    margin-bottom: 35px;
+  }
+  .hygeinistButtonContainer {
+    margin-top: 35px;
+    margin-bottom: 35px;
+  }
+  .implantsButtonContainer {
+    margin-top: 35px;
+    margin-bottom: 35px;
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  .headerGroup2 {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  .headerGroup2 {
+    height: 200px;
+  }
+}
+@media only screen and (max-width: 1500px) and (min-width: 1300px) {
+  .cosmaticButtonContainer {
+    margin-top: 98px;
+  }
+}

@@ -1,0 +1,76 @@
+.marginCustom{
+  margin-top: 130px;
+}
+.button {
+  height: 67px;
+  background-color: var(--main-accent-dark);
+  border: 1px solid var(--main-accent-dark);
+  transition: 0.3s;
+  padding: 0px 40px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  border-radius: 49px;
+}
+.button:hover {
+  background-color: #ffffff;
+  color: var(--main-accent-dark);
+}
+.name {
+  margin-top: 10px;
+  color: #1b262c;
+  text-align: center;
+  font-size: 30px;
+  font-weight: 700;
+}
+.title {
+  color: #062d92;
+  text-align: center;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 152.941%; /* 152.941% */
+}
+.description {
+  color: #000;
+  text-align: center;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 152.941%; /* 152.941% */
+}
+.profileImage{
+  height: 400px;
+}
+.teamContainer{
+  margin-top: 154px;
+}
+/* .getTouchContainer{
+  margin-top: 251px;
+} */
+@media only screen and (max-width: 767px) {
+  /* .getTouchContainer{
+    margin-top: 125px;
+  } */
+  .marginCustom{
+    margin-top: 90px;
+  }
+  .teamContainer{
+    margin-top: 40px;
+  }
+  .button {
+    margin-top: 21px;
+    font-size: 16px;
+    height: 45px;
+    padding: 0px 16px;
+  }
+  .teamImage {
+    display: flex;
+    gap: 0px;
+    justify-content: center;
+  }
+  .profileImage{
+    height: 200px;
+  }
+  .profileContainer {
+    padding-top: 40px;
+  }
+}

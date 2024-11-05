@@ -1,0 +1,9 @@
+.footerContaner{
+    /* margin-top: 40px; */
+}
+
+@media only screen and (max-width: 767px){
+    .footerContaner{
+        margin-top: 180px;
+    }
+}

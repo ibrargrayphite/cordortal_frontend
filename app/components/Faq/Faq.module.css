@@ -1,0 +1,39 @@
+.parentAcordin{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.accordionHeader {
+    cursor: pointer;
+    /* background-color: #f1f1f1; 
+    padding: 10px;
+    border: 1px solid #ccc;  */
+    /* display: flex; 
+    justify-content: space-between;  */
+    align-items: center; 
+  }
+  
+  .arrow {
+    margin-left: 10px;
+    font-size: 1.2rem;
+    transition: transform 0.2s ease;
+  }  
+.accordionItem {
+    /* border-bottom: 1px solid #ccc; */
+  }
+  
+  .accordionHeader {
+    /* background: #f1f1f1; */
+    padding: 15px;
+    cursor: pointer;
+  }
+  
+  .accordionHeader h2 {
+    margin: 0;
+    font-size: 20px;
+  }
+  
+  .accordionContent {
+    padding: 15px;
+    background: #fff;
+  }
+  

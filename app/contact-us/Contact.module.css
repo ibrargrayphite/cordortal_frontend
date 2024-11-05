@@ -1,0 +1,120 @@
+.customMargin{
+  margin-top: 130px;
+}
+.heading {
+  margin-top: 138px;
+  color: var(--headline-color);
+  text-align: center;
+  font-size: 70px;
+  font-weight: 700;
+  line-height: 128.571%; /* 128.571% */
+}
+.text {
+  color: var(--content-color);
+  text-align: center;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 177.778%; /* 177.778% */
+}
+.inputText {
+  border-radius: 6px;
+  background: #f5f5f5;
+  border: none;
+  color: #878787;
+  font-size: 25px;
+  font-weight: 400;
+  line-height: 284%; /* 284% */
+  /* text-transform: capitalize; */
+  padding: 10px; /* Add padding to match */
+  box-shadow: none; /* Remove any default shadow */
+}
+.PhoneInputInput {
+  border: none;
+}
+#phone .PhoneInputInput {
+  border: none !important; /* Match the border style */
+  border-radius: 6px !important;
+  background: #f5f5f5 !important; /* Match background */
+  color: #878787 !important; /* Match text color */
+  font-size: 25px !important; /* Match font size */
+  font-weight: 400 !important; /* Match font weight */
+  line-height: 284% !important; /* Match line height */
+  padding: 10px !important; /* Add padding to match */
+  box-shadow: none !important; /* Remove any default shadow */
+}
+
+#phone .PhoneInputInput:focus {
+  outline: none !important; /* Remove outline on focus */
+  box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25) !important; /* Match focus effect */
+}
+#phone .PhoneInputInput {
+  border-radius: 6px !important;
+}
+.button {
+  margin-top: 10px;
+  height: 67px;
+  background-color: var(--main-accent-dark);
+  border: 1px solid var(--main-accent-dark);
+  transition: 0.3s;
+  padding: 0px 40px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  border-radius: 49px;
+}
+.button:hover {
+  background-color: #ffffff;
+  color: var(--main-accent-dark);
+}
+.formContainer {
+  margin-top: 81px;
+}
+
+@media only screen and (max-width: 767px) {
+  .customMargin{
+    margin-top: 90px;
+  }
+  .formContainer {
+    margin-top: 30px;
+  }
+  .text {
+    font-size: 16px;
+  }
+  .inputText {
+    height: 50px;
+  }
+  .heading {
+    font-size: 50px;
+  }
+  .solutionsHeading {
+    font-size: 30px;
+    padding-top: 5px;
+  }
+  .button {
+    margin-top: 21px;
+    font-size: 16px;
+    height: 45px;
+    padding: 0px 16px;
+  }
+  .solutionsRow2 {
+    margin-top: 0px;
+  }
+  .solutionIcons {
+    display: flex;
+    gap: 0px;
+    justify-content: center;
+  }
+  .solutionsTitle {
+    text-align: center;
+  }
+  .sectionText {
+    text-align: center;
+  }
+  .solutionsCol {
+    padding-top: 50px;
+  }
+  .solutionsContainer {
+    padding-top: 100px;
+  }
+}

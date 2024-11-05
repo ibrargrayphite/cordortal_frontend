@@ -1,0 +1,23 @@
+.financeDesc {
+    color: #000;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 176.471%; /* 176.471% */
+    margin-bottom: 0px!important;
+  }
+  .solutionsContainer0{
+    background-color: var(--bg-color);
+
+  }
+  .logo{
+    margin-bottom: 20px;
+  }
+  @media only screen and (max-width: 767px) {
+    .logo{
+      text-align: center;
+    }
+    .financeDesc {
+      text-align: center;
+    }
+  }

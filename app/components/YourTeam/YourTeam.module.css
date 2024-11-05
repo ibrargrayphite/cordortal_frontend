@@ -1,0 +1,34 @@
+.profileImage {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center; /* Ensures the image is centered */
+}
+.name {
+  margin-top: 10px;
+  color: #1b262c;
+  text-align: center;
+  font-size: 30px;
+  font-weight: 700;
+}
+.title {
+  color: var(--main-accent-color);
+  text-align: center;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 152.941%;
+}
+.teamImage {
+  text-align: center;
+}
+@media only screen and (max-width: 767px) {
+  .teamImage {
+    display: flex;
+    gap: 0px;
+    justify-content: center;
+  }
+  .profileImage {
+    height: 200px;
+  }
+}

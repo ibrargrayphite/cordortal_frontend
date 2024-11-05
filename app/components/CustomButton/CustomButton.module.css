@@ -1,0 +1,52 @@
+/* simnple old button  */
+/* .customButton {
+    height: 67px;
+    background-color: var(--main-accent-dark);
+    border: 1px solid var(--main-accent-dark);
+    transition: 0.3s;
+    padding: 0px 50px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #ffffff;
+    border-radius: 49px;
+    cursor: pointer;
+  }
+  
+  .customButton:hover {
+    background-color: #122f41; 
+    border-color: #122f41;
+    color: #fff;
+    transition: 0.3s;
+  } */
+
+.customButton {
+  padding: 24px 64px;
+  border-radius: 31px;
+  border: 1px solid var(--main-accent-dark);
+  background: var(--main-accent-dark);
+  box-shadow: 0px 0px 20px 0px rgba(0, 40, 255, 0.3);
+  transition: 0.3s;
+  color: #fff;
+  text-align: center;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+.customButton:hover {
+  background-color: #ffffff;
+  color: var(--main-accent-dark);
+  transition: 0.3s;
+}
+/* You can add additional media queries for responsiveness */
+@media (max-width: 768px) {
+  /* .customButton {
+      font-size: 18px;
+      padding: 0px 40px;
+    } */
+  .customButton {
+    font-size: 16px;
+    height: 45px;
+    padding: 0px 16px;
+  }
+}

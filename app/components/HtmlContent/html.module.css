@@ -1,0 +1,29 @@
+/* blogDetail.module.css */
+
+.content {
+  font-size: 16px; /* Set font size for all <p> tags */
+  line-height: 1.5; /* Optional: improve readability */
+}
+
+.content ul {
+  list-style-type: disc; /* Use disc bullets for unordered lists */
+}
+.content p{
+    padding-top: 10px;
+}
+.content img {
+    max-width: 100%; /* Ensure images are responsive */
+    height: auto; /* Maintain aspect ratio */
+    padding-bottom: 20px;
+  }
+
+.content h1, 
+.content h2, 
+.content h3, 
+.content h4, 
+.content h5, 
+.content h6 {
+    padding-top: 15px;
+  font-size: 32px; /* Set font size for all heading tags */
+  margin-bottom: 16px; /* Optional: add space below headings */
+}

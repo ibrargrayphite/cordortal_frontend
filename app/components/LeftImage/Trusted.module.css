@@ -1,0 +1,116 @@
+.trusted {
+  color: var(--headline-color);
+  font-size: 70px;
+  font-weight: 700;
+  text-align: center;
+  line-height: 101.429%; /* 101.429% */
+}
+
+.section2 {
+  display: flex!important;
+  /* gap: 21px!important; */
+  margin-top: 65px!important;
+}
+.buttonContainer {
+  display: flex;
+  margin-top: 20px;
+  gap: 98px;
+}
+.button {
+  height: 67px;
+  background-color: var(--main-accent-dark);
+  border: 1px solid var(--main-accent-dark);
+  transition: 0.3s;
+  padding: 0px 40px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+  width: 300px;
+  border-radius: 49px;
+}
+.button:hover {
+  background-color: #ffffff;
+  color: var(--main-accent-dark);
+}
+.paragraph {
+  color: var(--content-color);
+  /* margin-top: 64px; */
+  font-size: 20px;
+  line-height: 160%;
+}
+
+.button2 {
+  border: none;
+  background: none;
+  color: #49545a;
+  font-weight: 500;
+  font-size: 20px;
+}
+.headerGroup2 {
+  display: flex;
+  justify-content: center;
+  /* height: 350px; */
+}
+.rightArrowAlign {
+  margin-top: 29px;
+  cursor: "pointer";
+}
+.appointment {
+  background: none;
+  border: none;
+  color: var(--subheadline-color);
+  font-size: 18px;
+  width: -webkit-fill-available;
+}
+.customButtonFirst {
+  width: 50%;
+}
+@media only screen and (max-width: 767px) {
+  .rightArrowAlign {
+    margin-top: 0px;
+    cursor: "pointer";
+  }
+  .leftimageWidth{
+    width: 100%;
+  }
+  .trusted {
+    font-size: 30px;
+  }
+  .headingBackground {
+    top: -10;
+  }
+  .headerGroup2 {
+    display: flex;
+    justify-content: center;
+    height: 300px;
+    margin-bottom: 71px;
+  }
+  .paragraph {
+    text-align: center;
+    font-size: 16px;
+  }
+  .buttonContainer {
+    /* gap: 40px; */
+    /* justify-content: center; */
+    margin-top: 20px;
+    text-align: center;
+    display: block;
+  }
+  .button {
+    font-size: 16px;
+    height: 45px;
+    padding: 0px 16px;
+    width: fit-content;
+  }
+  .button2 {
+    /* width: -webkit-fill-available; */
+    font-size: 16px;
+  }
+  .appointment {
+    font-size: 16px;
+    display: block !important;
+    cursor: pointer !important;
+    width: -webkit-fill-available !important;
+    margin-top: 20px;
+  }
+}
