@@ -1,6 +1,7 @@
 import styles from "../Pricing.module.css";
 import { renderComponent } from "../../utils/renderComponent";
 import currentLocation from "../../data";
+import ScrollHandler from "../../components/ScrollHandler";
 
 // Generates static paths for each service
 export async function generateStaticParams() {
@@ -95,8 +96,9 @@ const Pricing = async ({ params }) => {
 
   return (
     <div className={styles.customMargin}>
+      <ScrollHandler sectionScroll={sectionScroll} />
       {contentArray.map((block, blockIndex) => (
-        <div key={blockIndex} id={block.scroll}>
+        <div key={blockIndex} id={block.slug}>
           {renderComponent(block)}
         </div>
       ))}
