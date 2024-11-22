@@ -6547,15 +6547,56 @@ const Locations = [
             description: "Transform your smile quickly and effortlessly with our exceptional services. We understand the importance of having a beautiful, straight smile, and that's why we offer efficient solutions tailored to your needs.",
             headline:"Case Study",
           },
-          // {
-          //   id:"2",
-          //   component:"BillingCardOffer",
-          //   data:[
-          //     {name:"All Physicians" , price:"$900",duration:"Per Yearly", offerPoint:["Etiam pharetra libero ultricies orn" ,"Quisque et felis feug","Pellentesque ut auctor nungrah"]},
-          //     {name:"Doctor Visits" , price:"$150",duration:"Per Yearly", offerPoint:["Etiam pharetra libero ultricies orn" ,"Pellentesque nec lacinia sapien","Nulla ex purus, interdum no"]},
-          //     {name:"Urgent Care" , price:"$250",duration:"Per Yearly", offerPoint:["Etiam pharetra libero ultricies orn" ,"Quisque et felis feug","Pellentesque ut auctor nungrah"]},
-          //   ]
-          // },
+          {
+            id:"2",
+            component:"CaseStudyCard",
+            description:"Check Our Results",
+            headline:"Our Case Studies",
+            data:[
+              { 
+                heading:"Case Study 1",
+                mediaBefore: beforemedia,
+                mediaAfter: aftermedia,
+                bullets:[
+                "79-year old African-American female",
+                "Insulin injections",
+                "Co-existing diseases",
+                "Multiple medications",
+                "Physical limitations",
+                "Overdue for dental treatment"
+              ],
+                date:"09/08/2020"
+              },
+              { 
+                heading:"Case Study 2",
+                mediaBefore: beforemedia,
+                mediaAfter: aftermedia,
+                bullets:[
+                "79-year old African-American female",
+                "Insulin injections",
+                "Co-existing diseases",
+                "Multiple medications",
+                "Physical limitations",
+                "Overdue for dental treatment"
+              ],
+                date:"09/08/2020"
+              },
+              { 
+                heading:"Case Study 3",
+                mediaBefore: beforemedia,
+                mediaAfter: aftermedia,
+                bullets:[
+                "79-year old African-American female",
+                "Insulin injections",
+                "Co-existing diseases",
+                "Multiple medications",
+                "Physical limitations",
+                "Overdue for dental treatment"
+              ],
+                date:"09/08/2020"
+              }
+            ]
+          },
           {
             id: "3",
             component: "ReviewSlider",

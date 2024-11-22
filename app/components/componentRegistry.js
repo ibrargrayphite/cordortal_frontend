@@ -31,6 +31,7 @@ import ReviewSlider from "./ReviewSlider"
 import CardRightImage from "./CardRightImage"
 import LandingPageBanner from "./LandingPageBanner"
 import BillingCardOffer from "./BillingCardOffer"
+import CaseStudyCard from "./CaseStudyCard"
 
 import Navbar from "./Headers/Navbar";
 import HeaderDefault from './Headers/HeaderDefault'
@@ -74,7 +75,8 @@ const componentRegistry = {
   CardRightImage,
   SimpleFooter,
   LandingPageBanner,
-  BillingCardOffer
+  BillingCardOffer,
+  CaseStudyCard
 };
 
 export default componentRegistry;
