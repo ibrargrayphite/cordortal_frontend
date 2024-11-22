@@ -12,7 +12,7 @@ const CountNumber = ({ data }) => {
           <div key={item.name} className={styles.card}>
             {index !== 0 && (
             <div
-              className="bg-gray-400 mx-auto"
+              className="bg-gray-400 mx-auto d-lg-block d-none"
               style={{ width: "0.10rem", height: "1rem", marginRight: "30px!important" }}
             ></div>
             )}

@@ -29,13 +29,14 @@ const landingPageOverlay = ({ description , media, headline,headlineLarge,title}
     <div
       style={{
         background: theme.mainAccentDark,
-        height: "100vh", 
+        // height: "100vh", 
+        paddingBottom: '6rem'
       }}
     >
-      <Container className="p-0 d-flex align-items-center" style={{ height: "100%" }}>
-        <div className="flex w-100 justify-content-between">
+      <Container className="p-0 d-md-flex align-items-center" style={{ height: "100%" }}>
+        <div className="d-lg-flex w-100 justify-content-between">
           {/* Left Section */}
-          <div className="w-1/2 p-4 d-flex flex-column justify-content-center">
+          <div className="col-lg-6 col-12 w-lg-100 p-4 d-flex flex-column justify-content-center">
             <div >
               <h1 className={styles.headingTextPrimary}>{headline}
               <span className={styles.bold}>{headlineLarge}</span>
@@ -43,22 +44,26 @@ const landingPageOverlay = ({ description , media, headline,headlineLarge,title}
               <h1 className={styles.headingTextPrimary} >{title}</h1>
             </div>
             <p className={styles.descriptionContent}>{description}</p>
-            <div className="d-flex">
-            <CustomButton
-              headline="Book Now"
-              onClick={handlePrimaryAction}
-              className={styles.customButtonFirst}
-            />
-            <CustomButton
-              headline="Get Started"
-              onClick={() => handleSecondaryAction(src)}
-              className={styles.customButton}
-            />
+            <div className="d-flex flex-wrap align-items-center">
+              <div className="me-2 mb-2">
+                <CustomButton
+                  headline="Book Now"
+                  onClick={handlePrimaryAction}
+                  className={styles.customButton}
+                />
+              </div>
+              <div className="mb-2">
+                <CustomButton
+                  headline="Get Started"
+                  onClick={() => handleSecondaryAction(src)}
+                  className={styles.customButton}
+                />
+              </div>
             </div>
           </div>
 
           {/* Right Section (Image Cards) */}
-          <div className="w-1/2 d-flex ">
+          <div className="col-lg-6 col-12 w-lg-100 d-flex p-4 p-lg-0">
             <div className="overflow-hidden rounded-md mr-4 w-full">
               <img
                 className="w-full h-70 object-cover rounded-md"

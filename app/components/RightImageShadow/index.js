@@ -18,7 +18,8 @@ const RightImageShadow = ({ headline, description, media }) => {
     <Container className="py-5">
       <Row className="align-items-center g-0">
         {/* Left Section */}
-        <Col xs={12} md={6} className="text-center text-md-start" style={{paddingLeft:"100px"}}>
+        <Col xs={12} md={6} className="text-center text-md-start">
+        <div className="lg:pl-20 md:p-0 lg:pr-8">
           <h1 className={styles.headline}>{headline}</h1>
           <p className={styles.description}>{description}</p>
           <CustomButton
@@ -26,6 +27,7 @@ const RightImageShadow = ({ headline, description, media }) => {
             onClick={handlePrimaryAction}
             className={styles.customButtonFirst}
           />
+        </div>
         </Col>
 
         {/* Right Section: Image with shadow/reflection */}
