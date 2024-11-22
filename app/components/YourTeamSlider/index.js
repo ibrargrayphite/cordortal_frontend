@@ -1,0 +1,119 @@
+"use client";
+import { Container } from "react-bootstrap";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/swiper-bundle.css";
+import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
+import styles from "./YourTeamSlider.module.css";
+import HeadingTopDiscription from "../HeadingTopDiscription";
+import { useTheme } from "../../context/ThemeContext";
+
+const YourTeamSlider = ({ teamMembers = [], headline, description }) => {
+  const theme = useTheme();
+
+  if (!teamMembers.length) {
+    return (
+      <Container className={styles.teamContainer}>
+        <HeadingTopDiscription headline={headline} description={description} />
+        <p>No team members to display at the moment.</p>
+      </Container>
+    );
+  }
+
+  return (
+    <div
+      style={{
+        backgroundColor: theme.bgColor,
+        paddingTop: "40px",
+        paddingBottom: "40px",
+        marginTop: 40,
+      }}
+    >
+      <Container>
+        <HeadingTopDiscription headline={headline} description={description} />
+        <div className={styles.teamContainer}>
+          <Swiper
+            slidesPerView={4}
+            spaceBetween={0}
+            breakpoints={{
+              0: { slidesPerView: 1, spaceBetween: 0, direction: "vertical" },
+              760: {
+                slidesPerView: 4,
+                spaceBetween: 0,
+                direction: "horizontal",
+              },
+            }}
+            navigation={{
+              nextEl: ".swiper-button-next",
+              prevEl: ".swiper-button-prev",
+            }}
+            modules={[Navigation]}
+            className={styles.swiperContainer}
+          >
+            {teamMembers.map((member) => (
+              <SwiperSlide key={member.id} className={styles.SlideParent}>
+                <div className={styles.teamImage}>
+                  <img
+                    src={member.teamMemberImage?.src || "/default-profile.png"} // Fallback image
+                    className={styles.profileImage}
+                    alt={
+                      member.teamMemberName
+                        ? `Portrait of ${member.teamMemberName}, a ${member.teamMemberSpeciality}`
+                        : "Team member"
+                    }
+                  />
+                </div>
+                <Container style={{ marginBottom: 20, textAlign: "center" }}>
+                  <p className={styles.name}>
+                    {member.teamMemberName || "N/A"}
+                  </p>
+                  <h3 className={styles.title}>
+                    {member.teamMemberSpeciality || "Speciality not available"}
+                  </h3>
+                  {/* Social media icons */}
+                  <div className={styles.socialIcons}>
+                    <a
+                      href={member.facebookLink || "#"}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <FaFacebook className={styles.icon} />
+                    </a>
+                    <a
+                      href={member.instagramLink || "#"}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <FaInstagram className={styles.icon} />
+                    </a>
+                    <a
+                      href={member.twitterLink || "#"}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <FaTwitter className={styles.icon} />
+                    </a>
+                  </div>
+                </Container>
+              </SwiperSlide>
+            ))}
+            {/* Navigation Buttons */}
+          </Swiper>
+         {teamMembers.length > 4 && 
+         <>
+         <div
+            className={`${styles.navigationButtonNext} swiper-button-next`}
+          />
+          <div
+            className={`${styles.navigationButtonPrev} swiper-button-prev`}
+          />
+          </>
+          }
+        </div>
+      </Container>
+    </div>
+  );
+};
+
+export default YourTeamSlider;

@@ -55,10 +55,14 @@ export const renderComponent = (block) => {
     htmlContent:block.htmlContent,
     // header navbar use for about us dropdown
     name:block.name,
+    menuItems:block.menuItems,
+    button:block.button,
+    // href:block.href,
     // footer refer  patient
     refersrc:block.refersrc,
     // in footer underline clinic name
     title:block.title,
+    footerRights:block.footerRights
 
 
   

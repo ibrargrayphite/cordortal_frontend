@@ -161,6 +161,23 @@ import Bailifffile23 from "../public/assets/documents/bailiff/ConsentPolicy.doc"
 import Bailifffile24 from "../public/assets/documents/bailiff/PatientSafety.doc";
 import Bailifffile25 from "../public/assets/documents/bailiff/PeriodontalGumDisease.docx";
 
+// straigth imports 
+import straightlogo from "../public/assets/images/straightlogo.png";
+import pageoverlay1 from "../public/assets/images/straightSmile/pageoverlay1.png";
+import pageoverlay2 from "../public/assets/images/straightSmile/pageoverlay2.png";
+import pageoverlay3 from "../public/assets/images/straightSmile/pageoverlay3.png";
+import toothstraightBigleftimage from "../public/assets/images/straightSmile/toothstraightBigleftimage.png";
+import toothstraightBigleftimage2 from "../public/assets/images/straightSmile/toothstraightBigleftimage.png";
+import iconArrow from "../public/assets/images/straightSmile/iconArrow.png";
+import straightsmileRight from "../public/assets/images/straightSmile/straightsmileRight.png";
+import straightsmileTeam1 from "../public/assets/images/straightSmile/team/straightsmileTeam1.png";
+import toothRightBigImage from "../public/assets/images/straightSmile/toothRightBigImage.png";
+
+
+
+
+
+
 const svgLogo = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -6052,6 +6069,775 @@ const Locations = [
         keywords: 'information dentist, information dental appointment, Bailiff Bridge information, Bailiff Bridge dental clinic, dental inquiries',
       },
     }
+  },
+  // straightsmiles
+  {
+    domain: "straightsmiles",
+    title: "Straight Smiles Dental",
+    name: "Straight Smiles Dental",
+    media: straightlogo,
+    data: {
+      address: "60 Bradford Road Huddersfield, HD1 6JE",
+      phone: "01484 531964",
+      email: "straightsmiles@gmail.com",
+      media: footerLogo,
+    },
+    colors: {
+      mainAccentColor: "#008B8B", //  accent for price and links
+      mainAccentDark: "#000000", // for website theme bg 
+      bgColor: "#00000005", // section background color need to test
+      headlineColor: "#000000", // for headlines color
+      subHeadlineColor: "#373F43", // Dark navy for subheadlines
+      content: "#49545A", //any type of content on page
+      media: straightlogo,
+    },
+    shared: {
+      header: {
+      name: "HeaderDefault",
+      src: "https://oaklands-dental.portal.dental/book",
+      alt: "Oaklands Dental",
+      menuItems: [
+        { name: "Home", href: "/" },
+        { name: "Pricing", href: "/information" },
+        // {
+        //   name: "Services",
+        //   dropdown: [
+        //     { name: "Dental Care", href: "/services/dental-care" },
+        //     { name: "Orthodontics", href: "/services/orthodontics" }
+        //   ]
+        // },
+        { name: "Case Studies", href: "/about-us" }
+      ],
+      button: { "name": "Book Now", "href": "https://oaklands-dental.dentr.net/book" }
+    },
+      footer: {
+        name: "SimpleFooter",
+        // src: "https://oaklands-dental.dentr.net/book",
+        // refersrc:
+        //   "https://docs.google.com/forms/d/e/1FAIpQLSdIHkTNcU-BPjGDJZd6uRAbNVGamgn-m-YflSSavX7JoeGyDQ/viewform",
+          footerRights:"straightsmile 2024 all rights reserved",
+          data:{
+            sections: {
+              services: {
+                heading: "Services",
+                items: [
+                  "Cosmetic Braces",
+                  "Dental Implant",
+                  "General Dentistry",
+                  "Restorative Dentistry",
+                  "Extractions",
+                ],
+              },
+              information: {
+                heading: "Information",
+                items: [
+                  "An Appointment",
+                  "Sign Up",
+                  "Join Community",
+                  "Newsletter",
+                ],
+              },
+              company: {
+                heading: "Company",
+                items: [
+                  "Partnership",
+                  "Social Media",
+                  "About Company",
+                  "Clinic Maps",
+                  "Contact",
+                ],
+              },
+              aboutUs: {
+                heading: "About Us",
+                description:
+                  "Services that provide the best dentist health, we have been in the field for more than 10 years experience",
+                contact: {
+                  phone: "(021) 387 874 096",
+                  email: "dentalclinic@company.com",
+                },
+              },
+            },
+          }
+      },
+    },
+    pages: [
+      {
+        id: 1,
+        pageName: "Homepage",
+        content: [
+          // landingpageoverlay just need first three images
+          {
+            id: "1",
+            component: "landingPageOverlay",
+            description: "Transform your smile quickly and effortlessly with our exceptional services. We understand the importance of having a beautiful, straight smile, and that's why we offer efficient solutions tailored to your needs.",
+            headline:"Let's Take",
+            headlineLarge:"Care Of Your Dental",
+            title:"Health",
+            media: [
+              {
+                id: 1,
+                url: pageoverlay1,
+              },
+              {
+                id:2,
+                url:pageoverlay2
+              },
+              {
+                id: 3,
+                url: pageoverlay3,
+              },
+            ]
+            
+          },
+          {
+            id: "2",
+            component: "CountNumber",
+            data: [
+              {name:"Performed Surgeries",count:170},
+              {name:"Satisfied Patient",count:85},
+              {name:"Staff Members",count:176},
+              {name:"Yearly surgeries",count:98},
+
+            ]
+          },
+          {
+            id: "3",
+            component: "BigLeftImage",
+            media: toothstraightBigleftimage,
+            media2: iconArrow,
+            title:"Take Care Teeth",
+            headline: "Let's Take Care Of Dental Health",
+            description: "Some people think that brushing your teeth twice a day is enough to keep your teeth and mouth healthy. In fact, that's not the case Some people think that brushing your teeth twice a day is enough to keep your teeth and mouth healthy. In fact, that's not the case Some people think that brushing your teeth twice a day is enough to keep your teeth and mouth healthy. In fact, that's not the case Some people think that brushing your teeth twice a day is enough to keep your teeth and mouth healthy. In fact, that's not the case",
+
+          },
+          {
+            id: "4",
+            component: "HeadingTopDiscription",
+            headline:
+              "The Best Quality Service You Can Get",
+            description:"Quality Matters",
+          },
+          {
+            id: "5",
+            component: "RightImageShadow",
+            headline:
+              "Aligners",
+            description:"Some people think that brushing your teeth twice a day is enough to keep your teeth and mouth healthy. In fact, that's not the case Some people think that brushing your teeth twice a day is enough to keep your teeth and mouth healthy. In fact, that's not the case Some people think that brushing your teeth twice a day is enough to keep your teeth and mouth healthy. In fact, that's not the case Some people think that brushing your teeth twice a day is enough to keep your teeth and mouth healthy. In fact, that's not the case",
+            media:straightsmileRight,
+          },
+          {
+            id: "6",
+            component: "YourTeamSlider",
+            headline:
+            "Introducing Our Dedicated Dentists",
+            description:"Our Experts",
+            teamMembers: [
+              {
+                id: 1,
+                teamMemberImage: straightsmileTeam1,
+                teamMemberName: "Dr Harun Hussain",
+                teamMemberSpeciality: "Clinical Head",
+                facebookLink:"https://www.facebook.com/",
+                instagramLink:"https://www.instagram.com/",
+                twitterLink:"https://twitter.com/login"
+              },
+              {
+                id: 2,
+                teamMemberImage: straightsmileTeam1,
+                teamMemberName: "Dr Harun Hussain",
+                teamMemberSpeciality: "Clinical Head",
+                facebookLink:"https://www.facebook.com/",
+                instagramLink:"https://www.instagram.com/",
+                twitterLink:"https://twitter.com/login"
+              },
+              {
+                id: 3,
+                teamMemberImage: straightsmileTeam1,
+                teamMemberName: "Dr Harun Hussain",
+                teamMemberSpeciality: "Clinical Head",
+                facebookLink:"https://www.facebook.com/",
+                instagramLink:"https://www.instagram.com/",
+                twitterLink:"https://twitter.com/login"
+              },
+              {
+                id: 4,
+                teamMemberImage: straightsmileTeam1,
+                teamMemberName: "Dr Harun Hussain",
+                teamMemberSpeciality: "Clinical Head",
+                facebookLink:"https://www.facebook.com/",
+                instagramLink:"https://www.instagram.com/",
+                twitterLink:"https://twitter.com/login"
+              },
+              {
+                id: 5,
+                teamMemberImage: straightsmileTeam1,
+                teamMemberName: "Dr Harun Hussain",
+                teamMemberSpeciality: "Clinical Head",
+                facebookLink:"https://www.facebook.com/",
+                instagramLink:"https://www.instagram.com/",
+                twitterLink:"https://twitter.com/login"
+              },
+              {
+                id: 6,
+                teamMemberImage: straightsmileTeam1,
+                teamMemberName: "Dr Hussain",
+                teamMemberSpeciality: "Clinical Head",
+                facebookLink:"https://www.facebook.com/",
+                instagramLink:"https://www.instagram.com/",
+                twitterLink:"https://twitter.com/login"
+              },
+            ]
+          },
+          {
+            id: "7",
+            component: "RightBigImage",
+            headline:
+              "Enjoy The Features In Our Clinic",
+            description:"Clinic Features",
+            media:toothRightBigImage,
+            data:[
+              {
+                icon:'FaGlobe',
+                headline:"Online System",
+                description:"Our clinic already has a online ecosystem",
+                link:"xyz"
+              },
+              {
+                icon:'MdOutlinePeople',
+                headline:"Easy Access",
+                description:"Ease of payement with various platform",
+                link:"xyz"
+              },
+              {
+                icon:'MdOutlineAccessTime',
+                headline:"24 Hours Open",
+                description:"Ready to recive a patient 24 hours a day",
+                link:"xyz"
+              },
+              {
+                icon:'MdOutlineMedicalServices',
+                headline:"More Facilities",
+                description:"All facilities are complete and new technology",
+                link:"xyz"
+              }
+            ]
+          },
+          {
+            id: "8",
+            component: "ReviewSlider",
+            headline:
+            "See What Our Clients Have to Say:",
+            userReviews: [
+              {
+                id: 1,
+                stars: 5,
+                desigination: "first Manager",
+                description:
+                  "I got recommended Oaklands from a friend. I attended on 26/07/2023 and had a private filling treatment from Dr.Harun and his lovely team of nurses. The treatment was like no other very stressfree and painless would highly recommend for the service provided and the care. Thanks for Dr.Harun and the nurses for taking care of me.",
+                reviewerName: "Usaama Mohammed",
+                reviewerImage: iconU,
+              },
+              {
+                id: 2,
+                stars: 5,
+                desigination: "test Manager",
+                description:
+                  "I have always found the staff to be very pleasant and helpful. The dentist has been absolutely great with me . I had to have a lot of work done due to the effects of an illness I had a few years ago and he has always seen me at short notice, phoned me to see everything was okay with my treatment and very patient as I am a bit of a scary cat when it comes to going to the dentist. Thank you.",
+                reviewerName: "Margaret Casson",
+                reviewerImage: iconM,
+              },
+              {
+                id: 3,
+                stars: 5,
+                desigination: "Prodcut Manager",
+                description:
+                  "I have just finished a course of Invisalign bracers treatment with Oaklands Dental. The staff are very professional and accommodating. The treatment went well and was monitored well throughout. I am very pleased with the results that have come from the treatment also.",
+                reviewerName: "John Mark",
+                reviewerImage: iconJ,
+              },
+              {
+                id: 4,
+                stars: 5,
+                desigination: "Prodcut Manager",
+                description:
+                  "Recently had my teeth cleaned, whitened and had veneers fitted with Dr Hussain. I've always hated my teeth and after having a bike accident and snapping my front two I was even more self-conscious of them. He's done an amazing job they look better than my natural teeth did. He's very calm and reassuring and kept checking in while he worked to make sure nothing was hurting. I can't believe how good they look. They went from yellow, stained wonky and cracked to white and straight. Best money I've ever spent - they look perfect. Thank you Dr Hussain for making me happy to smile.",
+                reviewerName: "Lydia Booth",
+                reviewerImage: iconL,
+              },
+              {
+                id: 5,
+                stars: 5,
+                desigination: "Prodcut Manager",
+                description:
+                  "Dr Hussain has been attentive throughout my Invisalign journey. He has patience of a saint and was helpful in answering all my questions and concerns I had regarding Invisalign which also included specific advice in relation the ‘complexity’ of an overbite in my case. Dr Hussain provided exceptional client care service to include telephone advice and email to suit my work commitments. Dr Hussain provided the upmost professional service at all times whilst making sure I felt at ease at all my appointments. I would recommend Dr Hussain to anyone who is thinking about Invisalign as you will not only leave with a beautiful smile at the end but also feel very exceptionally pleased with the outcome.",
+                reviewerName: "Naheed",
+                reviewerImage: iconN,
+              },
+              {
+                id: 6,
+                stars: 5,
+                desigination: "Prodcut Manager",
+                description:
+                  "I recently had a wonderful experience at this office. From the moment I entered I was welcomed by an extremely receptive and professional team, especially Julie. I had the Invasalign procedure which went really well and I am very happy with the result.",
+                reviewerName: "Eliane Guimaraes",
+                reviewerImage: iconE,
+              },
+              {
+                id: 7,
+                stars: 5,
+                desigination: "Prodcut Manager",
+                description:
+                  "I recently had a wonderful experience at this office. From the moment I entered I was welcomed by an extremely receptive and professional team, especially Julie. I had the Invasalign procedure which went really well and I am very happy with the result.",
+                reviewerName: "Eliane Guimaraes",
+                reviewerImage: iconE,
+              },
+              {
+                id: 8,
+                stars: 5,
+                desigination: "Prodcut Manager",
+                description:
+                  "I recently had a wonderful experience at this office. From the moment I entered I was welcomed by an extremely receptive and professional team, especially Julie. I had the Invasalign procedure which went really well and I am very happy with the result.",
+                reviewerName: "Eliane Guimaraes",
+                reviewerImage: iconE,
+              },
+              {
+                id: 9,
+                stars: 5,
+                desigination: "last Manager",
+                description:
+                  "I recently had a wonderful experience at this office. From the moment I entered I was welcomed by an extremely receptive and professional team, especially Julie. I had the Invasalign procedure which went really well and I am very happy with the result.",
+                reviewerName: "last Guimaraes",
+                reviewerImage: iconE,
+              },
+            ],
+          },
+          {
+            id: "9",
+            component: "CardRightImage",
+            headline:"Seize the opportunity for a brighter smile starting now!",
+            description:"Embracing the Now or Never Moment: Unlocking the Gateway to a Brighter, More Captivating Smile Beyond Your Wildest Dreams!",
+            media:toothstraightBigleftimage2
+          }
+        ],
+      },
+      {
+        id: 2,
+        pageName: "information",
+        content: [
+          {
+            id:"1",
+            component:"LandingPageBanner",
+            description: "Transform your smile quickly and effortlessly with our exceptional services. We understand the importance of having a beautiful, straight smile, and that's why we offer efficient solutions tailored to your needs.",
+            headline:"Pricing",
+          },
+          {
+            id:"2",
+            component:"BillingCardOffer",
+            data:[
+              {name:"All Physicians" , price:"$900",duration:"Per Yearly", offerPoint:["Etiam pharetra libero ultricies orn" ,"Quisque et felis feug","Pellentesque ut auctor nungrah"]},
+              {name:"Doctor Visits" , price:"$150",duration:"Per Yearly", offerPoint:["Etiam pharetra libero ultricies orn" ,"Pellentesque nec lacinia sapien","Nulla ex purus, interdum no"]},
+              {name:"Urgent Care" , price:"$250",duration:"Per Yearly", offerPoint:["Etiam pharetra libero ultricies orn" ,"Quisque et felis feug","Pellentesque ut auctor nungrah"]},
+            ]
+          },
+          {
+            id: "3",
+            component: "ReviewSlider",
+            headline:
+            "See What Our Clients Have to Say:",
+            userReviews: [
+              {
+                id: 1,
+                stars: 5,
+                desigination: "first Manager",
+                description:
+                  "I got recommended Oaklands from a friend. I attended on 26/07/2023 and had a private filling treatment from Dr.Harun and his lovely team of nurses. The treatment was like no other very stressfree and painless would highly recommend for the service provided and the care. Thanks for Dr.Harun and the nurses for taking care of me.",
+                reviewerName: "Usaama Mohammed",
+                reviewerImage: iconU,
+              },
+              {
+                id: 2,
+                stars: 5,
+                desigination: "test Manager",
+                description:
+                  "I have always found the staff to be very pleasant and helpful. The dentist has been absolutely great with me . I had to have a lot of work done due to the effects of an illness I had a few years ago and he has always seen me at short notice, phoned me to see everything was okay with my treatment and very patient as I am a bit of a scary cat when it comes to going to the dentist. Thank you.",
+                reviewerName: "Margaret Casson",
+                reviewerImage: iconM,
+              },
+              {
+                id: 3,
+                stars: 5,
+                desigination: "Prodcut Manager",
+                description:
+                  "I have just finished a course of Invisalign bracers treatment with Oaklands Dental. The staff are very professional and accommodating. The treatment went well and was monitored well throughout. I am very pleased with the results that have come from the treatment also.",
+                reviewerName: "John Mark",
+                reviewerImage: iconJ,
+              },
+              {
+                id: 4,
+                stars: 5,
+                desigination: "Prodcut Manager",
+                description:
+                  "Recently had my teeth cleaned, whitened and had veneers fitted with Dr Hussain. I've always hated my teeth and after having a bike accident and snapping my front two I was even more self-conscious of them. He's done an amazing job they look better than my natural teeth did. He's very calm and reassuring and kept checking in while he worked to make sure nothing was hurting. I can't believe how good they look. They went from yellow, stained wonky and cracked to white and straight. Best money I've ever spent - they look perfect. Thank you Dr Hussain for making me happy to smile.",
+                reviewerName: "Lydia Booth",
+                reviewerImage: iconL,
+              },
+              {
+                id: 5,
+                stars: 5,
+                desigination: "Prodcut Manager",
+                description:
+                  "Dr Hussain has been attentive throughout my Invisalign journey. He has patience of a saint and was helpful in answering all my questions and concerns I had regarding Invisalign which also included specific advice in relation the ‘complexity’ of an overbite in my case. Dr Hussain provided exceptional client care service to include telephone advice and email to suit my work commitments. Dr Hussain provided the upmost professional service at all times whilst making sure I felt at ease at all my appointments. I would recommend Dr Hussain to anyone who is thinking about Invisalign as you will not only leave with a beautiful smile at the end but also feel very exceptionally pleased with the outcome.",
+                reviewerName: "Naheed",
+                reviewerImage: iconN,
+              },
+              {
+                id: 6,
+                stars: 5,
+                desigination: "Prodcut Manager",
+                description:
+                  "I recently had a wonderful experience at this office. From the moment I entered I was welcomed by an extremely receptive and professional team, especially Julie. I had the Invasalign procedure which went really well and I am very happy with the result.",
+                reviewerName: "Eliane Guimaraes",
+                reviewerImage: iconE,
+              },
+              {
+                id: 7,
+                stars: 5,
+                desigination: "Prodcut Manager",
+                description:
+                  "I recently had a wonderful experience at this office. From the moment I entered I was welcomed by an extremely receptive and professional team, especially Julie. I had the Invasalign procedure which went really well and I am very happy with the result.",
+                reviewerName: "Eliane Guimaraes",
+                reviewerImage: iconE,
+              },
+              {
+                id: 8,
+                stars: 5,
+                desigination: "Prodcut Manager",
+                description:
+                  "I recently had a wonderful experience at this office. From the moment I entered I was welcomed by an extremely receptive and professional team, especially Julie. I had the Invasalign procedure which went really well and I am very happy with the result.",
+                reviewerName: "Eliane Guimaraes",
+                reviewerImage: iconE,
+              },
+              {
+                id: 9,
+                stars: 5,
+                desigination: "last Manager",
+                description:
+                  "I recently had a wonderful experience at this office. From the moment I entered I was welcomed by an extremely receptive and professional team, especially Julie. I had the Invasalign procedure which went really well and I am very happy with the result.",
+                reviewerName: "last Guimaraes",
+                reviewerImage: iconE,
+              },
+            ],
+          },
+          {
+            id: "4",
+            component: "CardRightImage",
+            headline:"Seize the opportunity for a brighter smile starting now!",
+            description:"Embracing the Now or Never Moment: Unlocking the Gateway to a Brighter, More Captivating Smile Beyond Your Wildest Dreams!",
+            media:toothstraightBigleftimage2
+          }
+        ],
+      },
+      {
+        id: 2,
+        pageName: "AboutUs",
+        content: [
+          {
+            id:"1",
+            component:"LandingPageBanner",
+            description: "Transform your smile quickly and effortlessly with our exceptional services. We understand the importance of having a beautiful, straight smile, and that's why we offer efficient solutions tailored to your needs.",
+            headline:"Case Study",
+          },
+          // {
+          //   id:"2",
+          //   component:"BillingCardOffer",
+          //   data:[
+          //     {name:"All Physicians" , price:"$900",duration:"Per Yearly", offerPoint:["Etiam pharetra libero ultricies orn" ,"Quisque et felis feug","Pellentesque ut auctor nungrah"]},
+          //     {name:"Doctor Visits" , price:"$150",duration:"Per Yearly", offerPoint:["Etiam pharetra libero ultricies orn" ,"Pellentesque nec lacinia sapien","Nulla ex purus, interdum no"]},
+          //     {name:"Urgent Care" , price:"$250",duration:"Per Yearly", offerPoint:["Etiam pharetra libero ultricies orn" ,"Quisque et felis feug","Pellentesque ut auctor nungrah"]},
+          //   ]
+          // },
+          {
+            id: "3",
+            component: "ReviewSlider",
+            headline:
+            "See What Our Clients Have to Say:",
+            userReviews: [
+              {
+                id: 1,
+                stars: 5,
+                desigination: "first Manager",
+                description:
+                  "I got recommended Oaklands from a friend. I attended on 26/07/2023 and had a private filling treatment from Dr.Harun and his lovely team of nurses. The treatment was like no other very stressfree and painless would highly recommend for the service provided and the care. Thanks for Dr.Harun and the nurses for taking care of me.",
+                reviewerName: "Usaama Mohammed",
+                reviewerImage: iconU,
+              },
+              {
+                id: 2,
+                stars: 5,
+                desigination: "test Manager",
+                description:
+                  "I have always found the staff to be very pleasant and helpful. The dentist has been absolutely great with me . I had to have a lot of work done due to the effects of an illness I had a few years ago and he has always seen me at short notice, phoned me to see everything was okay with my treatment and very patient as I am a bit of a scary cat when it comes to going to the dentist. Thank you.",
+                reviewerName: "Margaret Casson",
+                reviewerImage: iconM,
+              },
+              {
+                id: 3,
+                stars: 5,
+                desigination: "Prodcut Manager",
+                description:
+                  "I have just finished a course of Invisalign bracers treatment with Oaklands Dental. The staff are very professional and accommodating. The treatment went well and was monitored well throughout. I am very pleased with the results that have come from the treatment also.",
+                reviewerName: "John Mark",
+                reviewerImage: iconJ,
+              },
+              {
+                id: 4,
+                stars: 5,
+                desigination: "Prodcut Manager",
+                description:
+                  "Recently had my teeth cleaned, whitened and had veneers fitted with Dr Hussain. I've always hated my teeth and after having a bike accident and snapping my front two I was even more self-conscious of them. He's done an amazing job they look better than my natural teeth did. He's very calm and reassuring and kept checking in while he worked to make sure nothing was hurting. I can't believe how good they look. They went from yellow, stained wonky and cracked to white and straight. Best money I've ever spent - they look perfect. Thank you Dr Hussain for making me happy to smile.",
+                reviewerName: "Lydia Booth",
+                reviewerImage: iconL,
+              },
+              {
+                id: 5,
+                stars: 5,
+                desigination: "Prodcut Manager",
+                description:
+                  "Dr Hussain has been attentive throughout my Invisalign journey. He has patience of a saint and was helpful in answering all my questions and concerns I had regarding Invisalign which also included specific advice in relation the ‘complexity’ of an overbite in my case. Dr Hussain provided exceptional client care service to include telephone advice and email to suit my work commitments. Dr Hussain provided the upmost professional service at all times whilst making sure I felt at ease at all my appointments. I would recommend Dr Hussain to anyone who is thinking about Invisalign as you will not only leave with a beautiful smile at the end but also feel very exceptionally pleased with the outcome.",
+                reviewerName: "Naheed",
+                reviewerImage: iconN,
+              },
+              {
+                id: 6,
+                stars: 5,
+                desigination: "Prodcut Manager",
+                description:
+                  "I recently had a wonderful experience at this office. From the moment I entered I was welcomed by an extremely receptive and professional team, especially Julie. I had the Invasalign procedure which went really well and I am very happy with the result.",
+                reviewerName: "Eliane Guimaraes",
+                reviewerImage: iconE,
+              },
+              {
+                id: 7,
+                stars: 5,
+                desigination: "Prodcut Manager",
+                description:
+                  "I recently had a wonderful experience at this office. From the moment I entered I was welcomed by an extremely receptive and professional team, especially Julie. I had the Invasalign procedure which went really well and I am very happy with the result.",
+                reviewerName: "Eliane Guimaraes",
+                reviewerImage: iconE,
+              },
+              {
+                id: 8,
+                stars: 5,
+                desigination: "Prodcut Manager",
+                description:
+                  "I recently had a wonderful experience at this office. From the moment I entered I was welcomed by an extremely receptive and professional team, especially Julie. I had the Invasalign procedure which went really well and I am very happy with the result.",
+                reviewerName: "Eliane Guimaraes",
+                reviewerImage: iconE,
+              },
+              {
+                id: 9,
+                stars: 5,
+                desigination: "last Manager",
+                description:
+                  "I recently had a wonderful experience at this office. From the moment I entered I was welcomed by an extremely receptive and professional team, especially Julie. I had the Invasalign procedure which went really well and I am very happy with the result.",
+                reviewerName: "last Guimaraes",
+                reviewerImage: iconE,
+              },
+            ],
+          },
+          {
+            id: "4",
+            component: "CardRightImage",
+            headline:"Seize the opportunity for a brighter smile starting now!",
+            description:"Embracing the Now or Never Moment: Unlocking the Gateway to a Brighter, More Captivating Smile Beyond Your Wildest Dreams!",
+            media:toothstraightBigleftimage2
+          }
+        ],
+      }
+    ],
+    SEO_CONFIG: {
+      '/': {
+        // short title line remove {for a Brighter Smile}
+        title: 'Straight Smiles Dental | Quality Dental Treatments',
+        description: 'Book your appointment today for the best dental treatments at Straight Smiles Dental',
+        canonical: 'https://clinicbuilder-next.netlify.app/about-us',
+        url: 'https://clinicbuilder-next.netlify.app',
+        keywords: 'Straight Smiles dentist, dental care, family dentistry, Straight Smiles Dental, oral health, dental clinic,Whitening, Treatments ,Smile ,Dental ,Sedation ,Information ,Book Appointment',
+      },
+      '/about-us': {
+        title: 'About Us - Oaklands Dental Huddersfield Team',
+        description: 'Join us at Oaklands Dental, Prioritizing your comfort and smile with our dedicated team.',
+        canonical: 'https://clinicbuilder-next.netlify.app/team',
+        url: 'https://clinicbuilder-next.netlify.app/about-us',
+        keywords: 'Oaklands Dental, dental team, dentist in Huddersfield, modern dentistry, patient care',
+      },
+      '/team': {
+        title: 'Our Team - Oaklands Dental Huddersfield',
+        description: 'Meet the skilled dentists at Oaklands who ensure high-quality care.',
+        canonical: 'https://clinicbuilder-next.netlify.app/testimonials',
+        url: 'https://clinicbuilder-next.netlify.app/team',
+        keywords: 'dentist team, dental professionals, Huddersfield dentists, dental care team',
+      },
+      '/testimonials': {
+        title: 'Customer Testimonials - Oaklands Dental Huddersfield',
+        description: 'Read genuine reviews from satisfied Oaklands Dental patients.',
+        canonical: 'https://clinicbuilder-next.netlify.app/services',
+        url: 'https://clinicbuilder-next.netlify.app/testimonials',
+        keywords: 'patient testimonials, dental reviews, satisfied patients, Oaklands Dental feedback',
+      },
+      // SERVICES
+      '/services': {
+        title: 'Our Treatments - Oaklands Dental Huddersfield',
+        description: 'Explore a wide range of dental treatments we offer at Oaklands Dental.',
+        canonical: 'https://clinicbuilder-next.netlify.app/services/implants',
+        url: 'https://clinicbuilder-next.netlify.app/services',
+        keywords: 'dental treatments, oral health services, Oaklands Dental, comprehensive dentistry, Huddersfield services',
+      },
+      '/implants': {
+        title: 'Implants - Oaklands Dental Huddersfield Treatments',
+        description: 'Restore your smile with dental implants that function just like natural teeth.',
+        canonical: 'https://clinicbuilder-next.netlify.app/services/smile',
+        url: 'https://clinicbuilder-next.netlify.app/services/implants',
+        keywords: 'dental implants, tooth replacement, implant dentistry, Huddersfield implants, smile restoration',
+      },
+      '/smile': {
+        title: 'Smile Design Treatments - Oaklands Dental Huddersfield',
+        description: 'At Oaklands Dental focus on enhancing the appearance of your teeth and gums.',
+        canonical: 'https://clinicbuilder-next.netlify.app/services/clear-aligners',
+        url: 'https://clinicbuilder-next.netlify.app/services/smile',
+        keywords: 'smile design, cosmetic dentistry, personalized treatment, Huddersfield smile enhancement',
+      },
+      '/clear-aligners': {
+        title: 'Clear Aligners Treatments - Oaklands Dental Huddersfield',
+        description: 'Achieve your ideal smile with guide your teeth into perfect alignment.',
+        canonical: 'https://clinicbuilder-next.netlify.app/services/composite-bonding',
+        url: 'https://clinicbuilder-next.netlify.app/services/clear-aligners',
+        keywords: 'clear aligners, invisible braces, orthodontic treatment, teeth straightening, Huddersfield aligners',
+      },
+      '/composite-bonding': {
+        title: 'Composite Bonding - Oaklands Dental Huddersfield',
+        description: 'Enhance your smile with composite bonding.',
+        canonical: 'https://clinicbuilder-next.netlify.app/services/teeth-whitening',
+        url: 'https://clinicbuilder-next.netlify.app/services/composite-bonding',
+        keywords: 'composite bonding, cosmetic enhancement, dental restoration, tooth repair, Huddersfield bonding',
+      },
+      '/teeth-whitening': {
+        title: 'Teeth Whitening Treatments - Oaklands Dental Huddersfield',
+        description: 'Brighten your smile with our professional teeth whitening treatments',
+        canonical: 'https://clinicbuilder-next.netlify.app/services/restorative-dentistry',
+        url: 'https://clinicbuilder-next.netlify.app/services/teeth-whitening',
+        keywords: 'teeth whitening, smile brightening, professional whitening, Huddersfield dental whitening',
+      },
+      '/restorative-dentistry': {
+        title: 'Restorative Dentistry - Oaklands Dental Huddersfield',
+        description: 'Our restorative dentistry services focus on repairing or replacing damaged teeth.',
+        canonical: 'https://clinicbuilder-next.netlify.app/services/family-care',
+        url: 'https://clinicbuilder-next.netlify.app/services/restorative-dentistry',
+        keywords: 'restorative dentistry, dental repairs, tooth restoration, Huddersfield restorative services',
+      },
+      '/family-care': {
+        title: 'Family Dental Care - Oaklands Dental Huddersfield',
+        description: 'Comprehensive dental care for all ages, at Oaklands.',
+        canonical: 'https://clinicbuilder-next.netlify.app/services/minor-oral-surgery',
+        url: 'https://clinicbuilder-next.netlify.app/services/family-care',
+        keywords: 'family dentistry, pediatric care, dental services for all ages, Huddersfield family dentist',
+      },
+      '/minor-oral-surgery': {
+        title: 'Minor Oral Surgery - Oaklands Dental Huddersfield',
+        description: 'Our minor oral surgery services address specific dental issues.',
+        canonical: 'https://clinicbuilder-next.netlify.app/services/sedation',
+        url: 'https://clinicbuilder-next.netlify.app/services/minor-oral-surgery',
+        keywords: 'minor oral surgery, dental surgery services, Huddersfield oral health, surgical dentistry',
+      },
+      '/sedation': {
+        title: 'Sedation Dentistry - Oaklands Dental Huddersfield',
+        description: 'Experience relaxation during dental procedures with our sedation dentistry.',
+        canonical: 'https://clinicbuilder-next.netlify.app/services/blogs',
+        url: 'https://clinicbuilder-next.netlify.app/services/sedation',
+
+        keywords: 'sedation dentistry, comfortable dental care, anxiety-free dental treatment, Huddersfield sedation',
+      },
+      // Blog
+      '/blogs': {
+        title: 'Our Blogs - Oaklands Dental Huddersfield',
+        description: 'Stay informed with our informative blogs about dental care.',
+        canonical: 'https://clinicbuilder-next.netlify.app/blogs/oral-health-care',
+        url: 'https://clinicbuilder-next.netlify.app/blogs',
+        keywords: 'dental blogs, oral health tips, dental care articles, Huddersfield dentistry',
+      },
+      '/oral-health-care': {
+        title: 'Oral Health Care - Oaklands Dental Huddersfield',
+        description: 'Learn about common oral health issues and how to manage them effectively for a healthier smile.',
+        canonical: 'https://clinicbuilder-next.netlify.app/blogs/preventive-dentistry',
+        url: 'https://clinicbuilder-next.netlify.app/blogs/oral-health-care',
+        keywords: 'oral health, dental hygiene, health tips, managing oral issues, Huddersfield dental advice',
+      },
+      '/preventive-dentistry': {
+        title: 'Preventive Dentistry - Oaklands Dental Huddersfield',
+        description: 'Discover the importance of regular check-ups to prevent dental issues before they require costly treatments.',
+        canonical: 'https://clinicbuilder-next.netlify.app/blogs/oral-hygiene-tips',
+        url: 'https://clinicbuilder-next.netlify.app/blogs/preventive-dentistry',
+        keywords: 'preventive dentistry, dental check-ups, proactive care, Huddersfield preventive services',
+      },
+      '/oral-hygiene-tips': {
+        title: 'Oral Hygiene Tips - Oaklands Dental Huddersfield',
+        description: 'Master your oral hygiene routine with essential tips to maintain excellent dental health and prevent diseases.',
+        canonical: 'https://clinicbuilder-next.netlify.app/blogs/orthodontics',
+        url: 'https://clinicbuilder-next.netlify.app/blogs/oral-hygiene-tips',
+        keywords: 'oral hygiene, dental health tips, maintaining healthy teeth, Huddersfield dental advice',
+      },
+      '/orthodontics': {
+        title: 'Orthodontics - Oaklands Dental Huddersfield',
+        description: 'Get guidance on choosing the right orthodontic treatment to achieve a beautiful, straight smile at Oaklands Dental.',
+        canonical: 'https://clinicbuilder-next.netlify.app/blogs/post-orthodontic-care',
+        url: 'https://clinicbuilder-next.netlify.app/blogs/orthodontics',
+        keywords: 'orthodontics, teeth straightening, braces options, Huddersfield orthodontic care',
+      },
+      '/post-orthodontic-care': {
+        title: 'Post Orthodontic Care - Oaklands Dental Huddersfield',
+        description: 'Learn about the importance of retainers in maintaining your new smile after orthodontic treatment.',
+        canonical: 'https://clinicbuilder-next.netlify.app/blogs/dental-health-awareness',
+        url: 'https://clinicbuilder-next.netlify.app/blogs/post-orthodontic-care',
+        keywords: 'post orthodontic care, retainers, maintaining straight teeth, Huddersfield orthodontics',
+      },
+      '/dental-health-awareness': {
+        title: 'Dental Health Awareness - Oaklands Dental Huddersfield',
+        description: 'Understand the significance of dental health awareness and its impact on your overall well-being at Oaklands Dental.',
+        canonical: 'https://clinicbuilder-next.netlify.app/blogs/pediatric-dentistry',
+        url: 'https://clinicbuilder-next.netlify.app/blogs/dental-health-awareness',
+        keywords: 'dental health awareness, oral health significance, understanding dental care, Huddersfield dental health',
+      },
+      '/pediatric-dentistry': {
+        title: 'Pediatric Dentistry - Oaklands Dental Huddersfield',
+        description: 'Offering exceptional pediatric dental services to support your child’s oral health for a brighter smile.',
+        canonical: 'https://clinicbuilder-next.netlify.app/blogs/pediatric-dentistry',
+        url: 'https://clinicbuilder-next.netlify.app/blogs/contact-us',
+        keywords: 'pediatric dentistry, child dental care, kids dentist, Huddersfield pediatric services',
+      },
+      '/contact-us': {
+        title: 'Contact Oaklands Dental - Your Huddersfield Dentist',
+        description: 'Get in touch with Oaklands Dental for all your dental inquiries or to schedule an appointment with our caring team.',
+        canonical: 'https://clinicbuilder-next.netlify.app/emergency',
+        url: 'https://clinicbuilder-next.netlify.app/contact-us',
+        keywords: 'contact dentist, dental appointment, Oaklands Dental contact, Huddersfield dental clinic, dental inquiries',
+      },
+      '/emergency': {
+        title: 'emergency Oaklands Dental - Your Huddersfield Dentist',
+        description: 'Get in touch in emergency with Oaklands Dental for all your dental inquiries or to schedule an sudden appointment with our caring team.',
+        canonical: 'https://clinicbuilder-next.netlify.app/contact-us',
+        url: 'https://clinicbuilder-next.netlify.app/information',
+        keywords: 'emergency dentist, emergency dental appointment, Oaklands Dental emergency, Huddersfield dental clinic, dental inquiries',
+      },
+      '/information': {
+        title: 'information Oaklands Dental - Your Huddersfield Dentist',
+        description: 'information for Oaklands Dental for all your dental inquiries or to schedule an appointment with our caring team.',
+        canonical: 'https://clinicbuilder-next.netlify.app/contact-us',
+        url: 'https://clinicbuilder-next.netlify.app',
+        keywords: 'information dentist, information dental appointment, Oaklands Dental information, Huddersfield dental clinic, dental inquiries',
+      },
+    }
+    // new content added according description / title legth 
+    
   },
   // lahoreclinic
   {

@@ -1,0 +1,97 @@
+.profileImage {
+    max-width: 250px;
+    border-radius: 30px;
+  }
+  .name{
+    margin-top: 10px;
+    font-weight: 600;
+  }
+  .title{
+    margin-top: 10px;
+  }
+  .socialIcons{
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+  }
+  .icon{
+    margin-right: 10px;
+    color: var(--main-accent-dark);
+
+  }
+  .teamContainer{
+    position: relative;
+  }
+  .teamImage {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .SlideParent {
+    /* background-color: red; */
+    margin-right: 2px;
+    /* max-width: 300px; */
+  }
+  
+  .swiperContainer {
+    position: relative; /* Make sure the swiper container has relative positioning */
+    width: 85%;
+  }
+  
+  /* Navigation Button Styling */
+  .navigationButtonNext {
+    position: absolute;
+    top: 40%;
+    z-index: 10;
+   color: var(--main-accent-dark);
+    right: 50px!important; /* Move outside the slider */
+
+  }
+  .navigationButtonPrev {
+    position: absolute;
+    top: 40%;
+    z-index: 10;
+    color: var(--main-accent-dark);
+    left: 50px!important; /* Move outside the slider */
+
+  }
+  
+  
+  .navigationButton:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+  
+  /* Ensure swiper buttons are outside and visible on small screens */
+  @media (max-width: 760px) {
+    .navigationButton {
+      width: 35px;
+      height: 35px;
+      font-size: 12px;
+    }
+  
+    .swiper-button-next {
+      right: -35px; /* Adjust for small screens */
+    }
+  
+    .swiper-button-prev {
+      left: -35px; /* Adjust for small screens */
+    }
+  }
+  
+  
+  @media (max-width: 760px) {
+    .navigationButton {
+      width: 35px;
+      height: 35px;
+      font-size: 12px;
+    }
+  
+    .swiper-button-next {
+      right: 5px; /* Fine-tuned for small screens */
+    }
+  
+    .swiper-button-prev {
+      left: 5px; /* Fine-tuned for small screens */
+    }
+  }
+  

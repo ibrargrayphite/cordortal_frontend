@@ -97,7 +97,7 @@ const Pricing = () => {
 
   return (
     <div className={styles.customMargin}>
-      <Container fluid>
+      <Container fluid className="p-0">
         {filtered.map((page, pageIndex) => (
           <div key={pageIndex}>
             {page.content.map((block, blockIndex) => (

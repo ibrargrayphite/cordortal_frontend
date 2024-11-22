@@ -1,0 +1,55 @@
+.smallCardRight{
+    box-shadow: 0px 0px 20px 0px #0028FF1A;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    text-align: center;
+    padding: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.smallCardLeft{
+    box-shadow: 0px 0px 20px 0px #0028FF1A;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    text-align: center;
+    padding: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.centerCard{
+    color: white;
+    border-radius: 10px;
+    text-align: center;
+    padding: 50px;
+    box-shadow: 0px 0px 20px 0px #0028FF1A;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+  .customButton{
+    height: 50px;
+    width: 250px;
+    padding: 0px;
+    border-color: #ffff;
+    box-shadow: 0px 0px 20px 0px rgba(232, 232, 235, 0.3)!important;
+    margin-top: 20px;
+
+  }
+
+  .customButtonCenterCard{
+    height: 50px;
+    width: 250px;
+    padding: 0px;
+    border-color: #ffff;
+    box-shadow: 0px 0px 20px 0px rgba(232, 232, 235, 0.3);
+    background-color: white!important;
+    color: var(--main-accent-dark)!important;
+    margin-top: 20px;
+  }
+
+  .customButtonCenterCard:hover{
+    border-color: #ffff;
+    box-shadow: 0px 0px 20px 0px rgba(232, 232, 235, 0.3);
+    background-color: var(--main-accent-dark)!important;
+    color: white!important;
+  }

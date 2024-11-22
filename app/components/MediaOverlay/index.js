@@ -12,9 +12,7 @@ const MediaOverlay = ({ media, media2, headline, description, style, src }) => {
 
   const router = useRouter(); // Use Next.js router
 
-  const handleLoadedData = () => {
-    setLoading(false); // Video has finished loading
-  };
+  
 
   const handlePrimaryAction = () => {
     router.push("/services"); // Use Next.js router for navigation
@@ -24,22 +22,11 @@ const MediaOverlay = ({ media, media2, headline, description, style, src }) => {
     window.open(src, "_blank");
   };
 
-  const attemptAutoplay = () => {
-    const videoElement = document.getElementById("media-element");
-    if (videoElement) {
-      videoElement.muted = true; // Ensure the video is muted (required for autoplay)
-      videoElement
-        .play()
-        .catch((err) => {
-          console.error("Autoplay failed:", err);
-        });
-    }
-  };
 
   useEffect(() => {
-    if (!loading) {
+    if (media) {
       // Only attempt autoplay after the video has loaded
-      attemptAutoplay();
+      setLoading(false); // Video has finished loading
     }
   }, [loading]); // Trigger when 'loading' changes to false
 
@@ -51,7 +38,7 @@ const MediaOverlay = ({ media, media2, headline, description, style, src }) => {
             className={styles.mediaOverlayContainer}
             style={{
               ...style,
-              backgroundImage: loading ? `url(${media2.src})` : "none", // Show the image while loading
+              backgroundImage: loading ? `url(${media2?.src})` : "none", // Show the image while loading
               height: loading || mediaError ? "700px" : "auto",
             }}
           >
@@ -65,11 +52,6 @@ const MediaOverlay = ({ media, media2, headline, description, style, src }) => {
                 muted
                 playsInline
                 loop
-                onLoadedData={handleLoadedData}
-                onError={() => {
-                  setLoading(false);
-                  setMediaError(true);
-                }}
                 style={{ display: loading ? "none" : "block" }}
               >
                 <source src={media} type="video/mp4" />

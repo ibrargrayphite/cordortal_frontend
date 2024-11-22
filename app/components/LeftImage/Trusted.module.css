@@ -5,6 +5,9 @@
   text-align: center;
   line-height: 101.429%; /* 101.429% */
 }
+.leftimageWidth{
+  height: 350px;
+}
 
 .section2 {
   display: flex!important;

@@ -2,13 +2,13 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation"; // Use useRouter from Next.js
 import { Container, Nav, Navbar } from "react-bootstrap";
-import Logo from "../../../public/assets/images/logo.png";
-import MenuIcon from "../../../public/assets/images/navIcon.svg";
-import menu from "../../../public/assets/images/navIcon.svg";
-import CrossIcon from "../../../public/assets/images/cross.svg";
-import locationIcon from "../../../public/assets/images/location.png";
+// import Logo from "../../../public/assets/images/logo.png";
+import MenuIcon from "../../../../public/assets/images/navIcon.svg";
+// import menu from "../../../public/assets/images/navIcon.svg";
+import CrossIcon from "../../../../public/assets/images/cross.svg";
+import locationIcon from "../../../../public/assets/images/location.png";
 import styles from "./Navbar.module.css";
-import { useTheme } from '../../context/ThemeContext'; // Import the useTheme hook
+import { useTheme } from '../../../context/ThemeContext'; // Import the useTheme hook
 
 const NavBar = ({media,src,name}) => {
   const theme = useTheme(); // Access the theme colors
@@ -105,6 +105,7 @@ const NavBar = ({media,src,name}) => {
               <img
                 height={26}
                 style={{ marginTop: 3 }}
+                className={styles.mobilelocationicon}
                 src={locationIcon.src}
                 alt={`Premier Dental Services at ${name}`}              
               />
@@ -136,9 +137,9 @@ const NavBar = ({media,src,name}) => {
             }}
           >
             {expanded ? (
-              <CrossIcon width={22} height={24} alt="cross" />
+              <CrossIcon width={22} height={24} className={styles.mobileMenuIcon} alt="cross" />
             ) : (
-              <MenuIcon height={24} width={48} alt="menu" />
+              <MenuIcon height={24} width={48} className={styles.mobileMenuIcon} alt="menu" />
             )}
           </Navbar.Toggle>
         </div>

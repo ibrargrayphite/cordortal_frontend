@@ -1,0 +1,25 @@
+.parent{
+    /* className="mt-10 mb-5 flex justify-center items-center" */
+    margin-top: 6rem;
+    margin-bottom:3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.description{
+    color: var(--content-color);
+    margin-bottom: 20px;
+}
+
+
+.headline {
+    font-size: 70px;
+    font-weight: 600;
+    /* line-height: 75px; */
+    text-align: center;
+    text-decoration-skip-ink: none;
+    overflow-wrap: break-word; /* Ensures words break to the next line */
+    word-wrap: break-word; /* For additional browser support */
+    max-width: 70%; /* Ensures the text will break if it's too wide */
+    margin: 0 auto; /* Center-align the text */
+  }

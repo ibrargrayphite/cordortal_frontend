@@ -1,3 +1,6 @@
+.logoMob{
+  height: 69px!important;
+}
 .nav {
   display: flex;
   justify-content: space-between;
@@ -232,6 +235,12 @@ li.informationDropdown {
   .locationMob {
     display: flex;
   }
+  .mobilelocationicon{
+    height: 26px!important;
+  }
+  .mobileMenuIcon{
+    height:24px!important ;
+  }
   .navbarCollapse {
     padding-top: 14px;
     padding-bottom: 16px;
@@ -247,7 +256,7 @@ li.informationDropdown {
     height: 45px;
   }
   .logoMob {
-    height: 36px;
+    height: 36px!important;
   }
   .menuItems {
     display: none !important;

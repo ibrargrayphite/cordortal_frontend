@@ -4,6 +4,7 @@
   border-radius: 50%;
   object-fit: cover;
   object-position: center; /* Ensures the image is centered */
+  display: inline;
 }
 .name {
   margin-top: 10px;

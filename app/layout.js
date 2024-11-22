@@ -32,6 +32,8 @@ export default function RootLayout({ children }) {
               media: location.media,
               src: shared.header.src,
               name: location.name,
+              menuItems : shared.header.menuItems,
+              button: shared.header.button
             })
           }
           <main>{children}</main>
@@ -42,6 +44,8 @@ export default function RootLayout({ children }) {
                 src: shared.footer.src,
                 refersrc: shared.footer.refersrc,
                 title: location.title,
+                footerRights:shared.footer.footerRights,
+                data:shared.footer.data
               })
             }
           </div>

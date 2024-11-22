@@ -67,6 +67,10 @@
 }
 
 @media only screen and (max-width: 767px) {
+  .footerAward{
+    display: flex;
+    justify-content: center;
+  }
   .contentMain {
     margin-top: 0px; 
   }

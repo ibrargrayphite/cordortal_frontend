@@ -1,5 +1,6 @@
 // componentRegistry.js
 import MediaOverlay from "./MediaOverlay";
+import landingPageOverlay from "./landingPageOverlay"
 import ServiceCard from "./ServiceCard";
 import HeadingWithBgImage from "./HeadingWithBgImage";
 import YourMap from "./YourMap";
@@ -20,11 +21,26 @@ import LeadForm from "./LeadForm"
 import BeforeAfterTreatment from "./BeforeAfterTreatment";
 import HtmlContent from "./HtmlContent"
 import Faq from "./Faq"
-import Navbar from "./Navbar";
-import footer from "./footer";
+import CountNumber from "./CountNumber"
+import BigLeftImage from "./BigLeftImage"
+import HeadingTopDiscription from "./HeadingTopDiscription"
+import RightImageShadow from "./RightImageShadow"
+import YourTeamSlider from "./YourTeamSlider"
+import RightBigImage from "./RightBigImage"
+import ReviewSlider from "./ReviewSlider"
+import CardRightImage from "./CardRightImage"
+import LandingPageBanner from "./LandingPageBanner"
+import BillingCardOffer from "./BillingCardOffer"
+
+import Navbar from "./Headers/Navbar";
+import HeaderDefault from './Headers/HeaderDefault'
+import footer from "./Footers/footer";
+import SimpleFooter from "./Footers/SimpleFooter"
+
 // Export components as an object
 const componentRegistry = {
   MediaOverlay,
+  landingPageOverlay,
   ServiceCard,
   HeadingWithBgImage,
   YourMap,
@@ -46,7 +62,19 @@ const componentRegistry = {
   HtmlContent,
   Faq,
   footer,
-  Navbar
+  Navbar,
+  HeaderDefault,
+  CountNumber,
+  BigLeftImage,
+  HeadingTopDiscription,
+  RightImageShadow,
+  YourTeamSlider,
+  RightBigImage,
+  ReviewSlider,
+  CardRightImage,
+  SimpleFooter,
+  LandingPageBanner,
+  BillingCardOffer
 };
 
 export default componentRegistry;
