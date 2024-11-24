@@ -143,12 +143,12 @@ const ReviewSlider = ({ userReviews = [], headline, description }) => {
           {userReviews.length > 4 && (
             <div
               style={{
-                textAlign: "center",
-                display: "flex",
-                justifyContent: "center",
+                // textAlign: "center",
+                // display: "flex",
+                // justifyContent: "center",
                 marginTop: 20,
               }}
-              className="ReviewSlider"
+              className={`${styles.ReviewNavigation} ReviewSlider`}
             >
               <div
                 className={`${styles.navigationButtonPrev} swiper-button-prev`}

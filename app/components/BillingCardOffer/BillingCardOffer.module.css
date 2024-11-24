@@ -29,7 +29,7 @@
   .customButton{
     height: 50px;
     width: 250px;
-    padding: 0px;
+    padding: 0px!important;
     border-color: #ffff;
     box-shadow: 0px 0px 20px 0px rgba(232, 232, 235, 0.3)!important;
     margin-top: 20px;
@@ -39,7 +39,7 @@
   .customButtonCenterCard{
     height: 50px;
     width: 250px;
-    padding: 0px;
+    padding: 0px!important;
     border-color: #ffff;
     box-shadow: 0px 0px 20px 0px rgba(232, 232, 235, 0.3);
     background-color: white!important;
