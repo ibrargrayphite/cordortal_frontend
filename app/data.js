@@ -98,6 +98,7 @@ import OaklandsFile21 from "../public/assets/documents/DataProtectionForPatients
 import OaklandsFile22 from "../public/assets/documents/RecordsManagementPolicy.docx";
 import OaklandsFile23 from "../public/assets/documents/ConsentPolicy.doc";
 import OaklandsFile24 from "../public/assets/documents/PatientSafety.doc";
+import oaklandsFav from "../public/assets/images/favicon.ico";
 // blogs imports
 import Blog1 from "../public/assets/images/blogs/1.jpg";
 import Blog2 from "../public/assets/images/blogs/2.jpg";
@@ -172,6 +173,8 @@ import iconArrow from "../public/assets/images/straightSmile/iconArrow.png";
 import straightsmileRight from "../public/assets/images/straightSmile/straightsmileRight.png";
 import straightsmileTeam1 from "../public/assets/images/straightSmile/team/straightsmileTeam1.png";
 import toothRightBigImage from "../public/assets/images/straightSmile/toothRightBigImage.png";
+import straightsmilesFavIcon from "../public/assets/images/straightSmile/straightsmileFav.png";
+
 
 
 
@@ -199,6 +202,8 @@ const Locations = [
     title: "Oaklands Dental",
     name: "Oaklands Dental",
     media: headerLogo,
+    favIcon:oaklandsFav,
+    fontFamily: "josefinSans",
     data: {
       address: "60 Bradford Road Huddersfield, HD1 6JE",
       phone: "01484 531964",
@@ -3130,6 +3135,8 @@ const Locations = [
     title: "Bailiff Bridge Dental",
     name: "Bailiff Bridge",
     media: headerLogoBailiff,
+    favIcon:oaklandsFav,
+    fontFamily: "josefinSans",
     data: {
       address: "629-631 Bradford Road Bailiff Bridge Brighouse HD6 4DN",
       phone: "01484 716546",
@@ -6076,6 +6083,8 @@ const Locations = [
     title: "Straight Smiles Dental",
     name: "Straight Smiles Dental",
     media: straightlogo,
+    favIcon:straightsmilesFavIcon,
+    fontFamily: "urbanist",
     data: {
       address: "60 Bradford Road Huddersfield, HD1 6JE",
       phone: "01484 531964",
@@ -6706,175 +6715,41 @@ const Locations = [
         keywords: 'Straight Smiles dentist, dental care, family dentistry, Straight Smiles Dental, oral health, dental clinic,Whitening, Treatments ,Smile ,Dental ,Sedation ,Information ,Book Appointment',
       },
       '/about-us': {
-        title: 'About Us - Oaklands Dental Huddersfield Team',
-        description: 'Join us at Oaklands Dental, Prioritizing your comfort and smile with our dedicated team.',
+        title: 'About Us - Straight Smiles Dental Team',
+        description: 'Join us at Straight Smiles Dental, Prioritizing your comfort and smile with our dedicated team.',
         canonical: 'https://clinicbuilder-next.netlify.app/team',
         url: 'https://clinicbuilder-next.netlify.app/about-us',
-        keywords: 'Oaklands Dental, dental team, dentist in Huddersfield, modern dentistry, patient care',
+        keywords: 'Straight Smiles Dental, dental team, dentist in town, modern dentistry, patient care',
       },
       '/team': {
-        title: 'Our Team - Oaklands Dental Huddersfield',
-        description: 'Meet the skilled dentists at Oaklands who ensure high-quality care.',
+        title: 'Our Team - Straight Smiles Dental',
+        description: 'Meet the skilled dentists at Straight Smiles Dental who ensure high-quality care.',
         canonical: 'https://clinicbuilder-next.netlify.app/testimonials',
         url: 'https://clinicbuilder-next.netlify.app/team',
-        keywords: 'dentist team, dental professionals, Huddersfield dentists, dental care team',
+        keywords: 'dentist team, dental professionals,  dentists, dental care team',
       },
       '/testimonials': {
-        title: 'Customer Testimonials - Oaklands Dental Huddersfield',
-        description: 'Read genuine reviews from satisfied Oaklands Dental patients.',
+        title: 'Customer Testimonials - Straight Smiles Dental',
+        description: 'Read genuine reviews from satisfied Straight Smiles Dental patients.',
         canonical: 'https://clinicbuilder-next.netlify.app/services',
         url: 'https://clinicbuilder-next.netlify.app/testimonials',
-        keywords: 'patient testimonials, dental reviews, satisfied patients, Oaklands Dental feedback',
+        keywords: 'patient testimonials, dental reviews, satisfied patients, Straight Smiles Dental feedback',
       },
       // SERVICES
       '/services': {
-        title: 'Our Treatments - Oaklands Dental Huddersfield',
-        description: 'Explore a wide range of dental treatments we offer at Oaklands Dental.',
+        title: 'Our Treatments - Straight Smiles Dental',
+        description: 'Explore a wide range of dental treatments we offer at Straight Smiles Dental.',
         canonical: 'https://clinicbuilder-next.netlify.app/services/implants',
         url: 'https://clinicbuilder-next.netlify.app/services',
-        keywords: 'dental treatments, oral health services, Oaklands Dental, comprehensive dentistry, Huddersfield services',
+        keywords: 'dental treatments, oral health services, Straight Smiles Dental, comprehensive dentistry,  services',
       },
-      '/implants': {
-        title: 'Implants - Oaklands Dental Huddersfield Treatments',
-        description: 'Restore your smile with dental implants that function just like natural teeth.',
-        canonical: 'https://clinicbuilder-next.netlify.app/services/smile',
-        url: 'https://clinicbuilder-next.netlify.app/services/implants',
-        keywords: 'dental implants, tooth replacement, implant dentistry, Huddersfield implants, smile restoration',
-      },
-      '/smile': {
-        title: 'Smile Design Treatments - Oaklands Dental Huddersfield',
-        description: 'At Oaklands Dental focus on enhancing the appearance of your teeth and gums.',
-        canonical: 'https://clinicbuilder-next.netlify.app/services/clear-aligners',
-        url: 'https://clinicbuilder-next.netlify.app/services/smile',
-        keywords: 'smile design, cosmetic dentistry, personalized treatment, Huddersfield smile enhancement',
-      },
-      '/clear-aligners': {
-        title: 'Clear Aligners Treatments - Oaklands Dental Huddersfield',
-        description: 'Achieve your ideal smile with guide your teeth into perfect alignment.',
-        canonical: 'https://clinicbuilder-next.netlify.app/services/composite-bonding',
-        url: 'https://clinicbuilder-next.netlify.app/services/clear-aligners',
-        keywords: 'clear aligners, invisible braces, orthodontic treatment, teeth straightening, Huddersfield aligners',
-      },
-      '/composite-bonding': {
-        title: 'Composite Bonding - Oaklands Dental Huddersfield',
-        description: 'Enhance your smile with composite bonding.',
-        canonical: 'https://clinicbuilder-next.netlify.app/services/teeth-whitening',
-        url: 'https://clinicbuilder-next.netlify.app/services/composite-bonding',
-        keywords: 'composite bonding, cosmetic enhancement, dental restoration, tooth repair, Huddersfield bonding',
-      },
-      '/teeth-whitening': {
-        title: 'Teeth Whitening Treatments - Oaklands Dental Huddersfield',
-        description: 'Brighten your smile with our professional teeth whitening treatments',
-        canonical: 'https://clinicbuilder-next.netlify.app/services/restorative-dentistry',
-        url: 'https://clinicbuilder-next.netlify.app/services/teeth-whitening',
-        keywords: 'teeth whitening, smile brightening, professional whitening, Huddersfield dental whitening',
-      },
-      '/restorative-dentistry': {
-        title: 'Restorative Dentistry - Oaklands Dental Huddersfield',
-        description: 'Our restorative dentistry services focus on repairing or replacing damaged teeth.',
-        canonical: 'https://clinicbuilder-next.netlify.app/services/family-care',
-        url: 'https://clinicbuilder-next.netlify.app/services/restorative-dentistry',
-        keywords: 'restorative dentistry, dental repairs, tooth restoration, Huddersfield restorative services',
-      },
-      '/family-care': {
-        title: 'Family Dental Care - Oaklands Dental Huddersfield',
-        description: 'Comprehensive dental care for all ages, at Oaklands.',
-        canonical: 'https://clinicbuilder-next.netlify.app/services/minor-oral-surgery',
-        url: 'https://clinicbuilder-next.netlify.app/services/family-care',
-        keywords: 'family dentistry, pediatric care, dental services for all ages, Huddersfield family dentist',
-      },
-      '/minor-oral-surgery': {
-        title: 'Minor Oral Surgery - Oaklands Dental Huddersfield',
-        description: 'Our minor oral surgery services address specific dental issues.',
-        canonical: 'https://clinicbuilder-next.netlify.app/services/sedation',
-        url: 'https://clinicbuilder-next.netlify.app/services/minor-oral-surgery',
-        keywords: 'minor oral surgery, dental surgery services, Huddersfield oral health, surgical dentistry',
-      },
-      '/sedation': {
-        title: 'Sedation Dentistry - Oaklands Dental Huddersfield',
-        description: 'Experience relaxation during dental procedures with our sedation dentistry.',
-        canonical: 'https://clinicbuilder-next.netlify.app/services/blogs',
-        url: 'https://clinicbuilder-next.netlify.app/services/sedation',
-
-        keywords: 'sedation dentistry, comfortable dental care, anxiety-free dental treatment, Huddersfield sedation',
-      },
-      // Blog
-      '/blogs': {
-        title: 'Our Blogs - Oaklands Dental Huddersfield',
-        description: 'Stay informed with our informative blogs about dental care.',
-        canonical: 'https://clinicbuilder-next.netlify.app/blogs/oral-health-care',
-        url: 'https://clinicbuilder-next.netlify.app/blogs',
-        keywords: 'dental blogs, oral health tips, dental care articles, Huddersfield dentistry',
-      },
-      '/oral-health-care': {
-        title: 'Oral Health Care - Oaklands Dental Huddersfield',
-        description: 'Learn about common oral health issues and how to manage them effectively for a healthier smile.',
-        canonical: 'https://clinicbuilder-next.netlify.app/blogs/preventive-dentistry',
-        url: 'https://clinicbuilder-next.netlify.app/blogs/oral-health-care',
-        keywords: 'oral health, dental hygiene, health tips, managing oral issues, Huddersfield dental advice',
-      },
-      '/preventive-dentistry': {
-        title: 'Preventive Dentistry - Oaklands Dental Huddersfield',
-        description: 'Discover the importance of regular check-ups to prevent dental issues before they require costly treatments.',
-        canonical: 'https://clinicbuilder-next.netlify.app/blogs/oral-hygiene-tips',
-        url: 'https://clinicbuilder-next.netlify.app/blogs/preventive-dentistry',
-        keywords: 'preventive dentistry, dental check-ups, proactive care, Huddersfield preventive services',
-      },
-      '/oral-hygiene-tips': {
-        title: 'Oral Hygiene Tips - Oaklands Dental Huddersfield',
-        description: 'Master your oral hygiene routine with essential tips to maintain excellent dental health and prevent diseases.',
-        canonical: 'https://clinicbuilder-next.netlify.app/blogs/orthodontics',
-        url: 'https://clinicbuilder-next.netlify.app/blogs/oral-hygiene-tips',
-        keywords: 'oral hygiene, dental health tips, maintaining healthy teeth, Huddersfield dental advice',
-      },
-      '/orthodontics': {
-        title: 'Orthodontics - Oaklands Dental Huddersfield',
-        description: 'Get guidance on choosing the right orthodontic treatment to achieve a beautiful, straight smile at Oaklands Dental.',
-        canonical: 'https://clinicbuilder-next.netlify.app/blogs/post-orthodontic-care',
-        url: 'https://clinicbuilder-next.netlify.app/blogs/orthodontics',
-        keywords: 'orthodontics, teeth straightening, braces options, Huddersfield orthodontic care',
-      },
-      '/post-orthodontic-care': {
-        title: 'Post Orthodontic Care - Oaklands Dental Huddersfield',
-        description: 'Learn about the importance of retainers in maintaining your new smile after orthodontic treatment.',
-        canonical: 'https://clinicbuilder-next.netlify.app/blogs/dental-health-awareness',
-        url: 'https://clinicbuilder-next.netlify.app/blogs/post-orthodontic-care',
-        keywords: 'post orthodontic care, retainers, maintaining straight teeth, Huddersfield orthodontics',
-      },
-      '/dental-health-awareness': {
-        title: 'Dental Health Awareness - Oaklands Dental Huddersfield',
-        description: 'Understand the significance of dental health awareness and its impact on your overall well-being at Oaklands Dental.',
-        canonical: 'https://clinicbuilder-next.netlify.app/blogs/pediatric-dentistry',
-        url: 'https://clinicbuilder-next.netlify.app/blogs/dental-health-awareness',
-        keywords: 'dental health awareness, oral health significance, understanding dental care, Huddersfield dental health',
-      },
-      '/pediatric-dentistry': {
-        title: 'Pediatric Dentistry - Oaklands Dental Huddersfield',
-        description: 'Offering exceptional pediatric dental services to support your child’s oral health for a brighter smile.',
-        canonical: 'https://clinicbuilder-next.netlify.app/blogs/pediatric-dentistry',
-        url: 'https://clinicbuilder-next.netlify.app/blogs/contact-us',
-        keywords: 'pediatric dentistry, child dental care, kids dentist, Huddersfield pediatric services',
-      },
-      '/contact-us': {
-        title: 'Contact Oaklands Dental - Your Huddersfield Dentist',
-        description: 'Get in touch with Oaklands Dental for all your dental inquiries or to schedule an appointment with our caring team.',
-        canonical: 'https://clinicbuilder-next.netlify.app/emergency',
-        url: 'https://clinicbuilder-next.netlify.app/contact-us',
-        keywords: 'contact dentist, dental appointment, Oaklands Dental contact, Huddersfield dental clinic, dental inquiries',
-      },
-      '/emergency': {
-        title: 'emergency Oaklands Dental - Your Huddersfield Dentist',
-        description: 'Get in touch in emergency with Oaklands Dental for all your dental inquiries or to schedule an sudden appointment with our caring team.',
-        canonical: 'https://clinicbuilder-next.netlify.app/contact-us',
-        url: 'https://clinicbuilder-next.netlify.app/information',
-        keywords: 'emergency dentist, emergency dental appointment, Oaklands Dental emergency, Huddersfield dental clinic, dental inquiries',
-      },
+      
       '/information': {
-        title: 'information Oaklands Dental - Your Huddersfield Dentist',
-        description: 'information for Oaklands Dental for all your dental inquiries or to schedule an appointment with our caring team.',
+        title: 'Information Straight Smiles Dental',
+        description: 'information for Straight Smiles Dental for all your dental inquiries or to schedule an appointment with our caring team.',
         canonical: 'https://clinicbuilder-next.netlify.app/contact-us',
         url: 'https://clinicbuilder-next.netlify.app',
-        keywords: 'information dentist, information dental appointment, Oaklands Dental information, Huddersfield dental clinic, dental inquiries',
+        keywords: 'information dentist, information dental appointment, Straight Smiles Dental information,  dental clinic, dental inquiries',
       },
     }
     // new content added according description / title legth 
@@ -6886,6 +6761,7 @@ const Locations = [
     title: "Oaklands Dental",
     name: "Oaklands Dental",
     media: headerLogo,
+    fontFamily: "josefinSans",
     data: {
       address: "60 Bradford Road Huddersfield, HD1 6JE",
       phone: "01484 531964",

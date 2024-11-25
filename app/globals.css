@@ -2,11 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* :root {
     --font-josefin-sans: 'Josefin Sans', sans-serif;
     --background: #ffffff;
     --foreground: #171717;
-  }
+  } */
+  /* :root {
+    --font-josefin-sans: 'Josefin Sans', sans-serif!important;
+    --font-urbanist: 'Urbanist', sans-serif!important;
+  } */
   /* for auto dark theme while in evening */
   /* @media (prefers-color-scheme: dark) {
     :root {
@@ -24,7 +28,9 @@
     background: var(--background);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-family: var(--font-josefin-sans) !important; /* Override with !important */
+    /* font-family: var(--font-josefin-sans) !important;  */
+    font-family: var(--dynamic-font, sans-serif) !important; /* Force dynamic font with !important */
+
   }
   
   * {
