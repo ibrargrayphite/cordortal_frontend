@@ -94,7 +94,7 @@ const HeaderDefault = ({ media, name, menuItems, button }) => {
 
     <div className={styles.header} style={{
         background: theme.mainAccentDark,}}>
-    <Navbar collapseOnSelect expand="lg" style={{zIndex: 9999999999,backgroundColor:'black'}} >
+    <Navbar className="navbar-dark" collapseOnSelect expand="lg" style={{zIndex: 9999999999,backgroundColor:'black'}} >
     <Container>
           <div className={styles.container}>
             {/* Logo Section */}
