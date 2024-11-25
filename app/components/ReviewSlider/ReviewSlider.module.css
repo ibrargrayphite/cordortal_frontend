@@ -1,24 +1,31 @@
 /* Navigation Button Styling */
 .navigationButtonNext {
-  position: relative;
+  position: absolute;
   z-index: 10;
   color: var(--main-accent-dark);
+  right: 43%!important;
+  cursor: pointer;
 }
 .navigationButtonPrev {
-  position: relative;
+  position: absolute;
   z-index: 10;
   color: var(--main-accent-dark);
   margin-right: 30px;
+  left: 50%!important;
+  cursor: pointer;
 }
-
+.ReviewNavigation{
+  position: relative;
+  justify-content: center;
+}
 
 .SlideParent {
   margin-right: 2px;
 }
 
 .swiperContainer {
-  position: relative; 
-  overflow: visible;
+  /* position: relative;  */
+  overflow: visible!important;
 }
 
 .reviewerParent {
