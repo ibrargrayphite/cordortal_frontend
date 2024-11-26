@@ -5,17 +5,31 @@ import HtmlContent from "../../components/HtmlContent";
 
 // Generates static paths for each blog
 export async function generateStaticParams() {
+  // Check if you have filteredLocations data
   const pageName = "blogs";
   const filteredLocations = filterByPage(currentLocation, pageName);
 
+  // If no data is available, fallback to hardcoded data
   const contentArray = filteredLocations.length > 0 ? filteredLocations[0].content : [];
-  const blogData = contentArray.find((block) => block.component === "BlogCards");
-  const allBlogs = blogData?.blogs || [];
 
+  // If you still don't have any blog data, use hardcoded data
+  const blogData = contentArray.find((block) => block.component === "BlogCards") || { blogs: [] };
+
+  const allBlogs = blogData.blogs.length > 0 
+    ? blogData.blogs 
+    : [
+        { slug: "blog-1" },
+        { slug: "blog-2" },
+        { slug: "blog-3" },
+        // Add more hardcoded blog slugs here as needed
+      ];
+
+  // Return the blog slugs
   return allBlogs.map((blog) => ({
     blogName: blog.slug.replace(/^\/+/, ""), // Remove leading slash if any
   }));
 }
+
 
 // Set revalidation interval for ISR
 export const revalidate = 60; // Revalidate every 60 seconds
@@ -39,6 +53,8 @@ const SEO_CONFIG = currentLocation.SEO_CONFIG || {};
 export async function generateMetadata({params}) {
     const { blogName } = params;
   const currentSeo = SEO_CONFIG[`/${blogName}`] || {};
+  const fav = currentLocation?.favIcon.src
+
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebPage",
@@ -49,19 +65,19 @@ export async function generateMetadata({params}) {
   };
 
   return {
-    title: currentSeo.title,
-    description: currentSeo.description,
-    keywords: currentSeo.keywords,
+    title: currentSeo?.title ?? 'need seo title',
+    description: currentSeo?.description ?? "need seo description",
+    keywords: currentSeo?.keywords ?? "need seo keywords",
     viewport: "width=device-width, initial-scale=1",
     robots: "index, follow",
     openGraph: {
-      title: currentSeo.title,
-      description: currentSeo.description,
-      url: currentSeo.url,
+      title: currentSeo?.title ?? 'need seo title',
+      description: currentSeo?.description ?? "need seo description",
+      url: currentSeo?.url ?? "need seo url",
       type: "website",
       images: [
         {
-          url: currentLocation.media?.headerLogo || "https://example.com/images/fallback.png",
+          url: currentLocation?.media?.headerLogo ?? "https://example.com/images/fallback.png",
           width: 800,
           height: 600,
         },
@@ -69,12 +85,12 @@ export async function generateMetadata({params}) {
     },
     twitter: {
       card: "summary_large_image",
-      title: currentSeo.title,
-      description: currentSeo.description,
-      images: [currentLocation.media?.headerLogo],
+      title: currentSeo?.title ?? 'need seo title',
+      description: currentSeo?.description ?? "need seo description",
+      images: [currentLocation?.media?.headerLogo ?? "https://example.com/images/fallback.png"],
     },
     alternates: {
-      canonical: currentSeo.canonical,
+      canonical: currentSeo?.canonical ?? "https://yourwebsite.com",
       languages: {
         "en": "https://yourwebsite.com/en/page",
         "es": "https://yourwebsite.com/es/page",
@@ -84,11 +100,9 @@ export async function generateMetadata({params}) {
       google: "your-google-site-verification-code",
       bing: "your-bing-site-verification-code",
     },
-    // icons: [
-    //   { rel: "icon", href: "/favicon.ico" },
-    //   { rel: "apple-touch-icon", href: "/apple-touch-icon.png", sizes: "180x180" },
-    //   { rel: "manifest", href: "/site.webmanifest" },
-    // ],
+    icons: {
+      icon: fav ?? "https://example.com/favicon.ico",
+    },
     structuredData: JSON.stringify(structuredData),
   };
 }

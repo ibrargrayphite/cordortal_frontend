@@ -7,14 +7,26 @@ export async function generateStaticParams() {
   const pageName = "services";
   const filteredLocations = filterByPage(currentLocation, pageName);
 
+  // Get content, filtering out items with missing component or service data
   const contentArray = filteredLocations.length > 0 ? filteredLocations[0].content : [];
   const serviceCardData = contentArray.find((block) => block.component === "ServiceCard");
   const allServices = serviceCardData?.services || [];
 
-  return allServices.map((service) => ({
+  // If no services data is available, fallback to hardcoded services
+  const finalServiceArray = allServices.length > 0 
+    ? allServices 
+    : [
+        { slug: "service-1" },
+        { slug: "service-2" },
+        { slug: "service-3" },
+        // Add more hardcoded services here as needed
+      ];
+
+  return finalServiceArray.map((service) => ({
     serviceName: service.slug,
   }));
 }
+
 
 // Set revalidation interval for ISR
 export const revalidate = 60; // Revalidate every 60 seconds
@@ -38,29 +50,30 @@ const SEO_CONFIG = currentLocation.SEO_CONFIG || {};
 export async function generateMetadata({params}) {
     const { serviceName } = params;
   const currentSeo = SEO_CONFIG[`/${serviceName}`] || {};
+  const fav = currentLocation?.favIcon.src
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": currentSeo.title,
-    "description": currentSeo.description,
-    "url": currentSeo.url,
-    "image": currentLocation.media?.headerLogo,
+    "name": currentSeo?.title ?? 'need seo title',
+    "description": currentSeo?.description ?? "need seo description",
+    "url": currentSeo?.url ?? "need seo url",
+    "image": currentLocation?.media?.headerLogo ?? "https://example.com/images/fallback.png",
   };
 
   return {
-    title: currentSeo.title,
-    description: currentSeo.description,
-    keywords: currentSeo.keywords,
+    title: currentSeo?.title ?? 'need seo title',
+    description: currentSeo?.description ?? "need seo description",
+    keywords: currentSeo?.keywords ?? "need seo keywords",
     viewport: "width=device-width, initial-scale=1",
     robots: "index, follow",
     openGraph: {
-      title: currentSeo.title,
-      description: currentSeo.description,
-      url: currentSeo.url,
+      title: currentSeo?.title ?? 'need seo title',
+      description: currentSeo?.description ?? "need seo description",
+      url: currentSeo?.url ?? "need seo url",
       type: "website",
       images: [
         {
-          url: currentLocation.media?.headerLogo || "https://example.com/images/fallback.png",
+          url: currentLocation?.media?.headerLogo ?? "https://example.com/images/fallback.png",
           width: 800,
           height: 600,
         },
@@ -68,12 +81,12 @@ export async function generateMetadata({params}) {
     },
     twitter: {
       card: "summary_large_image",
-      title: currentSeo.title,
-      description: currentSeo.description,
-      images: [currentLocation.media?.headerLogo],
+      title: currentSeo?.title ?? 'need seo title',
+      description: currentSeo?.description ?? "need seo description",
+      images: [currentLocation?.media?.headerLogo ?? "https://example.com/images/fallback.png"],
     },
     alternates: {
-      canonical: currentSeo.canonical,
+      canonical: currentSeo?.canonical ?? "https://yourwebsite.com",
       languages: {
         "en": "https://yourwebsite.com/en/page",
         "es": "https://yourwebsite.com/es/page",
@@ -83,11 +96,9 @@ export async function generateMetadata({params}) {
       google: "your-google-site-verification-code",
       bing: "your-bing-site-verification-code",
     },
-    // icons: [
-    //   { rel: "icon", href: "/favicon.ico" },
-    //   { rel: "apple-touch-icon", href: "/apple-touch-icon.png", sizes: "180x180" },
-    //   { rel: "manifest", href: "/site.webmanifest" },
-    // ],
+    icons: {
+      icon: fav ?? "https://example.com/favicon.ico",
+    },
     structuredData: JSON.stringify(structuredData),
   };
 }
