@@ -8,10 +8,27 @@ export async function generateStaticParams() {
   const pageName = "information";
   const filteredLocations = filterByPage(currentLocation, pageName);
 
-  // Get content, filtering out items without a slug
+
+  // contentArray Logic to handle scrolling behavior for content sections based on slug presence:
+  // - For some components, we scroll directly to the component using its root-level 'slug'.
+  // - For other components, we may need to scroll to a specific item within the nested 'data' list, which contains individual slugs.
+  // This code extracts content with slugs from both the root level and nested 'data' arrays using flatMap to combine results into a single array.
+  // else we are using harcoded list if both root level item.slug or item.[data].slug not found
+
+
   const contentArray = filteredLocations.length > 0 
-    ? filteredLocations[0].content.filter(item => !!item.slug) 
+    ? filteredLocations[0].content.flatMap(item => {
+        if (item.slug) {
+            // Root-level slug exists
+            return item;
+        } else if (item.data && Array.isArray(item.data)) {
+            // Check if nested slugs exist in the data array
+            return item.data.filter(dataItem => !!dataItem.slug);
+        }
+        return [];
+    })
     : [];
+
 
   // If no content data is available, fallback to hardcoded data
   const finalContentArray = contentArray.length > 0 

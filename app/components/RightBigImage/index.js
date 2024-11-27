@@ -30,6 +30,9 @@ const RightBigImage = ({ headline, description, media, data }) => {
   const handlePrimaryAction = () => {
     router.push("/services"); // Use Next.js router for navigation
   };
+  const handleNavigation = (path) => {
+    router.push(path);
+  };
 
   return (
     <Container className="py-5">
@@ -69,11 +72,13 @@ const RightBigImage = ({ headline, description, media, data }) => {
                       <a
                         style={{
                           textDecoration: "none",
+                          cursor:"pointer",
                           color: theme.mainAccentDark,
                         }}
-                        href={item.link || "#"}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        // href={item.link || "#"}
+                        // target="_blank"
+                        // rel="noopener noreferrer"
+                        onClick={() => handleNavigation(item.link)}
                       >
                         <div style={{ display: "flex" }}>
                           <p> More about this</p>{" "}

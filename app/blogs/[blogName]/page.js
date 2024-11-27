@@ -1,4 +1,4 @@
-import styles from "./BlogDetail.module.css"; // Ensure proper casing for CSS module
+import styles from "./blogDetail.module.css"; // Ensure proper casing for CSS module
 import currentLocation from "../../data"; // Your data source
 import { Col, Container, Row } from "react-bootstrap";
 import HtmlContent from "../../components/HtmlContent";

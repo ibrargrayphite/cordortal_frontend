@@ -17,12 +17,21 @@ const CaseStudyCard = ({ data,headline,description }) => {
     <HeadingTopDiscription headline={headline} description={description} className={styles.h1Width} />
     <Container>
       {data.map((caseStudy, index) => (
-        <div key={index} className={`${styles.Card} p-5 mb-5`} style={{ backgroundColor: "#FAF7EF" }}>
+        <div id={caseStudy.slug} key={index} className={`${styles.Card} p-5 mb-5`} style={{ backgroundColor: "#FAF7EF" }}>
           <Row>
             {/* Left Column */}
             <Col md={7} className="d-flex ">
-              <img src={caseStudy.mediaBefore.src} alt="Before" className={styles.mediaImageBefore} />
-              <img src={caseStudy.mediaAfter.src} alt="After" className={styles.mediaImageAfter} />
+            {/* <video src= */}
+            {caseStudy.video && <video
+              src={caseStudy.video}
+              controls
+              // height="100"
+              // width="100"
+              style={{objectFit: "cover",width: '100%',height:'100%'}}
+            >
+            </video>}
+              {caseStudy.mediaBefore && <img src={caseStudy.mediaBefore?.src} alt="Before" className={styles.mediaImageBefore} />}
+              {caseStudy.mediaAfter && <img src={caseStudy.mediaAfter?.src} alt="After" className={styles.mediaImageAfter} />}
             </Col>
             {/* Right Column */}
             <Col md={5}>
