@@ -184,10 +184,9 @@ import straightsmileTeam3 from "../public/assets/images/straightSmile/team/strai
 import straightsmileTeam4 from "../public/assets/images/straightSmile/team/straightsmileTeam4.png";
 import toothRightBigImage from "../public/assets/images/straightSmile/toothRightBigImage.png";
 import straightsmilesFavIcon from "../public/assets/images/straightSmile/straightsmileFav.png";
-import footer1 from '../public/assets/images/footer/footer1.png'
 import footer2 from '../public/assets/images/footer/footer2.png'
 import footer3 from '../public/assets/images/footer/footer3.png'
-import footer4 from '../public/assets/images/footer/footer4.png'
+
 
 
 
@@ -6121,7 +6120,7 @@ const Locations = [
       alt: "Oaklands Dental",
       menuItems: [
         { name: "Home", href: "/" },
-        { name: "Pricing", href: "/information" },
+        { name: "Pricing", href: "/about-us" },
         // {
         //   name: "Services",
         //   dropdown: [
@@ -6129,13 +6128,13 @@ const Locations = [
         //     { name: "Orthodontics", href: "/services/orthodontics" }
         //   ]
         // },
-        { name: "Case Studies", href: "/about-us" }
+        { name: "Case Studies", href: "/information" }
       ],
       button: { "name": "Book Now", "href": "https://oaklands-dental.dentr.net/book" }
     },
       footer: {
         name: "SimpleFooter",
-        footer1: footer1,
+        // footer1: footer1,
         // src: "https://oaklands-dental.dentr.net/book",
         // refersrc:
         //   "https://docs.google.com/forms/d/e/1FAIpQLSdIHkTNcU-BPjGDJZd6uRAbNVGamgn-m-YflSSavX7JoeGyDQ/viewform",
@@ -6181,6 +6180,10 @@ const Locations = [
                 },
               },
             },
+            media:[
+              {id:1, url:footer2 , link:"https://www.gdc-uk.org/"},
+              {id:2, url:footer3 , link:"https://www.gdc-uk.org/"}
+            ]
           }
       },
     },
@@ -6229,7 +6232,7 @@ const Locations = [
             component: "BigLeftImage",
             media: toothstraightBigleftimage,
             media2: iconArrow,
-            title:"Take Care Teeth",
+            // title:"Take Care Teeth",
             headline: "Best Quality services",
             description: "At SmartSmiles, we take pride in offering the highest quality dental services tailored to your unique needs. Equipped with state-of-the-art technology and led by a team of skilled professionals, we ensure precision, comfort, and outstanding results. Whether it’s preventive care, cosmetic enhancements, or restorative treatments, our commitment to excellence guarantees you receive the best possible care in a warm and welcoming environment. Your smile deserves nothing less than perfection!",
 
@@ -6239,7 +6242,7 @@ const Locations = [
             component: "HeadingTopDiscription",
             headline:
               "Discover Your Path to a Perfectly Aligned Smile!",
-            description:"Quality Matters",
+            // description:"Quality Matters",
           },
           {
             id: "5",
@@ -6324,25 +6327,25 @@ const Locations = [
                 icon:'FaGlobe',
                 headline:"Clear Aligners (e.g., Invisalign):",
                 description:"Made of transparent plastic, these aligners are custom-designed to fit snugly over your teeth. They are nearly invisible, removable, and ideal for mild to moderate alignment issues.",
-                link:"/about-us#case_study_1"
+                link:"/information/case_study_1"
               },
               {
                 icon:'MdOutlinePeople',
                 headline:"Ceramic Braces:",
                 description:"While not traditional aligners, these braces use clear or tooth-colored brackets to blend with your teeth. They are a discreet alternative to metal braces, offering effective results for more complex cases.",
-                link:"/about-us#case_study_2"
+                link:"/information/case_study_2"
               },
               {
                 icon:'MdOutlineAccessTime',
                 headline:"Lingual Aligners (Lingual Braces):",
                 description:"These aligners are fixed to the back of the teeth, making them completely hidden from view. They’re an excellent choice for those seeking invisible orthodontic solutions for moderate to severe alignment problems.",
-                link:"/about-us#case_study_3"
+                link:"/information/case_study_3"
               },
               {
                 icon:'MdOutlineMedicalServices',
                 headline:"Self-Ligating Aligners:",
                 description:"These modern braces use specialized clips or doors instead of traditional elastic bands to hold the wire in place, reducing friction and discomfort while aligning teeth efficiently.",
-                link:"/about-us#case_study_4"
+                link:"/information/case_study_4"
               }
             ]
           },
@@ -6446,7 +6449,7 @@ const Locations = [
       },
       {
         id: 2,
-        pageName: "information",
+        pageName: "AboutUs",
         content: [
           {
             id:"1",
@@ -6557,13 +6560,13 @@ const Locations = [
             component: "CardRightImage",
             headline:"Seize the opportunity for a brighter smile starting now!",
             description:"Embracing the Now or Never Moment: Unlocking the Gateway to a Brighter, More Captivating Smile Beyond Your Wildest Dreams!",
-            media:toothstraightBigleftimage2
+            media:toothstraightBigleftimage2_
           }
         ],
       },
       {
         id: 2,
-        pageName: "AboutUs",
+        pageName: "information",
         content: [
           {
             id:"1",
@@ -6576,14 +6579,13 @@ const Locations = [
             component:"CaseStudyCard",
             description:"Check Our Results",
             headline:"Our Happy Clients",
-            
             data:[
               { 
                 heading:"Clear Aligners (e.g., Invisalign) Case Story",
-                mediaBefore: beforemedia,
+                // mediaBefore: beforemedia,
                 video: video1,
-                mediaAfter: aftermedia,
-                target:'case_study_1',
+                // mediaAfter: aftermedia,
+                slug:'case_study_1',
                 bullets:[
                 "Patient Name: Sarah",
                 "Age:  27",
@@ -6594,10 +6596,10 @@ const Locations = [
               },
               { 
                 heading:"Ceramic Braces Case Story",
-                mediaBefore: beforemedia,
+                // mediaBefore: beforemedia,
                 video: video2,
-                mediaAfter: aftermedia,
-                target:'case_study_2',
+                // mediaAfter: aftermedia,
+                slug:'case_study_2',
                 bullets:[
                 "Patient Name: James",
                 "Age: 32",
@@ -6608,10 +6610,10 @@ const Locations = [
               },
               { 
                 heading:"Lingual Aligners (Lingual Braces) Case Story",
-                mediaBefore: beforemedia,
+                // mediaBefore: beforemedia,
                 video: video3,
-                mediaAfter: aftermedia,
-                target:'case_study_3',
+                // mediaAfter: aftermedia,
+                slug:'case_study_3',
                 bullets:[
                 "Patient Name: Priya",
                 "Age: 22",
@@ -6622,10 +6624,10 @@ const Locations = [
               },
               { 
                 heading:"Self-Ligating Aligners Case Story",
-                mediaBefore: beforemedia,
+                // mediaBefore: beforemedia,
                 video: video4,
-                mediaAfter: aftermedia,
-                target:'case_study_4',
+                // mediaAfter: aftermedia,
+                slug:'case_study_4',
                 bullets:[
                 "Patient Name: Daniel",
                 "Age: 15",

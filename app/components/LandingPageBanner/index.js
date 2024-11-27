@@ -10,7 +10,6 @@ import { useTheme } from "../../context/ThemeContext";
 import styles from "./LandingPageBanner.module.css";
 
 const LandingPageBanner = ({ description , media, headline,headlineLarge,title}) => {
-  console.log("🚀 ~ LandingPageBanner ~ media:", headline)
   const theme = useTheme();
 
   const router = useRouter(); // Use Next.js router

@@ -84,68 +84,25 @@ const SimpleFooter = ({ footerRights, data }) => {
               </p>
             </Col>
           </Row>
-          <Row className="items-end">
-            <Col>
-              <div style={{height:'70px',width: '70px'}}>
-                <Image
-                  // height={70}
-                  // width={70}
-                  // style={{ cursor: "pointer", marginTop: 20 }}
-                  className="w-full h-full"
-                  src={footer1}
-                  alt="Certified by the General Dental Council"
-                  onClick={() =>
-                    window.open("https://www.gdc-uk.org/", "_blank")
-                  }
-                />
-              </div>
-            </Col>
-            <Col>
-              <div style={{height:'70px',width: '70px'}}>
-                <Image
-                  // height={70}
-                  // width={70}
-                  // style={{ cursor: "pointer", marginTop: 20 }}
-                  className="w-full h-full"
-                  src={footer2}
-                  alt="Certified by the General Dental Council"
-                  onClick={() =>
-                    window.open("https://www.gdc-uk.org/", "_blank")
-                  }
-                />
-              </div>
-            </Col>
-            <Col>
-              <div style={{height:'70px',width: '70px'}}>
-                <Image
-                  // height={70}
-                  // width={70}
-                  // style={{ cursor: "pointer", marginTop: 20 }}
-                  className="w-full h-full"
-                  src={footer3}
-                  alt="Certified by the General Dental Council"
-                  onClick={() =>
-                    window.open("https://www.gdc-uk.org/", "_blank")
-                  }
-                />
-              </div>
-            </Col>
-            <Col>
-              <div style={{height:'70px',width: '70px'}}>
-                <Image
-                  // height={70}
-                  // width={70}
-                  // style={{ cursor: "pointer", marginTop: 20 }}
-                  className="w-full h-full"
-                  src={footer1}
-                  alt="Certified by the General Dental Council"
-                  onClick={() =>
-                    window.open("https://www.gdc-uk.org/", "_blank")
-                  }
-                />
-              </div>
-            </Col>
-          </Row>
+          {/* Affilation and dental council awards etc images section */}
+          {/* <Row className="items-end"> */}
+          <div className="flex justify-center" >
+          {data.media.map((image, index) => (
+            <div key={index} >
+            <Image
+              style={{ cursor: "pointer",height:'70px',width: '70px'}}
+              className="mx-8"
+              src={image.url}
+              alt="Certified by the General Dental Council"
+              onClick={() =>
+                window.open(image.link, "_blank")
+              }
+            />
+            </div>
+            ))}
+            </div>
+            
+          {/* </Row> */}
         </Container>
       </Container>
       <Row className="mt-4 text-center">

@@ -49,7 +49,7 @@ const CardRightImage = ({ description, media, headline }) => {
                 className={styles.customButtonFirst}
               />
               <CustomButton
-                headline="Book Now 1"
+                headline="Book Now"
                 onClick={() => handleSecondaryAction(media[0]?.url?.src)}
                 className={styles.customButton}
                 icon={<FaArrowRight />}
