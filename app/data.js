@@ -6257,7 +6257,7 @@ const Locations = [
             component: "YourTeamSlider",
             headline:
             "Introducing Our Dedicated Dentists",
-            description:"Our Experts",
+            // description:"Our Experts",
             teamMembers: [
               {
                 id: 1,
@@ -6577,7 +6577,7 @@ const Locations = [
           {
             id:"2",
             component:"CaseStudyCard",
-            description:"Check Our Results",
+            // description:"Check Our Results",
             headline:"Our Happy Clients",
             data:[
               { 
