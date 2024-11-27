@@ -25,6 +25,11 @@ import implantRight2 from "../public/assets/images/services/Impants/implantRight
 import smileRight1 from "../public/assets/images/services/SmileDesign/smileRight1.png";
 import smileRight2 from "../public/assets/images/services/SmileDesign/smileRight2.jpg";
 import beforemediaSmile from "../public/assets/images/services/SmileDesign/beforemediaSmile.jpg";
+import straight_smile_video from "../public/assets/images/straightSmile/straight_smile_video.mp4";
+import video1 from "../public/assets/images/straightSmile/video1.mp4";
+import video2 from "../public/assets/images/straightSmile/video2.mp4";
+import video3 from "../public/assets/images/straightSmile/video3.mp4";
+import video4 from "../public/assets/images/straightSmile/video4.mp4";
 import aftermediaSmile from "../public/assets/images/services/SmileDesign/aftermediaSmile.jpg";
 import clearAlignerRight1 from "../public/assets/images/services/ClearAligner/clearAlignerRight1.jpeg";
 import clearAlignerRight2 from "../public/assets/images/services/ClearAligner/clearAlignerRight2.jpeg";
@@ -154,7 +159,7 @@ import Bailifffile15 from "../public/assets/documents/bailiff/PracticeAppointmen
 import Bailifffile16 from "../public/assets/documents/bailiff/PracticeEqualityPolicy.doc";
 import Bailifffile17 from "../public/assets/documents/bailiff/NHSBANDINGPRESENT.docx";
 import Bailifffile18 from "../public/assets/documents/bailiff/NHSBANDINGPRESENT.docx";
-import Bailifffile19 from "../public/assets/documents/bailiff/AccessToInformationHeld.rtf";
+import Bailifffile19 from "../public/assets/documents/AccessToInformationHeld.rtf";
 import Bailifffile20 from "../public/assets/documents/bailiff/ConfidentialityPolicy.doc";
 import Bailifffile21 from "../public/assets/documents/bailiff/DataProtectionForPatients.doc";
 import Bailifffile22 from "../public/assets/documents/bailiff/RecordsManagementPolicy.docx";
@@ -166,14 +171,23 @@ import Bailifffile25 from "../public/assets/documents/bailiff/PeriodontalGumDise
 import straightlogo from "../public/assets/images/straightlogo.png";
 import pageoverlay1 from "../public/assets/images/straightSmile/pageoverlay1.png";
 import pageoverlay2 from "../public/assets/images/straightSmile/pageoverlay2.png";
+import pageoverlay2gif from "../public/assets/images/straightSmile/pageoverlay2.gif";
 import pageoverlay3 from "../public/assets/images/straightSmile/pageoverlay3.png";
 import toothstraightBigleftimage from "../public/assets/images/straightSmile/toothstraightBigleftimage.png";
 import toothstraightBigleftimage2 from "../public/assets/images/straightSmile/toothstraightBigleftimage.png";
+import toothstraightBigleftimage2_ from "../public/assets/images/straightSmile/toothstraightBigleftimage_.jpeg";
 import iconArrow from "../public/assets/images/straightSmile/iconArrow.png";
 import straightsmileRight from "../public/assets/images/straightSmile/straightsmileRight.png";
 import straightsmileTeam1 from "../public/assets/images/straightSmile/team/straightsmileTeam1.png";
+import straightsmileTeam2 from "../public/assets/images/straightSmile/team/straightsmileTeam2.png";
+import straightsmileTeam3 from "../public/assets/images/straightSmile/team/straightsmileTeam3.png";
+import straightsmileTeam4 from "../public/assets/images/straightSmile/team/straightsmileTeam4.png";
 import toothRightBigImage from "../public/assets/images/straightSmile/toothRightBigImage.png";
 import straightsmilesFavIcon from "../public/assets/images/straightSmile/straightsmileFav.png";
+import footer1 from '../public/assets/images/footer/footer1.png'
+import footer2 from '../public/assets/images/footer/footer2.png'
+import footer3 from '../public/assets/images/footer/footer3.png'
+import footer4 from '../public/assets/images/footer/footer4.png'
 
 
 
@@ -6121,6 +6135,7 @@ const Locations = [
     },
       footer: {
         name: "SimpleFooter",
+        footer1: footer1,
         // src: "https://oaklands-dental.dentr.net/book",
         // refersrc:
         //   "https://docs.google.com/forms/d/e/1FAIpQLSdIHkTNcU-BPjGDJZd6uRAbNVGamgn-m-YflSSavX7JoeGyDQ/viewform",
@@ -6178,7 +6193,7 @@ const Locations = [
           {
             id: "1",
             component: "landingPageOverlay",
-            description: "Transform your smile quickly and effortlessly with our exceptional services. We understand the importance of having a beautiful, straight smile, and that's why we offer efficient solutions tailored to your needs.",
+            description: "Your smile is our priority! At SmartSmiles, we’re dedicated to providing exceptional dental care for the entire family. From routine check-ups to advanced cosmetic treatments, our team of experienced professionals combines expertise with compassion to ensure your comfort and oral health. Let us help you achieve a brighter, healthier smile that lasts a lifetime!",
             headline:"Let's Take",
             headlineLarge:"Care Of Your Dental",
             title:"Health",
@@ -6189,7 +6204,7 @@ const Locations = [
               },
               {
                 id:2,
-                url:pageoverlay2
+                url:pageoverlay2gif
               },
               {
                 id: 3,
@@ -6215,15 +6230,15 @@ const Locations = [
             media: toothstraightBigleftimage,
             media2: iconArrow,
             title:"Take Care Teeth",
-            headline: "Let's Take Care Of Dental Health",
-            description: "Some people think that brushing your teeth twice a day is enough to keep your teeth and mouth healthy. In fact, that's not the case Some people think that brushing your teeth twice a day is enough to keep your teeth and mouth healthy. In fact, that's not the case Some people think that brushing your teeth twice a day is enough to keep your teeth and mouth healthy. In fact, that's not the case Some people think that brushing your teeth twice a day is enough to keep your teeth and mouth healthy. In fact, that's not the case",
+            headline: "Best Quality services",
+            description: "At SmartSmiles, we take pride in offering the highest quality dental services tailored to your unique needs. Equipped with state-of-the-art technology and led by a team of skilled professionals, we ensure precision, comfort, and outstanding results. Whether it’s preventive care, cosmetic enhancements, or restorative treatments, our commitment to excellence guarantees you receive the best possible care in a warm and welcoming environment. Your smile deserves nothing less than perfection!",
 
           },
           {
             id: "4",
             component: "HeadingTopDiscription",
             headline:
-              "The Best Quality Service You Can Get",
+              "Discover Your Path to a Perfectly Aligned Smile!",
             description:"Quality Matters",
           },
           {
@@ -6231,7 +6246,7 @@ const Locations = [
             component: "RightImageShadow",
             headline:
               "Aligners",
-            description:"Some people think that brushing your teeth twice a day is enough to keep your teeth and mouth healthy. In fact, that's not the case Some people think that brushing your teeth twice a day is enough to keep your teeth and mouth healthy. In fact, that's not the case Some people think that brushing your teeth twice a day is enough to keep your teeth and mouth healthy. In fact, that's not the case Some people think that brushing your teeth twice a day is enough to keep your teeth and mouth healthy. In fact, that's not the case",
+            description:"At SmartSmiles, we offer a variety of teeth alignment solutions to suit your unique needs and lifestyle. From clear aligners like Invisalign for a virtually invisible and removable option, to ceramic braces that blend seamlessly with your natural tooth color, we ensure discreet and effective results. For those seeking completely hidden solutions, our lingual aligners are fixed behind the teeth for maximum invisibility. We also provide self-ligating braces, a modern alternative that minimizes discomfort and enhances efficiency. Whatever your alignment goals, our expert team is here to help you achieve a confident, beautifully aligned smile!",
             media:straightsmileRight,
           },
           {
@@ -6245,34 +6260,34 @@ const Locations = [
                 id: 1,
                 teamMemberImage: straightsmileTeam1,
                 teamMemberName: "Dr Harun Hussain",
-                teamMemberSpeciality: "Clinical Head",
+                teamMemberSpeciality: "Dentist (General or Specialist)",
                 facebookLink:"https://www.facebook.com/",
                 instagramLink:"https://www.instagram.com/",
                 twitterLink:"https://twitter.com/login"
               },
               {
                 id: 2,
-                teamMemberImage: straightsmileTeam1,
-                teamMemberName: "Dr Harun Hussain",
-                teamMemberSpeciality: "Clinical Head",
+                teamMemberImage: straightsmileTeam2,
+                teamMemberName: "Dr Ali Hussain",
+                teamMemberSpeciality: "Dental Hygienist",
                 facebookLink:"https://www.facebook.com/",
                 instagramLink:"https://www.instagram.com/",
                 twitterLink:"https://twitter.com/login"
               },
               {
                 id: 3,
-                teamMemberImage: straightsmileTeam1,
-                teamMemberName: "Dr Harun Hussain",
-                teamMemberSpeciality: "Clinical Head",
+                teamMemberImage: straightsmileTeam3,
+                teamMemberName: "Dr Ahmed",
+                teamMemberSpeciality: "Dental Assistant",
                 facebookLink:"https://www.facebook.com/",
                 instagramLink:"https://www.instagram.com/",
                 twitterLink:"https://twitter.com/login"
               },
               {
                 id: 4,
-                teamMemberImage: straightsmileTeam1,
-                teamMemberName: "Dr Harun Hussain",
-                teamMemberSpeciality: "Clinical Head",
+                teamMemberImage: straightsmileTeam4,
+                teamMemberName: "Dr Wajih",
+                teamMemberSpeciality: "Dentist Head",
                 facebookLink:"https://www.facebook.com/",
                 instagramLink:"https://www.instagram.com/",
                 twitterLink:"https://twitter.com/login"
@@ -6290,7 +6305,7 @@ const Locations = [
                 id: 6,
                 teamMemberImage: straightsmileTeam1,
                 teamMemberName: "Dr Hussain",
-                teamMemberSpeciality: "Clinical Head",
+                teamMemberSpeciality: "Dental Hygienist",
                 facebookLink:"https://www.facebook.com/",
                 instagramLink:"https://www.instagram.com/",
                 twitterLink:"https://twitter.com/login"
@@ -6301,33 +6316,33 @@ const Locations = [
             id: "7",
             component: "RightBigImage",
             headline:
-              "Enjoy The Features In Our Clinic",
+              "Enjoy The Services In Our Clinic",
             description:"Clinic Features",
             media:toothRightBigImage,
             data:[
               {
                 icon:'FaGlobe',
-                headline:"Online System",
-                description:"Our clinic already has a online ecosystem",
-                link:"xyz"
+                headline:"Clear Aligners (e.g., Invisalign):",
+                description:"Made of transparent plastic, these aligners are custom-designed to fit snugly over your teeth. They are nearly invisible, removable, and ideal for mild to moderate alignment issues.",
+                link:"/about-us#case_study_1"
               },
               {
                 icon:'MdOutlinePeople',
-                headline:"Easy Access",
-                description:"Ease of payement with various platform",
-                link:"xyz"
+                headline:"Ceramic Braces:",
+                description:"While not traditional aligners, these braces use clear or tooth-colored brackets to blend with your teeth. They are a discreet alternative to metal braces, offering effective results for more complex cases.",
+                link:"/about-us#case_study_2"
               },
               {
                 icon:'MdOutlineAccessTime',
-                headline:"24 Hours Open",
-                description:"Ready to recive a patient 24 hours a day",
-                link:"xyz"
+                headline:"Lingual Aligners (Lingual Braces):",
+                description:"These aligners are fixed to the back of the teeth, making them completely hidden from view. They’re an excellent choice for those seeking invisible orthodontic solutions for moderate to severe alignment problems.",
+                link:"/about-us#case_study_3"
               },
               {
                 icon:'MdOutlineMedicalServices',
-                headline:"More Facilities",
-                description:"All facilities are complete and new technology",
-                link:"xyz"
+                headline:"Self-Ligating Aligners:",
+                description:"These modern braces use specialized clips or doors instead of traditional elastic bands to hold the wire in place, reducing friction and discomfort while aligning teeth efficiently.",
+                link:"/about-us#case_study_4"
               }
             ]
           },
@@ -6425,7 +6440,7 @@ const Locations = [
             component: "CardRightImage",
             headline:"Seize the opportunity for a brighter smile starting now!",
             description:"Embracing the Now or Never Moment: Unlocking the Gateway to a Brighter, More Captivating Smile Beyond Your Wildest Dreams!",
-            media:toothstraightBigleftimage2
+            media:toothstraightBigleftimage2_
           }
         ],
       },
@@ -6560,47 +6575,62 @@ const Locations = [
             id:"2",
             component:"CaseStudyCard",
             description:"Check Our Results",
-            headline:"Our Case Studies",
+            headline:"Our Happy Clients",
+            
             data:[
               { 
-                heading:"Case Study 1",
+                heading:"Clear Aligners (e.g., Invisalign) Case Story",
                 mediaBefore: beforemedia,
+                video: video1,
                 mediaAfter: aftermedia,
+                target:'case_study_1',
                 bullets:[
-                "79-year old African-American female",
-                "Insulin injections",
-                "Co-existing diseases",
-                "Multiple medications",
-                "Physical limitations",
-                "Overdue for dental treatment"
+                "Patient Name: Sarah",
+                "Age:  27",
+                "We customized clear aligners for Sarah, providing a virtually invisible way to correct her alignment. She wore them for 20-22 hours daily and changed to a new set every two weeks.",
+                "Result: After just 10 months, Sarah’s teeth were perfectly aligned, and she was thrilled to achieve her dream smile without anyone noticing her treatment.",
               ],
                 date:"09/08/2020"
               },
               { 
-                heading:"Case Study 2",
+                heading:"Ceramic Braces Case Story",
                 mediaBefore: beforemedia,
+                video: video2,
                 mediaAfter: aftermedia,
+                target:'case_study_2',
                 bullets:[
-                "79-year old African-American female",
-                "Insulin injections",
-                "Co-existing diseases",
-                "Multiple medications",
-                "Physical limitations",
-                "Overdue for dental treatment"
+                "Patient Name: James",
+                "Age: 32",
+                "We recommended ceramic braces, which use tooth-colored brackets for a subtle look. These braces offered the strength and precision needed for his complex alignment issues.",
+                "Result: Over 18 months, James’s smile transformed dramatically, and he appreciated the discreet aesthetic throughout his treatment.",
               ],
                 date:"09/08/2020"
               },
               { 
-                heading:"Case Study 3",
+                heading:"Lingual Aligners (Lingual Braces) Case Story",
                 mediaBefore: beforemedia,
+                video: video3,
                 mediaAfter: aftermedia,
+                target:'case_study_3',
                 bullets:[
-                "79-year old African-American female",
-                "Insulin injections",
-                "Co-existing diseases",
-                "Multiple medications",
-                "Physical limitations",
-                "Overdue for dental treatment"
+                "Patient Name: Priya",
+                "Age: 22",
+                "We fitted Priya with lingual braces placed on the back of her teeth. Though the initial adjustment took time, she soon became comfortable with the invisible treatment.",
+                "Result: After two years, Priya’s gaps were closed, and her teeth were beautifully aligned—all while keeping her braces entirely out of sight.",
+              ],
+                date:"09/08/2020"
+              },
+              { 
+                heading:"Self-Ligating Aligners Case Story",
+                mediaBefore: beforemedia,
+                video: video4,
+                mediaAfter: aftermedia,
+                target:'case_study_4',
+                bullets:[
+                "Patient Name: Daniel",
+                "Age: 15",
+                "Self-ligating braces were the perfect choice, as they use a slide mechanism instead of elastic bands to reduce friction and speed up the process.",
+                "Result: In just 14 months, Daniel’s smile was transformed, and he experienced fewer visits to the clinic and minimal discomfort throughout the journey.",
               ],
                 date:"09/08/2020"
               }
@@ -6700,7 +6730,7 @@ const Locations = [
             component: "CardRightImage",
             headline:"Seize the opportunity for a brighter smile starting now!",
             description:"Embracing the Now or Never Moment: Unlocking the Gateway to a Brighter, More Captivating Smile Beyond Your Wildest Dreams!",
-            media:toothstraightBigleftimage2
+            media:toothstraightBigleftimage2_
           }
         ],
       }

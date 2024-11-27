@@ -49,8 +49,8 @@
   }
 
   .imageOverlay {
-    position: absolute;
-    top: -30%; 
+    /* position: absolute; */
+    /* top: -30%;  */
     right: -5%; 
     width: 50%;
     z-index: 1;

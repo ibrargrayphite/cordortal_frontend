@@ -7,7 +7,7 @@ const HeadingTopDiscription = ({ headline, description,className }) => {
   return (
     <Container className="mt-10 mb-5 flex justify-center items-center">
       <div className="text-center px-4 ">
-        <p className={styles.description}>{description}</p>
+        {/* <p className={styles.description}>{description}</p> */}
         <h1  className={`${styles.headline} ${className}`}>{headline}</h1>
       </div>
     </Container>

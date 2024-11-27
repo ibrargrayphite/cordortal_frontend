@@ -31,6 +31,8 @@ const CardRightImage = ({ description, media, headline }) => {
           marginBottom: 50,
           position: "relative", // Required for positioning
           overflow: "visible", // Allow elements to overflow the card
+          display: "flex",
+          flexDirection: "row"
         }}
       >
         <Row className="align-items-center">
@@ -47,7 +49,7 @@ const CardRightImage = ({ description, media, headline }) => {
                 className={styles.customButtonFirst}
               />
               <CustomButton
-                headline="Book Now"
+                headline="Book Now 1"
                 onClick={() => handleSecondaryAction(media[0]?.url?.src)}
                 className={styles.customButton}
                 icon={<FaArrowRight />}

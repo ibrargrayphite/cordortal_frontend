@@ -37,7 +37,7 @@ const BigLeftImage = ({ title, headline, description, media, media2 }) => {
               className="w-full md:w-1/2 mt-6 md:mt-0 md:ml-10"
               style={{ padding: "40px 70px 40px 20px" }}
             >
-              <p className={styles.title}>{title}</p>
+              {/* <p className={styles.title}>{title}</p> */}
               <h2 className={styles.headline}>{headline}</h2>
               <p className={styles.description}>{description}</p>
             </div>
