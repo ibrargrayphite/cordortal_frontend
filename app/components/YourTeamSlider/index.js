@@ -53,7 +53,7 @@ const YourTeamSlider = ({ teamMembers = [], headline, description }) => {
           >
             {teamMembers.map((member) => (
               <SwiperSlide key={member.id} className={styles.SlideParent}>
-                <div className={styles.teamImage}>
+                <div className={styles.teamImage} >
                   <img
                     src={member.teamMemberImage?.src || "/default-profile.png"} // Fallback image
                     className={styles.profileImage}

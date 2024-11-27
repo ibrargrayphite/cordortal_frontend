@@ -31,6 +31,8 @@ const CardRightImage = ({ description, media, headline }) => {
           marginBottom: 50,
           position: "relative", // Required for positioning
           overflow: "visible", // Allow elements to overflow the card
+          display: "flex",
+          flexDirection: "row"
         }}
       >
         <Row className="align-items-center">

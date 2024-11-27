@@ -25,6 +25,8 @@
   .teamImage {
     display: flex;
     justify-content: center;
+    width: 230px;
+    height: 230px;
   }
   
   .SlideParent {
