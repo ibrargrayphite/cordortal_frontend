@@ -174,6 +174,7 @@ const HeaderDefault = ({ media, name, menuItems, button }) => {
     // </div>
 
     <div className={styles.header} style={{background: theme.mainAccentDark,}}>
+      <div className="container p-0">
           <nav>
             <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto">
               <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
@@ -247,7 +248,7 @@ const HeaderDefault = ({ media, name, menuItems, button }) => {
               </div>
             </div>
             {/* Mobile Menu (toggles visibility based on state) */}
-            <div className={`lg:hidden ${isMenuOpen ? 'block' : 'hidden'} bg-dark text-white flex flex-col justify-center items-center space-y-4 p-4`}>
+            <div className={`lg:hidden ${isMenuOpen ? 'block' : 'hidden'} text-white flex flex-col justify-center items-center space-y-4 p-4`}>
             {menuItems.map((item, index) =>
                   item.dropdown ? (
                     <div
@@ -293,6 +294,7 @@ const HeaderDefault = ({ media, name, menuItems, button }) => {
                 </button>
             </div>
           </nav>
+      </div>
         </div>
       
 
