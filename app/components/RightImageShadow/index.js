@@ -16,7 +16,7 @@ const RightImageShadow = ({ headline, description, media }) => {
 
   return (
     <Container className="py-5">
-      <Row className="align-items-center g-0">
+      <Row className="items-center justify-center g-0">
         {/* Left Section */}
         <Col xs={12} md={6} className="text-center text-md-start">
         <div className="lg:pl-20 md:p-0 lg:pr-8">
@@ -31,7 +31,7 @@ const RightImageShadow = ({ headline, description, media }) => {
         </Col>
 
         {/* Right Section: Image with shadow/reflection */}
-        <Col xs={12} md={6} className="d-flex justify-content-center">
+        <Col xs={9} md={6} className="d-flex justify-content-center">
           <div className={styles.imageWrapper}>
             <img
               src={media.src}

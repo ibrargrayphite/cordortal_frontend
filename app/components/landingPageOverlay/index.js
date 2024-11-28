@@ -34,7 +34,7 @@ const landingPageOverlay = ({ description , media, headline,headlineLarge,title}
       }}
       className="flex items-center"
     >
-      <div className="container" style={{ height: "100%" }}>
+      <div className="md:container mx-auto" style={{ height: "100%" }}>
         <div className="lg:flex w-full justify-content-between h-full items-center">
           {/* Left Section */}
           <div className="lg:w-1/2 p-4 flex flex-col justify-center">
