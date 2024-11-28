@@ -174,9 +174,9 @@ const HeaderDefault = ({ media, name, menuItems, button }) => {
     // </div>
 
     <div className={styles.header} style={{background: theme.mainAccentDark,}}>
-      <div className="container p-0">
+      <div className="container">
           <nav>
-            <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto">
+            <div class="flex flex-wrap items-center justify-between mx-auto">
               <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
                 <div className={styles.container}>
                   {/* Logo Section */}
@@ -199,7 +199,7 @@ const HeaderDefault = ({ media, name, menuItems, button }) => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"/>
                 </svg>
               </button>
-              <div class="hidden w-full md:block md:w-auto" id="navbar-default">
+              <div class="hidden w-full md:flex md:w-auto gap-4" id="navbar-default">
                 {menuItems.map((item, index) =>
                   item.dropdown ? (
                     <div
