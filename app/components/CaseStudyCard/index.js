@@ -17,7 +17,7 @@ const CaseStudyCard = ({ data,headline,description }) => {
     <HeadingTopDiscription headline={headline} description={description} className={styles.h1Width} />
     <Container>
       {data.map((caseStudy, index) => (
-        <div id={caseStudy.slug} key={index} className={`${styles.Card} p-5 mb-5`} style={{ backgroundColor: "#FAF7EF" }}>
+        <div id={caseStudy.slug} key={index} className={`${styles.Card} lg:p-10 mb-5`} style={{ backgroundColor: "#FAF7EF" }}>
           <Row>
             {/* Left Column */}
             <Col md={7} className="d-flex ">
@@ -36,7 +36,7 @@ const CaseStudyCard = ({ data,headline,description }) => {
             {/* Right Column */}
             <Col md={5}>
             <div style={{marginLeft:"20px"}}>
-              <h3 className={styles.heading}>{caseStudy.heading}</h3>
+              <h3 className={`${styles.heading} lg:text-[40px] max-md:text-lg`}>{caseStudy.heading}</h3>
               <ul className="mb-3" style={{ listStyleType: "disc", paddingLeft: "20px"}}>
                 {caseStudy.bullets.map((bullet, idx) => (
                   <li key={idx} style={{paddingBottom:"10px"}}>{bullet}</li>

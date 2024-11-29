@@ -22,7 +22,7 @@ const CardRightImage = ({ description, media, headline }) => {
   return (
     <div className="container mx-auto">
       <div
-      className="xs:p-4 sm:p-4 md:p-16 md:my-16 xs:my-2 sm:my-2 text-center"
+      className="xs:p-4 sm:p-4 md:p-16 md:my-16 xs:my-2 sm:my-2 max-md:text-center justify-center items-center flex max-md:flex-col"
         style={{
           background: theme.mainAccentDark,
           color: theme.textPrimary,
@@ -32,11 +32,9 @@ const CardRightImage = ({ description, media, headline }) => {
           // marginBottom: 50,
           position: "relative", // Required for positioning
           overflow: "visible", // Allow elements to overflow the card
-          display: "flex",
-          flexDirection: "row"
         }}
       >
-        <div className="items-center flex flex-row">
+        <div className="items-center flex flex-row max-md:mb-4">
           {/* Left Section */}
           <div className="md:w-7/12 xs:w-full">
             <div>
@@ -64,7 +62,7 @@ const CardRightImage = ({ description, media, headline }) => {
         </div>
 
         {/* Right Section (Image) */}
-        <div className={`${styles.imageOverlay} lg:block xs:hidden`}>
+        <div className={`${styles.imageOverlay} lg:block lg:w-1/2 max-md:w-full`}>
           <img src={media.src} alt="Image" />
         </div>
       </div>

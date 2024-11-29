@@ -192,14 +192,14 @@ const HeaderDefault = ({ media, name, menuItems, button }) => {
                 </div>
               </a>
               <button
-                className="md:hidden text-white"
+                className="lg:hidden text-white"
                 onClick={toggleMenu}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="h-6 w-6">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"/>
                 </svg>
               </button>
-              <div class="hidden w-full md:flex md:w-auto gap-4" id="navbar-default">
+              <div class="hidden w-full lg:flex md:w-auto gap-4" id="navbar-default">
                 {menuItems.map((item, index) =>
                   item.dropdown ? (
                     <div
@@ -238,7 +238,7 @@ const HeaderDefault = ({ media, name, menuItems, button }) => {
                   )
                 )}
               </div>
-              <div class="hidden md:block">
+              <div class="hidden lg:block">
                 <button
                   onClick={() => handleBooking(button.href)}
                   className={styles.bookNowButton}
