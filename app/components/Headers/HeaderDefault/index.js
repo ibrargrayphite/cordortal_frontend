@@ -1,0 +1,97 @@
+"use client";
+import { useState } from "react";
+import Link from "next/link";
+import { useTheme } from "../../../context/ThemeContext";
+import styles from "./HeaderDefault.module.css";
+import { Container } from "react-bootstrap";
+
+const HeaderDefault = ({ media, name, menuItems, button }) => {
+  const theme = useTheme();
+  const [activeLink, setActiveLink] = useState(null);
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+
+  const handleLinkClick = (index) => {
+    setActiveLink(index);
+  };
+
+  const handleBooking = (src) => {
+    window.open(src, "_blank");
+  };
+
+  return (
+    <div className={styles.header} style={{
+      background: theme.mainAccentDark,}}>
+    <Container>
+    <header >
+      <div className={styles.container}>
+        {/* Logo Section */}
+        <div className={styles.logo}>
+        <Link href="/">
+          <img
+            src={media.src}
+            alt={`Best Dental Care ${name}`}
+            className="h-10"
+          />
+          </Link>
+        </div>
+
+        {/* Menu Items */}
+        <nav className={styles.nav}>
+          {menuItems.map((item, index) =>
+            item.dropdown ? (
+              <div
+                key={index}
+                className={styles.dropdown}
+                onMouseEnter={() => setIsDropdownVisible(true)}
+                onMouseLeave={() => setIsDropdownVisible(false)}
+              >
+                <button
+                  className={styles.navItem}
+                >
+                  {item.name}
+                </button>
+                {isDropdownVisible && (
+                  <div className={styles.dropdownMenu}>
+                    {item.dropdown.map((subItem, subIndex) => (
+                      <Link
+                        key={subIndex}
+                        href={subItem.href}
+                        className={styles.dropdownLink}
+                        onClick={() => handleLinkClick(subIndex)}
+                      >
+                        {subItem.name}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link
+                key={index}
+                href={item.href}
+                className={`${styles.navItem} ${
+                  activeLink === index ? styles.navItemActive : ""
+                }`}
+                onClick={() => handleLinkClick(index)}
+              >
+                {item.name}
+              </Link>
+            )
+          )}
+        </nav>
+
+        {/* Book Now Button */}
+        <button
+          onClick={() => handleBooking(button.href)}
+          className={styles.bookNowButton}
+        >
+          {button.name}
+        </button>
+      </div>
+    </header>
+    </Container>
+    </div>
+  );
+};
+
+export default HeaderDefault;

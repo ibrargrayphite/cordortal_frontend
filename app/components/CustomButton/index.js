@@ -1,11 +1,13 @@
 import styles from "./CustomButton.module.css";
 
+
 const CustomButton = ({
   headline,
   onClick,
   className,
   style,
   centerButton = false,
+  icon
 }) => {
   return (
     <>
@@ -26,6 +28,7 @@ const CustomButton = ({
           style={style}
         >
           {headline}
+          {icon && <span className={styles.buttonIcon}>{icon}</span>} {/* Render icon if provided */}
         </button>
       )}
     </>

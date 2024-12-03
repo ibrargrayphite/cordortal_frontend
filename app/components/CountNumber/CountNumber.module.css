@@ -1,0 +1,51 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+    margin-right: 5px;
+    background-color: #ffff;
+    position: relative; /* Required for overlapping */
+  }
+
+  .count {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--main-accent-dark);
+    font-size: 50px;
+    width: 80px; /* Fixed width to prevent shaking */
+    text-align: center; /* Ensure the text is centered */
+  }
+  
+  
+  .card {
+    display: flex;
+    flex-direction: row; /* Stack elements vertically */
+    align-items: center; /* Center elements in the card */
+    position: relative;
+    margin-right: 20px;
+    margin-left: 20px;
+
+  }
+  
+  .count {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--main-accent-dark);
+    font-size: 50px;
+  }
+  
+  .name {
+    margin-top: 10px;
+    margin-left: 10px;
+    font-size: 1.2rem;
+    color: var(--content-color);
+    text-align: center;
+    width: 115px;
+    line-height: 1.1;
+    font-size: 18px;
+    text-align: start;
+
+  }
+  

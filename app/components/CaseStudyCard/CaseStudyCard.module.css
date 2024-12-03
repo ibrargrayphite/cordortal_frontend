@@ -1,0 +1,50 @@
+.h1Width{
+    max-width: 100%!important;
+}
+
+.Card {
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  .mediaImageAfter {
+    width: 48%;
+    border-bottom-right-radius: 8px;
+    border-top-right-radius: 8px;
+    object-fit: cover;
+  }
+  .mediaImageBefore{
+    width: 48%;
+    border-bottom-left-radius: 8px;
+    border-top-left-radius: 8px;
+    object-fit: cover;
+    margin-right: 8px;
+
+  }
+
+  .heading{
+    font-size: 40px;
+    /* width: 75%; */
+    /* line-height: 0.5; */
+    margin-bottom: 20px;
+    color: black;
+    font-weight: 200;
+    padding-bottom: 20px;
+  }
+  .date{
+    color: black;
+    font-weight: 700;
+    margin-left: 10px;
+  }
+  .customButton{
+    height: 50px;
+    width: 200px;
+    padding: 0px;
+    border-color: #ffff;
+    box-shadow: 0px 0px 20px 0px rgba(232, 232, 235, 0.3);
+    /* for arrow css */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+  }

@@ -1,0 +1,27 @@
+.parent{
+    background-color:#00000008;
+    border-radius: 15px;
+    /* padding: 30px; */
+}
+.headline{
+    color: var(--headline-color);
+    text-align: start;
+    font-size: 50px;
+    font-weight: 700;
+    padding-top: 35px;
+    line-height: 1.4;
+    padding-bottom: 35px;
+
+}
+.title{
+    color: var(--content-color);
+
+}
+.description{
+    color: var(--content-color);
+
+}
+.iconImage{
+    height: 155px;
+    width: 155px;
+}

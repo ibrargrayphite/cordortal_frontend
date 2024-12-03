@@ -32,6 +32,7 @@ const ServiceCard = ({
                   <img
                     src={service.image.src}
                     height={116}
+                    className={styles.imageSize}
                     alt={`${service.headline}`}
                   />
                 </div>

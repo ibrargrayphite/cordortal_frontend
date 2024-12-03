@@ -6,7 +6,8 @@ export default function robots(): MetadataRoute.Robots {
   const domainMap = {
     bailiffbridgedental: 'https://bailiffbridgedental.netlify.app/',
     oaklandsdentalhudds: 'https://oaklandsdentalhudds.co.uk/',
-    lahoreclinic:'https://clinicbuilder-next.netlify.app/'
+    lahoreclinic:'https://clinicbuilder-next.netlify.app/',
+    straightsmiles:'https://straight-smiles.netlify.app/'
   };
 
   const currentDomain = process.env.NEXT_PUBLIC_DOMAIN; // Assuming this is set to the appropriate domain

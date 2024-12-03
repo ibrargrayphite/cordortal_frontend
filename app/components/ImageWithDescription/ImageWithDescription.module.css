@@ -16,6 +16,8 @@
   @media only screen and (max-width: 767px) {
     .logo{
       text-align: center;
+      display: flex;
+      justify-content: center;
     }
     .financeDesc {
       text-align: center;

@@ -1,0 +1,62 @@
+.description{
+    max-width: 84%;
+    margin-bottom: 40px;
+    overflow-wrap: break-word;
+}
+.headline{
+    margin-bottom: 40px;
+    font-weight: 600;
+    font-size: 60px;
+
+}
+.customButtonFirst {
+    margin-right: 10px;
+    height: 50px;
+    width: 250px;
+    padding: 0px;
+    border-color: #ffff;
+    box-shadow: 0px 0px 20px 0px rgba(232, 232, 235, 0.3);
+
+  }
+  
+  .imageWrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    overflow: visible; /* Allow shadow to extend outside the container */
+  }
+  
+  .imageWrapper img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 500px; /* Set max width for responsive behavior */
+    box-shadow: 35px 35px 0px rgb(0 0 0);
+    border-radius: 30px;
+
+  }
+  
+  .imageWrapper::after {
+    content: "";
+    position: absolute;
+    bottom: -10px; /* Move the shadow just below the image */
+    right: -10px; /* Move the shadow to the right of the image */
+    left: 0;
+    height: 15px; /* Adjust the height of the shadow */
+    /* background: rgba(0, 0, 0, 0.4);  */
+    /* box-shadow: 15px 15px 25px rgba(0, 0, 0, 0.6);  */
+    transform: scaleY(-1); /* Flip the image vertically */
+    transform-origin: top;
+  }
+  
+  @media (max-width: 768px) {
+    .customButtonFirst {
+      margin-bottom: 15px;
+      margin-top: 25px;
+    }
+  
+    .imageWrapper img {
+      max-width: 100%; /* Ensure image is responsive on smaller screens */
+    }
+  }
+  

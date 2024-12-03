@@ -1,16 +1,16 @@
 "use client";
 import { Col, Container, Row } from "react-bootstrap";
 import styles from "./Footer.module.css";
-import ContactCard from "../ContactCard";
+import ContactCard from "../../ContactCard";
 import { useRouter } from "next/navigation"; // Use Next.js router instead of react-router
 import Image from "next/image";
-import Cqc from "../../../public/assets/images/footer/cqc.svg";
-import Nhs from "../../../public/assets/images/footer/nhs.svg";
-import Gdc from "../../../public/assets/images/footer/gdc.jpeg";
-import HoursOfOperation from "../HoursOfOperations";
-import CustomButton from "../CustomButton";
-import { useTheme } from "../../context/ThemeContext"; // Import the useTheme hook
-import currentLocation from "../../data";
+import Cqc from "../../../../public/assets/images/footer/cqc.svg";
+import Nhs from "../../../../public/assets/images/footer/nhs.svg";
+import Gdc from "../../../../public/assets/images/footer/gdc.jpeg";
+import HoursOfOperation from "../../HoursOfOperations";
+import CustomButton from "../../CustomButton";
+import { useTheme } from "../../../context/ThemeContext"; // Import the useTheme hook
+import currentLocation from "../../../data";
 
 const Footer = ({ src, refersrc, title }) => {
   const ContactCardData = currentLocation.data || {};
@@ -86,15 +86,15 @@ const Footer = ({ src, refersrc, title }) => {
               <p style={{ fontWeight: "bold", color: theme.content }}>
                 Affiliated
               </p>
-                <div style={{ cursor: "pointer", marginTop: 20 }}>
-                  <Cqc  height={"55px"} width={"40%"} alt="footerLogo1" onClick={() =>
+                <div style={{ cursor: "pointer", marginTop: 20 }} className={styles.footerAward}>
+                  <Cqc  height={"55px"} width={"40%"}  alt="footerLogo1" onClick={() =>
                     window.open(
                       "https://www.cqc.org.uk/guidance-providers/dentists",
                       "_blank"
                     )
                   }/>
                   </div>
-              <div style={{ cursor: "pointer", marginTop: 20 }}>
+              <div style={{ cursor: "pointer", marginTop: 20 }} className={styles.footerAward}>
                 {/* <Image
                   height={50}
                   width={50}
@@ -103,14 +103,15 @@ const Footer = ({ src, refersrc, title }) => {
                   alt="nhs"
                   onClick={() => window.open("https://www.nhs.uk/", "_blank")}
                 /> */}
-                <Nhs  height={"55px"} width={"30%"} alt="nhs" onClick={() => window.open("https://www.nhs.uk/", "_blank")} />
+                <Nhs  height={"55px"} width={"30%"}  alt="nhs" onClick={() => window.open("https://www.nhs.uk/", "_blank")} />
               </div>
-              <div>
+              <div className={styles.footerAward}>
                 <Image
                   height={70}
                   width={70}
                   style={{ cursor: "pointer", marginTop: 20 }}
                   src={Gdc}
+                  
                   alt="Certified by the General Dental Council"
                   onClick={() =>
                     window.open("https://www.gdc-uk.org/", "_blank")

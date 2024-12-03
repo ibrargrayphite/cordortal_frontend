@@ -1,0 +1,39 @@
+/* Navigation Button Styling */
+.navigationButtonNext {
+  position: absolute;
+  z-index: 10;
+  color: var(--main-accent-dark);
+  right: 43%!important;
+  cursor: pointer;
+}
+.navigationButtonPrev {
+  position: absolute;
+  z-index: 10;
+  color: var(--main-accent-dark);
+  margin-right: 30px;
+  left: 50%!important;
+  cursor: pointer;
+}
+.ReviewNavigation{
+  position: relative;
+  justify-content: center;
+}
+
+.SlideParent {
+  margin-right: 2px;
+}
+
+.swiperContainer {
+  /* position: relative;  */
+  overflow: visible!important;
+}
+
+.reviewerParent {
+  display: flex;
+  justify-content: space-between;
+}
+.readMore{
+    display: flex;
+    justify-content: end;
+    margin-right: 2px;
+}

@@ -32,11 +32,15 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+
 }
 .customButton:hover {
   background-color: #ffffff;
   color: var(--main-accent-dark);
   transition: 0.3s;
+}
+.buttonIcon{
+  margin-left: 25px;
 }
 /* You can add additional media queries for responsiveness */
 @media (max-width: 768px) {
