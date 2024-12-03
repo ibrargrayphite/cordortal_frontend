@@ -7,7 +7,7 @@ export async function generateCustomMetadata(currentLocation, currentPage) {
   // console.log("🚀 ~ generateMetadata ~ currentSeo:", currentSeo);
 
   // Set fallback values
-  const fav = currentLocation?.favIcon?.src;
+  const fav = currentLocation?.favIcon;
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebPage",
