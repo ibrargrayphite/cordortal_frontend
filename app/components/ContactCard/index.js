@@ -5,6 +5,7 @@ import LocationIcon from '../../../public/assets/images/footer/location.png';
 import PhoneIcon from '../../../public/assets/images/footer/phone.png';
 import EmailIcon from '../../../public/assets/images/footer/emailIcon.png';
 import styles from './ContactCard.module.css';
+import defaultMedia from "../../../public/assets/images/solutions/implants.png";
 
 export default function ContactCard({ data }) {
   const router = useRouter();
@@ -12,7 +13,9 @@ export default function ContactCard({ data }) {
   return (
     <div className={styles.footerContactCard}>
       <Image
-        src={data.media || BrandLogo}
+        src={data.media && data.media?.startsWith('https') ? data.media : defaultMedia.src}
+        width={100}
+        height={100}
         alt="Best Dental Care Nearest To You"
         className={styles.brandLogo}
         onClick={() => router.push('/')}
@@ -23,7 +26,7 @@ export default function ContactCard({ data }) {
       <div className={styles.address}>
         <div style={{ display: 'flex', gap: 15 }}>
           <div>
-            <Image src={LocationIcon} alt={`You can reach us ${data.address}`} className={styles.cardIcons} />
+            <Image src={LocationIcon} alt={`You can reach us ${data.address}`}  width={100} height={100} className={styles.cardIcons} />
           </div>
           <div style={{ marginTop: 2 }}>
             <p className={styles.contactCardHeading}>Address</p>
@@ -36,7 +39,7 @@ export default function ContactCard({ data }) {
       <div className={styles.address}>
         <div style={{ display: 'flex', gap: 15 }}>
           <div>
-            <Image src={PhoneIcon} alt={`You can contact us on ${data.phone}`} className={styles.cardIcons} />
+            <Image src={PhoneIcon} alt={`You can contact us on ${data.phone}`}  width={100} height={100} className={styles.cardIcons} />
           </div>
           <div style={{ marginTop: 2 }}>
             <p className={styles.contactCardHeading}>Phone</p>
@@ -49,7 +52,7 @@ export default function ContactCard({ data }) {
       <div className={styles.address}>
         <div style={{ display: 'flex', gap: 15 }}>
           <div>
-            <Image src={EmailIcon} alt={`You can email us at ${data.email}`} className={styles.cardIcons} />
+            <Image src={EmailIcon} alt={`You can email us at ${data.email}`}  width={100} height={100} className={styles.cardIcons} />
           </div>
           <div style={{ marginTop: 2 }}>
             <p className={styles.contactCardHeading}>Email</p>

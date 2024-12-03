@@ -1,12 +1,15 @@
 import styles from "../Pricing.module.css";
 import { renderComponent } from "../../utils/renderComponent";
-import currentLocation from "../../data";
 import ScrollHandler from "../../components/ScrollHandler";
+import { fetchPagesData } from '../../utils/fetchPagesData'; // Adjust the path accordingly
+import { generateCustomMetadata } from "../../utils/metadataHelper";
 
 // Generates static paths for each service
 export async function generateStaticParams() {
   const pageName = "information";
-  const filteredLocations = filterByPage(currentLocation, pageName);
+  // Fetch dynamic data from the API
+  const data = await fetchPagesData();
+  const filteredLocations = filterByPage(data, pageName);
 
 
   // contentArray Logic to handle scrolling behavior for content sections based on slug presence:
@@ -49,71 +52,24 @@ export async function generateStaticParams() {
 // Set revalidation interval for ISR
 export const revalidate = 60; // Revalidate every 60 seconds
 
-// SEO configuration
-const SEO_CONFIG = currentLocation.SEO_CONFIG || {};
-const currentSeo = SEO_CONFIG['/information'];
-const fav = currentLocation?.favIcon.src
-
-
-// export async function generateMetadata() {
-//   return {
-//     title: currentSeo.title,
-//     description: currentSeo.description,
-//     keywords: currentSeo.keywords,
-//     image: "https://example.com/images/services.png", // Update with a relevant image
-//     url: currentSeo.canonical,
-//   };
-// }
-export async function generateMetadata() {
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": currentSeo?.title ?? 'need seo title',
-    "description": currentSeo?.description ?? "need seo description",
-    "url": currentSeo?.url ?? "need seo url",
-    "image": currentLocation?.media?.headerLogo ?? "https://example.com/images/fallback.png",
-  };
+// Generate dynamic metadata based on blog slug
+export async function generateMetadata({ params }) {
+  const { sectionScroll } = params;
+  const data = await fetchPagesData();
+  const currentPage = `/${sectionScroll}`;
+  const meta = await generateCustomMetadata(data, currentPage);
 
   return {
-    title: currentSeo?.title ?? 'need seo title',
-    description: currentSeo?.description ?? "need seo description",
-    keywords: currentSeo?.keywords ?? "need seo keywords",
-    viewport: "width=device-width, initial-scale=1",
-    robots: "index, follow",
-    openGraph: {
-      title: currentSeo?.title ?? 'need seo title',
-      description: currentSeo?.description ?? "need seo description",
-      url: currentSeo?.url ?? "need seo url",
-      type: "website",
-      images: [
-        {
-          url: currentLocation?.media?.headerLogo ?? "https://example.com/images/fallback.png",
-          width: 800,
-          height: 600,
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: currentSeo?.title ?? 'need seo title',
-      description: currentSeo?.description ?? "need seo description",
-      images: [currentLocation?.media?.headerLogo ?? "https://example.com/images/fallback.png"],
-    },
-    alternates: {
-      canonical: currentSeo?.canonical ?? "https://yourwebsite.com",
-      languages: {
-        "en": "https://yourwebsite.com/en/page",
-        "es": "https://yourwebsite.com/es/page",
-      },
-    },
-    verification: {
-      google: "your-google-site-verification-code",
-      bing: "your-bing-site-verification-code",
-    },
-    icons: {
-      icon: fav ?? "https://example.com/favicon.ico",
-    },
-    structuredData: JSON.stringify(structuredData),
+    title: meta.title,
+    description: meta.description,
+    keywords: meta.keywords,
+    robots: meta.robots,
+    openGraph: meta.openGraph,
+    twitter: meta.twitter,
+    alternates: meta.alternates,
+    verification: meta.verification,
+    icons: meta.icons,
+    structuredData: meta.structuredData,
   };
 }
 
@@ -121,7 +77,8 @@ const Pricing = async ({ params }) => {
   const { sectionScroll } = params;
 
   const pageName = "information";
-  const filteredLocations = filterByPage(currentLocation, pageName);
+  const data = await fetchPagesData();
+  const filteredLocations = filterByPage(data, pageName);
   const contentArray = filteredLocations.length > 0 ? filteredLocations[0].content : [];
 
   return (

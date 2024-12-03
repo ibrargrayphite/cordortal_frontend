@@ -6,6 +6,7 @@ import CustomButton from "../CustomButton";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import styles from "./CardRightImage.module.css";
 import { FaArrowRight } from "react-icons/fa";
+import defaultMedia from "../../../public/assets/images/solutions/implants.png";
 
 const CardRightImage = ({ description, media, headline }) => {
   const theme = useTheme();
@@ -29,8 +30,8 @@ const CardRightImage = ({ description, media, headline }) => {
           padding: 70,
           marginTop: 50,
           marginBottom: 50,
-          position: "relative", // Required for positioning
-          overflow: "visible", // Allow elements to overflow the card
+          position: "relative",
+          overflow: "visible",
           display: "flex",
           flexDirection: "row"
         }}
@@ -39,7 +40,7 @@ const CardRightImage = ({ description, media, headline }) => {
           {/* Left Section */}
           <Col md={7}>
             <div>
-              <h1 className={styles.headingTextPrimary}>{headline}</h1>
+              <h2 className={styles.headingTextPrimary}>{headline}</h2>
             </div>
             <p className={styles.descriptionContent}>{description}</p>
             <div className="d-flex gap-3 mt-4">
@@ -60,7 +61,7 @@ const CardRightImage = ({ description, media, headline }) => {
 
         {/* Right Section (Image) */}
         <div className={styles.imageOverlay}>
-          <img src={media.src} alt="Image" />
+          <img src={media && media?.startsWith('https') ? media : defaultMedia.src} alt="Image" />
         </div>
       </Card>
     </Container>

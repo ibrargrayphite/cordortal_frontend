@@ -1,23 +1,22 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation"; // Use useRouter from Next.js
+import { useRouter } from "next/navigation";
 import { Container, Nav, Navbar } from "react-bootstrap";
-// import Logo from "../../../public/assets/images/logo.png";
 import MenuIcon from "../../../../public/assets/images/navIcon.svg";
-// import menu from "../../../public/assets/images/navIcon.svg";
 import CrossIcon from "../../../../public/assets/images/cross.svg";
 import locationIcon from "../../../../public/assets/images/location.png";
 import styles from "./Navbar.module.css";
-import { useTheme } from '../../../context/ThemeContext'; // Import the useTheme hook
+import { useTheme } from '../../../context/ThemeContext';
+import defaultMedia from "../../../../public/assets/images/solutions/implants.png";
 
 const NavBar = ({media,src,name}) => {
-  const theme = useTheme(); // Access the theme colors
+  const theme = useTheme();
+  const router = useRouter();
+  const dropdownRef = useRef(null);
+  const currentPath = router.pathname;
 
   const [activeItem, setActiveItem] = useState("Home");
   const [expanded, setExpanded] = useState(false);
-  const router = useRouter(); // Use Next.js router
-  const dropdownRef = useRef(null);
-  const currentPath = router.pathname; // Get the current path from router
   const [locationDropdownVisible, setLocationDropdownVisible] = useState(false);
   
   const toggleDropdown = (e) => {
@@ -82,7 +81,7 @@ const NavBar = ({media,src,name}) => {
           style={{ cursor: "pointer" }}
           onClick={() => handleNavigation("/")}
         >
-          <img src={media.src} height={69} className={styles.logoMob} alt={`Best Dental Care${name}`} />
+          <img src={media && media?.startsWith('https') ? media : defaultMedia.src} height={69} className={styles.logoMob} alt={`Best Dental Care${name}`} />
         </Navbar.Brand>
         <div className={styles.locationMob}>
           <div

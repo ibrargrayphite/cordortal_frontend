@@ -5,6 +5,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import CustomButton from "../CustomButton";
 import { useTheme } from "../../context/ThemeContext";
 import { useRouter } from "next/navigation";
+import defaultMedia from "../../../public/assets/images/solutions/implants.png";
 
 const RightImageShadow = ({ headline, description, media }) => {
   const theme = useTheme();
@@ -19,7 +20,7 @@ const RightImageShadow = ({ headline, description, media }) => {
       <Row className="align-items-center g-0">
         {/* Left Section */}
         <Col xs={12} md={6} className="text-center text-md-start" style={{paddingLeft:"100px"}}>
-          <h1 className={styles.headline}>{headline}</h1>
+          <h2 className={styles.headline}>{headline}</h2>
           <p className={styles.description}>{description}</p>
           <CustomButton
             headline="Book Now"
@@ -32,7 +33,7 @@ const RightImageShadow = ({ headline, description, media }) => {
         <Col xs={12} md={6} className="d-flex justify-content-center">
           <div className={styles.imageWrapper}>
             <img
-              src={media.src}
+              src={media && media?.startsWith('https') ? media : defaultMedia.src}
               alt="Right Section"
               className="img-fluid"
             />

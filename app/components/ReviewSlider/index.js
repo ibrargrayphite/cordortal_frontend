@@ -15,6 +15,7 @@ import styles from "./ReviewSlider.module.css";
 import HeadingTopDiscription from "../HeadingTopDiscription";
 import invertedComma from "../../../public/assets/images/straightSmile/invertedComma.png";
 import { useTheme } from "../../context/ThemeContext";
+import defaultMedia from "../../../public/assets/images/solutions/implants.png";
 
 const ReviewSlider = ({ userReviews = [], headline, description }) => {
   const theme = useTheme();
@@ -108,7 +109,7 @@ const ReviewSlider = ({ userReviews = [], headline, description }) => {
                       <div className={styles.reviewerDetail}>
                         <div style={{ display: "flex" }}>
                           <img
-                            src={item.reviewerImage.src}
+                            src={item && item.reviewerImage?.startsWith('https') ? item.reviewerImage : defaultMedia.src}
                             alt="reviewwer"
                             className="w-12 h-12 rounded-full border-2 border-white bg-black"
                           />

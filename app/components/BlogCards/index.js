@@ -1,13 +1,13 @@
 "use client";
 import { Row, Col, Card, Container } from "react-bootstrap";
-import styles from "./BlogCards.module.css"; // Update with your actual styles file
-import { useRouter } from "next/navigation"; // Use Next.js router instead of react-router
+import styles from "./BlogCards.module.css";
+import { useRouter } from "next/navigation";
+import defaultMedia from "../../../public/assets/images/solutions/implants.png";
 
 const BlogCards = ({ blogs, posts, showPosts = false }) => {
-  const router = useRouter(); // Use the useNavigate hook for navigation
+  const router = useRouter();
 
   const handleNavigation = (slug) => {
-    // Concatenate the slug with the blogs path without extra slashes
     router.push(`/blogs${slug}`);
   };
 
@@ -25,7 +25,10 @@ const BlogCards = ({ blogs, posts, showPosts = false }) => {
                   style={{ border: "none", cursor: "pointer" }}
                   onClick={() => handleNavigation(blog.slug)}
                 >
-                  <Card.Img variant="top" src={blog.image.src} alt={blog.title} />
+                  <Card.Img variant="top" 
+                   src={blog.image && blog.image?.startsWith('https') ? blog.image : defaultMedia.src}
+                   alt={blog.title} 
+                   />
                   <div className={styles.dateContainer}>
                     <p className={styles.date}>{blog.date}</p>
                     <p className={styles.date}>by {blog.author}</p>

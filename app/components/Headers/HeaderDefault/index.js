@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useTheme } from "../../../context/ThemeContext";
 import styles from "./HeaderDefault.module.css";
 import { Container } from "react-bootstrap";
+import defaultMedia from "../../../../public/assets/images/solutions/implants.png";
 
 const HeaderDefault = ({ media, name, menuItems, button }) => {
   const theme = useTheme();
@@ -28,7 +29,7 @@ const HeaderDefault = ({ media, name, menuItems, button }) => {
         <div className={styles.logo}>
         <Link href="/">
           <img
-            src={media.src}
+            src={media && media?.startsWith('https') ? media : defaultMedia.src}
             alt={`Best Dental Care ${name}`}
             className="h-10"
           />

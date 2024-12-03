@@ -6742,45 +6742,22 @@ const Locations = [
         // short title line remove {for a Brighter Smile}
         title: 'Straight Smiles Dental | Quality Dental Treatments',
         description: 'Book your appointment today for the best dental treatments at Straight Smiles Dental',
-        canonical: 'https://clinicbuilder-next.netlify.app/about-us',
-        url: 'https://clinicbuilder-next.netlify.app',
+        canonical: 'https://straight-smiles.netlify.app/about-us',
+        url: 'https://straight-smiles.netlify.app',
         keywords: 'Straight Smiles dentist, dental care, family dentistry, Straight Smiles Dental, oral health, dental clinic,Whitening, Treatments ,Smile ,Dental ,Sedation ,Information ,Book Appointment',
       },
       '/about-us': {
         title: 'About Us - Straight Smiles Dental Team',
         description: 'Join us at Straight Smiles Dental, Prioritizing your comfort and smile with our dedicated team.',
-        canonical: 'https://clinicbuilder-next.netlify.app/team',
-        url: 'https://clinicbuilder-next.netlify.app/about-us',
+        canonical: 'https://straight-smiles.netlify.app/information',
+        url: 'https://straight-smiles.netlify.app/about-us',
         keywords: 'Straight Smiles Dental, dental team, dentist in town, modern dentistry, patient care',
       },
-      '/team': {
-        title: 'Our Team - Straight Smiles Dental',
-        description: 'Meet the skilled dentists at Straight Smiles Dental who ensure high-quality care.',
-        canonical: 'https://clinicbuilder-next.netlify.app/testimonials',
-        url: 'https://clinicbuilder-next.netlify.app/team',
-        keywords: 'dentist team, dental professionals,  dentists, dental care team',
-      },
-      '/testimonials': {
-        title: 'Customer Testimonials - Straight Smiles Dental',
-        description: 'Read genuine reviews from satisfied Straight Smiles Dental patients.',
-        canonical: 'https://clinicbuilder-next.netlify.app/services',
-        url: 'https://clinicbuilder-next.netlify.app/testimonials',
-        keywords: 'patient testimonials, dental reviews, satisfied patients, Straight Smiles Dental feedback',
-      },
-      // SERVICES
-      '/services': {
-        title: 'Our Treatments - Straight Smiles Dental',
-        description: 'Explore a wide range of dental treatments we offer at Straight Smiles Dental.',
-        canonical: 'https://clinicbuilder-next.netlify.app/services/implants',
-        url: 'https://clinicbuilder-next.netlify.app/services',
-        keywords: 'dental treatments, oral health services, Straight Smiles Dental, comprehensive dentistry,  services',
-      },
-      
       '/information': {
         title: 'Information Straight Smiles Dental',
         description: 'information for Straight Smiles Dental for all your dental inquiries or to schedule an appointment with our caring team.',
-        canonical: 'https://clinicbuilder-next.netlify.app/contact-us',
-        url: 'https://clinicbuilder-next.netlify.app',
+        canonical: 'https://straight-smiles.netlify.app/about-us',
+        url: 'https://straight-smiles.netlify.app',
         keywords: 'information dentist, information dental appointment, Straight Smiles Dental information,  dental clinic, dental inquiries',
       },
     }
@@ -9734,7 +9711,7 @@ const Locations = [
 
 // Get the domain from the environment variable
 const currentDomain = process.env.NEXT_PUBLIC_DOMAIN;
-console.log("🚀 ~ currentDomain:", currentDomain);
+// console.log("🚀 ~ currentDomain:", currentDomain);
 
 // Find the location that matches the current domain
 const currentLocation = Locations.find(
@@ -9747,6 +9724,7 @@ if (!currentLocation) {
     `No matching location found for domain: ${currentDomain}. Please set a valid DOMAIN environment variable.`
   );
 }
+
 
 // Export the current location
 export default currentLocation;

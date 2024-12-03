@@ -1,80 +1,32 @@
+"use client";
 import styles from "./Emergency.module.css";
 import { Container } from "react-bootstrap";
 import { renderComponent } from "../utils/renderComponent";
-import currentLocation from "../data";
-
-// SEO configuration
-const SEO_CONFIG = currentLocation.SEO_CONFIG || {};
-const currentSeo = SEO_CONFIG['/emergency'];
-const fav = currentLocation?.favIcon.src
-
-// export async function generateMetadata() {
-//   return {
-//     title: currentSeo.title,
-//     description: currentSeo.description,
-//     keywords: currentSeo.keywords,
-//     image: "https://example.com/images/emergency.png", // Update with a relevant image
-//     url: currentSeo.canonical,
-//   };
-// }
-export async function generateMetadata() {
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": currentSeo?.title ?? 'need seo title',
-    "description": currentSeo?.description ?? "need seo description",
-    "url": currentSeo?.url ?? "need seo url",
-    "image": currentLocation?.media?.headerLogo ?? "https://example.com/images/fallback.png",
-  };
-
-  return {
-    title: currentSeo?.title ?? 'need seo title',
-    description: currentSeo?.description ?? "need seo description",
-    keywords: currentSeo?.keywords ?? "need seo keywords",
-    viewport: "width=device-width, initial-scale=1",
-    robots: "index, follow",
-    openGraph: {
-      title: currentSeo?.title ?? 'need seo title',
-      description: currentSeo?.description ?? "need seo description",
-      url: currentSeo?.url ?? "need seo url",
-      type: "website",
-      images: [
-        {
-          url: currentLocation?.media?.headerLogo ?? "https://example.com/images/fallback.png",
-          width: 800,
-          height: 600,
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: currentSeo?.title ?? 'need seo title',
-      description: currentSeo?.description ?? "need seo description",
-      images: [currentLocation?.media?.headerLogo ?? "https://example.com/images/fallback.png"],
-    },
-    alternates: {
-      canonical: currentSeo?.canonical ?? "https://yourwebsite.com",
-      languages: {
-        "en": "https://yourwebsite.com/en/page",
-        "es": "https://yourwebsite.com/es/page",
-      },
-    },
-    verification: {
-      google: "your-google-site-verification-code",
-      bing: "your-bing-site-verification-code",
-    },
-    icons: {
-      icon: fav ?? "https://example.com/favicon.ico",
-    },
-    structuredData: JSON.stringify(structuredData),
-  };
-}
+import { usePages } from '../context/PagesContext';
+import { useEffect, useState } from 'react';
+import { generateCustomMetadata } from "../utils/metadataHelper";
 
 const Emergency = () => {
-  // Function to filter locations based on the page name
-  const filterByPage = (locationData, pageName) => {
-    const { pages } = locationData;
+  const [isClient, setIsClient] = useState(false);
+  const { pages } = usePages();
 
+  useEffect(() => {
+    setIsClient(true);
+
+    (async () => {
+      try {
+        await generateCustomMetadata(pages,'/emergency');
+      } catch (error) {
+        console.error("Error generating metadata:", error);
+      }
+    })();
+  }, [pages]);
+
+  if (!isClient) {
+    return null;
+  }
+
+  const filterByPage = (pages, pageName) => {
     if (!Array.isArray(pages)) {
       return [];
     }
@@ -83,29 +35,25 @@ const Emergency = () => {
       .filter((page) => page.pageName === pageName)
       .map((page) => ({
         ...page,
-        content: page.content || [], // Ensure content exists
+        content: page.content || [],
       }));
   };
 
-  const pageName = "emergency"; // Specify the page name to filter by
-  const filteredLocations = filterByPage(currentLocation, pageName);
+  const pageName = "emergency";
+  const filtered = filterByPage(pages.pages, pageName);
 
   return (
     <Container fluid="sm" className={styles.MarginTopDefault}>
-      {filteredLocations.length > 0 ? (
-        filteredLocations.map((page, pageIndex) => (
-          <div key={pageIndex}>
-            {page.content && page.content.length > 0 ? (
-              page.content.map((block, blockIndex) => (
-                <div key={blockIndex} id={block.scroll}>
-                  {renderComponent(block)}
-                </div>
-              ))
-            ) : (
-              <p>No content available for this section.</p>
-            )}
-          </div>
-        ))
+      {filtered.length > 0 ? (
+      filtered.map((page, pageIndex) => (
+        <div key={pageIndex}>
+          {page.content.map((block, blockIndex) => (
+            <div key={blockIndex} id={block.scroll}>
+              {renderComponent(block)}
+            </div>
+          ))}
+        </div>
+      ))
       ) : (
         <p>No locations found.</p>
       )}
