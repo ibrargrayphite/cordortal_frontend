@@ -151,13 +151,13 @@ const ReviewSlider = ({ userReviews = [], headline, description }) => {
               className={`${styles.ReviewNavigation} ReviewSlider`}
             >
               <div
-                className={`${styles.navigationButtonPrev} swiper-button-prev`}
+                className={`${styles.navigationButtonPrev} swiper-button-prev max-lg:ml-8 xs:ml-5 max-md:ml-6`}
                 style={{
                   pointerEvents: isDisabled ? "none" : "auto", // Disable prev button if at the start
                 }}
               />
               <div
-                className={`${styles.navigationButtonNext} swiper-button-next`}
+                className={`${styles.navigationButtonNext} swiper-button-next max-lg:mr-8 xs:mr-5 max-md:mr-6`}
                 style={{
                   pointerEvents: isDisabled ? "none" : "auto", // Disable next button if at the end
                 }}
