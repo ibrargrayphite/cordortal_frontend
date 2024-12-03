@@ -27,36 +27,42 @@ const landingPageOverlay = ({ description , media, headline,headlineLarge,title}
     <div
       style={{
         background: theme.mainAccentDark,
-        height: "100vh", 
+        minHeight: "100vh", 
+        paddingBottom: '6rem'
       }}
+      className="flex items-center"
     >
-      <Container className="p-0 d-flex align-items-center" style={{ height: "100%" }}>
-        <div className="flex w-100 justify-content-between">
+      <div className="container mx-auto" style={{ height: "100%" }}>
+        <div className="lg:flex w-full justify-content-between h-full items-center">
           {/* Left Section */}
-          <div className="w-1/2 p-4 d-flex flex-column justify-content-center">
+          <div className="lg:w-1/2 p-4 flex flex-col justify-center">
             <div >
               <h1 className={styles.headingTextPrimary}>{headline}
-              <span className={styles.bold}>{headlineLarge}</span>
+              <span className={`${styles.bold} `} >{headlineLarge}</span>
               </h1>
               <h2 className={styles.headingTextPrimary} >{title}</h2>
             </div>
             <p className={styles.descriptionContent}>{description}</p>
-            <div className="d-flex">
-            <CustomButton
-              headline="Book Now"
-              onClick={handlePrimaryAction}
-              className={styles.customButtonFirst}
-            />
-            <CustomButton
-              headline="Get Started"
-              onClick={() => handleSecondaryAction(src)}
-              className={styles.customButton}
-            />
+            <div className="flex flex-wrap max-md:items-center max-md:justify-center">
+              <div className="me-2 mb-2">
+                <CustomButton
+                  headline="Book Now"
+                  onClick={handlePrimaryAction}
+                  className={styles.customButton}
+                />
+              </div>
+              <div className="mb-2">
+                <CustomButton
+                  headline="Get Started"
+                  onClick={() => handleSecondaryAction(src)}
+                  className={styles.customButton}
+                />
+              </div>
             </div>
           </div>
 
           {/* Right Section (Image Cards) */}
-          <div className="w-1/2 d-flex ">
+          <div className="lg:w-1/2 flex xs:p-4 sm:p-4 lg:p-0">
             <div className="overflow-hidden rounded-md mr-4 w-full">
               <img
                 className="w-full h-70 object-cover rounded-md"
@@ -66,10 +72,9 @@ const landingPageOverlay = ({ description , media, headline,headlineLarge,title}
             </div>
             <div className=" rounded-md mr-4 w-full">
               <img
-                className="w-full h-100 object-cover rounded-md"
+                className="w-full h-full object-cover rounded-md"
                 src={media && media[1].url?.startsWith('https') ? media[1].url : defaultMedia.src}
                 alt={`${pages.name} professionals providing exceptional care`}
-
               />
             </div>
             <div className=" rounded-md mr-4 w-full d-flex items-end">
@@ -81,7 +86,7 @@ const landingPageOverlay = ({ description , media, headline,headlineLarge,title}
             </div>
           </div>
         </div>
-      </Container>
+      </div>
     </div>
   );
 };

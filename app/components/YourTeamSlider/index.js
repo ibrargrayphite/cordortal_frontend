@@ -38,8 +38,25 @@ const YourTeamSlider = ({ teamMembers = [], headline, description }) => {
             slidesPerView={4}
             spaceBetween={0}
             breakpoints={{
-              0: { slidesPerView: 1, spaceBetween: 0, direction: "vertical" },
+              0: { slidesPerView: 1, spaceBetween: 0
+                // , direction: "vertical" 
+              },
               760: {
+                slidesPerView: 2,
+                spaceBetween: 0,
+                direction: "horizontal",
+              },
+              992: {
+                slidesPerView: 3,
+                spaceBetween: 0,
+                direction: "horizontal",
+              },
+              992: {
+                slidesPerView: 3,
+                spaceBetween: 0,
+                direction: "horizontal",
+              },
+              1200: {
                 slidesPerView: 4,
                 spaceBetween: 0,
                 direction: "horizontal",
@@ -65,7 +82,7 @@ const YourTeamSlider = ({ teamMembers = [], headline, description }) => {
                     }
                   />
                 </div>
-                <Container style={{ marginBottom: 20, textAlign: "center" }}>
+                <Container style={{  textAlign: "center" }}>
                   <p className={styles.name}>
                     {member.teamMemberName || "N/A"}
                   </p>
