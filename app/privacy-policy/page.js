@@ -1,17 +1,22 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Documents.module.css";
 import { Col, Row, Container } from "react-bootstrap";
 import GetInTouch from "../components/GetInTouch";
 import getInTouch from "../../public/assets/images/getBackground.jpeg";
-import currentLocation from "../data"
+import { usePages } from '../context/PagesContext'; // Import the usePages hook
 
 const privacyPolicy = () => {
-  const location = currentLocation
-  const temp = 10;
+  const [isClient, setIsClient] = useState(false);
+  const { pages } = usePages();
+
   useEffect(() => {
-    window.scrollTo(0, 0);
+    setIsClient(true);
   }, []);
+
+  if (!isClient) {
+    return null;
+  }
   return (
     <div>
       <Container>
@@ -20,7 +25,7 @@ const privacyPolicy = () => {
           <Col />
           <Col lg={7} sm={12}>
             <p className={styles.text}>
-              Here at {location.name} we a wide varierty of treatments from private to
+              Here at {pages.name} we a wide varierty of treatments from private to
               NHS funded. Please see below an approx price of our treatments
               please contact for further infomation and bookings
             </p>
@@ -154,7 +159,7 @@ const privacyPolicy = () => {
         </div>
       </Container>
       <div className={styles.getTouchContainer}>
-        <GetInTouch headline={"Get in touch"} media={getInTouch} />
+        <GetInTouch headline={"Get in touch"} media={getInTouch.src} />
       </div>
     </div>
   );

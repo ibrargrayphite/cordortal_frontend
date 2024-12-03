@@ -1,21 +1,26 @@
 "use client";
 import { useState, useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { useRouter } from "next/navigation"; // Import Next.js router
+import { useRouter } from "next/navigation";
 import CustomButton from "../CustomButton";
 import styles from "./MediaOverlay.module.css";
+import defaultMedia from "../../../public/assets/video/oaklandslandingPageVideo.mp4"
+import defaultMedia2 from "../../../public/assets/images/home/oaklandsSkelton.png"
+
 
 const MediaOverlay = ({ media, media2, headline, description, style, src }) => {
+  const mediaSource = media && media?.startsWith('https') ? media : defaultMedia;
+  const mediaSource2 = media2 && media2?.startsWith('https') ? media2 : defaultMedia2;
   const [loading, setLoading] = useState(true);
   const [mediaError, setMediaError] = useState(false);
   const [mediaType, setMediaType] = useState("video");
 
-  const router = useRouter(); // Use Next.js router
+  const router = useRouter();
 
   
 
   const handlePrimaryAction = () => {
-    router.push("/services"); // Use Next.js router for navigation
+    router.push("/services");
   };
 
   const handleSecondaryAction = (src) => {
@@ -24,7 +29,7 @@ const MediaOverlay = ({ media, media2, headline, description, style, src }) => {
 
 
   useEffect(() => {
-    if (media) {
+    if (mediaSource) {
       // Only attempt autoplay after the video has loaded
       setLoading(false); // Video has finished loading
     }
@@ -38,7 +43,7 @@ const MediaOverlay = ({ media, media2, headline, description, style, src }) => {
             className={styles.mediaOverlayContainer}
             style={{
               ...style,
-              backgroundImage: loading ? `url(${media2?.src})` : "none", // Show the image while loading
+              backgroundImage: loading ? `url(${mediaSource2})` : "none", // Show the image while loading
               height: loading || mediaError ? "700px" : "auto",
             }}
           >
@@ -54,7 +59,7 @@ const MediaOverlay = ({ media, media2, headline, description, style, src }) => {
                 loop
                 style={{ display: loading ? "none" : "block" }}
               >
-                <source src={media} type="video/mp4" />
+                <source src={mediaSource} type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
             ) : (

@@ -1,6 +1,9 @@
 import { Container, Row, Col } from "react-bootstrap";
 import styles from "./SimpleImageGallery.module.css";
+import defaultMedia from "../../../public/assets/images/solutions/implants.png";
+
 const SimpleImageGallery = ({ media, noBgColor = true }) => {
+
   return (
     <Container fluid className={noBgColor ? styles.noBgColor : styles.bgColor}>
       <Container>
@@ -9,7 +12,7 @@ const SimpleImageGallery = ({ media, noBgColor = true }) => {
             media.map((service, index) => (
               <Col sm key={index}>
                 <img
-                  src={service.image.src}
+                  src={service.image && service.image?.startsWith('https') ? service.image : defaultMedia.src}
                   style={{ width: "100%", height: "auto" }}
                   alt="Dental services image gallery featuring happy patients"
                 />

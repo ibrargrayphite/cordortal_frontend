@@ -2,20 +2,20 @@
 import { Col, Container, Row } from "react-bootstrap";
 import styles from "./Footer.module.css";
 import ContactCard from "../../ContactCard";
-import { useRouter } from "next/navigation"; // Use Next.js router instead of react-router
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Cqc from "../../../../public/assets/images/footer/cqc.svg";
 import Nhs from "../../../../public/assets/images/footer/nhs.svg";
 import Gdc from "../../../../public/assets/images/footer/gdc.jpeg";
 import HoursOfOperation from "../../HoursOfOperations";
 import CustomButton from "../../CustomButton";
-import { useTheme } from "../../../context/ThemeContext"; // Import the useTheme hook
-import currentLocation from "../../../data";
+import { useTheme } from "../../../context/ThemeContext";
+import { usePages } from '../../../context/PagesContext';
 
 const Footer = ({ src, refersrc, title }) => {
-  const ContactCardData = currentLocation.data || {};
-  const theme = useTheme(); // Access the theme colors
-
+  const { pages } = usePages();
+  const ContactCardData = pages.data || {};
+  const theme = useTheme();
   const router = useRouter();
 
   const handleNavigation = (path, external = false) => {

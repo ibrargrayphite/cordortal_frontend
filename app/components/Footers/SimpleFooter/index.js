@@ -3,13 +3,9 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { useTheme } from "../../../context/ThemeContext";
-import footer1 from "../../../../public/assets/images/footer/footer1.png";
-import footer2 from "../../../../public/assets/images/footer/footer2.png";
-import footer3 from "../../../../public/assets/images/footer/footer3.png";
-import footer4 from "../../../../public/assets/images/footer/footer4.png";
-// import footer1 from '../../../../public/assets/images/footer/footer1.png'
 import styles from "./SimpleFooter.module.css";
 import Image from "next/image";
+import defaultMedia from "../../../../public/assets/images/solutions/implants.png";
 
 const SimpleFooter = ({ footerRights, data }) => {
   const theme = useTheme();
@@ -92,7 +88,7 @@ const SimpleFooter = ({ footerRights, data }) => {
             <Image
               style={{ cursor: "pointer",height:'70px',width: '70px'}}
               className="mx-8"
-              src={image.url}
+              src={image && image.url?.startsWith('https') ? image.url : defaultMedia.src} width={100} height={100}
               alt="Certified by the General Dental Council"
               onClick={() =>
                 window.open(image.link, "_blank")

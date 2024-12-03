@@ -6,6 +6,7 @@ import CustomButton from "../CustomButton";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import styles from "./CardRightImage.module.css";
 import { FaArrowRight } from "react-icons/fa";
+import defaultMedia from "../../../public/assets/images/solutions/implants.png";
 
 const CardRightImage = ({ description, media, headline }) => {
   const theme = useTheme();
@@ -38,7 +39,7 @@ const CardRightImage = ({ description, media, headline }) => {
           {/* Left Section */}
           <div className="md:w-7/12 xs:w-full">
             <div>
-              <h1 className={styles.headingTextPrimary}>{headline}</h1>
+              <h2 className={styles.headingTextPrimary}>{headline}</h2>
             </div>
             <p className={`${styles.descriptionContent} xs-md:w-full`} >{description}</p>
             <div className="md:flex xs:flex-col md:flex-row gap-3 mt-4">
@@ -63,7 +64,7 @@ const CardRightImage = ({ description, media, headline }) => {
 
         {/* Right Section (Image) */}
         <div className={`${styles.imageOverlay} lg:block lg:w-1/2 max-md:w-full`}>
-          <img src={media.src} alt="Image" />
+        <img src={media && media?.startsWith('https') ? media : defaultMedia.src} alt="Image" />
         </div>
       </div>
     </div>

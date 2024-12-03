@@ -1,5 +1,6 @@
 import { Container, Row, Col } from "react-bootstrap";
 import styles from "./YourTeam.module.css";
+import defaultMedia from "../../../public/assets/images/solutions/implants.png";
 
 const YourTeam = ({ teamMembers }) => {
   return (
@@ -9,7 +10,7 @@ const YourTeam = ({ teamMembers }) => {
           <Col key={member.id} xs={12} md={4} lg={4}>
             <div className={styles.teamImage}>
               <img
-                src={member.teamMemberImage.src}
+                src={member.teamMemberImage && member.teamMemberImage?.startsWith('https') ? member.teamMemberImage : defaultMedia.src}
                 className={styles.profileImage}
                 alt={`Dental hygienist ${member.teamMemberName} providing patient care`}              
                 />
