@@ -30,7 +30,7 @@
   }
   
   .count {
-    font-size: 2rem;
+    font-size: 2.3rem!important;
     font-weight: bold;
     color: var(--main-accent-dark);
     font-size: 50px;
@@ -39,10 +39,10 @@
   .name {
     margin-top: 10px;
     margin-left: 10px;
-    font-size: 1.2rem;
+    font-size: 0.9rem!important;
     color: var(--content-color);
     text-align: center;
-    width: 115px;
+    width: 121px;
     line-height: 1.1;
     font-size: 18px;
     text-align: start;

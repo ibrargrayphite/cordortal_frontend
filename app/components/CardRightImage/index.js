@@ -8,14 +8,13 @@ import styles from "./CardRightImage.module.css";
 import { FaArrowRight } from "react-icons/fa";
 import defaultMedia from "../../../public/assets/images/solutions/implants.png";
 
-const CardRightImage = ({ description, media, headline }) => {
+const CardRightImage = ({ description, media, headline,buttonName,buttonSrc }) => {
   const theme = useTheme();
   const router = useRouter();
 
   const handlePrimaryAction = () => {
     router.push("/services");
   };
-
   const handleSecondaryAction = (src) => {
     window.open(src, "_blank");
   };
@@ -52,8 +51,8 @@ const CardRightImage = ({ description, media, headline }) => {
               </div>
               <div className="d-flex justify-center xs:mt-4 md:mt-0 text-center">
                 <CustomButton
-                  headline="Book Now"
-                  onClick={() => handleSecondaryAction(media[0]?.url?.src)}
+                  headline={buttonName ? buttonName : "Book Now"}
+                  onClick={() => handleSecondaryAction(buttonSrc)}
                   className={styles.customButton}
                   icon={<FaArrowRight />}
                 />

@@ -7,12 +7,12 @@ import { useTheme } from "../../context/ThemeContext";
 import { useRouter } from "next/navigation";
 import defaultMedia from "../../../public/assets/images/solutions/implants.png";
 
-const RightImageShadow = ({ headline, description, media }) => {
+const RightImageShadow = ({ headline, description, media,buttonName,buttonSrc }) => {
   const theme = useTheme();
   const router = useRouter(); // Use Next.js router
 
-  const handlePrimaryAction = () => {
-    router.push("/services"); // Use Next.js router for navigation
+  const handlePrimaryAction = (src) => {
+    window.open(src, "_blank");
   };
 
   return (
@@ -24,8 +24,8 @@ const RightImageShadow = ({ headline, description, media }) => {
           <h2 className={styles.headline}>{headline}</h2>
           <p className={styles.description}>{description}</p>
           <CustomButton
-            headline="Book Now"
-            onClick={handlePrimaryAction}
+            headline={buttonName ? buttonName : "Book Now"}
+            onClick={() => handlePrimaryAction(buttonSrc)}
             className={styles.customButtonFirst}
           />
         </div>

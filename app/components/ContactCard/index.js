@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import BrandLogo from '../../../public/assets/images/footer/Oakland_Logo.png';
 import LocationIcon from '../../../public/assets/images/footer/location.png';
 import PhoneIcon from '../../../public/assets/images/footer/phone.png';
 import EmailIcon from '../../../public/assets/images/footer/emailIcon.png';

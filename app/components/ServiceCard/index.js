@@ -31,7 +31,7 @@ const ServiceCard = ({
               >
                 <div className={styles.solutionIcons}>
                   <img
-                    src={service.image && service.image?.startsWith('https') ? service.image : defaultMedia.src}
+                    src={service.media && service.media?.startsWith('https') ? service.media : defaultMedia.src}
                     height={116}
                     className={styles.imageSize}
                     alt={`${service.headline}`}

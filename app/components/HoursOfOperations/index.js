@@ -3,11 +3,11 @@ import { Container, Row, Col } from 'react-bootstrap';
 import styles from "./HoursOfOperation.module.css";
 
 const hoursData = [
-  { day: "Monday", time: "8:30 am - 6:00 pm" },
-  { day: "Tuesday", time: "8:30 am - 6:00 pm" },
-  { day: "Wednesday", time: "8:30 am - 6:00 pm" },
-  { day: "Thursday", time: "8:30 am - 4:30 pm" },
-  { day: "Friday", time: "8:30 am - 4:30 pm" },
+  { day: "Monday", time: "9:00 am - 5:00 pm" },
+  { day: "Tuesday", time: "9:00 am - 5:00 pm" },
+  { day: "Wednesday", time: "9:00 am- 5:00 pm" },
+  { day: "Thursday", time: "9:00 am - 5:00 pm" },
+  { day: "Friday", time: "9:00 am - 5:00 pm" },
 //   { day: "Saturday", time: "Closed" },
 //   { day: "Sunday", time: "Closed" },
 ];
@@ -28,7 +28,7 @@ const HoursOfOperation = () => {
       ))}
       <Row className="mt-3">
         <Col xs={12} className={styles.closed}>
-          <strong >Closed for lunch:</strong> 12:30 pm - 1:15 pm
+          <strong >Closed for lunch:</strong> 1:00 pm - 2:00 pm
         </Col>
       </Row>
     </Container>

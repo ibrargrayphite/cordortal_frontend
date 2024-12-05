@@ -10,13 +10,13 @@ import defaultMedia from "../../../public/assets/images/solutions/implants.png";
 
 import styles from "./landingPageOverlay.module.css";
 
-const landingPageOverlay = ({ description , media, headline,headlineLarge,title}) => {
+const landingPageOverlay = ({ description , media, headline,headlineLarge,title,buttonName,buttonSrc}) => {
   const theme = useTheme();
   const { pages } = usePages();
   const router = useRouter();
 
-  const handlePrimaryAction = () => {
-    router.push("/services");
+  const handlePrimaryAction = (src) => {
+    window.open(src, "_blank");
   };
 
   const handleSecondaryAction = (src) => {
@@ -46,8 +46,8 @@ const landingPageOverlay = ({ description , media, headline,headlineLarge,title}
             <div className="flex flex-wrap max-md:items-center max-md:justify-center">
               <div className="me-2 mb-2">
                 <CustomButton
-                  headline="Book Now"
-                  onClick={handlePrimaryAction}
+                  headline={buttonName}
+                  onClick={() => handlePrimaryAction(buttonSrc)}
                   className={styles.customButton}
                 />
               </div>
@@ -66,22 +66,8 @@ const landingPageOverlay = ({ description , media, headline,headlineLarge,title}
             <div className="overflow-hidden rounded-md mr-4 w-full">
               <img
                 className="w-full h-70 object-cover rounded-md"
-                src={media && media[0].url?.startsWith('https') ? media[0].url : defaultMedia.src}
+                src={media && media?.startsWith('https') ? media : defaultMedia.src}
                 alt={`${pages.name} equipment for advanced treatments`}
-              />
-            </div>
-            <div className=" rounded-md mr-4 w-full">
-              <img
-                className="w-full h-full object-cover rounded-md"
-                src={media && media[1].url?.startsWith('https') ? media[1].url : defaultMedia.src}
-                alt={`${pages.name} professionals providing exceptional care`}
-              />
-            </div>
-            <div className=" rounded-md mr-4 w-full d-flex items-end">
-              <img
-                className="w-full h-70 object-cover rounded-md"
-                src={media && media[2].url?.startsWith('https') ? media[2].url : defaultMedia.src}
-                alt={`${pages.name} High-quality dental cleaning tools for effective oral care`}
               />
             </div>
           </div>

@@ -4,7 +4,7 @@ import styles from "./html.module.css"
 
 const HtmlContent = ({ htmlContent }) => {
   return (
-    <Container>
+    <Container className='mt-5'>
     <div className={styles.content} dangerouslySetInnerHTML={{ __html: htmlContent }} />
     </Container>
   );
