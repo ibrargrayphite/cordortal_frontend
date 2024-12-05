@@ -79,6 +79,14 @@
     .swiper-button-prev {
       left: -35px; /* Adjust for small screens */
     }
+    .navigationButtonNext {
+      right: -10px !important; /* Move outside the slider */
+  
+    }
+    .navigationButtonPrev {
+      left: -10px !important; /* Move outside the slider */
+  
+    }
   }
   
   
