@@ -5,6 +5,7 @@ import { renderComponent } from "../utils/renderComponent";
 import { usePages } from '../context/PagesContext';
 import { useEffect, useState } from 'react';
 import { generateCustomMetadata } from "../utils/metadataHelper";
+import ScrollHandler from "../components/ScrollHandler";
 
 const Testimonials = () => {
   const [isClient, setIsClient] = useState(false);
@@ -45,6 +46,7 @@ const Testimonials = () => {
   return (
     <div className={styles.marginCustom}>
       <Container>
+      <ScrollHandler sectionScroll={null} scrollToCenter={true} />
       {filtered.length > 0 ? (
          filtered.map((page, pageIndex) => (
         <div key={pageIndex}>

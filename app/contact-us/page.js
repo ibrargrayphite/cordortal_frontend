@@ -6,6 +6,7 @@ import styles from "./Contact.module.css";
 import { renderComponent } from "../utils/renderComponent";
 import { usePages } from '../context/PagesContext';
 import { generateCustomMetadata } from "../utils/metadataHelper";
+import ScrollHandler from "../components/ScrollHandler";
 
 const ContactUs = () => {
   const [isClient, setIsClient] = useState(false);
@@ -45,6 +46,7 @@ const ContactUs = () => {
 
   return (
     <div className={styles.customMargin}>
+      <ScrollHandler sectionScroll={null} scrollToCenter={true} />
       {filtered.length > 0 ? (
         filtered.map((page, pageIndex) => (
           <div key={pageIndex}>

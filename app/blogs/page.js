@@ -4,6 +4,7 @@ import styles from "./Blogs.module.css";
 import { renderComponent } from "../utils/renderComponent";
 import { usePages } from '../context/PagesContext'; // Import the usePages hook
 import { generateCustomMetadata } from "../utils/metadataHelper";
+import ScrollHandler from "../components/ScrollHandler";
 
 
 const Blogs = () => {
@@ -43,6 +44,7 @@ const Blogs = () => {
 
   return (
     <div className={styles.customMargin}>
+      <ScrollHandler sectionScroll={null} scrollToCenter={true} />
       {filtered.map((page, pageIndex) => (
         <div key={pageIndex}>
           {page.content.map((block, blockIndex) => (

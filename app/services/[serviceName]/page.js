@@ -1,5 +1,6 @@
 import { fetchPagesData } from '../../utils/fetchPagesData'; // Adjust the path accordingly
 import styles from "./ServiceDetail.module.css";
+import ScrollHandler from "../../components/ScrollHandler";
 import { renderComponent } from "../../utils/renderComponent";
 import { generateCustomMetadata } from '../../utils/metadataHelper';
 
@@ -68,6 +69,7 @@ const ServiceDetail = async ({ params }) => {
 
   return (
     <div className={styles.customMargin}>
+      <ScrollHandler sectionScroll={null} scrollToCenter={true} />
       {specificService.content.map((block, blockIndex) => (
         <div key={blockIndex} id={block.scroll}>
           {renderComponent(block)}
