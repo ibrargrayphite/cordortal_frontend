@@ -5,6 +5,7 @@ import { renderComponent } from "../utils/renderComponent";
 import { usePages } from '../context/PagesContext'; // Import the usePages hook
 import { useEffect, useState } from 'react';
 import { generateCustomMetadata } from "../utils/metadataHelper";
+import ScrollHandler from "../components/ScrollHandler";
 
 const Pricing = () => {
 
@@ -45,6 +46,7 @@ const Pricing = () => {
 
   return (
     <div className={styles.customMargin}>
+      <ScrollHandler sectionScroll={null} scrollToCenter={true} />
       <Container fluid className="p-0">
       {filtered.length > 0 ? (
       filtered.map((page, pageIndex) => (

@@ -3,6 +3,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import HtmlContent from "../../components/HtmlContent";
 import { fetchPagesData } from "../../utils/fetchPagesData";
 import { generateCustomMetadata } from "../../utils/metadataHelper";
+import ScrollHandler from "../../components/ScrollHandler";
 
 // This function is responsible for generating static paths for each blog
 export async function generateStaticParams() {
@@ -67,6 +68,7 @@ const BlogDetail = async ({ params }) => {
 
   return (
     <Container>
+      <ScrollHandler sectionScroll={null} scrollToCenter={true} />
       <Row className={styles.customMargin}>
         <Col lg={8}>
           <HtmlContent htmlContent={specificBlog.htmlContent} />

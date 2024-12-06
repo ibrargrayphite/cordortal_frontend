@@ -5,6 +5,7 @@ import { Col, Row, Container } from "react-bootstrap";
 import GetInTouch from "../components/GetInTouch";
 import getInTouch from "../../public/assets/images/getBackground.jpeg";
 import { usePages } from '../context/PagesContext'; // Import the usePages hook
+import ScrollHandler from "../components/ScrollHandler";
 
 const privacyPolicy = () => {
   const [isClient, setIsClient] = useState(false);
@@ -20,6 +21,7 @@ const privacyPolicy = () => {
   return (
     <div>
       <Container>
+        <ScrollHandler sectionScroll={null} scrollToCenter={true} />
         <p className={styles.heading}>Privacy Policy</p>
         <Row>
           <Col />

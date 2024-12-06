@@ -4,6 +4,7 @@ import { renderComponent } from "../utils/renderComponent";
 import { usePages } from '../context/PagesContext'; // Import the usePages hook
 import { useEffect, useState } from 'react';
 import { generateCustomMetadata } from "../utils/metadataHelper";
+import ScrollHandler from "../components/ScrollHandler";
 
 const AboutUs = () => {
   const [isClient, setIsClient] = useState(false);
@@ -43,6 +44,7 @@ const AboutUs = () => {
 
   return (
     <div className={styles.trustedContainer}>
+    <ScrollHandler sectionScroll={null} scrollToCenter={true} />
     {filtered.length > 0 ? (
       filtered.map((page, pageIndex) => (
         <div key={pageIndex}>
