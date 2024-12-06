@@ -12,7 +12,7 @@ import CustomButton from "../../CustomButton";
 import { useTheme } from "../../../context/ThemeContext";
 import { usePages } from '../../../context/PagesContext';
 
-const Footer = ({ src, refersrc, title }) => {
+const Footer = ({ src, refersrc, title,data }) => {
   const { pages } = usePages();
   const ContactCardData = pages.data || {};
   const theme = useTheme();
@@ -61,7 +61,7 @@ const Footer = ({ src, refersrc, title }) => {
           <Row>
             <Col lg={2} />
             <Col lg={4} sm={12}>
-              <HoursOfOperation />
+              <HoursOfOperation hoursData={data.hoursData} lunchTime={data.lunchTime}/>
             </Col>
             {/* for mobile view */}
             <Col
