@@ -91,3 +91,10 @@
 .ReviewSlider .swiper-button-prev.swiper-button-disabled {
   pointer-events: none;
 }
+
+#swip .swiper-button-prev {
+  left: 0px !important;
+}
+#swip .swiper-button-next {
+  right: 0px !important;
+}

@@ -265,6 +265,9 @@
   .mobileWelcome {
     display: block;
   }
+  .MarginTopDefault {
+    margin-top: 75px;
+  }
   .desktopWelcome {
     display: none;
   }
