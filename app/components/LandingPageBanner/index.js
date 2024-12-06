@@ -20,10 +20,10 @@ const LandingPageBanner = ({ description , media, headline,headlineLarge,title,b
   };
   
   return (
-        <div className="flex w-100 max-md:justify-center -mt-10 max-md:px-0" style={{background: theme.mainAccentDark,padding:"70px"}}>
+        <div className="flex w-100 max-md:justify-center -mt-10 max-md:px-0 p-[70px]" style={{background: theme.mainAccentDark}}>
           <Row className="justify-content-center">
              <Col md={6} sm={12} className="text-center">
-              <div className="p-4 ">
+              <div className="max-md:container md:p-4 ">
                 <div >
                   <h1 className={styles.headingTextPrimary}>{headline}
                   </h1>
