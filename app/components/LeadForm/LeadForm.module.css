@@ -24,7 +24,7 @@
     color: #878787;
     font-size: 25px;
     font-weight: 400;
-    line-height: 284%; /* 284% */
+    line-height: 284% !important; /* 284% */
     /* text-transform: capitalize; */
     padding: 10px; /* Add padding to match */
     box-shadow: none; /* Remove any default shadow */

@@ -166,7 +166,7 @@ const GetInTouch = ({headline,media}) => {
                   </Form.Group>
                 </Row>
                 <Form.Control
-                  className={styles.inputText}
+                  className={styles.textArea}
                   as="textarea"
                   placeholder="Type here"
                   value={message}

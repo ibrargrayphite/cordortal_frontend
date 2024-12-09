@@ -55,9 +55,11 @@
 }
 
 .inputText {
+  height: 60px!important;
+}
+.inputText,.textArea {
   border: none!important;
   border-radius: 10px!important;
-  height: 60px!important;
   background: #30989c!important; /* Input background color */
   color: rgba(255, 255, 255, 0.33)!important; /* Input text color */
   font-size: 20px!important;
@@ -65,11 +67,14 @@
   padding: 10px!important; /* Padding for better usability */
 }
 
-.inputText::placeholder {
+.inputText::placeholder,
+.textArea::placeholder
+ {
   color: rgba(255, 255, 255, 0.33)!important; /* Placeholder color */
 }
 
-.inputText:focus {
+.inputText:focus,
+.textArea:focus {
   background: #30989c; /* Input color on focus */
   color: rgba(255, 255, 255, 0.33); /* Text color on focus */
   border: none !important;

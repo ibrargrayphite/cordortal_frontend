@@ -38,6 +38,7 @@
 .contactCardHeading {
   font-weight: 300 !important;
   margin-bottom: 0px;
+  color: rgba(33, 37,41);
 }
 
 .contactCardEmail {
