@@ -8,6 +8,7 @@ import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
 import styles from "./YourTeamSlider.module.css";
 import HeadingTopDiscription from "../HeadingTopDiscription";
 import { useTheme } from "../../context/ThemeContext";
+import defaultMedia from "../../../public/assets/images/solutions/implants.png";
 
 const YourTeamSlider = ({ teamMembers = [], headline, description }) => {
   const theme = useTheme();
@@ -37,8 +38,25 @@ const YourTeamSlider = ({ teamMembers = [], headline, description }) => {
             slidesPerView={4}
             spaceBetween={0}
             breakpoints={{
-              0: { slidesPerView: 1, spaceBetween: 0, direction: "vertical" },
+              0: { slidesPerView: 1, spaceBetween: 0
+                // , direction: "vertical" 
+              },
               760: {
+                slidesPerView: 2,
+                spaceBetween: 0,
+                direction: "horizontal",
+              },
+              992: {
+                slidesPerView: 3,
+                spaceBetween: 0,
+                direction: "horizontal",
+              },
+              992: {
+                slidesPerView: 3,
+                spaceBetween: 0,
+                direction: "horizontal",
+              },
+              1200: {
                 slidesPerView: 4,
                 spaceBetween: 0,
                 direction: "horizontal",
@@ -49,13 +67,13 @@ const YourTeamSlider = ({ teamMembers = [], headline, description }) => {
               prevEl: ".swiper-button-prev",
             }}
             modules={[Navigation]}
-            className={styles.swiperContainer}
+            className={styles.swiperContainerTeam}
           >
             {teamMembers.map((member) => (
               <SwiperSlide key={member.id} className={styles.SlideParent}>
                 <div className={styles.teamImage} >
                   <img
-                    src={member.teamMemberImage?.src || "/default-profile.png"} // Fallback image
+                    src={member && member.teamMemberImage?.startsWith('https') ? member.teamMemberImage : defaultMedia.src}
                     className={styles.profileImage}
                     alt={
                       member.teamMemberName
@@ -64,7 +82,7 @@ const YourTeamSlider = ({ teamMembers = [], headline, description }) => {
                     }
                   />
                 </div>
-                <Container style={{ marginBottom: 20, textAlign: "center" }}>
+                <Container style={{  textAlign: "center" }}>
                   <p className={styles.name}>
                     {member.teamMemberName || "N/A"}
                   </p>

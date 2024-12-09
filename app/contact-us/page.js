@@ -4,45 +4,31 @@ import { useParams } from "next/navigation";
 import "react-toastify/dist/ReactToastify.css";
 import styles from "./Contact.module.css";
 import { renderComponent } from "../utils/renderComponent";
-import currentLocation from "../data";
+import { usePages } from '../context/PagesContext';
+import { generateCustomMetadata } from "../utils/metadataHelper";
+import ScrollHandler from "../components/ScrollHandler";
 
 const ContactUs = () => {
-  const { param } = useParams();
-  const [filteredLocations, setFilteredLocations] = useState([]);
+  const [isClient, setIsClient] = useState(false);
+  const { pages } = usePages(); // Use the pages data from context
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      window.scrollTo(0, 0); // Scroll to top on mount
-    }
-  }, []);
+    setIsClient(true);
 
-  const scrollToSection = (path) => {
-    const sectionIds = {
-      "/about-us/team": "aboutTeam",
-    };
-
-    const sectionId = sectionIds[path];
-    if (sectionId) {
-      const sectionElement = document.getElementById(sectionId);
-      if (sectionElement) {
-        sectionElement.scrollIntoView({ behavior: "smooth" });
+    (async () => {
+      try {
+        await generateCustomMetadata(pages,'/contact-us');
+      } catch (error) {
+        console.error("Error generating metadata:", error);
       }
-    }
-  };
+    })();
+  }, [pages]);
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const timer = setTimeout(() => {
-        scrollToSection(window.location.pathname); // Use window.location.pathname
-      }, 100);
+  if (!isClient) {
+    return null;
+  }
 
-      return () => clearTimeout(timer);
-    }
-  }, []);
-
-  const filterByPage = (locationData, pageName) => {
-    const { pages } = locationData;
-
+  const filterByPage = (pages, pageName) => {
     if (!Array.isArray(pages)) {
       return [];
     }
@@ -55,23 +41,25 @@ const ContactUs = () => {
       }));
   };
 
-  useEffect(() => {
-    const pageName = "contactus";
-    const filtered = filterByPage(currentLocation, pageName);
-    setFilteredLocations(filtered);
-  }, []);
+  const pageName = "contactus";
+  const filtered = filterByPage(pages.pages, pageName);
 
   return (
     <div className={styles.customMargin}>
-      {filteredLocations.map((page, pageIndex) => (
-        <div key={pageIndex}>
-          {page.content.map((block, blockIndex) => (
-            <div key={blockIndex} id={block.scroll}>
-              {renderComponent(block)}
-            </div>
-          ))}
-        </div>
-      ))}
+      <ScrollHandler sectionScroll={null} scrollToCenter={true} />
+      {filtered.length > 0 ? (
+        filtered.map((page, pageIndex) => (
+          <div key={pageIndex}>
+            {page.content.map((block, blockIndex) => (
+              <div key={blockIndex} id={block.scroll}>
+                {renderComponent(block)}
+              </div>
+            ))}
+          </div>
+        ))
+      ) : (
+        <p>No content available.</p>
+      )}
     </div>
   );
 };

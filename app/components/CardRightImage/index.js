@@ -6,64 +6,67 @@ import CustomButton from "../CustomButton";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import styles from "./CardRightImage.module.css";
 import { FaArrowRight } from "react-icons/fa";
+import defaultMedia from "../../../public/assets/images/solutions/implants.png";
 
-const CardRightImage = ({ description, media, headline }) => {
+const CardRightImage = ({ description, media, headline,buttonName,buttonSrc }) => {
   const theme = useTheme();
   const router = useRouter();
 
   const handlePrimaryAction = () => {
     router.push("/services");
   };
-
   const handleSecondaryAction = (src) => {
     window.open(src, "_blank");
   };
 
   return (
-    <Container>
-      <Card
+    <div className="container mx-auto">
+      <div
+      className="xs:p-4 sm:p-4 md:p-16 md:my-16 xs:my-2 sm:my-2 max-md:text-center justify-center items-center flex max-md:flex-col"
         style={{
           background: theme.mainAccentDark,
           color: theme.textPrimary,
           borderRadius: 25,
-          padding: 70,
-          marginTop: 50,
-          marginBottom: 50,
+          // padding: 70,
+          // marginTop: 50,
+          // marginBottom: 50,
           position: "relative", // Required for positioning
           overflow: "visible", // Allow elements to overflow the card
-          display: "flex",
-          flexDirection: "row"
         }}
       >
-        <Row className="align-items-center">
+        <div className="items-center flex flex-row max-md:mb-4">
           {/* Left Section */}
-          <Col md={7}>
+          <div className="md:w-7/12 xs:w-full">
             <div>
-              <h1 className={styles.headingTextPrimary}>{headline}</h1>
+              <h2 className={styles.headingTextPrimary}>{headline}</h2>
             </div>
-            <p className={styles.descriptionContent}>{description}</p>
-            <div className="d-flex gap-3 mt-4">
+            <p className={`${styles.descriptionContent} xs-md:w-full`} >{description}</p>
+            <div className="md:flex xs:flex-col md:flex-row gap-3 mt-4">
+              <div className="text-center md:mr-4">
               <CustomButton
                 headline="Schedule"
                 onClick={handlePrimaryAction}
                 className={styles.customButtonFirst}
               />
-              <CustomButton
-                headline="Book Now"
-                onClick={() => handleSecondaryAction(media[0]?.url?.src)}
-                className={styles.customButton}
-                icon={<FaArrowRight />}
-              />
+              </div>
+              <div className="d-flex justify-center xs:mt-4 md:mt-0 text-center">
+                <CustomButton
+                  headline={buttonName ? buttonName : "Book Now"}
+                  onClick={() => handleSecondaryAction(buttonSrc)}
+                  className={styles.customButton}
+                  icon={<FaArrowRight />}
+                />
+              </div>
             </div>
-          </Col>
-        </Row>
+          </div>
+        </div>
 
         {/* Right Section (Image) */}
-        <div className={styles.imageOverlay}>
-          <img src={media.src} alt="Image" />
+        <div className={`${styles.imageOverlay} lg:block lg:w-1/2 max-md:w-full`}>
+        <img src={media && media?.startsWith('https') ? media : defaultMedia.src} alt="Image" />
         </div>
-      </Card>
-    </Container>
+      </div>
+    </div>
   );
 };
 

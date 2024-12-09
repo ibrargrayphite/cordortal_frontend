@@ -22,6 +22,7 @@ import {
   MdOutlineMedicalServices,
   MdOutlinePublic,
 } from "react-icons/md";
+import defaultMedia from "../../../public/assets/images/solutions/implants.png";
 
 const RightBigImage = ({ headline, description, media, data }) => {
   const theme = useTheme();
@@ -42,7 +43,7 @@ const RightBigImage = ({ headline, description, media, data }) => {
           <Container className="mt-10 mb-5 flex items-center">
             <div className=" px-3 ">
               <p className={styles.description}>{description}</p>
-              <h1 className={styles.headline}>{headline}</h1>
+              <h2 className={styles.headline}>{headline}</h2>
               <div className={styles.BulletParent}>
                 <Row>
                   {data.map((item, index) => (
@@ -59,9 +60,9 @@ const RightBigImage = ({ headline, description, media, data }) => {
                         {item.icon === "MdOutlineAccessTime" && <MdOutlineAccessTime />}
                         {item.icon === "MdOutlineMedicalServices" && <MdOutlineMedicalServices />}
                       </div>
-                      <h1 className="mt-4 text-lg font-semibold">
+                      <h3 className="mt-4 text-lg font-semibold">
                         {item.headline}
-                      </h1>
+                      </h3>
                       <p
                         style={{
                           color: theme.content,
@@ -98,7 +99,7 @@ const RightBigImage = ({ headline, description, media, data }) => {
         {/* Right Section: Image with shadow/reflection */}
         <Col xs={12} md={6} className="d-flex justify-content-center">
           <div className={styles.imageWrapper}>
-            <img src={media.src} alt="Right Section" className="img-fluid" />
+            <img src={media && media?.startsWith('https') ? media : defaultMedia.src} alt="Right Section" className="img-fluid" />
           </div>
         </Col>
       </Row>

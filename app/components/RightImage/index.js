@@ -5,6 +5,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import { useRouter } from "next/navigation";
 import CustomButton from "../CustomButton";
 import Image from "next/image";
+import defaultMedia from "../../../public/assets/images/solutions/implants.png";
 
 const RightImage = ({
   icon,
@@ -13,6 +14,9 @@ const RightImage = ({
   description,
   isIconButton = false,
 }) => {
+
+  const mediaSourceBefore = mediaBefore && mediaBefore?.startsWith('https') ? mediaBefore : defaultMedia.src;
+  const mediaSourceAfter = mediaAfter && mediaAfter?.startsWith('https') ? mediaAfter : defaultMedia.src;
   const router = useRouter();
   const handlePrimaryAction = () => {
     router.push("/contact-us");
@@ -54,12 +58,12 @@ const RightImage = ({
           <Col md={6} xs={12}>
             <div className={styles.heartContainer}>
               <div className={styles.leftSide}>
-                <div className={styles.halfHeart1}> <Image src={mediaBefore} alt="mediaBefore"/></div>
+                <div className={styles.halfHeart1}> <Image src={mediaSourceBefore} width={100} height={100} alt="mediaBefore"/></div>
                 <div className={styles.halfHeart2}></div>
               </div>
               <div className={styles.rightSide}>
                 <div className={styles.halfHeart3}></div>
-                <div className={styles.halfHeart4}><Image src={mediaAfter} alt="mediaAfter"/></div>
+                <div className={styles.halfHeart4}><Image src={mediaSourceAfter} width={100} height={100} alt="mediaAfter"/></div>
               </div>
             </div>
             </Col>

@@ -5,34 +5,37 @@ import { Container, Row, Col } from "react-bootstrap";
 import CustomButton from "../CustomButton";
 import { useTheme } from "../../context/ThemeContext";
 import { useRouter } from "next/navigation";
+import defaultMedia from "../../../public/assets/images/solutions/implants.png";
 
-const RightImageShadow = ({ headline, description, media }) => {
+const RightImageShadow = ({ headline, description, media,buttonName,buttonSrc }) => {
   const theme = useTheme();
   const router = useRouter(); // Use Next.js router
 
-  const handlePrimaryAction = () => {
-    router.push("/services"); // Use Next.js router for navigation
+  const handlePrimaryAction = (src) => {
+    window.open(src, "_blank");
   };
 
   return (
     <Container className="py-5">
-      <Row className="align-items-center g-0">
+      <Row className="items-center justify-center g-0">
         {/* Left Section */}
-        <Col xs={12} md={6} className="text-center text-md-start" style={{paddingLeft:"100px"}}>
-          <h1 className={styles.headline}>{headline}</h1>
+        <Col xs={12} md={6} className="text-center text-md-start">
+        <div className="lg:pl-20 md:p-0 lg:pr-8">
+          <h2 className={styles.headline}>{headline}</h2>
           <p className={styles.description}>{description}</p>
           <CustomButton
-            headline="Book Now"
-            onClick={handlePrimaryAction}
+            headline={buttonName ? buttonName : "Book Now"}
+            onClick={() => handlePrimaryAction(buttonSrc)}
             className={styles.customButtonFirst}
           />
+        </div>
         </Col>
 
         {/* Right Section: Image with shadow/reflection */}
-        <Col xs={12} md={6} className="d-flex justify-content-center">
+        <Col xs={9} md={6} className="d-flex justify-content-center">
           <div className={styles.imageWrapper}>
             <img
-              src={media.src}
+              src={media && media?.startsWith('https') ? media : defaultMedia.src}
               alt="Right Section"
               className="img-fluid"
             />

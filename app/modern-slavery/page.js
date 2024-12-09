@@ -1,24 +1,35 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./ModernSlavery.module.css";
 import { Col, Container, Row } from "react-bootstrap";
 import GetInTouch from "../components/GetInTouch";
 import getInTouch from "../../public/assets/images/getBackground.jpeg";
+import { usePages } from '../context/PagesContext'; // Import the usePages hook
+import ScrollHandler from "../components/ScrollHandler";
 
 const ModernSlavery = () => {
-  const temp = 9;
+  const [isClient, setIsClient] = useState(false);
+  const { pages } = usePages();
+
   useEffect(() => {
-    window.scrollTo(0, 0);
+    setIsClient(true);
   }, []);
+
+  if (!isClient) {
+    return null;
+  }
+
+
   return (
     <div>
       <Container>
+        <ScrollHandler sectionScroll={null} scrollToCenter={true} />
         <p className={styles.heading}>Anti Slavery Policy</p>
         <Row>
           <Col />
           <Col lg={7} sm={12}>
             <p className={styles.text}>
-              Here at Oaklands we a wide varierty of treatments from private to
+              Here at {pages?.title} we a wide varierty of treatments from private to
               NHS funded. Please see below an approx price of our treatments
               please contact for further infomation and bookings
             </p>
@@ -152,7 +163,7 @@ const ModernSlavery = () => {
         </div>
       </Container>
       <div className={styles.getTouchContainer}>
-        <GetInTouch headline={"Get in touch"} media={getInTouch}/>
+        <GetInTouch headline={"Get in touch"} media={getInTouch.src}/>
       </div>
     </div>
   );

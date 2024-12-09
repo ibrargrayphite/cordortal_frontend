@@ -5,8 +5,10 @@ import { Col, Container, Form, Row } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styles from "./GetInTouch.module.css";
+import defaultMedia from "../../../public/assets/images/getBackground.jpeg";
 
 const GetInTouch = ({headline,media}) => {
+  const mediaSource = media && media?.startsWith('https') ? media : defaultMedia?.src;
   // Form state variables
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -109,7 +111,7 @@ const GetInTouch = ({headline,media}) => {
           <Col xs={12} md={8} className={styles.imageCol}>
             <img
               className={styles.backgroundImage}
-              src={media.src}
+              src={mediaSource}
               alt="Get Background"
             />
             <div className={styles.formOverlay}>

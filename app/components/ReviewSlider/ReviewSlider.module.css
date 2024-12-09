@@ -3,7 +3,7 @@
   position: absolute;
   z-index: 10;
   color: var(--main-accent-dark);
-  right: 43%!important;
+  /* right: 46% !important; */
   cursor: pointer;
 }
 .navigationButtonPrev {
@@ -11,12 +11,15 @@
   z-index: 10;
   color: var(--main-accent-dark);
   margin-right: 30px;
-  left: 50%!important;
+  /* left: 46% !important; */
   cursor: pointer;
 }
 .ReviewNavigation{
   position: relative;
   justify-content: center;
+  width: 130px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .SlideParent {
@@ -36,4 +39,19 @@
     display: flex;
     justify-content: end;
     margin-right: 2px;
+}
+@media (min-width: 375px) and (max-width: 575px) {
+  .description {
+    font-size: 14px;
+    margin: 0;
+  }
+  .name {
+    font-size: 16px;
+  }
+  .designation,.readMore {
+    font-size: 14px;
+  }
+  .commaSvg {
+    width: 12px;
+  }
 }

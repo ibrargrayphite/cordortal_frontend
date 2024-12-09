@@ -21,7 +21,7 @@ const BillingCardOffer = ({ data }) => {
               background: index === 1 ? theme.mainAccentDark : "",
             }}
           >
-            <h1 class="text-lg font-bold">{offer.name}</h1>
+            <h2 class="text-lg font-bold">{offer.name}</h2>
             <h3>{offer.price}</h3>
             <p style={{ color: theme.content }}>{offer.duration}</p>
             <ul>

@@ -4,7 +4,7 @@
   margin-right: 87px; */
 }
 .MarginTopDefault {
-  margin-top: 90px;
+  margin-top: 80px;
 }
 .mobileWelcome {
   display: none;
@@ -259,11 +259,14 @@
 }
 
 @media only screen and (max-width: 767px) {
-  .MarginTopDefault {
+  /* .MarginTopDefault {
     margin-top: 75px;
-  }
+  } */
   .mobileWelcome {
     display: block;
+  }
+  .MarginTopDefault {
+    margin-top: 75px;
   }
   .desktopWelcome {
     display: none;

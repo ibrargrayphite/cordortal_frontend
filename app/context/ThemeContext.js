@@ -1,12 +1,12 @@
 "use client";
 import React, { createContext, useContext, useEffect } from 'react';
-import currentLocation from "../data"
+import { usePages } from './PagesContext';
 
 const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-
-  const theme = currentLocation.colors || {}; 
+  const { pages } = usePages(); 
+  const theme = pages.colors || {}; 
 
   useEffect(() => {
     const root = document.documentElement; // Get the root element (:root)

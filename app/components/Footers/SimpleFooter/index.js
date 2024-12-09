@@ -3,13 +3,9 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { useTheme } from "../../../context/ThemeContext";
-import footer1 from "../../../../public/assets/images/footer/footer1.png";
-import footer2 from "../../../../public/assets/images/footer/footer2.png";
-import footer3 from "../../../../public/assets/images/footer/footer3.png";
-import footer4 from "../../../../public/assets/images/footer/footer4.png";
-// import footer1 from '../../../../public/assets/images/footer/footer1.png'
 import styles from "./SimpleFooter.module.css";
 import Image from "next/image";
+import defaultMedia from "../../../../public/assets/images/solutions/implants.png";
 
 const SimpleFooter = ({ footerRights, data }) => {
   const theme = useTheme();
@@ -26,19 +22,7 @@ const SimpleFooter = ({ footerRights, data }) => {
       >
         <Container>
           <Row>
-            {/* Services Section */}
-            <Col>
-              <h5 className={styles.sectionHeading}>
-                {data.sections.services.heading}
-              </h5>
-              <ul style={{ listStyleType: "none", padding: 0 }}>
-                {data.sections.services.items.map((service, index) => (
-                  <li key={index} className={styles.listItem}>
-                    {service}
-                  </li>
-                ))}
-              </ul>
-            </Col>
+            
 
             {/* Information Section */}
             <Col>
@@ -83,26 +67,26 @@ const SimpleFooter = ({ footerRights, data }) => {
                 <strong>Phone:</strong> {data.sections.aboutUs.contact.phone}
               </p>
             </Col>
+            <Col>
+  <div className="flex flex-wrap justify-center gap-4">
+    {data.media.map((image, index) => (
+      <div 
+        key={index} 
+        className="w-20 h-20 flex items-center justify-center  overflow-hidden cursor-pointer"
+        onClick={() => window.open(image.link, "_blank")}
+      >
+        <Image
+          src={image && image.url?.startsWith('https') ? image.url : defaultMedia.src}
+          alt="Certified by the General Dental Council"
+          width={70}
+          height={70}
+          className="object-cover"
+        />
+      </div>
+    ))}
+  </div>
+</Col>
           </Row>
-          {/* Affilation and dental council awards etc images section */}
-          {/* <Row className="items-end"> */}
-          <div className="flex justify-center" >
-          {data.media.map((image, index) => (
-            <div key={index} >
-            <Image
-              style={{ cursor: "pointer",height:'70px',width: '70px'}}
-              className="mx-8"
-              src={image.url}
-              alt="Certified by the General Dental Council"
-              onClick={() =>
-                window.open(image.link, "_blank")
-              }
-            />
-            </div>
-            ))}
-            </div>
-            
-          {/* </Row> */}
         </Container>
       </Container>
       <Row className="mt-4 text-center">

@@ -3,6 +3,7 @@ import Star from "../../../public/assets/images/testimonialStar.svg";
 import styles from "./UserReviews.module.css";
 import { Col, Row } from "react-bootstrap";
 import Image from 'next/image';
+import defaultMedia from "../../../public/assets/images/solutions/implants.png";
 
 
 const UserReviews = ({ userReviews }) => {
@@ -27,7 +28,7 @@ const UserReviews = ({ userReviews }) => {
             <p className={styles.desc}>{review.description}</p>
             <div className={styles.reviewStarparent}>
               <div>
-                <Image src={review.reviewerImage} width={50} height={50} alt="Learn more about our patients' experiences with our dental services" />
+                <Image src={review.reviewerImage && review.reviewerImage?.startsWith('https') ? review.reviewerImage : defaultMedia.src} width={50} height={50} alt="Learn more about our patients' experiences with our dental services" />
               </div>
               <div>
                 <p className={styles.name}>{review.reviewerName}</p>

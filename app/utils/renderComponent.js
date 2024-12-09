@@ -62,9 +62,10 @@ export const renderComponent = (block) => {
     refersrc:block.refersrc,
     // in footer underline clinic name
     title:block.title,
-    footerRights:block.footerRights
-
-
+    footerRights:block.footerRights,
+    // landingPageOverlay
+    buttonName:block.buttonName,
+    buttonSrc:block.buttonSrc,
   
   });
 };

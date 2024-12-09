@@ -1,113 +1,63 @@
+import { fetchPagesData } from '../../utils/fetchPagesData'; // Adjust the path accordingly
 import styles from "./ServiceDetail.module.css";
+import ScrollHandler from "../../components/ScrollHandler";
 import { renderComponent } from "../../utils/renderComponent";
-import currentLocation from "../../data";
+import { generateCustomMetadata } from '../../utils/metadataHelper';
 
 // Generates static paths for each service
 export async function generateStaticParams() {
   const pageName = "services";
-  const filteredLocations = filterByPage(currentLocation, pageName);
+  const data = await fetchPagesData();
+  const filteredLocations = filterByPage(data, pageName);
 
-  // Get content, filtering out items with missing component or service data
   const contentArray = filteredLocations.length > 0 ? filteredLocations[0].content : [];
   const serviceCardData = contentArray.find((block) => block.component === "ServiceCard");
   const allServices = serviceCardData?.services || [];
 
-  // If no services data is available, fallback to hardcoded services
   const finalServiceArray = allServices.length > 0 
     ? allServices 
     : [
         { slug: "service-1" },
         { slug: "service-2" },
         { slug: "service-3" },
-        // Add more hardcoded services here as needed
       ];
 
+  // Return all the services' slugs as params
   return finalServiceArray.map((service) => ({
     serviceName: service.slug,
   }));
 }
 
-
 // Set revalidation interval for ISR
 export const revalidate = 60; // Revalidate every 60 seconds
 
-// SEO configuration
-const SEO_CONFIG = currentLocation.SEO_CONFIG || {};
-// const currentSeo = SEO_CONFIG['/services'];
-
-// export async function generateMetadata({params}) {
-//   const { serviceName } = params;
-//   const currentSeo = SEO_CONFIG[`/${serviceName}`] || {};
-
-//   return {
-//     title: currentSeo.title,
-//     description: currentSeo.description,
-//     keywords: currentSeo.keywords,
-//     image: "https://example.com/images/services.png", // Update with a relevant image
-//     url: currentSeo.canonical,
-//   };
-// }
-export async function generateMetadata({params}) {
-    const { serviceName } = params;
-  const currentSeo = SEO_CONFIG[`/${serviceName}`] || {};
-  const fav = currentLocation?.favIcon.src
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": currentSeo?.title ?? 'need seo title',
-    "description": currentSeo?.description ?? "need seo description",
-    "url": currentSeo?.url ?? "need seo url",
-    "image": currentLocation?.media?.headerLogo ?? "https://example.com/images/fallback.png",
-  };
+// Generate dynamic metadata based on blog slug
+export async function generateMetadata({ params }) {
+  const { serviceName } = params;
+  const data = await fetchPagesData();
+  const currentPage = `/${serviceName}`;
+  const meta = await generateCustomMetadata(data, currentPage);
 
   return {
-    title: currentSeo?.title ?? 'need seo title',
-    description: currentSeo?.description ?? "need seo description",
-    keywords: currentSeo?.keywords ?? "need seo keywords",
-    viewport: "width=device-width, initial-scale=1",
-    robots: "index, follow",
-    openGraph: {
-      title: currentSeo?.title ?? 'need seo title',
-      description: currentSeo?.description ?? "need seo description",
-      url: currentSeo?.url ?? "need seo url",
-      type: "website",
-      images: [
-        {
-          url: currentLocation?.media?.headerLogo ?? "https://example.com/images/fallback.png",
-          width: 800,
-          height: 600,
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: currentSeo?.title ?? 'need seo title',
-      description: currentSeo?.description ?? "need seo description",
-      images: [currentLocation?.media?.headerLogo ?? "https://example.com/images/fallback.png"],
-    },
-    alternates: {
-      canonical: currentSeo?.canonical ?? "https://yourwebsite.com",
-      languages: {
-        "en": "https://yourwebsite.com/en/page",
-        "es": "https://yourwebsite.com/es/page",
-      },
-    },
-    verification: {
-      google: "your-google-site-verification-code",
-      bing: "your-bing-site-verification-code",
-    },
-    icons: {
-      icon: fav ?? "https://example.com/favicon.ico",
-    },
-    structuredData: JSON.stringify(structuredData),
+    title: meta.title,
+    description: meta.description,
+    keywords: meta.keywords,
+    robots: meta.robots,
+    openGraph: meta.openGraph,
+    twitter: meta.twitter,
+    alternates: meta.alternates,
+    verification: meta.verification,
+    icons: meta.icons,
+    structuredData: meta.structuredData,
   };
 }
 
 const ServiceDetail = async ({ params }) => {
   const { serviceName } = params;
-
+  // Fetch dynamic data from the API
+  const data = await fetchPagesData();
   const pageName = "services";
-  const filteredLocations = filterByPage(currentLocation, pageName);
+  const filteredLocations = filterByPage(data, pageName);
   const contentArray = filteredLocations.length > 0 ? filteredLocations[0].content : [];
   const serviceCardData = contentArray.find((block) => block.component === "ServiceCard");
   const allServices = serviceCardData?.services || [];
@@ -119,6 +69,7 @@ const ServiceDetail = async ({ params }) => {
 
   return (
     <div className={styles.customMargin}>
+      <ScrollHandler sectionScroll={null} scrollToCenter={true} />
       {specificService.content.map((block, blockIndex) => (
         <div key={blockIndex} id={block.scroll}>
           {renderComponent(block)}

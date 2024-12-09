@@ -6,7 +6,11 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",  // Include components if they are in a separate folder
   ],
   theme: {
-    extend: {},
+    extend: {
+      screens: {
+        'xs': '300px', // Add custom small screen size
+      },
+    },
   },
   plugins: [],
 };

@@ -3,6 +3,7 @@
 import { Container, Row, Col } from "react-bootstrap";
 import styles from "./ServiceCard.module.css"; // Assuming you have styles for your component
 import { useRouter } from "next/navigation";
+import defaultMedia from "../../../public/assets/images/solutions/implants.png";
 
 const ServiceCard = ({
   services,
@@ -30,7 +31,7 @@ const ServiceCard = ({
               >
                 <div className={styles.solutionIcons}>
                   <img
-                    src={service.image.src}
+                    src={service.media && service.media?.startsWith('https') ? service.media : defaultMedia.src}
                     height={116}
                     className={styles.imageSize}
                     alt={`${service.headline}`}
