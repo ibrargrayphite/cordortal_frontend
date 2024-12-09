@@ -42,6 +42,7 @@ const ReviewSlider = ({ userReviews = [], headline, description }) => {
     const swiper = swiperRef.current.swiper;
     swiper.on("slideChange", handleSlideChange);
 
+    swiper.update()
     return () => {
       swiper.off("slideChange", handleSlideChange);
     };
@@ -62,8 +63,10 @@ const ReviewSlider = ({ userReviews = [], headline, description }) => {
             centeredSlides={true} // Center the active slide
             initialSlide={0} // Set the default active slide to the 4th (index starts at 0)
             loop={true} // Enable infinite loop
+            observer={true}
+            observeParents={true}
             breakpoints={{
-              0: { slidesPerView: 1.5, spaceBetween: 10 }, // On smaller screens
+              0: { slidesPerView: 1, spaceBetween: 10 }, // On smaller screens
               760: {
                 slidesPerView: 3.5,
                 spaceBetween: 20,
@@ -96,11 +99,12 @@ const ReviewSlider = ({ userReviews = [], headline, description }) => {
                     }}
                   >
                     <img
+                      className={styles.commaSvg}
                       style={{ maxWidth: "23px" }}
                       src={invertedComma.src}
                       alt="Big Left"
                     />
-                    <p className="pt-2">
+                    <p className={`"pt-2 ${styles.description}`}>
                       {item.description.split(" ").slice(0, 20).join(" ")}
                       {item.description.split(" ").length > 20 && "..."}
                     </p>
@@ -114,8 +118,8 @@ const ReviewSlider = ({ userReviews = [], headline, description }) => {
                             className="w-12 h-12 rounded-full border-2 border-white bg-black"
                           />
                           <div style={{ textAlign: "left", marginLeft: "10px" }}>
-                            <h6>{item.reviewerName}</h6>
-                            <p>{item.desigination}</p>
+                            <h6 className={styles.name}>{item.reviewerName}</h6>
+                            <p className={styles.desigination}>{item.desigination}</p>
                           </div>
                         </div>
                       </div>
@@ -141,7 +145,7 @@ const ReviewSlider = ({ userReviews = [], headline, description }) => {
               );
             })}
           </Swiper>
-          {userReviews.length > 4 && (
+          {userReviews.length > 4  && (
             <div
               style={{
                 // textAlign: "center",
@@ -152,15 +156,15 @@ const ReviewSlider = ({ userReviews = [], headline, description }) => {
               className={`${styles.ReviewNavigation} ReviewSlider`}
             >
               <div
-                className={`${styles.navigationButtonPrev} swiper-button-prev max-xl:ml-10 max-xs:ml-5 max-md:ml-6`}
+                className={`${styles.navigationButtonPrev} swiper-button-prev`}
                 style={{
-                  pointerEvents: isDisabled ? "none" : "auto", // Disable prev button if at the start
+                  // pointerEvents: isDisabled ? "none" : "auto", // Disable prev button if at the start
                 }}
               />
               <div
-                className={`${styles.navigationButtonNext} swiper-button-next max-xl:mr-10 max-xs:mr-5 max-md:mr-6`}
+                className={`${styles.navigationButtonNext} swiper-button-next`}
                 style={{
-                  pointerEvents: isDisabled ? "none" : "auto", // Disable next button if at the end
+                  // pointerEvents: isDisabled ? "none" : "auto", // Disable next button if at the end
                 }}
               />
             </div>

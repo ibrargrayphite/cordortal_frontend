@@ -67,7 +67,7 @@ const YourTeamSlider = ({ teamMembers = [], headline, description }) => {
               prevEl: ".swiper-button-prev",
             }}
             modules={[Navigation]}
-            className={styles.swiperContainer}
+            className={styles.swiperContainerTeam}
           >
             {teamMembers.map((member) => (
               <SwiperSlide key={member.id} className={styles.SlideParent}>

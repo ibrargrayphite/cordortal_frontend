@@ -36,7 +36,7 @@
     /* max-width: 300px; */
   }
   
-  .swiperContainer {
+  .swiperContainerTeam {
     position: relative; /* Make sure the swiper container has relative positioning */
     width: 85%;
   }
@@ -44,17 +44,18 @@
   /* Navigation Button Styling */
   .navigationButtonNext {
     position: absolute;
-    /* top: 40%; */
+    top: 33% !important;
     z-index: 10;
-   color: var(--main-accent-dark);
+   color: var(--main-accent-dark) !important;
     right: 50px!important; /* Move outside the slider */
 
   }
+
   .navigationButtonPrev {
     position: absolute;
-    /* top: 40%; */
+    top: 33% !important;
     z-index: 10;
-    color: var(--main-accent-dark);
+    color: var(--main-accent-dark) !important;
     left: 50px!important; /* Move outside the slider */
 
   }
