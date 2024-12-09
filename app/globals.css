@@ -69,26 +69,26 @@
 }
 
 /* Add custom icons */
-.ReviewSlider .swiper-button-next {
+.ReviewSlider .swiper-button-next-review {
   background-image: url('/rightfill.svg');
   background-size: cover;
 }
 
-.ReviewSlider .swiper-button-prev {
+.ReviewSlider .swiper-button-prev-review {
   background-image: url('/leftfill.svg');
   background-size: cover;
 }
 
 /* Prevent color change when buttons are disabled */
-.ReviewSlider .swiper-button-next.swiper-button-disabled,
-.ReviewSlider .swiper-button-prev.swiper-button-disabled {
+.ReviewSlider .swiper-button-next-review.swiper-button-disabled,
+.ReviewSlider .swiper-button-prev-review.swiper-button-disabled {
   background-color: aliceblue !important; /* Retain the same background color */
   opacity: 1 !important; /* Keep the same opacity */
 }
 
 /* Optional: If you want to prevent pointer events when disabled */
-.ReviewSlider .swiper-button-next.swiper-button-disabled,
-.ReviewSlider .swiper-button-prev.swiper-button-disabled {
+.ReviewSlider .swiper-button-next-review.swiper-button-disabled,
+.ReviewSlider .swiper-button-prev-review.swiper-button-disabled {
   pointer-events: none;
 }
 
@@ -101,6 +101,7 @@
 @media (min-width: 320px) and (max-width: 400px) {
   .container {
     max-width: 350px;
+    margin: auto;
   }
 
 }

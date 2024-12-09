@@ -54,12 +54,13 @@ const ReviewSlider = ({ userReviews = [], headline, description }) => {
         paddingBottom: "40px",
       }}
     >
-      <Container>
+      {/* <Container> */}
+      {/* <div className="max-md:container"> */}
         <HeadingTopDiscription headline={headline} description={description} />
         <div className={styles.ReviewContainer}>
           <Swiper
             ref={swiperRef}
-            slidesPerView={3.6} // Show 3 full slides and part of the next
+            // slidesPerView={3.6} // Show 3 full slides and part of the next
             centeredSlides={true} // Center the active slide
             initialSlide={0} // Set the default active slide to the 4th (index starts at 0)
             loop={true} // Enable infinite loop
@@ -67,14 +68,26 @@ const ReviewSlider = ({ userReviews = [], headline, description }) => {
             observeParents={true}
             breakpoints={{
               0: { slidesPerView: 1, spaceBetween: 10 }, // On smaller screens
-              760: {
-                slidesPerView: 3.5,
+              500: {
+                slidesPerView: 2,
+                spaceBetween: 20,
+              },
+              1024: {
+                slidesPerView: 3,
+                spaceBetween: 20,
+              },
+              1200: {
+                slidesPerView: 4,
+                spaceBetween: 20,
+              },
+              1300: {
+                slidesPerView: 5,
                 spaceBetween: 20,
               },
             }}
             navigation={{
-              nextEl: ".swiper-button-next",
-              prevEl: ".swiper-button-prev",
+              nextEl: ".swiper-button-next-review",
+              prevEl: ".swiper-button-prev-review",
             }}
             modules={[Navigation]}
             className={styles.swiperContainer}
@@ -156,13 +169,13 @@ const ReviewSlider = ({ userReviews = [], headline, description }) => {
               className={`${styles.ReviewNavigation} ReviewSlider`}
             >
               <div
-                className={`${styles.navigationButtonPrev} swiper-button-prev`}
+                className={`${styles.navigationButtonPrev} swiper-button-prev-review`}
                 style={{
                   // pointerEvents: isDisabled ? "none" : "auto", // Disable prev button if at the start
                 }}
               />
               <div
-                className={`${styles.navigationButtonNext} swiper-button-next`}
+                className={`${styles.navigationButtonNext} swiper-button-next-review`}
                 style={{
                   // pointerEvents: isDisabled ? "none" : "auto", // Disable next button if at the end
                 }}
@@ -170,7 +183,8 @@ const ReviewSlider = ({ userReviews = [], headline, description }) => {
             </div>
           )}
         </div>
-      </Container>
+      {/* </div> */}
+      {/* </Container> */}
     </div>
   );
 };
