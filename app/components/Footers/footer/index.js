@@ -124,7 +124,7 @@ const Footer = ({ src, refersrc, title,data }) => {
           <Row>
             <Col lg={4} />
             <Col lg={4} sm={12} className={styles.hideOnMobile}>
-              <div className="xl:mt-0 sm:mt-0 lg:mt-40 max-xl:mt-40">
+              <div className={`max-lg:mt-0 max-xl:mt-40 ${styles.leftButton}`}>
                 <CustomButton
                   headline="Book an Appointment"
                   onClick={() => handleBooking(src)}

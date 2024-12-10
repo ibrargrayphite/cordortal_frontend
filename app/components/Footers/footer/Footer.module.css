@@ -66,6 +66,12 @@
   display: none;
 }
 
+@media (min-width: 1200px) and (max-width: 1399px) {
+  .leftButton {
+    text-align: left;
+  }
+}
+
 @media only screen and (max-width: 767px) {
   .footerAward{
     display: flex;
