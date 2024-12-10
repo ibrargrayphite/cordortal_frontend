@@ -55,9 +55,8 @@ export const revalidate = 60; // Revalidate every 60 seconds
 // Generate dynamic metadata based on blog slug
 export async function generateMetadata({ params }) {
   const { sectionScroll } = params;
-  const data = await fetchPagesData();
   const currentPage = `/${sectionScroll}`;
-  const meta = await generateCustomMetadata(data, currentPage);
+  const meta = await generateCustomMetadata(currentPage);
 
   return {
     title: meta.title,

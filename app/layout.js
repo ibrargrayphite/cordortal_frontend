@@ -23,8 +23,9 @@ const urbanist = Urbanist({
 });
 
 export default async function RootLayout({ children }) {
+  // Fetch data server-side
   const pagesData = await fetchPagesData();
-  const location = pagesData;
+  const location = pagesData || {};
   const shared = location.shared || {};
 
   // Determine the active font based on the location's fontFamily
@@ -32,7 +33,7 @@ export default async function RootLayout({ children }) {
 
   return (
     <html lang="en">
-      <PagesProvider pagesData={pagesData}> {/* Pass pagesData to PagesProvider */}
+      <PagesProvider pagesData={pagesData}> {/* Pass data to PagesProvider */}
         <ThemeProvider>
           <body
             style={{

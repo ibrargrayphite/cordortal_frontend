@@ -1,0 +1,228 @@
+.customMargin{
+  margin-top: 130px;
+  background-color: white;
+}
+.heading {
+  margin-top: 138px;
+  color: var(--headline-color);
+  text-align: center;
+  font-size: 70px;
+  font-weight: 700;
+  line-height: 128.571%; /* 128.571% */
+}
+.text {
+  margin-top: 10px;
+  color: var(--content-color);
+  text-align: center;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 177.778%; /* 177.778% */
+}
+.button {
+  margin-top: 10px;
+  height: 67px;
+  background-color: var(--main-accent-dark);
+  border: 1px solid var(--main-accent-dark);
+  transition: 0.3s;
+  padding: 0px 40px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  border-radius: 49px;
+}
+.button:hover {
+  background-color: #ffffff;
+  color: var(--main-accent-dark);
+}
+.heading2 {
+  margin-top: 147px;
+  color: var(--headline-color);
+  text-align: center;
+  font-size: 51px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 176.471%; /* 176.471% */
+}
+.card {
+  margin-top: 58px;
+  border: none;
+  border-radius: 30px;
+  background: #fff;
+  box-shadow: 0px 0px 20px 0px rgba(0, 40, 255, 0.1);
+}
+.cardHeading {
+  margin-top: 49px;
+  color: #000;
+  text-align: center;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+.cardPricing {
+  margin-top: 31px;
+  color: var(--main-accent-color);
+  text-align: center;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+.change {
+  margin-top: 9px;
+  color: #878787;
+  text-align: center;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 141.176%;
+}
+.cardDesc {
+  margin-top: 20px;
+  color: #000;
+  text-align: center;
+  font-family: "Josefin Sans";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 142.857% */
+}
+.cardButton {
+  padding: 24px 64px;
+  border-radius: 31px;
+  border: 1px solid var(--main-accent-dark);
+  background: var(--main-accent-dark);
+  box-shadow: 0px 0px 20px 0px rgba(0, 40, 255, 0.3);
+  transition: 0.3s;
+  color: #fff;
+  text-align: center;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+.cardButton:hover {
+  background-color: #ffffff;
+  color: var(--main-accent-dark);
+}
+.informationContainer {
+  margin-top: 50px;
+  background: rgba(95, 184, 188, 0.05);
+}
+/* ul li {
+  list-style-type: none;
+} */
+.listStyle {
+  color: var(--main-accent-color);
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 205%; /*  */
+  text-decoration: none;
+  cursor: pointer;
+}
+.listStyle:hover {
+  color: #001f75;
+}
+.financeDesc {
+  color: #000;
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 176.471%; /* 176.471% */
+}
+.getTouchContainer {
+  margin-top: 251px;
+}
+.tabeoContainer {
+  margin-top: 105px;
+}
+.routineButtonContainer {
+  text-align: center;
+  margin-top: 70px;
+  margin-bottom: 42px;
+}
+.cosmaticButtonContainer {
+  text-align: center;
+  margin-top: 122px;
+  margin-bottom: 40px;
+}
+.hygeinistButtonContainer {
+  text-align: center;
+  margin-top: 282px;
+  margin-bottom: 42px;
+}
+.implantsButtonContainer {
+  text-align: center;
+  margin-top: 204px;
+  margin-bottom: 42px;
+}
+.informationSubContainer {
+  padding-top: 1px;
+}
+@media only screen and (max-width: 767px) {
+  .customMargin{
+    margin-top: 90px;
+  }
+  .informationContainer {
+    margin-top: 100px;
+  }
+  .informationSubContainer {
+    padding-top: 10px;
+  }
+  .hygeinistButtonContainer {
+    margin-top: 35px;
+    margin-bottom: 35px;
+  }
+  .implantsButtonContainer {
+    margin-top: 35px;
+    margin-bottom: 35px;
+  }
+  .routineButtonContainer {
+    margin-top: 35px;
+    margin-bottom: 35px;
+  }
+  .cosmaticButtonContainer {
+    margin-top: 35px;
+    margin-bottom: 35px;
+  }
+  .tabeoContainer {
+    margin-top: 50px;
+  }
+  .financeDesc {
+    text-align: center;
+  }
+  .getTouchContainer {
+    margin-top: 125px;
+  }
+  .heading {
+    font-size: 50px;
+  }
+  .heading2 {
+    margin-top: 50px;
+  }
+  .solutionsHeading {
+    font-size: 30px;
+    padding-top: 5px;
+  }
+  .button {
+    margin-top: 21px;
+    font-size: 16px;
+    height: 45px;
+    padding: 0px 16px;
+  }
+  .cardButton {
+    margin-top: 21px;
+    font-size: 16px;
+    height: 45px;
+    padding: 0px 16px;
+  }
+  .listStyle {
+    text-align: center;
+  }
+}
+@media only screen and (max-width: 1500px) and (min-width: 1300px) {
+  .cosmaticButtonContainer {
+    margin-top: 98px;
+  }
+}

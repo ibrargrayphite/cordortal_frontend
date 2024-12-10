@@ -33,9 +33,8 @@ export const revalidate = 60;
 // Generate dynamic metadata based on blog slug
 export async function generateMetadata({ params }) {
   const { blogName } = params; // Extract the blogName parameter directly from params
-  const data = await fetchPagesData();
   const currentPage = `/${blogName}`;
-  const meta = await generateCustomMetadata(data, currentPage);
+  const meta = await generateCustomMetadata(currentPage);
 
   return {
     title: meta.title,

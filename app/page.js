@@ -1,15 +1,10 @@
-import { renderComponent } from "./utils/renderComponent";
-import styles from "./Home.module.css";
-import { fetchPagesData } from "./utils/fetchPagesData";
 import { generateCustomMetadata } from "./utils/metadataHelper";
-import ScrollHandler from "./components/ScrollHandler";
+import Home from "./components/HomePage"; // Import the client-side component
 
-// Generate metadata
 export async function generateMetadata() {
-  // Fetch data once and use it for metadata
-  const data = await fetchPagesData();
+  // Fetch data for metadata generation
   const currentPage = '/';
-  const meta = await generateCustomMetadata(data, currentPage);
+  const meta = await generateCustomMetadata(currentPage);
 
   return {
     title: meta.title,
@@ -25,39 +20,7 @@ export async function generateMetadata() {
   };
 }
 
-// Home component
-const Home = async () => {
-  // Fetch data once and reuse it for content and metadata
-  const data = await fetchPagesData();
-  
-  // Filter pages by pageName
-  const filterByPage = (pages, pageName) => 
-    Array.isArray(pages) ? 
-    pages.filter(page => page.pageName === pageName).map(page => ({
-      ...page,
-      content: page.content || [],
-    })) : [];
-
-  const filtered = filterByPage(data.pages, "Homepage");
-
-  return (
-    <div className={styles.MarginTopDefault}>
-      <ScrollHandler sectionScroll={null} scrollToCenter={true} />
-      {filtered.length > 0 ? (
-        filtered.map((page, pageIndex) => (
-          <div key={pageIndex}>
-            {page.content.map((block, blockIndex) => (
-              <div key={blockIndex} id={block.scroll}>
-                {renderComponent(block)}
-              </div>
-            ))}
-          </div>
-        ))
-      ) : (
-        <p>No content available.</p>
-      )}
-    </div>
-  );
-};
-
-export default Home;
+// Export the Home component as the default export
+export default function Page() {
+  return <Home />;
+}

@@ -1,35 +1,45 @@
+export async function generateCustomMetadata(currentPage) {
+  const currentDomain = process.env.NEXT_PUBLIC_DOMAIN || "default-domain.com";
+  let currentLocation = null;
 
-// for server side meta as we use in blogs , information and services
-export async function generateCustomMetadata(currentLocation, currentPage) {
+  try {
+    const response = await fetch(
+      `http://18.224.190.123/template/seo/?domain=${currentDomain}`
+    );
+    currentLocation = await response.json();
+  } catch (error) {
+    console.error("Error fetching SEO data:", error);
+  }
 
   const SEO_CONFIG = currentLocation?.seo_config || {};
-  const currentSeo = SEO_CONFIG[currentPage];
+  const currentSeo = SEO_CONFIG[currentPage] || {};
 
-  // Set fallback values
-  const fav = currentLocation?.favIcon;
+  // Fallback values
+  const favIcon = currentLocation?.fav_icon || "https://example.com/favicon.ico";
+  const media = currentLocation?.media || "https://example.com/images/fallback.png";
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": currentSeo?.title ?? "Default SEO Title",
-    "description": currentSeo?.description ?? "Default SEO Description",
-    "url": currentSeo?.url ?? "https://example.com",
-    "image": currentLocation?.media?.headerLogo ?? "https://example.com/images/fallback.png",
+    name: currentSeo?.title || "Default SEO Title",
+    description: currentSeo?.description || "Default SEO Description",
+    url: currentSeo?.url || "https://example.com",
+    image: media,
   };
 
   const meta = {
-    title: currentSeo?.title ?? "Default Title",
-    description: currentSeo?.description ?? "Default Description",
-    keywords: currentSeo?.keywords ?? "Default Keywords",
+    title: currentSeo?.title || "Default Title",
+    description: currentSeo?.description || "Default Description",
+    keywords: currentSeo?.keywords || "Default Keywords",
     viewport: "width=device-width, initial-scale=1",
     robots: "index, follow",
     openGraph: {
-      title: currentSeo?.title ?? "Default Title",
-      description: currentSeo?.description ?? "Default Description",
-      url: currentSeo?.url ?? "https://example.com",
+      title: currentSeo?.title || "Default Title",
+      description: currentSeo?.description || "Default Description",
+      url: currentSeo?.url || "https://example.com",
       type: "website",
       images: [
         {
-          url: currentLocation?.media?.headerLogo ?? "https://example.com/images/fallback.png",
+          url: media,
           width: 800,
           height: 600,
         },
@@ -37,12 +47,12 @@ export async function generateCustomMetadata(currentLocation, currentPage) {
     },
     twitter: {
       card: "summary_large_image",
-      title: currentSeo?.title ?? "Default Title",
-      description: currentSeo?.description ?? "Default Description",
-      images: [currentLocation?.media?.headerLogo ?? "https://example.com/images/fallback.png"],
+      title: currentSeo?.title || "Default Title",
+      description: currentSeo?.description || "Default Description",
+      images: [media],
     },
     alternates: {
-      canonical: currentSeo?.canonical ?? "https://example.com",
+      canonical: currentSeo?.canonical || "https://example.com",
       languages: {
         en: "https://example.com/en/page",
         es: "https://example.com/es/page",
@@ -53,14 +63,13 @@ export async function generateCustomMetadata(currentLocation, currentPage) {
       bing: "your-bing-site-verification-code",
     },
     icons: {
-      icon: fav ?? "https://example.com/favicon.ico",
+      icon: favIcon,
     },
     structuredData: JSON.stringify(structuredData),
   };
 
-  // For client-side rendering (browser)
   if (typeof window !== "undefined") {
-    // Dynamically update the document metadata (for client-side)
+    // Dynamically update the metadata for client-side rendering
     document.title = meta.title;
 
     const metaTags = {
@@ -81,7 +90,7 @@ export async function generateCustomMetadata(currentLocation, currentPage) {
       "bing-site-verification": meta.verification.bing,
     };
 
-    // Update meta tags dynamically for the browser
+    // Update meta tags dynamically
     Object.entries(metaTags).forEach(([name, content]) => {
       let tag = document.querySelector(`meta[name='${name}']`);
       if (!tag) {
@@ -92,7 +101,7 @@ export async function generateCustomMetadata(currentLocation, currentPage) {
       tag.setAttribute("content", content);
     });
 
-    // Update icons dynamically
+    // Update the favicon
     const iconLink = document.querySelector("link[rel='icon']");
     if (iconLink) {
       iconLink.setAttribute("href", meta.icons.icon);
@@ -103,7 +112,7 @@ export async function generateCustomMetadata(currentLocation, currentPage) {
       document.head.appendChild(newIconLink);
     }
 
-    // Update canonical links dynamically
+    // Update the canonical link
     let canonicalTag = document.querySelector("link[rel='canonical']");
     if (!canonicalTag) {
       canonicalTag = document.createElement("link");
@@ -112,7 +121,7 @@ export async function generateCustomMetadata(currentLocation, currentPage) {
     }
     canonicalTag.setAttribute("href", meta.alternates.canonical);
 
-    // Add structured data dynamically as a script tag
+    // Add structured data dynamically
     let structuredDataTag = document.querySelector("script[type='application/ld+json']");
     if (!structuredDataTag) {
       structuredDataTag = document.createElement("script");
@@ -122,6 +131,5 @@ export async function generateCustomMetadata(currentLocation, currentPage) {
     structuredDataTag.textContent = meta.structuredData;
   }
 
-  // Return metadata for server-side rendering (Next.js Head or similar)
   return meta;
 }

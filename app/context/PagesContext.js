@@ -1,11 +1,12 @@
-"use client"
+"use client";
+
 import React, { createContext, useContext, useState } from 'react';
 
 // Create a Context
 const PagesContext = createContext();
 
 // Context Provider Component
-export const PagesProvider = ({ children, pagesData }) => {
+export const PagesProvider = ({ children, pagesData = {} }) => {
   const [pages, setPages] = useState(pagesData);
 
   return (
@@ -16,6 +17,4 @@ export const PagesProvider = ({ children, pagesData }) => {
 };
 
 // Custom Hook to use the PagesContext
-export const usePages = () => {
-  return useContext(PagesContext);
-};
+export const usePages = () => useContext(PagesContext);
