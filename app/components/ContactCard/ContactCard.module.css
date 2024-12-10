@@ -6,9 +6,9 @@
   padding: 60px;
   box-shadow: 0px 0px 25px 0px rgba(0, 40, 255, 0.15);
   border-radius: 0 50px 0 50px;
-  position: absolute;
-  right: -150px;
-  margin-right: 200px;
+  /* position: absolute; */
+  /* right: -150px;
+  margin-right: 200px; */
   background-color: white;
 }
 
@@ -62,7 +62,7 @@
   .footerContactCard {
     position: static;
     right: 0px;
-    margin-right: 0px;
+    /* margin-right: 0px; */
   }
 }
 

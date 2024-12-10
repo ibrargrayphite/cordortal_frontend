@@ -107,81 +107,81 @@ const GetInTouch = ({headline,media}) => {
     <div>
       <ToastContainer />
       <Container fluid className={styles.getInTouchContainer}>
-        <Row className="justify-content-center">
-          <Col xs={12} md={8} className={styles.imageCol}>
+        <Row className="justify-content-center ">
+          <Col xs={12} md={8} lg={8} className={styles.imageCol}>
             <img
               className={styles.backgroundImage}
               src={mediaSource}
               alt="Get Background"
             />
-            <div className={styles.formOverlay}>
-              <p className={styles.formHeading}>{headline}</p>
-              <Form onSubmit={handleSubmit}>
-                <Row className="mb-3">
-                  <Form.Group as={Col} md={6}>
-                    <Form.Control
-                      className={styles.inputText}
-                      type="text"
-                      placeholder="First Name"
-                      value={firstName}
-                      onChange={(e) => setFirstName(e.target.value)}
-                    />
-                  </Form.Group>
-                  <Form.Group as={Col} md={6}>
-                    <Form.Control
-                      className={styles.inputText}
-                      type="text"
-                      placeholder="Last Name"
-                      value={lastName}
-                      onChange={(e) => setLastName(e.target.value)}
-                    />
-                  </Form.Group>
-                </Row>
-                <Row className="mb-3">
-                  <Form.Group as={Col} md={6}>
-                    <Form.Control
-                      className={styles.inputText}
-                      type="email"
-                      placeholder="Enter email"
-                      value={email}
-                      onChange={handleEmailChange}
-                      isInvalid={!!emailError}
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      {emailError}
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                  <Form.Group as={Col} md={6}>
-                    <Form.Control
-                      className={styles.inputText}
-                      type="text"
-                      placeholder="Phone Number"
-                      value={phoneNumber}
-                      onChange={handlePhoneChange}
-                      isInvalid={!!phoneError}
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      {phoneError}
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                </Row>
-                <Form.Control
-                  className={styles.textArea}
-                  as="textarea"
-                  placeholder="Type here"
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  style={{ height: "130px" }}
-                />
-                <div className={styles.buttonContainer}>
-                  <button className={styles.button} type="submit">
-                    Submit
-                  </button>
-                </div>
-              </Form>
-            </div>
+              <div className={styles.formOverlay}>
+                <p className={`${styles.formHeading} max-lg:text-[40px] text-[70px]`}>{headline}</p>
+                <Form onSubmit={handleSubmit}>
+                  <Row className="mb-3">
+                    <Form.Group as={Col} md={6}>
+                      <Form.Control
+                        className={styles.inputText}
+                        type="text"
+                        placeholder="First Name"
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
+                      />
+                    </Form.Group>
+                    <Form.Group as={Col} md={6}>
+                      <Form.Control
+                        className={styles.inputText}
+                        type="text"
+                        placeholder="Last Name"
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
+                      />
+                    </Form.Group>
+                  </Row>
+                  <Row className="mb-3">
+                    <Form.Group as={Col} md={6}>
+                      <Form.Control
+                        className={styles.inputText}
+                        type="email"
+                        placeholder="Enter email"
+                        value={email}
+                        onChange={handleEmailChange}
+                        isInvalid={!!emailError}
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        {emailError}
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                    <Form.Group as={Col} md={6}>
+                      <Form.Control
+                        className={styles.inputText}
+                        type="text"
+                        placeholder="Phone Number"
+                        value={phoneNumber}
+                        onChange={handlePhoneChange}
+                        isInvalid={!!phoneError}
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        {phoneError}
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                  </Row>
+                  <Form.Control
+                    className={styles.textArea}
+                    as="textarea"
+                    placeholder="Type here"
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    style={{ height: "130px" }}
+                  />
+                  <div className={styles.buttonContainer}>
+                    <button className={styles.button} type="submit">
+                      Submit
+                    </button>
+                  </div>
+                </Form>
+              </div>
           </Col>
-          <Col xs={12} md={2}></Col>
+          <Col xs={12} md={2} className="md:min-h-[40rem]"></Col>
         </Row>
       </Container>
     </div>
