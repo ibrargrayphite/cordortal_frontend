@@ -1,31 +1,31 @@
-"use client";
 import { Container } from "react-bootstrap";
 import styles from "./Testimonials.module.css";
 import { renderComponent } from "../utils/renderComponent";
-import { usePages } from '../context/PagesContext';
-import { useEffect, useState } from 'react';
+import { fetchPagesData } from "../utils/fetchPagesData";
 import { generateCustomMetadata } from "../utils/metadataHelper";
 import ScrollHandler from "../components/ScrollHandler";
 
-const Testimonials = () => {
-  const [isClient, setIsClient] = useState(false);
-  const { pages } = usePages();
+export async function generateMetadata() {
+  const data = await fetchPagesData();
+  const currentPage = '/testimonials';
+  const meta = await generateCustomMetadata(data, currentPage);
 
-  useEffect(() => {
-    setIsClient(true);
+  return {
+    title: meta.title,
+    description: meta.description,
+    keywords: meta.keywords,
+    robots: meta.robots,
+    openGraph: meta.openGraph,
+    twitter: meta.twitter,
+    alternates: meta.alternates,
+    verification: meta.verification,
+    icons: meta.icons,
+    structuredData: meta.structuredData,
+  };
+}
 
-    (async () => {
-      try {
-        await generateCustomMetadata(pages,'/testimonials');
-      } catch (error) {
-        console.error("Error generating metadata:", error);
-      }
-    })();
-  }, [pages]);
-
-  if (!isClient) {
-    return null;
-  }
+const Testimonials = async () => {
+  const data = await fetchPagesData();
 
   const filterByPage = (pages, pageName) => {
     if (!Array.isArray(pages)) {
@@ -41,25 +41,25 @@ const Testimonials = () => {
   };
 
   const pageName = "testimonials";
-  const filtered = filterByPage(pages.pages, pageName);
+  const filtered = filterByPage(data.pages, pageName);
 
   return (
     <div className={styles.marginCustom}>
       <Container>
-      <ScrollHandler sectionScroll={null} scrollToCenter={true} />
-      {filtered.length > 0 ? (
-         filtered.map((page, pageIndex) => (
-        <div key={pageIndex}>
-          {page.content.map((block, blockIndex) => (
-            <div key={blockIndex} id={block.scroll}>
-              {renderComponent(block)}
+        <ScrollHandler sectionScroll={null} scrollToCenter={true} />
+        {filtered.length > 0 ? (
+          filtered.map((page, pageIndex) => (
+            <div key={pageIndex}>
+              {page.content.map((block, blockIndex) => (
+                <div key={blockIndex} id={block.scroll}>
+                  {renderComponent(block)}
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      ))
-    ) : (
-      <p>No content available.</p>
-    )}
+          ))
+        ) : (
+          <p>No content available.</p>
+        )}
       </Container>
     </div>
   );

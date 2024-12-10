@@ -1,10 +1,9 @@
-export async function generateCustomMetadata(currentLocation, currentPage) {
-  // console.log("🚀 ~ generateMetadata ~ currentPage:", currentPage);
 
-  // Get SEO configuration for the current page
+// for server side meta as we use in blogs , information and services
+export async function generateCustomMetadata(currentLocation, currentPage) {
+
   const SEO_CONFIG = currentLocation?.seo_config || {};
   const currentSeo = SEO_CONFIG[currentPage];
-  // console.log("🚀 ~ generateMetadata ~ currentSeo:", currentSeo);
 
   // Set fallback values
   const fav = currentLocation?.favIcon;

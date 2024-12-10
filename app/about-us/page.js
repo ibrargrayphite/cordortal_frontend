@@ -1,31 +1,31 @@
-"use client";
-import styles from "./AboutUs.module.css";
 import { renderComponent } from "../utils/renderComponent";
-import { usePages } from '../context/PagesContext'; // Import the usePages hook
-import { useEffect, useState } from 'react';
+import { fetchPagesData } from "../utils/fetchPagesData";
 import { generateCustomMetadata } from "../utils/metadataHelper";
 import ScrollHandler from "../components/ScrollHandler";
+import styles from "./AboutUs.module.css";
 
-const AboutUs = () => {
-  const [isClient, setIsClient] = useState(false);
-  const { pages } = usePages();
+export async function generateMetadata() {
+  const data = await fetchPagesData(); 
+  const currentPage = '/about-us'; 
+  const meta = await generateCustomMetadata(data, currentPage); 
 
-  useEffect(() => {
-    setIsClient(true);
+  return {
+    title: meta.title,
+    description: meta.description,
+    keywords: meta.keywords,
+    robots: meta.robots,
+    openGraph: meta.openGraph,
+    twitter: meta.twitter,
+    alternates: meta.alternates,
+    verification: meta.verification,
+    icons: meta.icons,
+    structuredData: meta.structuredData,
+  };
+}
 
-    (async () => {
-      try {
-        await generateCustomMetadata(pages,'/about-us');
-      } catch (error) {
-        console.error("Error generating metadata:", error);
-      }
-    })();
-  }, [pages]);
+const AboutUs = async () => {
 
-  if (!isClient) {
-    return null;
-  }
-
+  const data = await fetchPagesData();
   const filterByPage = (pages, pageName) => {
     if (!Array.isArray(pages)) {
       return [];
@@ -40,25 +40,25 @@ const AboutUs = () => {
   };
 
   const pageName = "AboutUs";
-  const filtered = filterByPage(pages.pages, pageName);
+  const filtered = filterByPage(data.pages, pageName);
 
   return (
     <div className={styles.trustedContainer}>
-    <ScrollHandler sectionScroll={null} scrollToCenter={true} />
-    {filtered.length > 0 ? (
-      filtered.map((page, pageIndex) => (
-        <div key={pageIndex}>
-          {page.content.map((block, blockIndex) => (
-            <div key={blockIndex} id={block.scroll}>
-              {renderComponent(block)}
-            </div>
-          ))}
-        </div>
-      ))
-    ) : (
-      <p>No content available.</p>
-    )}
-  </div>
+      <ScrollHandler sectionScroll={null} scrollToCenter={true} />
+      {filtered.length > 0 ? (
+        filtered.map((page, pageIndex) => (
+          <div key={pageIndex}>
+            {page.content.map((block, blockIndex) => (
+              <div key={blockIndex} id={block.scroll}>
+                {renderComponent(block)}
+              </div>
+            ))}
+          </div>
+        ))
+      ) : (
+        <p>No content available.</p>
+      )}
+    </div>
   );
 };
 
