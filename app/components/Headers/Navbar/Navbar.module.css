@@ -28,7 +28,7 @@
   cursor: pointer;
   text-decoration: none;
   font-size: 16px;
-  font-weight: 500 !important;
+  font-weight: 600 !important;
   /* padding: 0px 10px; */
 }
 .active {
@@ -111,7 +111,7 @@ li.aboutDropdown {
   padding: 12px 16px;
   border-radius: 9px;
   font-size: 18px;
-  font-weight: 500;
+  font-weight: 600;
   text-decoration: none;
   display: block;
   text-align: left;

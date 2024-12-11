@@ -22,10 +22,10 @@
 .inputText {
   border-radius: 6px;
   text-align: center;
-  background: #f5f5f5;
+  background-color: #f5f5f5 !important;
   border: 1px solid #878787;
-  color: #878787;
-  font-size: 20px;
+  color: #878787 !important;
+  font-size: 20px !important;
   font-weight: 400;
   line-height: 284%; /* 284% */
   text-transform: capitalize;
@@ -49,13 +49,13 @@
   border: none;
 }
 .calculationCard {
-  background: #f5f5f5;
+  background: #f5f5f5 !important;
   border: none;
   border-radius: 6px;
   height: 331px;
 }
 .perMonth {
-  font-size: 40px;
+  font-size: 40px !important;
   font-weight: bold;
 }
 .cardTitle {
@@ -75,7 +75,7 @@
   text-align: center;
   font-size: 51px;
   font-style: normal;
-  font-weight: 700;
+  font-weight: 700 !important;
   line-height: 176.471%; /* 176.471% */
 }
 .card {

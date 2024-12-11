@@ -10,7 +10,7 @@ export default function ContactCard({ data }) {
   const router = useRouter();
 
   return (
-    <div className={styles.footerContactCard}>
+    <div className={`${styles.footerContactCard}  lg:absolute xs:relative xs:right-0 lg:right-[-150px] lg:mr-[200px] max-lg:m-auto` }>
       <Image
         src={data.media && data.media?.startsWith('https') ? data.media : defaultMedia.src}
         width={100}
