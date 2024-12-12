@@ -63,7 +63,7 @@ const GetInTouch = ({headline,media}) => {
       // Success case
       try {
         const response = await fetch(
-          "http://micarepoc.grayphite.com/api/contact",
+         `${process.env.NEXT_PUBLIC_BASE_URL}/template/organization/lead`,
           {
             method: "POST",
             headers: {

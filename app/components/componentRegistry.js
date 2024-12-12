@@ -37,7 +37,7 @@ import Navbar from "./Headers/Navbar";
 import HeaderDefault from './Headers/HeaderDefault'
 import footer from "./Footers/footer";
 import SimpleFooter from "./Footers/SimpleFooter"
-
+import SeoInvisibleContent from "./SeoInvisibleContent"
 // Export components as an object
 const componentRegistry = {
   MediaOverlay,
@@ -76,7 +76,8 @@ const componentRegistry = {
   SimpleFooter,
   LandingPageBanner,
   BillingCardOffer,
-  CaseStudyCard
+  CaseStudyCard,
+  SeoInvisibleContent
 };
 
 export default componentRegistry;

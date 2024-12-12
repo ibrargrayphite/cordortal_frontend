@@ -4,7 +4,7 @@ export async function generateCustomMetadata(currentPage) {
 
   try {
     const response = await fetch(
-      `http://18.224.190.123/template/seo/?domain=${currentDomain}`
+      `${process.env.NEXT_PUBLIC_BASE_URL}/template/seo/?domain=${currentDomain}`
     );
     currentLocation = await response.json();
   } catch (error) {
@@ -17,12 +17,18 @@ export async function generateCustomMetadata(currentPage) {
   // Fallback values
   const favIcon = currentLocation?.fav_icon || "https://example.com/favicon.ico";
   const media = currentLocation?.media || "https://example.com/images/fallback.png";
+  const pageUrl = currentSeo?.url || `https://${currentDomain}/${currentPage}`;
+  const languages = {
+    ...currentSeo?.languages,
+    en: pageUrl, // Self-referencing hreflang link
+  };
+
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebPage",
     name: currentSeo?.title || "Default SEO Title",
     description: currentSeo?.description || "Default SEO Description",
-    url: currentSeo?.url || "https://example.com",
+    url: pageUrl,
     image: media,
   };
 
@@ -35,7 +41,7 @@ export async function generateCustomMetadata(currentPage) {
     openGraph: {
       title: currentSeo?.title || "Default Title",
       description: currentSeo?.description || "Default Description",
-      url: currentSeo?.url || "https://example.com",
+      url: pageUrl,
       type: "website",
       images: [
         {
@@ -52,11 +58,8 @@ export async function generateCustomMetadata(currentPage) {
       images: [media],
     },
     alternates: {
-      canonical: currentSeo?.canonical || "https://example.com",
-      languages: {
-        en: "https://example.com/en/page",
-        es: "https://example.com/es/page",
-      },
+      canonical: pageUrl,
+      languages,
     },
     verification: {
       google: "your-google-site-verification-code",
@@ -129,6 +132,18 @@ export async function generateCustomMetadata(currentPage) {
       document.head.appendChild(structuredDataTag);
     }
     structuredDataTag.textContent = meta.structuredData;
+
+    // Add hreflang tags dynamically
+    Object.entries(meta.alternates.languages).forEach(([lang, url]) => {
+      let hreflangTag = document.querySelector(`link[rel='alternate'][hreflang='${lang}']`);
+      if (!hreflangTag) {
+        hreflangTag = document.createElement("link");
+        hreflangTag.setAttribute("rel", "alternate");
+        hreflangTag.setAttribute("hreflang", lang);
+        document.head.appendChild(hreflangTag);
+      }
+      hreflangTag.setAttribute("href", url);
+    });
   }
 
   return meta;

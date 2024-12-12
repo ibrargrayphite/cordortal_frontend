@@ -5,7 +5,7 @@ export async function fetchPagesData() {
   const currentDomain = process.env.NEXT_PUBLIC_DOMAIN;
 
   if (!cachedPagesData) {
-    const response = await fetch(`http://18.224.190.123/template/pages/?domain=${currentDomain}`);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/template/pages/?domain=${currentDomain}`);
     cachedPagesData = await response.json();
     // console.log("🚀 ~ fetchPagesData ~ cachedPagesData:", cachedPagesData)
   }
