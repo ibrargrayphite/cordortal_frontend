@@ -61,7 +61,7 @@ const Footer = ({ src, refersrc, title,data }) => {
           <Row className="max-lg:text-center">
             <Col xxl={2} />
             <Col lg={4} sm={12}>
-              <HoursOfOperation hoursData={data.hoursData} lunchTime={data.lunchTime}/>
+              <HoursOfOperation hoursData={data?.hoursData} lunchTime={data?.lunchTime}/>
             </Col>
             {/* for mobile view */}
             <Col
