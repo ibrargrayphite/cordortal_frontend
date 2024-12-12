@@ -100,7 +100,7 @@ const RightBigImage = ({ headline, description, media, data }) => {
         {/* Right Section: Image with shadow/reflection */}
         <Col xs={12} md={6} className="d-flex justify-content-center">
           <div className={styles.imageWrapper}>
-            <Image width={100} height={100} src={media && media?.startsWith('https') ? media : defaultMedia.src} alt="Right Section" className="img-fluid h-auto w-full" />
+            <Image loading="lazy" width={100} height={100} src={media && media?.startsWith('https') ? media : defaultMedia.src} alt="Right Section" className="img-fluid h-auto w-full" />
           </div>
         </Col>
       </Row>

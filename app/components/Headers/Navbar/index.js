@@ -82,7 +82,7 @@ const NavBar = ({media,src,name}) => {
           style={{ cursor: "pointer" }}
           onClick={() => handleNavigation("/")}
         >
-          <Image width={100}  src={media && media?.startsWith('https') ? media : defaultMedia.src} height={69} className={styles.logoMob} alt={`Best Dental Care${name}`} />
+          <Image loading="lazy" width={100}  src={media && media?.startsWith('https') ? media : defaultMedia.src} height={69} className={styles.logoMob} alt={`Best Dental Care${name}`} />
         </Navbar.Brand>
         <div className={styles.locationMob}>
           <div
@@ -102,7 +102,8 @@ const NavBar = ({media,src,name}) => {
               } ${activeItem === "Location" ? styles.active : ""}`}
               onClick={toggleDropdown}
             >
-              <Image
+              <Image 
+              loading="lazy"
                 width={100} 
                 height={26}
                 style={{ marginTop: 3 }}
@@ -323,7 +324,7 @@ const NavBar = ({media,src,name}) => {
                     Emergency
                   </div>
                   {/* <div>
-                    <Image src={Emergency} height={10} />
+                    <Image loading="lazy" src={Emergency} height={10} />
                   </div> */}
                 </div>
               </div>
@@ -351,7 +352,7 @@ const NavBar = ({media,src,name}) => {
                     } ${activeItem === "Location" ? styles.active : ""}`}
                     onClick={toggleDropdown}
                   >
-                    <Image width={100}  height={32} className={styles.locationIconStyle} src={locationIcon.src} alt={`Exceptional Dental Service at ${name}`}  />
+                    <Image loading="lazy" width={100}  height={32} className={styles.locationIconStyle} src={locationIcon.src} alt={`Exceptional Dental Service at ${name}`}  />
                   </a>
                   <div
                     className={`${styles.informationDropdownContent} ${

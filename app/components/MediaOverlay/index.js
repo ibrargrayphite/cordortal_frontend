@@ -45,7 +45,7 @@ const MediaOverlay = ({ media, media2, headline, description, style, src }) => {
             style={{
               ...style,
               backgroundImage: loading ? `url(${mediaSource2})` : "none", // Show the image while loading
-              height: loading || mediaError ? "700px" : "auto",
+              // height: loading || mediaError ? "700px" : "auto",
             }}
           >
             {/* Always visible overlay */}
@@ -59,12 +59,14 @@ const MediaOverlay = ({ media, media2, headline, description, style, src }) => {
                 playsInline
                 loop
                 style={{ display: loading ? "none" : "block" }}
+                loading="lazy"
               >
                 <source src={mediaSource} type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
             ) : (
-              <Image
+              <Image 
+              loading="lazy"
               width={100} height={100}
                 id="media-element"
                 src={media}

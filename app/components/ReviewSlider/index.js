@@ -112,7 +112,8 @@ const ReviewSlider = ({ userReviews = [], headline, description }) => {
                       minHeight: "320px",
                     }}
                   >
-                    <Image
+                    <Image 
+                    loading="lazy"
                     width={100} height={100}
                       className={styles.commaSvg}
                       style={{ maxWidth: "23px" }}
@@ -127,7 +128,8 @@ const ReviewSlider = ({ userReviews = [], headline, description }) => {
                     <div className={styles.reviewerParent}>
                       <div className={styles.reviewerDetail}>
                         <div style={{ display: "flex" }}>
-                          <Image
+                          <Image 
+                          loading="lazy"
                           width={100} height={100}
                             src={item && item.reviewerImage?.startsWith('https') ? item.reviewerImage : defaultMedia.src}
                             alt="reviewwer"

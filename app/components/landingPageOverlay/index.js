@@ -66,6 +66,7 @@ const landingPageOverlay = ({ description , media, headline,headlineLarge,title,
           <div className="lg:w-1/2 flex xs:p-4 sm:p-4 lg:p-0">
             <div className="overflow-hidden rounded-md mr-4 w-full">
               <Image
+              loading="lazy"
               width={100} height={100}
                 className="w-full h-70 object-cover rounded-md"
                 src={media && media?.startsWith('https') ? media : defaultMedia.src}

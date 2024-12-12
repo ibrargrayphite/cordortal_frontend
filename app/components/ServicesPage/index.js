@@ -2,8 +2,9 @@
 
 import styles from "./Services.module.css";
 import { renderComponent } from "../../utils/renderComponent";
-import ScrollHandler from "../ScrollHandler";
 import { usePages } from '../../context/PagesContext';
+import dynamic from 'next/dynamic';
+const ScrollHandler = dynamic(() => import("../ScrollHandler"), { ssr: false });
 
 const Services = () => {
   const { pages } = usePages(); // Access data from context

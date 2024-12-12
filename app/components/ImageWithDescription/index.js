@@ -13,7 +13,7 @@ const ImageWithDescription = ({ media, description, noBgColor }) => {
           <div style={{ paddingTop: 78 }}>
             <div className={styles.logo}>
               {typeof media === "string" ? (
-                <Image width={100} height={100} src={mediaSource} alt={`Top-Rated Dental Service`} />
+                <Image  loading="lazy" width={100} height={100} src={mediaSource} alt={`Top-Rated Dental Service`} />
               ) : (
                 media
               )}

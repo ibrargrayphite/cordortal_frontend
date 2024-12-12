@@ -73,7 +73,8 @@ const YourTeamSlider = ({ teamMembers = [], headline, description }) => {
             {teamMembers.map((member) => (
               <SwiperSlide key={member.id} className={styles.SlideParent}>
                 <div className={styles.teamImage} >
-                  <Image
+                  <Image 
+                  loading="lazy"
                   width={100} height={100}
                     src={member && member.teamMemberImage?.startsWith('https') ? member.teamMemberImage : defaultMedia.src}
                     className={styles.profileImage}

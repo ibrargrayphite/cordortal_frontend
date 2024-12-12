@@ -35,7 +35,8 @@ const RightImageShadow = ({ headline, description, media,buttonName,buttonSrc })
         {/* Right Section: Image with shadow/reflection */}
         <Col xs={9} md={6} className="d-flex justify-content-center">
           <div className={styles.imageWrapper}>
-            <Image
+            <Image 
+            loading="lazy"
             width={100} height={100}
               src={media && media?.startsWith('https') ? media : defaultMedia.src}
               alt="Right Section"

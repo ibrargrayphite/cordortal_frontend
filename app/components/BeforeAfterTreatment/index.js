@@ -14,13 +14,13 @@ const BeforeAfterTreatment = ({ mediaBefore, mediaAfter, noBgColor }) => {
         <Row className="d-flex justify-content-center">
           <Col xs={12} md={4} className={styles.imageContainer}>
             <div className={styles.imageWrapper}>
-              <Image src={mediaSourceBefore} width={100} height={100} alt="Before treatment image highlighting teeth discoloration and gaps" className={styles.imgFluid} />
+              <Image loading="lazy" src={mediaSourceBefore} width={100} height={100} alt="Before treatment image highlighting teeth discoloration and gaps" className={styles.imgFluid} />
               <div className={styles.overlayText}>Before</div>
             </div>
           </Col>
           <Col xs={12} md={4} className={styles.imageContainer}>
             <div className={styles.imageWrapper}>
-              <Image src={mediaSourceAfter} width={100} height={100} alt="After treatment image showcasing whiter teeth and closed gaps" className={styles.imgFluid} />
+              <Image loading="lazy" src={mediaSourceAfter} width={100} height={100} alt="After treatment image showcasing whiter teeth and closed gaps" className={styles.imgFluid} />
               <div className={styles.overlayText}>After</div>
             </div>
           </Col>

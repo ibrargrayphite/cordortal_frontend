@@ -1,7 +1,9 @@
-import { generateCustomMetadata } from "../utils/metadataHelper";
-import Emergency from "../components/EmergencyPage"; // Import the client-side component
+import dynamic from 'next/dynamic';
+const Emergency = dynamic(() => import("../components/EmergencyPage"));
 
 export async function generateMetadata() {
+  const { generateCustomMetadata } = await import("../utils/metadataHelper");
+
   const currentPage = "/emergency";
   const meta = await generateCustomMetadata(currentPage);
 

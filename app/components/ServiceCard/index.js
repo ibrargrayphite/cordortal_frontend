@@ -31,7 +31,8 @@ const ServiceCard = ({
                 }} // Disable navigation if noBgColor is true
               >
                 <div className={styles.solutionIcons}>
-                  <Image
+                  <Image 
+                  loading="lazy"
                     width={100} 
                     height={116}
                     src={service.media && service.media?.startsWith('https') ? service.media : defaultMedia.src}

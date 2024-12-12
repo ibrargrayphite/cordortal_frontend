@@ -19,12 +19,14 @@
   z-index: 1;
   background-size: cover;
   background-position: center;
+  height: 700px; /* Prevent dynamic resizing */
 }
 
 .media {
   width: 100%;
   /* Adjust video height */
   /* height: 550px;  */
+  height: 700px; /* Set a fixed height to avoid dynamic changes */
   object-fit: cover;
 }
 
@@ -80,6 +82,10 @@
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
+  }
+  .mediaOverlayContainer {
+    height: 550px; /* Prevent dynamic resizing */
+
   }
   .media {
     height: 550px;

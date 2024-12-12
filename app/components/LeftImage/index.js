@@ -23,7 +23,7 @@ const LeftImage = ({ media, description, htmlContent, isIconButton = false }) =>
       <Container>
         <Row className={styles.section2}>
           <Col md={6} xs={12} className={styles.headerGroup2}>
-            <Image className={styles.leftimageWidth} src={mediaSource} alt="providing exceptional dental care with a focus on innovation, comfort, and patient satisfaction" style={{width:"70%"}} width={100} height={350} />
+            <Image loading="lazy" className={styles.leftimageWidth} src={mediaSource} alt="providing exceptional dental care with a focus on innovation, comfort, and patient satisfaction" style={{width:"70%"}} width={100} height={350} />
           </Col>
           <Col md={6} xs={12}>
             {description ? (
@@ -51,6 +51,7 @@ const LeftImage = ({ media, description, htmlContent, isIconButton = false }) =>
                 >
                   <button className={styles.button2}>Read more</button>
                   <Image
+                  loading="lazy"
                     src={rightArrow}
                     alt="rightArrow"
                     height={11}
