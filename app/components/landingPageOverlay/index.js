@@ -5,6 +5,7 @@ import CustomButton from "../CustomButton";
 import { useTheme } from "../../context/ThemeContext";
 import { usePages } from '../../context/PagesContext'; // Import the usePages hook
 import defaultMedia from "../../../public/assets/images/solutions/implants.png";
+import Image from "next/image";
 
 
 
@@ -64,7 +65,8 @@ const landingPageOverlay = ({ description , media, headline,headlineLarge,title,
           {/* Right Section (Image Cards) */}
           <div className="lg:w-1/2 flex xs:p-4 sm:p-4 lg:p-0">
             <div className="overflow-hidden rounded-md mr-4 w-full">
-              <img
+              <Image
+              width={100} height={100}
                 className="w-full h-70 object-cover rounded-md"
                 src={media && media?.startsWith('https') ? media : defaultMedia.src}
                 alt={`${pages.name} equipment for advanced treatments`}

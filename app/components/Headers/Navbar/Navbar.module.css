@@ -1,5 +1,11 @@
 .logoMob{
   height: 69px!important;
+  width: 100%;
+}
+
+.locationIconStyle{
+  height: 34px!important;
+  width: 30px!important;
 }
 .nav {
   display: flex;
@@ -239,6 +245,11 @@ li.informationDropdown {
 @media only screen and (max-width: 767px) {
   .mobilelocationicon{
     height: 26px!important;
+    width: 24px!important;
+  }
+  .locationIconStyle{
+    height: 26px!important;
+    width: 24px!important;
   }
   .mobileMenuIcon{
     height:24px!important ;

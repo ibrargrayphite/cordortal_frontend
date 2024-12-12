@@ -6,6 +6,7 @@ import styles from "./HeaderDefault.module.css";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import defaultMedia from "../../../../public/assets/images/solutions/implants.png";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const HeaderDefault = ({ media, name, menuItems, button }) => {
   const router = useRouter();
@@ -45,14 +46,15 @@ const HeaderDefault = ({ media, name, menuItems, button }) => {
                   onClick={() => handleLinkClick("/")}
                 >
                   <Navbar.Brand>
-                    <img
+                    <Image
+                    width={100} height={100}
                       src={
                         media && media?.startsWith("https")
                           ? media
                           : defaultMedia.src
                       }
                       alt={`Best Dental Care ${name}`}
-                      className="h-10"
+                      className="h-10 w-full"
                     />
                   </Navbar.Brand>
                   {/* </Link> */}

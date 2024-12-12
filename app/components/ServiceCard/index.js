@@ -4,6 +4,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import styles from "./ServiceCard.module.css"; // Assuming you have styles for your component
 import { useRouter } from "next/navigation";
 import defaultMedia from "../../../public/assets/images/solutions/implants.png";
+import Image from "next/image";
 
 const ServiceCard = ({
   services,
@@ -30,9 +31,10 @@ const ServiceCard = ({
                 }} // Disable navigation if noBgColor is true
               >
                 <div className={styles.solutionIcons}>
-                  <img
-                    src={service.media && service.media?.startsWith('https') ? service.media : defaultMedia.src}
+                  <Image
+                    width={100} 
                     height={116}
+                    src={service.media && service.media?.startsWith('https') ? service.media : defaultMedia.src}
                     className={styles.imageSize}
                     alt={`${service.headline}`}
                   />

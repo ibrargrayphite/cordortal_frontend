@@ -23,6 +23,7 @@ import {
   MdOutlinePublic,
 } from "react-icons/md";
 import defaultMedia from "../../../public/assets/images/solutions/implants.png";
+import Image from "next/image";
 
 const RightBigImage = ({ headline, description, media, data }) => {
   const theme = useTheme();
@@ -99,7 +100,7 @@ const RightBigImage = ({ headline, description, media, data }) => {
         {/* Right Section: Image with shadow/reflection */}
         <Col xs={12} md={6} className="d-flex justify-content-center">
           <div className={styles.imageWrapper}>
-            <img src={media && media?.startsWith('https') ? media : defaultMedia.src} alt="Right Section" className="img-fluid" />
+            <Image width={100} height={100} src={media && media?.startsWith('https') ? media : defaultMedia.src} alt="Right Section" className="img-fluid h-auto w-full" />
           </div>
         </Col>
       </Row>

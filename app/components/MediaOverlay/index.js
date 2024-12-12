@@ -6,6 +6,7 @@ import CustomButton from "../CustomButton";
 import styles from "./MediaOverlay.module.css";
 import defaultMedia from "../../../public/assets/video/oaklandslandingPageVideo.mp4"
 import defaultMedia2 from "../../../public/assets/images/home/oaklandsSkelton.png"
+import Image from "next/image";
 
 
 const MediaOverlay = ({ media, media2, headline, description, style, src }) => {
@@ -63,7 +64,8 @@ const MediaOverlay = ({ media, media2, headline, description, style, src }) => {
                 Your browser does not support the video tag.
               </video>
             ) : (
-              <img
+              <Image
+              width={100} height={100}
                 id="media-element"
                 src={media}
                 alt="media"

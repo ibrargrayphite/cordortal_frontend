@@ -6,6 +6,7 @@ import CustomButton from "../CustomButton";
 import { useTheme } from "../../context/ThemeContext";
 import { useRouter } from "next/navigation";
 import defaultMedia from "../../../public/assets/images/solutions/implants.png";
+import Image from "next/image";
 
 const RightImageShadow = ({ headline, description, media,buttonName,buttonSrc }) => {
   const theme = useTheme();
@@ -34,10 +35,11 @@ const RightImageShadow = ({ headline, description, media,buttonName,buttonSrc })
         {/* Right Section: Image with shadow/reflection */}
         <Col xs={9} md={6} className="d-flex justify-content-center">
           <div className={styles.imageWrapper}>
-            <img
+            <Image
+            width={100} height={100}
               src={media && media?.startsWith('https') ? media : defaultMedia.src}
               alt="Right Section"
-              className="img-fluid"
+              className="img-fluid w-full h-auto"
             />
           </div>
         </Col>

@@ -7,6 +7,7 @@ import { Container, Row, Col, Card } from "react-bootstrap";
 import styles from "./CardRightImage.module.css";
 import { FaArrowRight } from "react-icons/fa";
 import defaultMedia from "../../../public/assets/images/solutions/implants.png";
+import Image from "next/image";
 
 const CardRightImage = ({ description, media, headline,buttonName,buttonSrc }) => {
   const theme = useTheme();
@@ -63,7 +64,7 @@ const CardRightImage = ({ description, media, headline,buttonName,buttonSrc }) =
 
         {/* Right Section (Image) */}
         <div className={`${styles.imageOverlay} lg:block lg:w-1/2 max-md:w-full`}>
-        <img src={media && media?.startsWith('https') ? media : defaultMedia.src} alt="Image" />
+        <Image width={100} height={100} src={media && media?.startsWith('https') ? media : defaultMedia.src} alt="Image" />
         </div>
       </div>
     </div>

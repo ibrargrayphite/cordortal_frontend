@@ -7,6 +7,7 @@ import HeadingTopDiscription from "../HeadingTopDiscription";
 import CustomButton from "../CustomButton";
 import defaultMediaVideo from "../../../public/assets/video/oaklandslandingPageVideo.mp4"
 import defaultMediaPic from "../../../public/assets/images/solutions/implants.png";
+import Image from "next/image";
 
 const CaseStudyCard = ({ data,headline,description }) => {
     const router = useRouter();
@@ -36,11 +37,13 @@ const CaseStudyCard = ({ data,headline,description }) => {
             >
             </video>}
               {caseStudy.mediaBefore && 
-                <img 
+                <Image 
+                width={100} height={100}
                   src={caseStudy.mediaBefore && caseStudy.mediaBefore?.startsWith('https') ? caseStudy.mediaBefore : defaultMediaPic} alt="Before" className={styles.mediaImageBefore} />
               }
               {caseStudy.mediaAfter && 
-                <img 
+                <Image 
+                width={100} height={100}
                   src={caseStudy.mediaAfter && caseStudy.mediaAfter?.startsWith('https') ? caseStudy.mediaAfter : defaultMediaPic} alt="After" className={styles.mediaImageAfter} />
               }
             </Col>

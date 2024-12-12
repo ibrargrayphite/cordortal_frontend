@@ -1,6 +1,7 @@
 import { Col, Container, Row } from "react-bootstrap";
 import styles from "./HeadingWithBgImage.module.css";
 import defaultMedia from "../../../public/assets/images/home/SOLUTIONS.png";
+import Image from "next/image";
 
 const HeadingWithBgImage = ({
   headline,
@@ -50,7 +51,7 @@ const HeadingWithBgImage = ({
                   : styles.headingContainer
               }
             >
-              <img src={mediaSource} alt={headline} className={styles.bgImage} />
+              <Image width={100} height={100} src={mediaSource} alt={headline} className={styles.bgImage} />
               <h2
                 className={
                   headlineLarge ? styles.overlayText2 : styles.overlayText

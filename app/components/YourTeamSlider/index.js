@@ -9,6 +9,7 @@ import styles from "./YourTeamSlider.module.css";
 import HeadingTopDiscription from "../HeadingTopDiscription";
 import { useTheme } from "../../context/ThemeContext";
 import defaultMedia from "../../../public/assets/images/solutions/implants.png";
+import Image from "next/image";
 
 const YourTeamSlider = ({ teamMembers = [], headline, description }) => {
   const theme = useTheme();
@@ -72,7 +73,8 @@ const YourTeamSlider = ({ teamMembers = [], headline, description }) => {
             {teamMembers.map((member) => (
               <SwiperSlide key={member.id} className={styles.SlideParent}>
                 <div className={styles.teamImage} >
-                  <img
+                  <Image
+                  width={100} height={100}
                     src={member && member.teamMemberImage?.startsWith('https') ? member.teamMemberImage : defaultMedia.src}
                     className={styles.profileImage}
                     alt={

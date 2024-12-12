@@ -16,6 +16,7 @@ import HeadingTopDiscription from "../HeadingTopDiscription";
 import invertedComma from "../../../public/assets/images/straightSmile/invertedComma.png";
 import { useTheme } from "../../context/ThemeContext";
 import defaultMedia from "../../../public/assets/images/solutions/implants.png";
+import Image from "next/image";
 
 const ReviewSlider = ({ userReviews = [], headline, description }) => {
   const theme = useTheme();
@@ -111,7 +112,8 @@ const ReviewSlider = ({ userReviews = [], headline, description }) => {
                       minHeight: "320px",
                     }}
                   >
-                    <img
+                    <Image
+                    width={100} height={100}
                       className={styles.commaSvg}
                       style={{ maxWidth: "23px" }}
                       src={invertedComma.src}
@@ -125,7 +127,8 @@ const ReviewSlider = ({ userReviews = [], headline, description }) => {
                     <div className={styles.reviewerParent}>
                       <div className={styles.reviewerDetail}>
                         <div style={{ display: "flex" }}>
-                          <img
+                          <Image
+                          width={100} height={100}
                             src={item && item.reviewerImage?.startsWith('https') ? item.reviewerImage : defaultMedia.src}
                             alt="reviewwer"
                             className="w-12 h-12 rounded-full border-2 border-white bg-black"

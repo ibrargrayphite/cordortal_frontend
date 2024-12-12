@@ -6,6 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styles from "./GetInTouch.module.css";
 import defaultMedia from "../../../public/assets/images/getBackground.jpeg";
+import Image from "next/image";
 
 const GetInTouch = ({headline,media}) => {
   const mediaSource = media && media?.startsWith('https') ? media : defaultMedia?.src;
@@ -109,7 +110,8 @@ const GetInTouch = ({headline,media}) => {
       <Container fluid className={styles.getInTouchContainer}>
         <Row className="justify-content-center ">
           <Col xs={12} md={8} lg={8} className={styles.imageCol}>
-            <img
+            <Image
+              width={100} height={100}
               className={styles.backgroundImage}
               src={mediaSource}
               alt="Get Background"
