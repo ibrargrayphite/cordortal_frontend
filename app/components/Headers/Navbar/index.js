@@ -148,6 +148,11 @@ const NavBar = ({media,src,name}) => {
         <Navbar.Collapse
           id="responsive-navbar-nav  justify-content-center  "
           className=" d-lg-flex justify-content-end  "
+          style={{
+            minHeight: '1vh',
+            maxHeight: '63vh',
+            overflow: 'auto'
+          }}
         >
           <div>
             <Nav className="me-auto  d-flex flex-column flex-lg-row align-items-center   ">

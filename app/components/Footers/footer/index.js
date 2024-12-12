@@ -87,7 +87,7 @@ const Footer = ({ src, refersrc, title,data }) => {
                 Affiliated
               </p>
                 <div style={{ cursor: "pointer", marginTop: 20 }} className={`${styles.footerAward} max-lg:flex max-lg:justify-center`}>
-                  <Cqc  height={"55px"} width={"40%"}  alt="footerLogo1" onClick={() =>
+                  <Cqc  height={"55px"} width={"170"}  alt="footerLogo1" onClick={() =>
                     window.open(
                       "https://www.cqc.org.uk/guidance-providers/dentists",
                       "_blank"
