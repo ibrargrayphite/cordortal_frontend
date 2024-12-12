@@ -1,8 +1,9 @@
 "use client";
 import { renderComponent } from "../../utils/renderComponent";
-import ScrollHandler from "../ScrollHandler";
 import { usePages } from '../../context/PagesContext';
 import styles from "./Blogs.module.css";
+import dynamic from 'next/dynamic';
+const ScrollHandler = dynamic(() => import("../ScrollHandler"), { ssr: false });
 
 const Blogs = () => {
   const { pages } = usePages(); // Access pages data from context

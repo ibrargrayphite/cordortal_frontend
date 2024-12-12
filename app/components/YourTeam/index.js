@@ -10,7 +10,8 @@ const YourTeam = ({ teamMembers }) => {
         {teamMembers.map((member) => (
           <Col key={member.id} xs={12} md={4} lg={4}>
             <div className={styles.teamImage}>
-              <Image
+              <Image 
+              loading="lazy"
               width={100} height={100}
                 src={member.teamMemberImage && member.teamMemberImage?.startsWith('https') ? member.teamMemberImage : defaultMedia.src}
                 className={styles.profileImage}

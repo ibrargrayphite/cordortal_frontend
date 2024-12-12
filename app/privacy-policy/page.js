@@ -5,7 +5,8 @@ import { Col, Row, Container } from "react-bootstrap";
 import GetInTouch from "../components/GetInTouch";
 import getInTouch from "../../public/assets/images/getBackground.jpeg";
 import { usePages } from '../context/PagesContext'; // Import the usePages hook
-import ScrollHandler from "../components/ScrollHandler";
+import dynamic from 'next/dynamic';
+const ScrollHandler = dynamic(() => import("../components/ScrollHandler"), { ssr: false });
 
 const privacyPolicy = () => {
   const [isClient, setIsClient] = useState(false);

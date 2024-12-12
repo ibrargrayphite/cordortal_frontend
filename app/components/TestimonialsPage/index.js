@@ -3,8 +3,9 @@
 import { Container } from "react-bootstrap";
 import styles from "./Testimonials.module.css";
 import { renderComponent } from "../../utils/renderComponent";
-import ScrollHandler from "../ScrollHandler";
 import { usePages } from '../../context/PagesContext';
+import dynamic from 'next/dynamic';
+const ScrollHandler = dynamic(() => import("../ScrollHandler"), { ssr: false });
 
 const TestimonialsPage = () => {
   const { pages } = usePages(); // Access data from context

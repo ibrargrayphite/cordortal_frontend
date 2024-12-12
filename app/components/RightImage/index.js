@@ -45,7 +45,8 @@ const RightImage = ({
                   onClick={() => router.push("/about-us")}
                 >
                   <button className={styles.button2}>{"Read more"}</button>
-                  <Image
+                  <Image 
+                  loading="lazy"
                     src={icon}
                     height={11}
                     className={styles.rightArrowAlign}
@@ -58,12 +59,12 @@ const RightImage = ({
           <Col md={6} xs={12}>
             <div className={styles.heartContainer}>
               <div className={styles.leftSide}>
-                <div className={styles.halfHeart1}> <Image src={mediaSourceBefore} width={100} height={100} alt="mediaBefore"/></div>
+                <div className={styles.halfHeart1}> <Image loading="lazy" src={mediaSourceBefore} width={100} height={100} alt="mediaBefore"/></div>
                 <div className={styles.halfHeart2}></div>
               </div>
               <div className={styles.rightSide}>
                 <div className={styles.halfHeart3}></div>
-                <div className={styles.halfHeart4}><Image src={mediaSourceAfter} width={100} height={100} alt="mediaAfter"/></div>
+                <div className={styles.halfHeart4}><Image loading="lazy" src={mediaSourceAfter} width={100} height={100} alt="mediaAfter"/></div>
               </div>
             </div>
             </Col>

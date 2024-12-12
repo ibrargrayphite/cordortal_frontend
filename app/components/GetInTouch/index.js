@@ -110,7 +110,8 @@ const GetInTouch = ({headline,media}) => {
       <Container fluid className={styles.getInTouchContainer}>
         <Row className="justify-content-center ">
           <Col xs={12} md={8} lg={8} className={styles.imageCol}>
-            <Image
+            <Image 
+            loading="lazy"
               width={100} height={100}
               className={styles.backgroundImage}
               src={mediaSource}

@@ -97,6 +97,7 @@ const Footer = ({ src, refersrc, title,data }) => {
               <div style={{ cursor: "pointer", marginTop: 20 }} className={`${styles.footerAward} max-lg:flex max-lg:justify-center`}>
                 {/* <Image
                   height={50}
+                  loading="lazy"
                   width={50}
                   style={{ cursor: "pointer", marginTop: 20 }}
                   src={Nhs}
@@ -106,7 +107,8 @@ const Footer = ({ src, refersrc, title,data }) => {
                 <Nhs  height={"55px"} width={"30%"}  alt="nhs" onClick={() => window.open("https://www.nhs.uk/", "_blank")} />
               </div>
               <div className={`${styles.footerAward} max-lg:flex max-lg:justify-center`}>
-                <Image
+                <Image 
+                loading="lazy"
                   height={70}
                   width={70}
                   style={{ cursor: "pointer", marginTop: 20 }}

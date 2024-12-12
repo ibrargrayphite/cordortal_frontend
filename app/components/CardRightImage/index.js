@@ -64,7 +64,7 @@ const CardRightImage = ({ description, media, headline,buttonName,buttonSrc }) =
 
         {/* Right Section (Image) */}
         <div className={`${styles.imageOverlay} lg:block lg:w-1/2 max-md:w-full`}>
-        <Image width={100} height={100} src={media && media?.startsWith('https') ? media : defaultMedia.src} alt="Image" />
+        <Image loading="lazy" width={100} height={100} src={media && media?.startsWith('https') ? media : defaultMedia.src} alt="Image" />
         </div>
       </div>
     </div>

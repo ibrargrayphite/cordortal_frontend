@@ -46,7 +46,8 @@ const HeaderDefault = ({ media, name, menuItems, button }) => {
                   onClick={() => handleLinkClick("/")}
                 >
                   <Navbar.Brand>
-                    <Image
+                    <Image 
+                    loading="lazy"
                     width={100} height={100}
                       src={
                         media && media?.startsWith("https")

@@ -12,7 +12,8 @@ const SimpleImageGallery = ({ media, noBgColor = true }) => {
           {media &&
             media.map((service, index) => (
               <Col sm key={index}>
-                <Image
+                <Image 
+                loading="lazy"
                   width={100} height={100}
                   src={service.image && service.image?.startsWith('https') ? service.image : defaultMedia.src}
                   style={{ width: "100%", height: "auto" }}

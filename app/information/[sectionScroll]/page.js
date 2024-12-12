@@ -1,8 +1,9 @@
 import styles from "../Pricing.module.css";
 import { renderComponent } from "../../utils/renderComponent";
-import ScrollHandler from "../../components/ScrollHandler";
 import { fetchPagesData } from '../../utils/fetchPagesData'; // Adjust the path accordingly
 import { generateCustomMetadata } from "../../utils/metadataHelper";
+import dynamic from 'next/dynamic';
+const ScrollHandler = dynamic(() => import("../../components/ScrollHandler"));
 
 // Generates static paths for each service
 export async function generateStaticParams() {

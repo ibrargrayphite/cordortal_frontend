@@ -15,6 +15,7 @@ const BigLeftImage = ({ title, headline, description, media, media2 }) => {
             {/* Left Section: Image */}
             <div className="col-12 col-md-6 flex justify-center relative">
               <Image
+              loading="lazy"
                 src={media && media?.startsWith('https') ? media : defaultMedia.src}
                 alt="Big Left"
                 width={100} height={100}
@@ -27,6 +28,7 @@ const BigLeftImage = ({ title, headline, description, media, media2 }) => {
                 }}
               >
                 <Image
+                loading="lazy"
                   src={media2 && media2?.startsWith('https') ? media2 : defaultMedia.src}
                   alt="icon overlay"
                   className={styles.iconImage}
