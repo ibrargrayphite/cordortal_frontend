@@ -4,8 +4,8 @@
 }
 
 .locationIconStyle{
-  height: 34px!important;
-  width: 30px!important;
+  height: 32px!important;
+  width: 26px!important;
 }
 .nav {
   display: flex;
@@ -280,6 +280,7 @@ li.informationDropdown {
   }
   .logoMob {
     height: 36px!important;
+    min-width: 100px;
   }
   .menuItems {
     display: none !important;
@@ -298,9 +299,6 @@ li.informationDropdown {
 @media (max-width: 991px) {
   .navBarContainer img {
     width: inherit;
-  }
-  .navBarContainer {
-    min-height: 8vh;
   }
 }
 
