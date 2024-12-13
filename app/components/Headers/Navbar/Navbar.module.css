@@ -296,12 +296,11 @@ li.informationDropdown {
   }
 }
 @media (max-width: 991px) {
- @media (max-width: 600px) {
   .navBarContainer img {
     width: inherit;
   }
   .navBarContainer {
-    min-height: 10vh;
+    min-height: 8vh;
   }
 }
-}
+
