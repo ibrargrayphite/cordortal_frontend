@@ -248,7 +248,8 @@ li.informationDropdown {
   .aboutDropdownContent, 
   .servicesDropdownContent, 
   .informationDropdownContent {
-    min-height: 52vh;
+    min-height: 1vh;
+    max-height: 20vh;
     overflow: auto;
   }
 }
@@ -295,9 +296,12 @@ li.informationDropdown {
   }
 }
 @media (max-width: 991px) {
- .navbarCollapse {
-  overflow: auto;
-  min-height: 12vh;
- }
-  
+ @media (max-width: 600px) {
+  .navBarContainer img {
+    width: inherit;
+  }
+  .navBarContainer {
+    min-height: 10vh;
+  }
+}
 }

@@ -77,7 +77,7 @@ const NavBar = ({media,src,name}) => {
       // className=" mt-3"
       expanded={expanded}
     >
-      <Container>
+      <Container className={styles.navBarContainer}>
         <Navbar.Brand
           style={{ cursor: "pointer" }}
           onClick={() => handleNavigation("/")}

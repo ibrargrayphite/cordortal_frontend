@@ -103,10 +103,9 @@
     margin: auto;
     max-width: 390px;
   }
-
 }
 @media (min-width: 320px) and (max-width: 400px) {
   .container {
     max-width: 350px;
-  } 
+  }
 }
