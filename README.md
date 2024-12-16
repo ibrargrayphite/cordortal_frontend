@@ -23,8 +23,9 @@ Clinic Builder is a versatile and efficient project designed to streamline clini
 3. **Environment Variables**:
    Create an `.env` file in the root directory and add the following variables:
    ```env
+   NEXT_PUBLIC_BASE_URL = https://backend.codortal.com
    NEXT_PUBLIC_DOMAIN=oaklandsdentalhudds
-   NEXT_PUBLIC_BASE_URL=https://backend.codortal.com
+   NEXT_PUBLIC_SITE_URL = https://oaklandsdentalhudds.co.uk
    ```
 
 ## Scripts
