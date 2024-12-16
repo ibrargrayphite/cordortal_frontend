@@ -6,6 +6,9 @@ import styles from "./HeaderDefault.module.css";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import defaultMedia from "../../../../public/assets/images/solutions/implants.png";
 import { useRouter } from "next/navigation";
+import CrossIcon from "../../../../public/assets/images/cross.svg";
+import MenuIcon from "../../../../public/assets/images/navIcon.svg";
+
 import Image from "next/image";
 
 const HeaderDefault = ({ media, name, menuItems, button }) => {
@@ -62,7 +65,14 @@ const HeaderDefault = ({ media, name, menuItems, button }) => {
                 </div>
               </div>
             </a>
-            <button className="lg:hidden text-white" onClick={toggleMenu}>
+            <div className="lg:hidden text-white" onClick={toggleMenu}>
+              {isMenuOpen ? (
+                <CrossIcon width={22} height={24} className={styles.mobileMenuIcon} alt="cross" />
+              ) : (
+                <MenuIcon height={24} width={48} className={styles.mobileMenuIcon} alt="menu" />
+              )}
+            </div>
+            {/* <button className="lg:hidden text-white" onClick={toggleMenu}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -77,7 +87,7 @@ const HeaderDefault = ({ media, name, menuItems, button }) => {
                   d="M4 6h16M4 12h16M4 18h16"
                 />
               </svg>
-            </button>
+            </button> */}
             <div
               class="hidden w-full lg:flex md:w-auto gap-4"
               id="navbar-default"

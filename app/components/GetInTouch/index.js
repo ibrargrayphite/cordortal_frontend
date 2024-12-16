@@ -108,7 +108,7 @@ const GetInTouch = ({headline,media}) => {
     <div>
       <ToastContainer />
       <Container fluid className={styles.getInTouchContainer}>
-        <Row className="justify-content-center ">
+        <Row className="justify-content-center w-full">
           <Col xs={12} md={8} lg={8} className={styles.imageCol}>
             <Image 
             loading="lazy"

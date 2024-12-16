@@ -4,8 +4,8 @@
 }
 
 .locationIconStyle{
-  height: 34px!important;
-  width: 30px!important;
+  height: 32px!important;
+  width: 26px!important;
 }
 .nav {
   display: flex;
@@ -154,7 +154,7 @@ li.servicesDropdown {
   padding: 12px 16px;
   border-radius: 9px;
   font-size: 18px;
-  font-weight: 500;
+  font-weight: 600;
   text-decoration: none;
   display: block;
   text-align: left;
@@ -191,7 +191,7 @@ li.informationDropdown {
   padding: 12px 16px;
   border-radius: 9px;
   font-size: 18px;
-  font-weight: 500;
+  font-weight: 600;
   text-decoration: none;
   display: block;
   text-align: left;
@@ -231,17 +231,29 @@ li.informationDropdown {
 }
 
 /* Adjust alignment of dropdowns */
-@media (max-width: 991px) {
+@media  only screen and (max-width: 991px) {
   .navbar-nav .nav-link {
     margin-right: 0.5rem !important;
   }
-}
-
-@media only screen and (max-width: 991px) {
   .locationMob {
     display: flex;
   }
+  .mobilelocationicon{
+    height: 26px!important;
+    width: 24px!important;
+  }
+  .locationDropdown {
+    display: none;
+  }
+  .aboutDropdownContent, 
+  .servicesDropdownContent, 
+  .informationDropdownContent {
+    min-height: 1vh;
+    max-height: 20vh;
+    overflow: auto;
+  }
 }
+
 @media only screen and (max-width: 767px) {
   .mobilelocationicon{
     height: 26px!important;
@@ -262,14 +274,13 @@ li.informationDropdown {
     display: flex;
     justify-content: space-between;
   }
-  .locationDropdown {
-    display: none;
-  }
+  
   .logo {
     height: 45px;
   }
   .logoMob {
     height: 36px!important;
+    min-width: 100px;
   }
   .menuItems {
     display: none !important;
@@ -285,3 +296,9 @@ li.informationDropdown {
     width: 48px;
   }
 }
+@media (max-width: 991px) {
+  .navBarContainer img {
+    width: inherit;
+  }
+}
+
