@@ -30,8 +30,9 @@ const nextConfig = {
     return config;
   },
   experimental: {
-    optimizePackageImports: ['tailwindcss','swiper','react-toastify','react-countup'],
+    optimizePackageImports: ['tailwindcss','swiper','react-toastify','react-countup','react-bootstrap'],
   },
+  transpilePackages: ['tailwindcss','swiper','react-toastify','react-countup','react-bootstrap'],
 };
 
 const bundleAnalyzer = withBundleAnalyzer({

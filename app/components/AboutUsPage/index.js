@@ -22,7 +22,7 @@ const AboutUs = () => {
       }));
   };
 
-  const pageName = "AboutUs";
+  const pageName = "about-us";
   const filtered = filterByPage(pages.pages, pageName); // Use context data
 
   return (

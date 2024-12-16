@@ -22,7 +22,7 @@ const ContactUs = () => {
       }));
   };
 
-  const pageName = "contactus";
+  const pageName = "contact-us";
   const filtered = filterByPage(pages.pages, pageName);
 
   return (

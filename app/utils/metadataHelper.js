@@ -1,5 +1,5 @@
 export async function generateCustomMetadata(currentPage) {
-  const currentDomain = process.env.NEXT_PUBLIC_DOMAIN || "default-domain.com";
+  const currentDomain = process.env.NEXT_PUBLIC_DOMAIN;
   let currentLocation = null;
 
   try {

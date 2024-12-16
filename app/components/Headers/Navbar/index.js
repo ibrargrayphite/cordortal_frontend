@@ -172,7 +172,7 @@ const NavBar = ({media,src,name}) => {
                 <a
                   style={{ fontSize: "16px" }}
                   className={`  ${styles.listStyle} ${
-                    activeItem === "AboutUs" ? styles.active : ""
+                    activeItem === "about-us" ? styles.active : ""
                   }`}
                   onClick={() => handleNavigation("/about-us")}
                 >

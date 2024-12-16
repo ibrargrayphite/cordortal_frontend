@@ -1,10 +1,11 @@
 import styles from "./blogDetail.module.css";
 import { Col, Container, Row } from "react-bootstrap";
-import HtmlContent from "../../components/HtmlContent";
 import { fetchPagesData } from "../../utils/fetchPagesData";
 import { generateCustomMetadata } from "../../utils/metadataHelper";
 import dynamic from 'next/dynamic';
 const ScrollHandler = dynamic(() => import("../../components/ScrollHandler"));
+const HtmlContent = dynamic(() => import("../../components/HtmlContent"));
+
 
 // This function is responsible for generating static paths for each blog
 export async function generateStaticParams() {
