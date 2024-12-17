@@ -141,6 +141,7 @@ const Carousel = ({ media }) => {
                 controls
                 autoPlay
                 muted
+                playsInline
                 className={styles.iframe}
               >
                 <source src={item?.url} type="video/mp4" />
