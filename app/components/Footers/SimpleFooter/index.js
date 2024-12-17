@@ -75,7 +75,8 @@ const SimpleFooter = ({ footerRights, data }) => {
         className="w-20 h-20 flex items-center justify-center  overflow-hidden cursor-pointer"
         onClick={() => window.open(image.link, "_blank")}
       >
-        <Image
+        <Image 
+        loading="lazy"
           src={image && image.url?.startsWith('https') ? image.url : defaultMedia.src}
           alt="Certified by the General Dental Council"
           width={70}

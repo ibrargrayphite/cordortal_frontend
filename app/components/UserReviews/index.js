@@ -28,7 +28,7 @@ const UserReviews = ({ userReviews }) => {
             <p className={styles.desc}>{review.description}</p>
             <div className={styles.reviewStarparent}>
               <div>
-                <Image src={review.reviewerImage && review.reviewerImage?.startsWith('https') ? review.reviewerImage : defaultMedia.src} width={50} height={50} alt="Learn more about our patients' experiences with our dental services" />
+                <Image loading="lazy" src={review.reviewerImage && review.reviewerImage?.startsWith('https') ? review.reviewerImage : defaultMedia.src} width={50} height={50} alt="Learn more about our patients' experiences with our dental services" />
               </div>
               <div>
                 <p className={styles.name}>{review.reviewerName}</p>

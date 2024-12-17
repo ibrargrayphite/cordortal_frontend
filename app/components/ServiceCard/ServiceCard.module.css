@@ -41,6 +41,8 @@
 }
 .imageSize{
   height: 116px;
+  width: 100%;
+  max-width: 120px;
 }
 .solutionsContainer0 {
   /* margin-top: 25px; */

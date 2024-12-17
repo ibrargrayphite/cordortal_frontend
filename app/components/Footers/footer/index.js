@@ -58,10 +58,10 @@ const Footer = ({ src, refersrc, title,data }) => {
           className={styles.contentMain}
           style={{ background: "#1f45b105", paddingTop: 30 }}
         >
-          <Row>
-            <Col lg={2} />
+          <Row className="max-lg:text-center">
+            <Col xxl={2} />
             <Col lg={4} sm={12}>
-              <HoursOfOperation hoursData={data.hoursData} lunchTime={data.lunchTime}/>
+              <HoursOfOperation hoursData={data?.hoursData} lunchTime={data?.lunchTime}/>
             </Col>
             {/* for mobile view */}
             <Col
@@ -86,17 +86,18 @@ const Footer = ({ src, refersrc, title,data }) => {
               <p style={{ fontWeight: "bold", color: theme.content }}>
                 Affiliated
               </p>
-                <div style={{ cursor: "pointer", marginTop: 20 }} className={styles.footerAward}>
-                  <Cqc  height={"55px"} width={"40%"}  alt="footerLogo1" onClick={() =>
+                <div style={{ cursor: "pointer", marginTop: 20 }} className={`${styles.footerAward} max-lg:flex max-lg:justify-center`}>
+                  <Cqc  height={"55px"} width={"170"}  alt="footerLogo1" onClick={() =>
                     window.open(
                       "https://www.cqc.org.uk/guidance-providers/dentists",
                       "_blank"
                     )
                   }/>
                   </div>
-              <div style={{ cursor: "pointer", marginTop: 20 }} className={styles.footerAward}>
+              <div style={{ cursor: "pointer", marginTop: 20 }} className={`${styles.footerAward} max-lg:flex max-lg:justify-center`}>
                 {/* <Image
                   height={50}
+                  loading="lazy"
                   width={50}
                   style={{ cursor: "pointer", marginTop: 20 }}
                   src={Nhs}
@@ -105,8 +106,9 @@ const Footer = ({ src, refersrc, title,data }) => {
                 /> */}
                 <Nhs  height={"55px"} width={"30%"}  alt="nhs" onClick={() => window.open("https://www.nhs.uk/", "_blank")} />
               </div>
-              <div className={styles.footerAward}>
-                <Image
+              <div className={`${styles.footerAward} max-lg:flex max-lg:justify-center`}>
+                <Image 
+                loading="lazy"
                   height={70}
                   width={70}
                   style={{ cursor: "pointer", marginTop: 20 }}
@@ -124,11 +126,13 @@ const Footer = ({ src, refersrc, title,data }) => {
           <Row>
             <Col lg={4} />
             <Col lg={4} sm={12} className={styles.hideOnMobile}>
-              <CustomButton
-                headline="Book an Appointment"
-                onClick={() => handleBooking(src)}
-                className={styles.customButton}
-              />
+              <div className={`max-lg:mt-0 max-xl:mt-40 ${styles.leftButton}`}>
+                <CustomButton
+                  headline="Book an Appointment"
+                  onClick={() => handleBooking(src)}
+                  className={styles.customButton}
+                />
+              </div>
               <div style={{ marginTop: 20 }}>
                 <ul className={styles.footerLink}>
                   <li>

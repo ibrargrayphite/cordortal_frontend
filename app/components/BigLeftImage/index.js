@@ -4,6 +4,7 @@ import CountUp from "react-countup";
 import styles from "./BigLeftImage.module.css";
 import { Container } from "react-bootstrap";
 import defaultMedia from "../../../public/assets/images/solutions/implants.png";
+import Image from "next/image";
 
 const BigLeftImage = ({ title, headline, description, media, media2 }) => {
   return (
@@ -13,9 +14,12 @@ const BigLeftImage = ({ title, headline, description, media, media2 }) => {
           <div className="d-md-flex flex-col md:flex-row items-center">
             {/* Left Section: Image */}
             <div className="col-12 col-md-6 flex justify-center relative">
-              <img
+              <Image
+              loading="lazy"
                 src={media && media?.startsWith('https') ? media : defaultMedia.src}
                 alt="Big Left"
+                width={100} height={100}
+                className={styles.Bigleft}
               />
               <div
                 className="absolute  transform rotate-30 d-none d-xl-block"
@@ -23,10 +27,12 @@ const BigLeftImage = ({ title, headline, description, media, media2 }) => {
                   transform: "translate(145%, -12%) rotate(18deg)",
                 }}
               >
-                <img
+                <Image
+                loading="lazy"
                   src={media2 && media2?.startsWith('https') ? media2 : defaultMedia.src}
                   alt="icon overlay"
                   className={styles.iconImage}
+                  width={100} height={100}
                 />
               </div>
             </div>

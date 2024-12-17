@@ -1,65 +1,28 @@
-"use client";
-import styles from "./AboutUs.module.css";
-import { renderComponent } from "../utils/renderComponent";
-import { usePages } from '../context/PagesContext'; // Import the usePages hook
-import { useEffect, useState } from 'react';
-import { generateCustomMetadata } from "../utils/metadataHelper";
-import ScrollHandler from "../components/ScrollHandler";
+import dynamic from 'next/dynamic';
+const AboutUs = dynamic(() => import("../components/AboutUsPage"));
 
-const AboutUs = () => {
-  const [isClient, setIsClient] = useState(false);
-  const { pages } = usePages();
+export async function generateMetadata() {
+  const { generateCustomMetadata } = await import("../utils/metadataHelper");
 
-  useEffect(() => {
-    setIsClient(true);
+  // Fetch data for metadata generation
+  const currentPage = "/about-us";
+  const meta = await generateCustomMetadata(currentPage);
 
-    (async () => {
-      try {
-        await generateCustomMetadata(pages,'/about-us');
-      } catch (error) {
-        console.error("Error generating metadata:", error);
-      }
-    })();
-  }, [pages]);
-
-  if (!isClient) {
-    return null;
-  }
-
-  const filterByPage = (pages, pageName) => {
-    if (!Array.isArray(pages)) {
-      return [];
-    }
-
-    return pages
-      .filter((page) => page.pageName === pageName)
-      .map((page) => ({
-        ...page,
-        content: page.content || [],
-      }));
+  return {
+    title: meta.title,
+    description: meta.description,
+    keywords: meta.keywords,
+    robots: meta.robots,
+    openGraph: meta.openGraph,
+    twitter: meta.twitter,
+    alternates: meta.alternates,
+    verification: meta.verification,
+    icons: meta.icons,
+    structuredData: meta.structuredData,
   };
+}
 
-  const pageName = "AboutUs";
-  const filtered = filterByPage(pages.pages, pageName);
-
-  return (
-    <div className={styles.trustedContainer}>
-    <ScrollHandler sectionScroll={null} scrollToCenter={true} />
-    {filtered.length > 0 ? (
-      filtered.map((page, pageIndex) => (
-        <div key={pageIndex}>
-          {page.content.map((block, blockIndex) => (
-            <div key={blockIndex} id={block.scroll}>
-              {renderComponent(block)}
-            </div>
-          ))}
-        </div>
-      ))
-    ) : (
-      <p>No content available.</p>
-    )}
-  </div>
-  );
-};
-
-export default AboutUs;
+// Export the AboutUs component as the default export
+export default function Page() {
+  return <AboutUs />;
+}

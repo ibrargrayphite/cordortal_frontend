@@ -1,0 +1,804 @@
+{
+    "id": 4,
+    "domain": "straightsmiles",
+    "title": "Straight Smiles Dental",
+    "name": "Straight Smiles Dental",
+    "media": "https://dental-bucket.s3.amazonaws.com/uploads/c6c8da6b-25fc-4a50-9f10-da384948a93b.png",
+    "fontFamily": "urbanist",
+    "favIcon": "https://dental-bucket.s3.amazonaws.com/uploads/47a9f379-fab8-4574-86e5-a883e1d4e45a.png",
+    "shared": {
+        "footer": {
+            "data": {
+                "media": [
+                    {
+                        "id": 1,
+                        "url": "https://dental-bucket.s3.amazonaws.com/uploads/81d6ff73-3bb7-4d65-a152-76157db7c600.png",
+                        "link": "https://www.gdc-uk.org/"
+                    },
+                    {
+                        "id": 2,
+                        "url": "https://dental-bucket.s3.amazonaws.com/uploads/1588d7f2-496b-4342-9077-bf8f86dd5a06.png",
+                        "link": "https://www.gdc-uk.org/"
+                    }
+                ],
+                "sections": {
+                    "aboutUs": {
+                        "contact": {
+                            "email": "dentalclinic@company.com",
+                            "phone": "(021) 387 874 096"
+                        },
+                        "heading": "About Us",
+                        "description": "Services that provide the best dentist health, we have been in the field for more than 10 years experience"
+                    },
+                    "company": {
+                        "items": [
+                            "Partnership",
+                            "Social Media",
+                            "About Company",
+                            "Clinic Maps",
+                            "Contact"
+                        ],
+                        "heading": "Company"
+                    },
+                    "services": {
+                        "items": [
+                            "Cosmetic Braces",
+                            "Dental Implant",
+                            "General Dentistry",
+                            "Restorative Dentistry",
+                            "Extractions"
+                        ],
+                        "heading": "Services"
+                    },
+                    "information": {
+                        "items": [
+                            "An Appointment",
+                            "Sign Up",
+                            "Join Community",
+                            "Newsletter"
+                        ],
+                        "heading": "Information"
+                    }
+                }
+            },
+            "name": "SimpleFooter",
+            "footerRights": "straightsmile 2024 all rights reserved"
+        },
+        "header": {
+            "alt": "Oaklands Dental",
+            "src": "https://oaklands-dental.portal.dental/book",
+            "name": "HeaderDefault",
+            "button": {
+                "href": "https://oaklands-dental.dentr.net/book",
+                "name": "Book Now"
+            },
+            "menuItems": [
+                {
+                    "href": "/about-us",
+                    "name": "Pricing"
+                },
+                {
+                    "href": "/information",
+                    "name": "Case Studies"
+                },
+                {
+                    "href": "/team",
+                    "name": "For Dentist"
+                }
+            ]
+        }
+    },
+    "data": {
+        "email": "straightsmiles@gmail.com",
+        "media": "footerLogo",
+        "phone": "01484 531964",
+        "address": "60 Bradford Road Huddersfield, HD1 6JE"
+    },
+    "colors": {
+        "media": "https://dental-bucket.s3.amazonaws.com/uploads/264869fe-1118-4616-8473-18e1213ba596.png",
+        "bgColor": "#00000005",
+        "content": "#49545A",
+        "headlineColor": "#000000",
+        "mainAccentDark": "#000000",
+        "mainAccentColor": "#008B8B",
+        "subHeadlineColor": "#373F43"
+    },
+    "pages": [
+        {
+            "id": 40,
+            "pageName": "information",
+            "content": [
+                {
+                    "id": "1",
+                    "headline": "Case Study",
+                    "buttonSrc": "http://ww25.formsubit.co/?subid1=20241205-2218-157e-adb3-33d658f424ca",
+                    "component": "LandingPageBanner",
+                    "buttonName": "Contact Sales",
+                    "description": "Transform your smile quickly and effortlessly with our exceptional services. We understand the importance of having a beautiful, straight smile, and that's why we offer efficient solutions tailored to your needs."
+                },
+                {
+                    "id": "2",
+                    "data": [
+                        {
+                            "date": "09/08/2020",
+                            "slug": "case_study_1",
+                            "video": "https://dental-bucket.s3.amazonaws.com/uploads/86b972e4-42c9-489d-95e7-008252cdc69b.mp4",
+                            "bullets": [
+                                "Patient Name: Sarah",
+                                "Age:  27",
+                                "We customized clear aligners for Sarah, providing a virtually invisible way to correct her alignment. She wore them for 20-22 hours daily and changed to a new set every two weeks.",
+                                "Result: After just 10 months, Sarah’s teeth were perfectly aligned, and she was thrilled to achieve her dream smile without anyone noticing her treatment."
+                            ],
+                            "heading": "Clear Aligners (e.g., Invisalign) Case Story"
+                        },
+                        {
+                            "date": "09/08/2020",
+                            "slug": "case_study_2",
+                            "video": "https://dental-bucket.s3.amazonaws.com/uploads/4cb0cbe9-aed3-4ee6-b626-9b8ce71f2353.mp4",
+                            "bullets": [
+                                "Patient Name: James",
+                                "Age: 32",
+                                "We recommended ceramic braces, which use tooth-colored brackets for a subtle look. These braces offered the strength and precision needed for his complex alignment issues.",
+                                "Result: Over 18 months, James’s smile transformed dramatically, and he appreciated the discreet aesthetic throughout his treatment."
+                            ],
+                            "heading": "Ceramic Braces Case Story"
+                        },
+                        {
+                            "date": "09/08/2020",
+                            "slug": "case_study_3",
+                            "video": "https://dental-bucket.s3.amazonaws.com/uploads/24e91f90-f297-4091-90bd-bc5b68a3d973.mp4",
+                            "bullets": [
+                                "Patient Name: Priya",
+                                "Age: 22",
+                                "We fitted Priya with lingual braces placed on the back of her teeth. Though the initial adjustment took time, she soon became comfortable with the invisible treatment.",
+                                "Result: After two years, Priya’s gaps were closed, and her teeth were beautifully aligned—all while keeping her braces entirely out of sight."
+                            ],
+                            "heading": "Lingual Aligners (Lingual Braces) Case Story"
+                        },
+                        {
+                            "date": "09/08/2020",
+                            "slug": "case_study_4",
+                            "video": "https://dental-bucket.s3.amazonaws.com/uploads/eae763c2-0b49-4e1b-af22-9bd7a59d464a.mp4",
+                            "bullets": [
+                                "Patient Name: Daniel",
+                                "Age: 15",
+                                "Self-ligating braces were the perfect choice, as they use a slide mechanism instead of elastic bands to reduce friction and speed up the process.",
+                                "Result: In just 14 months, Daniel’s smile was transformed, and he experienced fewer visits to the clinic and minimal discomfort throughout the journey."
+                            ],
+                            "heading": "Self-Ligating Aligners Case Story"
+                        }
+                    ],
+                    "headline": "Our Happy Clients",
+                    "component": "CaseStudyCard"
+                },
+                {
+                    "id": "3",
+                    "headline": "See What Our Clients Have to Say:",
+                    "component": "ReviewSlider",
+                    "userReviews": [
+                        {
+                            "id": 1,
+                            "stars": 5,
+                            "description": "I got recommended Oaklands from a friend. I attended on 26/07/2023 and had a private filling treatment from Dr.Harun and his lovely team of nurses. The treatment was like no other very stressfree and painless would highly recommend for the service provided and the care. Thanks for Dr.Harun and the nurses for taking care of me.",
+                            "desigination": "first Manager",
+                            "reviewerName": "Usaama Mohammed",
+                            "reviewerImage": "https://dental-bucket.s3.amazonaws.com/uploads/43d0960e-ce6b-4490-b9bb-22c95d5a7e2a.png"
+                        },
+                        {
+                            "id": 2,
+                            "stars": 5,
+                            "description": "I have always found the staff to be very pleasant and helpful. The dentist has been absolutely great with me . I had to have a lot of work done due to the effects of an illness I had a few years ago and he has always seen me at short notice, phoned me to see everything was okay with my treatment and very patient as I am a bit of a scary cat when it comes to going to the dentist. Thank you.",
+                            "desigination": "test Manager",
+                            "reviewerName": "Margaret Casson",
+                            "reviewerImage": "https://dental-bucket.s3.amazonaws.com/uploads/2f4e5da9-e0c3-4597-b50f-4dac0a7c4fb6.png"
+                        },
+                        {
+                            "id": 3,
+                            "stars": 5,
+                            "description": "I have just finished a course of Invisalign bracers treatment with Oaklands Dental. The staff are very professional and accommodating. The treatment went well and was monitored well throughout. I am very pleased with the results that have come from the treatment also.",
+                            "desigination": "Prodcut Manager",
+                            "reviewerName": "John Mark",
+                            "reviewerImage": "https://dental-bucket.s3.amazonaws.com/uploads/e55d4dc5-3bfc-43cb-93f1-c9a66f1d7059.png"
+                        },
+                        {
+                            "id": 4,
+                            "stars": 5,
+                            "description": "Recently had my teeth cleaned, whitened and had veneers fitted with Dr Hussain. I've always hated my teeth and after having a bike accident and snapping my front two I was even more self-conscious of them. He's done an amazing job they look better than my natural teeth did. He's very calm and reassuring and kept checking in while he worked to make sure nothing was hurting. I can't believe how good they look. They went from yellow, stained wonky and cracked to white and straight. Best money I've ever spent - they look perfect. Thank you Dr Hussain for making me happy to smile.",
+                            "desigination": "Prodcut Manager",
+                            "reviewerName": "Lydia Booth",
+                            "reviewerImage": "https://dental-bucket.s3.amazonaws.com/uploads/8c57a095-a4d5-4db5-ad4f-27cbde9f75d3.png"
+                        },
+                        {
+                            "id": 5,
+                            "stars": 5,
+                            "description": "Dr Hussain has been attentive throughout my Invisalign journey. He has patience of a saint and was helpful in answering all my questions and concerns I had regarding Invisalign which also included specific advice in relation the ‘complexity’ of an overbite in my case. Dr Hussain provided exceptional client care service to include telephone advice and email to suit my work commitments. Dr Hussain provided the upmost professional service at all times whilst making sure I felt at ease at all my appointments. I would recommend Dr Hussain to anyone who is thinking about Invisalign as you will not only leave with a beautiful smile at the end but also feel very exceptionally pleased with the outcome.",
+                            "desigination": "Prodcut Manager",
+                            "reviewerName": "Naheed",
+                            "reviewerImage": "https://dental-bucket.s3.amazonaws.com/uploads/ec285abf-6471-43ca-b58b-4b8646fe07e6.png"
+                        },
+                        {
+                            "id": 6,
+                            "stars": 5,
+                            "description": "I recently had a wonderful experience at this office. From the moment I entered I was welcomed by an extremely receptive and professional team, especially Julie. I had the Invasalign procedure which went really well and I am very happy with the result.",
+                            "desigination": "Prodcut Manager",
+                            "reviewerName": "Eliane Guimaraes",
+                            "reviewerImage": "https://dental-bucket.s3.amazonaws.com/uploads/728284a1-50cd-4790-84fe-33af6ee96004.png"
+                        },
+                        {
+                            "id": 7,
+                            "stars": 5,
+                            "description": "I recently had a wonderful experience at this office. From the moment I entered I was welcomed by an extremely receptive and professional team, especially Julie. I had the Invasalign procedure which went really well and I am very happy with the result.",
+                            "desigination": "Prodcut Manager",
+                            "reviewerName": "Eliane Guimaraes",
+                            "reviewerImage": "https://dental-bucket.s3.amazonaws.com/uploads/728284a1-50cd-4790-84fe-33af6ee96004.png"
+                        },
+                        {
+                            "id": 8,
+                            "stars": 5,
+                            "description": "I recently had a wonderful experience at this office. From the moment I entered I was welcomed by an extremely receptive and professional team, especially Julie. I had the Invasalign procedure which went really well and I am very happy with the result.",
+                            "desigination": "Prodcut Manager",
+                            "reviewerName": "Eliane Guimaraes",
+                            "reviewerImage": "https://dental-bucket.s3.amazonaws.com/uploads/728284a1-50cd-4790-84fe-33af6ee96004.png"
+                        },
+                        {
+                            "id": 9,
+                            "stars": 5,
+                            "description": "I recently had a wonderful experience at this office. From the moment I entered I was welcomed by an extremely receptive and professional team, especially Julie. I had the Invasalign procedure which went really well and I am very happy with the result.",
+                            "desigination": "last Manager",
+                            "reviewerName": "last Guimaraes",
+                            "reviewerImage": "https://dental-bucket.s3.amazonaws.com/uploads/8c57a095-a4d5-4db5-ad4f-27cbde9f75d3.png"
+                        }
+                    ]
+                },
+                {
+                    "id": "4",
+                    "media": "https://dental-bucket.s3.amazonaws.com/uploads/bb335618-e853-4db9-9211-b82d783ad50e.jpeg",
+                    "headline": "Seize the opportunity for a brighter smile starting now!",
+                    "buttonSrc": "http://ww25.formsubit.co/?subid1=20241205-2218-157e-adb3-33d658f424ca",
+                    "component": "CardRightImage",
+                    "buttonName": "Book Now",
+                    "description": "Embracing the Now or Never Moment: Unlocking the Gateway to a Brighter, More Captivating Smile Beyond Your Wildest Dreams!"
+                }
+            ]
+        },
+        {
+            "id": 41,
+            "pageName": "AboutUs",
+            "content": [
+                {
+                    "id": "1",
+                    "headline": "Pricing",
+                    "buttonSrc": "http://ww25.formsubit.co/?subid1=20241205-2218-157e-adb3-33d658f424ca",
+                    "component": "LandingPageBanner",
+                    "buttonName": "Contact Sales",
+                    "description": "Transform your smile quickly and effortlessly with our exceptional services. We understand the importance of having a beautiful, straight smile, and that's why we offer efficient solutions tailored to your needs."
+                },
+                {
+                    "id": "2",
+                    "data": [
+                        {
+                            "name": "All Physicians",
+                            "price": "$900",
+                            "duration": "Per Yearly",
+                            "offerPoint": [
+                                "Etiam pharetra libero ultricies orn",
+                                "Quisque et felis feug",
+                                "Pellentesque ut auctor nungrah"
+                            ]
+                        },
+                        {
+                            "name": "Doctor Visits",
+                            "price": "$150",
+                            "duration": "Per Yearly",
+                            "offerPoint": [
+                                "Etiam pharetra libero ultricies orn",
+                                "Pellentesque nec lacinia sapien",
+                                "Nulla ex purus, interdum no"
+                            ]
+                        },
+                        {
+                            "name": "Urgent Care",
+                            "price": "$250",
+                            "duration": "Per Yearly",
+                            "offerPoint": [
+                                "Etiam pharetra libero ultricies orn",
+                                "Quisque et felis feug",
+                                "Pellentesque ut auctor nungrah"
+                            ]
+                        }
+                    ],
+                    "component": "BillingCardOffer"
+                },
+                {
+                    "id": "3",
+                    "headline": "See What Our Clients Have to Say:",
+                    "component": "ReviewSlider",
+                    "userReviews": [
+                        {
+                            "id": 1,
+                            "stars": 5,
+                            "description": "I got recommended Oaklands from a friend. I attended on 26/07/2023 and had a private filling treatment from Dr.Harun and his lovely team of nurses. The treatment was like no other very stressfree and painless would highly recommend for the service provided and the care. Thanks for Dr.Harun and the nurses for taking care of me.",
+                            "desigination": "first Manager",
+                            "reviewerName": "Usaama Mohammed",
+                            "reviewerImage": "https://dental-bucket.s3.amazonaws.com/uploads/43d0960e-ce6b-4490-b9bb-22c95d5a7e2a.png"
+                        },
+                        {
+                            "id": 2,
+                            "stars": 5,
+                            "description": "I have always found the staff to be very pleasant and helpful. The dentist has been absolutely great with me . I had to have a lot of work done due to the effects of an illness I had a few years ago and he has always seen me at short notice, phoned me to see everything was okay with my treatment and very patient as I am a bit of a scary cat when it comes to going to the dentist. Thank you.",
+                            "desigination": "test Manager",
+                            "reviewerName": "Margaret Casson",
+                            "reviewerImage": "https://dental-bucket.s3.amazonaws.com/uploads/2f4e5da9-e0c3-4597-b50f-4dac0a7c4fb6.png"
+                        },
+                        {
+                            "id": 3,
+                            "stars": 5,
+                            "description": "I have just finished a course of Invisalign bracers treatment with Oaklands Dental. The staff are very professional and accommodating. The treatment went well and was monitored well throughout. I am very pleased with the results that have come from the treatment also.",
+                            "desigination": "Prodcut Manager",
+                            "reviewerName": "John Mark",
+                            "reviewerImage": "https://dental-bucket.s3.amazonaws.com/uploads/e55d4dc5-3bfc-43cb-93f1-c9a66f1d7059.png"
+                        },
+                        {
+                            "id": 4,
+                            "stars": 5,
+                            "description": "Recently had my teeth cleaned, whitened and had veneers fitted with Dr Hussain. I've always hated my teeth and after having a bike accident and snapping my front two I was even more self-conscious of them. He's done an amazing job they look better than my natural teeth did. He's very calm and reassuring and kept checking in while he worked to make sure nothing was hurting. I can't believe how good they look. They went from yellow, stained wonky and cracked to white and straight. Best money I've ever spent - they look perfect. Thank you Dr Hussain for making me happy to smile.",
+                            "desigination": "Prodcut Manager",
+                            "reviewerName": "Lydia Booth",
+                            "reviewerImage": "https://dental-bucket.s3.amazonaws.com/uploads/8c57a095-a4d5-4db5-ad4f-27cbde9f75d3.png"
+                        },
+                        {
+                            "id": 5,
+                            "stars": 5,
+                            "description": "Dr Hussain has been attentive throughout my Invisalign journey. He has patience of a saint and was helpful in answering all my questions and concerns I had regarding Invisalign which also included specific advice in relation the ‘complexity’ of an overbite in my case. Dr Hussain provided exceptional client care service to include telephone advice and email to suit my work commitments. Dr Hussain provided the upmost professional service at all times whilst making sure I felt at ease at all my appointments. I would recommend Dr Hussain to anyone who is thinking about Invisalign as you will not only leave with a beautiful smile at the end but also feel very exceptionally pleased with the outcome.",
+                            "desigination": "Prodcut Manager",
+                            "reviewerName": "Naheed",
+                            "reviewerImage": "https://dental-bucket.s3.amazonaws.com/uploads/ec285abf-6471-43ca-b58b-4b8646fe07e6.png"
+                        },
+                        {
+                            "id": 6,
+                            "stars": 5,
+                            "description": "I recently had a wonderful experience at this office. From the moment I entered I was welcomed by an extremely receptive and professional team, especially Julie. I had the Invasalign procedure which went really well and I am very happy with the result.",
+                            "desigination": "Prodcut Manager",
+                            "reviewerName": "Eliane Guimaraes",
+                            "reviewerImage": "https://dental-bucket.s3.amazonaws.com/uploads/728284a1-50cd-4790-84fe-33af6ee96004.png"
+                        },
+                        {
+                            "id": 7,
+                            "stars": 5,
+                            "description": "I recently had a wonderful experience at this office. From the moment I entered I was welcomed by an extremely receptive and professional team, especially Julie. I had the Invasalign procedure which went really well and I am very happy with the result.",
+                            "desigination": "Prodcut Manager",
+                            "reviewerName": "Eliane Guimaraes",
+                            "reviewerImage": "https://dental-bucket.s3.amazonaws.com/uploads/728284a1-50cd-4790-84fe-33af6ee96004.png"
+                        },
+                        {
+                            "id": 8,
+                            "stars": 5,
+                            "description": "I recently had a wonderful experience at this office. From the moment I entered I was welcomed by an extremely receptive and professional team, especially Julie. I had the Invasalign procedure which went really well and I am very happy with the result.",
+                            "desigination": "Prodcut Manager",
+                            "reviewerName": "Eliane Guimaraes",
+                            "reviewerImage": "https://dental-bucket.s3.amazonaws.com/uploads/728284a1-50cd-4790-84fe-33af6ee96004.png"
+                        },
+                        {
+                            "id": 9,
+                            "stars": 5,
+                            "description": "I recently had a wonderful experience at this office. From the moment I entered I was welcomed by an extremely receptive and professional team, especially Julie. I had the Invasalign procedure which went really well and I am very happy with the result.",
+                            "desigination": "last Manager",
+                            "reviewerName": "last Guimaraes",
+                            "reviewerImage": "https://dental-bucket.s3.amazonaws.com/uploads/8c57a095-a4d5-4db5-ad4f-27cbde9f75d3.png"
+                        }
+                    ]
+                },
+                {
+                    "id": "4",
+                    "media": "https://dental-bucket.s3.amazonaws.com/uploads/bb335618-e853-4db9-9211-b82d783ad50e.jpeg",
+                    "headline": "Seize the opportunity for a brighter smile starting now!",
+                    "buttonSrc": "http://ww25.formsubit.co/?subid1=20241205-2218-157e-adb3-33d658f424ca",
+                    "component": "CardRightImage",
+                    "buttonName": "Book Now",
+                    "description": "Embracing the Now or Never Moment: Unlocking the Gateway to a Brighter, More Captivating Smile Beyond Your Wildest Dreams!"
+                }
+            ]
+        },
+        {
+            "id": 61,
+            "pageName": "team",
+            "content": [
+                {
+                    "id": "1",
+                    "headline": "For Dentist",
+                    "buttonSrc": "http://ww25.formsubit.co/?subid1=20241205-2218-157e-adb3-33d658f424ca",
+                    "component": "LandingPageBanner",
+                    "buttonName": "Contact Sales",
+                    "description": "Partner with Us to Elevate Smiles At Straight Smiles, we’re committed to empowering dentists with top-tier orthodontic solutions. Collaborate with us to bring precision, comfort, and efficiency to your patients' orthodontic journeys."
+                },
+                {
+                    "id": "2",
+                    "headline": "Partner with Us to Elevate Smiles",
+                    "component": "HeadingTopDiscription",
+                    "description": "At Straight Smiles, we’re committed to empowering dentists with top-tier orthodontic solutions. Collaborate with us to bring precision, comfort, and efficiency to your patients' orthodontic journeys."
+                },
+                {
+                    "id": "3",
+                    "data": [
+                        {
+                            "content": [
+                                {
+                                    "content": "High-quality braces and aligners.",
+                                    "headline": "Cutting-Edge Orthodontic Solutions:"
+                                },
+                                {
+                                    "content": "Expand your services to include orthodontics",
+                                    "headline": "Increased Revenue Opportunities:"
+                                },
+                                {
+                                    "content": "Access to experienced orthodontic consultants",
+                                    "headline": "Expert Support:"
+                                },
+                                {
+                                    "content": "Proven treatments that deliver results.",
+                                    "headline": "Patient Satisfaction:"
+                                }
+                            ],
+                            "headline": "Why Choose Straight Smiles?"
+                        },
+                        {
+                            "content": [
+                                {
+                                    "content": "Equip your staff to handle braces and aligner treatments confidently.",
+                                    "headline": "Training Programs:"
+                                },
+                                {
+                                    "content": "Assistance in diagnosis, planning, and implementation.",
+                                    "headline": "Case Support:"
+                                },
+                                {
+                                    "content": "Tailored treatment plans for every patient.",
+                                    "headline": "Custom Orthodontic Solutions:"
+                                },
+                                {
+                                    "content": " Help in promoting orthodontic services in your practice.",
+                                    "headline": "Marketing Resources:"
+                                }
+                            ],
+                            "headline": "How We Support Your Practice"
+                        },
+                        {
+                            "content": [
+                                {
+                                    "content": "Showcase the advanced materials, software, or techniques you use in your braces and aligners, emphasizing ease of use for both dentists and patients.",
+                                    "headline": "Precision Meets Innovation:"
+                                }
+                            ],
+                            "headline": "Our Technology"
+                        },
+                        {
+                            "content": [
+                                {
+                                    "content": "Our advanced braces and aligners ensure superior outcomes for your patients.",
+                                    "headline": "State-of-the-Art Technology:"
+                                },
+                                {
+                                    "content": "Equip your team with in-depth knowledge and hands-on training to seamlessly integrate orthodontics into your practice.",
+                                    "headline": "Comprehensive Training:"
+                                },
+                                {
+                                    "content": "From case assessments to post-treatment guidance, our experts are with you every step of the way.",
+                                    "headline": "End-to-End Support:"
+                                },
+                                {
+                                    "content": "We provide customized orthodontic plans that align with your clinic’s unique needs.",
+                                    "headline": "Tailored Solutions for Your Practice:"
+                                }
+                            ],
+                            "headline": "Why Partner with Straight Smiles?"
+                        },
+                        {
+                            "content": [
+                                {
+                                    "content": "Comfortable and discreet aligner solutions.",
+                                    "headline": "Innovative Design for Patient Comfort:"
+                                },
+                                {
+                                    "content": "Faster treatment times with precision-engineered products.",
+                                    "headline": "Efficiency Backed by Advanced Technology:"
+                                },
+                                {
+                                    "content": "Affordable payment plans tailored for accessibility.",
+                                    "headline": "Flexible Options for Every Budget:"
+                                }
+                            ],
+                            "headline": "Benefits for Your Patients"
+                        }
+                    ],
+                    "component": "Faq"
+                },
+                {
+                    "id": "3",
+                    "headline": "Let’s Grow Together",
+                    "component": "HeadingWithBgImage",
+                    "noBgColor": true,
+                    "description": "Join the Straight Smiles network of trusted dental professionals today. Together, we’ll transform smiles and build lasting patient satisfaction. Contact Us at dentalclinic@company.com or Call at (021) 387 874 096 to learn more about our partnership program.",
+                    "headlineLarge": true,
+                    "withoutBgImageHeading": true
+                }
+            ]
+        },
+        {
+            "id": 42,
+            "pageName": "Homepage",
+            "content": [
+                {
+                    "id": "1",
+                    "media": "https://dental-bucket.s3.amazonaws.com/uploads/a600a340-3bc9-458d-952f-80c02d5c0d9a.png",
+                    "title": "Health",
+                    "headline": "Let's Take",
+                    "buttonSrc": "http://ww25.formsubit.co/?subid1=20241205-2218-157e-adb3-33d658f424ca",
+                    "component": "landingPageOverlay",
+                    "buttonName": "Contact Sales",
+                    "description": "Your smile is our priority! At SmartSmiles, we’re dedicated to providing exceptional dental care for the entire family. From routine check-ups to advanced cosmetic treatments, our team of experienced professionals combines expertise with compassion to ensure your comfort and oral health. Let us help you achieve a brighter, healthier smile that lasts a lifetime!",
+                    "headlineLarge": "Care Of Your Dental"
+                },
+                {
+                    "id": "2",
+                    "data": [
+                        {
+                            "name": "Smiles Transformed",
+                            "count": 350
+                        },
+                        {
+                            "name": "Happy Clients",
+                            "count": 326
+                        },
+                        {
+                            "name": "Skilled Orthodontic Experts",
+                            "count": 8
+                        },
+                        {
+                            "name": "Annual Treatments",
+                            "count": 120
+                        }
+                    ],
+                    "component": "CountNumber"
+                },
+                {
+                    "id": "3",
+                    "media": "https://dental-bucket.s3.amazonaws.com/uploads/9cd56e84-605f-401c-b5c7-477a846455dc.png",
+                    "media2": "https://dental-bucket.s3.amazonaws.com/uploads/deff09c2-4ee5-4f7e-9edb-d1a90dec97c6.png",
+                    "headline": "Best Quality services",
+                    "component": "BigLeftImage",
+                    "description": "At SmartSmiles, we take pride in offering the highest quality dental services tailored to your unique needs. Equipped with state-of-the-art technology and led by a team of skilled professionals, we ensure precision, comfort, and outstanding results. Whether it’s preventive care, cosmetic enhancements, or restorative treatments, our commitment to excellence guarantees you receive the best possible care in a warm and welcoming environment. Your smile deserves nothing less than perfection!"
+                },
+                {
+                    "id": "4",
+                    "headline": "Discover Your Path to a Perfectly Aligned Smile!",
+                    "component": "HeadingTopDiscription"
+                },
+                {
+                    "id": "5",
+                    "media": "https://dental-bucket.s3.amazonaws.com/uploads/3104f788-ef04-4b08-88f4-866b6b2c905d.png",
+                    "headline": "Aligners",
+                    "buttonSrc": "http://ww25.formsubit.co/?subid1=20241205-2218-157e-adb3-33d658f424ca",
+                    "component": "RightImageShadow",
+                    "buttonName": "Book Now",
+                    "description": "At SmartSmiles, we offer a variety of teeth alignment solutions to suit your unique needs and lifestyle. From clear aligners like Invisalign for a virtually invisible and removable option, to ceramic braces that blend seamlessly with your natural tooth color, we ensure discreet and effective results. For those seeking completely hidden solutions, our lingual aligners are fixed behind the teeth for maximum invisibility. We also provide self-ligating braces, a modern alternative that minimizes discomfort and enhances efficiency. Whatever your alignment goals, our expert team is here to help you achieve a confident, beautifully aligned smile!"
+                },
+                {
+                    "id": "6",
+                    "headline": "Introducing Our Dedicated Dentists",
+                    "component": "YourTeamSlider",
+                    "teamMembers": [
+                        {
+                            "id": 1,
+                            "twitterLink": "https://twitter.com/login",
+                            "facebookLink": "https://www.facebook.com/",
+                            "instagramLink": "https://www.instagram.com/",
+                            "teamMemberName": "Dr Harun Hussain",
+                            "teamMemberImage": "https://dental-bucket.s3.amazonaws.com/uploads/60c16b43-e7aa-436e-a2ec-624c3d8e592c.png",
+                            "teamMemberSpeciality": "Dentist (General or Specialist)"
+                        },
+                        {
+                            "id": 2,
+                            "twitterLink": "https://twitter.com/login",
+                            "facebookLink": "https://www.facebook.com/",
+                            "instagramLink": "https://www.instagram.com/",
+                            "teamMemberName": "Dr Ali Hussain",
+                            "teamMemberImage": "https://dental-bucket.s3.amazonaws.com/uploads/c296e950-a688-4e02-b32e-72dc62aeb75d.png",
+                            "teamMemberSpeciality": "Dental Hygienist"
+                        },
+                        {
+                            "id": 3,
+                            "twitterLink": "https://twitter.com/login",
+                            "facebookLink": "https://www.facebook.com/",
+                            "instagramLink": "https://www.instagram.com/",
+                            "teamMemberName": "Dr Ahmed",
+                            "teamMemberImage": "https://dental-bucket.s3.amazonaws.com/uploads/a2f436c9-2b3a-4fa1-bd67-c95addb8302b.png",
+                            "teamMemberSpeciality": "Dental Assistant"
+                        },
+                        {
+                            "id": 4,
+                            "twitterLink": "https://twitter.com/login",
+                            "facebookLink": "https://www.facebook.com/",
+                            "instagramLink": "https://www.instagram.com/",
+                            "teamMemberName": "Dr Wajih",
+                            "teamMemberImage": "https://dental-bucket.s3.amazonaws.com/uploads/fd4f712e-7254-4bcf-a97d-802650ad4984.png",
+                            "teamMemberSpeciality": "Dentist Head"
+                        },
+                        {
+                            "id": 5,
+                            "twitterLink": "https://twitter.com/login",
+                            "facebookLink": "https://www.facebook.com/",
+                            "instagramLink": "https://www.instagram.com/",
+                            "teamMemberName": "Dr Harun Hussain",
+                            "teamMemberImage": "https://dental-bucket.s3.amazonaws.com/uploads/354b20f7-9642-4129-8065-d461f0827f41.png",
+                            "teamMemberSpeciality": "Clinical Head"
+                        },
+                        {
+                            "id": 6,
+                            "twitterLink": "https://twitter.com/login",
+                            "facebookLink": "https://www.facebook.com/",
+                            "instagramLink": "https://www.instagram.com/",
+                            "teamMemberName": "Dr Hussain",
+                            "teamMemberImage": "https://dental-bucket.s3.amazonaws.com/uploads/354b20f7-9642-4129-8065-d461f0827f41.png",
+                            "teamMemberSpeciality": "Dental Hygienist"
+                        }
+                    ]
+                },
+                {
+                    "id": "7",
+                    "data": [
+                        {
+                            "icon": "FaGlobe",
+                            "link": "/information/case_study_1",
+                            "headline": "Clear Aligners (e.g., Invisalign):",
+                            "description": "Made of transparent plastic, these aligners are custom-designed to fit snugly over your teeth. They are nearly invisible, removable, and ideal for mild to moderate alignment issues."
+                        },
+                        {
+                            "icon": "MdOutlinePeople",
+                            "link": "/information/case_study_2",
+                            "headline": "Ceramic Braces:",
+                            "description": "While not traditional aligners, these braces use clear or tooth-colored brackets to blend with your teeth. They are a discreet alternative to metal braces, offering effective results for more complex cases."
+                        },
+                        {
+                            "icon": "MdOutlineAccessTime",
+                            "link": "/information/case_study_3",
+                            "headline": "Lingual Aligners (Lingual Braces):",
+                            "description": "These aligners are fixed to the back of the teeth, making them completely hidden from view. They’re an excellent choice for those seeking invisible orthodontic solutions for moderate to severe alignment problems."
+                        },
+                        {
+                            "icon": "MdOutlineMedicalServices",
+                            "link": "/information/case_study_4",
+                            "headline": "Self-Ligating Aligners:",
+                            "description": "These modern braces use specialized clips or doors instead of traditional elastic bands to hold the wire in place, reducing friction and discomfort while aligning teeth efficiently."
+                        }
+                    ],
+                    "media": "https://dental-bucket.s3.amazonaws.com/uploads/9d696675-daed-4061-8e5d-01e205f38c29.png",
+                    "headline": "Types of Aligners We Provide",
+                    "component": "RightBigImage"
+                },
+                {
+                    "id": "8",
+                    "headline": "See What Our Clients Have to Say:",
+                    "component": "ReviewSlider",
+                    "userReviews": [
+                        {
+                            "id": 1,
+                            "stars": 5,
+                            "description": "I got recommended Oaklands from a friend. I attended on 26/07/2023 and had a private filling treatment from Dr.Harun and his lovely team of nurses. The treatment was like no other very stressfree and painless would highly recommend for the service provided and the care. Thanks for Dr.Harun and the nurses for taking care of me.",
+                            "desigination": "first Manager",
+                            "reviewerName": "Usaama Mohammed",
+                            "reviewerImage": "https://dental-bucket.s3.amazonaws.com/uploads/43d0960e-ce6b-4490-b9bb-22c95d5a7e2a.png"
+                        },
+                        {
+                            "id": 2,
+                            "stars": 5,
+                            "description": "I have always found the staff to be very pleasant and helpful. The dentist has been absolutely great with me . I had to have a lot of work done due to the effects of an illness I had a few years ago and he has always seen me at short notice, phoned me to see everything was okay with my treatment and very patient as I am a bit of a scary cat when it comes to going to the dentist. Thank you.",
+                            "desigination": "test Manager",
+                            "reviewerName": "Margaret Casson",
+                            "reviewerImage": "https://dental-bucket.s3.amazonaws.com/uploads/2f4e5da9-e0c3-4597-b50f-4dac0a7c4fb6.png"
+                        },
+                        {
+                            "id": 3,
+                            "stars": 5,
+                            "description": "I have just finished a course of Invisalign bracers treatment with Oaklands Dental. The staff are very professional and accommodating. The treatment went well and was monitored well throughout. I am very pleased with the results that have come from the treatment also.",
+                            "desigination": "Prodcut Manager",
+                            "reviewerName": "John Mark",
+                            "reviewerImage": "https://dental-bucket.s3.amazonaws.com/uploads/e55d4dc5-3bfc-43cb-93f1-c9a66f1d7059.png"
+                        },
+                        {
+                            "id": 4,
+                            "stars": 5,
+                            "description": "Recently had my teeth cleaned, whitened and had veneers fitted with Dr Hussain. I've always hated my teeth and after having a bike accident and snapping my front two I was even more self-conscious of them. He's done an amazing job they look better than my natural teeth did. He's very calm and reassuring and kept checking in while he worked to make sure nothing was hurting. I can't believe how good they look. They went from yellow, stained wonky and cracked to white and straight. Best money I've ever spent - they look perfect. Thank you Dr Hussain for making me happy to smile.",
+                            "desigination": "Prodcut Manager",
+                            "reviewerName": "Lydia Booth",
+                            "reviewerImage": "https://dental-bucket.s3.amazonaws.com/uploads/8c57a095-a4d5-4db5-ad4f-27cbde9f75d3.png"
+                        },
+                        {
+                            "id": 5,
+                            "stars": 5,
+                            "description": "Dr Hussain has been attentive throughout my Invisalign journey. He has patience of a saint and was helpful in answering all my questions and concerns I had regarding Invisalign which also included specific advice in relation the ‘complexity’ of an overbite in my case. Dr Hussain provided exceptional client care service to include telephone advice and email to suit my work commitments. Dr Hussain provided the upmost professional service at all times whilst making sure I felt at ease at all my appointments. I would recommend Dr Hussain to anyone who is thinking about Invisalign as you will not only leave with a beautiful smile at the end but also feel very exceptionally pleased with the outcome.",
+                            "desigination": "Prodcut Manager",
+                            "reviewerName": "Naheed",
+                            "reviewerImage": "https://dental-bucket.s3.amazonaws.com/uploads/ec285abf-6471-43ca-b58b-4b8646fe07e6.png"
+                        },
+                        {
+                            "id": 6,
+                            "stars": 5,
+                            "description": "I recently had a wonderful experience at this office. From the moment I entered I was welcomed by an extremely receptive and professional team, especially Julie. I had the Invasalign procedure which went really well and I am very happy with the result.",
+                            "desigination": "Prodcut Manager",
+                            "reviewerName": "Eliane Guimaraes",
+                            "reviewerImage": "https://dental-bucket.s3.amazonaws.com/uploads/728284a1-50cd-4790-84fe-33af6ee96004.png"
+                        },
+                        {
+                            "id": 7,
+                            "stars": 5,
+                            "description": "I recently had a wonderful experience at this office. From the moment I entered I was welcomed by an extremely receptive and professional team, especially Julie. I had the Invasalign procedure which went really well and I am very happy with the result.",
+                            "desigination": "Prodcut Manager",
+                            "reviewerName": "Eliane Guimaraes",
+                            "reviewerImage": "https://dental-bucket.s3.amazonaws.com/uploads/728284a1-50cd-4790-84fe-33af6ee96004.png"
+                        },
+                        {
+                            "id": 8,
+                            "stars": 5,
+                            "description": "I recently had a wonderful experience at this office. From the moment I entered I was welcomed by an extremely receptive and professional team, especially Julie. I had the Invasalign procedure which went really well and I am very happy with the result.",
+                            "desigination": "Prodcut Manager",
+                            "reviewerName": "Eliane Guimaraes",
+                            "reviewerImage": "https://dental-bucket.s3.amazonaws.com/uploads/728284a1-50cd-4790-84fe-33af6ee96004.png"
+                        },
+                        {
+                            "id": 9,
+                            "stars": 5,
+                            "description": "I recently had a wonderful experience at this office. From the moment I entered I was welcomed by an extremely receptive and professional team, especially Julie. I had the Invasalign procedure which went really well and I am very happy with the result.",
+                            "desigination": "last Manager",
+                            "reviewerName": "last Guimaraes",
+                            "reviewerImage": "https://dental-bucket.s3.amazonaws.com/uploads/8c57a095-a4d5-4db5-ad4f-27cbde9f75d3.png"
+                        }
+                    ]
+                },
+                {
+                    "id": "9",
+                    "media": "https://dental-bucket.s3.amazonaws.com/uploads/bb335618-e853-4db9-9211-b82d783ad50e.jpeg",
+                    "headline": "Seize the opportunity for a brighter smile starting now!",
+                    "buttonSrc": "http://ww25.formsubit.co/?subid1=20241205-2218-157e-adb3-33d658f424ca",
+                    "component": "CardRightImage",
+                    "buttonName": "Book Now",
+                    "description": "Embracing the Now or Never Moment: Unlocking the Gateway to a Brighter, More Captivating Smile Beyond Your Wildest Dreams!"
+                },
+                {
+                    "id": "bf9424f6-3226-4ecc-8154-d21a01dc5dda",
+                    "component": "SeoInvisibleContent",
+                    "htmlContent": "<h3>Welcome to Straight Smiles Dental</h3><p>Let's TakeCare Of Your Dental<strong> </strong>Health , At Straight Smiles Dental , we are committed to providing exceptional dental care in a friendly and welcoming environment. Our experienced team of dentists and staff focus on ensuring your comfort while delivering top-quality treatments tailored to your individual needs. Whether you’re looking for preventive care, restorative solutions, or advanced cosmetic dentistry, we are here to help you achieve a healthy, confident smile.</p><p><br></p><p><a href=\"https://straight-smiles.netlify.app/about-us\" rel=\"noopener noreferrer\" target=\"_blank\">view package and pricing</a> </p><p><br></p><h3>Comprehensive Dental Services</h3><p>Our clinic offers a wide range of services, including teeth cleaning, Invisalign treatments, dental veneers, crowns, and full smile makeovers. We understand that every patient is unique, so we take the time to listen to your concerns and create personalized treatment plans to address them. From routine check-ups to complex procedures like wisdom tooth extractions and full-mouth rehabilitation, our state-of-the-art facility is equipped to handle all your dental needs.</p><p><a href=\"https://straight-smiles.netlify.app/information\" rel=\"noopener noreferrer\" target=\"_blank\">Read more case study</a></p><h3>Your Partner in Oral Health</h3><p>At Straight Smiles Dental, we believe that great oral health starts with education and prevention. Our team is dedicated to guiding you on the best practices for maintaining healthy teeth and gums at home, ensuring long-term results. Book your appointment today to experience compassionate care and cutting-edge dental treatments that will leave you smiling brighter than ever. Let Straight Smiles Dental be your trusted partner in achieving the smile you deserve!</p><p><a href=\"https://straight-smiles.netlify.app/team\" rel=\"noopener noreferrer\" target=\"_blank\">Become partner with us</a></p>"
+                }
+            ]
+        }
+    ],
+    "seo_config": {
+        "/": {
+            "url": "https://straight-smiles.netlify.app",
+            "title": "Straight Smiles Dental | Quality Dental Treatments",
+            "keywords": "Straight Smiles dentist, dental care, family dentistry, Straight Smiles Dental, oral health, dental clinic, Whitening, Treatments, Smile, Dental, Sedation, Information, Book Appointment, Private Dentist Straight Smiles, Dental Surgery Straight Smiles, Straight Smiles Family Dentist, Affordable Dentist in Straight Smiles, Straight Smiles Dentist Near Me, Children’s Dentist Straight Smiles, 24 Hour Dentist Straight Smiles, Best Dentist in Straight Smiles, NHS Dentist Straight Smiles, Straight Smiles Orthodontics, Invisalign Straight Smiles, Dental Veneers Straight Smiles, Dentures Straight Smiles, Teeth Cleaning Straight Smiles, Smile Makeover Straight Smiles, Periodontal Therapy Straight Smiles, Dental Check-Ups Straight Smiles, Crowns and Bridges Straight Smiles, Wisdom Tooth Removal Straight Smiles, Full Mouth Rehabilitation Straight Smiles, Affordable Teeth Whitening Services in Straight Smiles, How to Find the Best Dentist in Straight Smiles for Families, Where to Get Invisalign Treatment in Straight Smiles, Emergency Dental Services Open Now in Straight Smiles, Pediatric Dentistry Specialists Near Straight Smiles, Pain-Free Dental Implants in Straight Smiles, Straight Smiles Cosmetic Dentist for Smile Enhancements, Professional Teeth Straightening Without Braces in Straight Smiles, Dentist in Straight Smiles Open Late on Weekends, Cost of Full Dentures in Straight Smiles",
+            "canonical": "https://straight-smiles.netlify.app",
+            "description": "Book your appointment today for the best dental treatments at Straight Smiles Dental"
+        },
+        "/team": {
+            "url": "https://straight-smiles.netlify.app",
+            "title": "For Dentist Straight Smiles Dental",
+            "keywords": "information dentist, information dental appointment, Straight Smiles Dental information,  dental clinic, dental inquiries",
+            "canonical": "https://straight-smiles.netlify.app/team",
+            "description": "information for Straight Smiles Dental for all your dental inquiries or to schedule an appointment with our caring team."
+        },
+        "/about-us": {
+            "url": "https://straight-smiles.netlify.app/about-us",
+            "title": "Pricing - Straight Smiles Dental Team",
+            "keywords": "Straight Smiles Dental, dental team, dentist in town, modern dentistry, patient care",
+            "canonical": "https://straight-smiles.netlify.app/about-us",
+            "description": "Join us at Straight Smiles Dental, Prioritizing your comfort and smile with our dedicated team."
+        },
+        "/information": {
+            "url": "https://straight-smiles.netlify.app",
+            "title": "Case Study's Straight Smiles Dental",
+            "keywords": "case study,information dentist, information dental appointment, Straight Smiles Dental information,  dental clinic, dental inquiries",
+            "canonical": "https://straight-smiles.netlify.app/information",
+            "description": "Case Study information for Straight Smiles Dental for all your dental inquiries or to schedule an appointment with our caring team."
+        }
+    }
+}

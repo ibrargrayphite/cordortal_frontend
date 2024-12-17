@@ -141,6 +141,7 @@ const Carousel = ({ media }) => {
                 controls
                 autoPlay
                 muted
+                playsInline
                 className={styles.iframe}
               >
                 <source src={item?.url} type="video/mp4" />
@@ -167,6 +168,7 @@ const Carousel = ({ media }) => {
         </div>
         <div style={{ position: "relative" }}>
            <Image
+           loading="lazy"
         src={previousIcon}
         alt="Previous button to view earlier testimonials"
         className={styles.prevIcon}
@@ -175,6 +177,7 @@ const Carousel = ({ media }) => {
         </div>
         <div style={{ position: "relative" }}>
         <Image
+        loading="lazy"
         src={nextIcon}
         alt="Next button to view more testimonials"
         className={styles.nextIcon}

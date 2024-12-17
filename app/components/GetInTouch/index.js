@@ -6,6 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styles from "./GetInTouch.module.css";
 import defaultMedia from "../../../public/assets/images/getBackground.jpeg";
+import Image from "next/image";
 
 const GetInTouch = ({headline,media}) => {
   const mediaSource = media && media?.startsWith('https') ? media : defaultMedia?.src;
@@ -63,7 +64,7 @@ const GetInTouch = ({headline,media}) => {
       // Success case
       try {
         const response = await fetch(
-          "http://micarepoc.grayphite.com/api/contact",
+         `${process.env.NEXT_PUBLIC_BASE_URL}/template/organization/lead`,
           {
             method: "POST",
             headers: {
@@ -107,81 +108,83 @@ const GetInTouch = ({headline,media}) => {
     <div>
       <ToastContainer />
       <Container fluid className={styles.getInTouchContainer}>
-        <Row className="justify-content-center">
-          <Col xs={12} md={8} className={styles.imageCol}>
-            <img
+        <Row className="justify-content-center w-full">
+          <Col xs={12} md={8} lg={8} className={styles.imageCol}>
+            <Image 
+            loading="lazy"
+              width={100} height={100}
               className={styles.backgroundImage}
               src={mediaSource}
               alt="Get Background"
             />
-            <div className={styles.formOverlay}>
-              <p className={styles.formHeading}>{headline}</p>
-              <Form onSubmit={handleSubmit}>
-                <Row className="mb-3">
-                  <Form.Group as={Col} md={6}>
-                    <Form.Control
-                      className={styles.inputText}
-                      type="text"
-                      placeholder="First Name"
-                      value={firstName}
-                      onChange={(e) => setFirstName(e.target.value)}
-                    />
-                  </Form.Group>
-                  <Form.Group as={Col} md={6}>
-                    <Form.Control
-                      className={styles.inputText}
-                      type="text"
-                      placeholder="Last Name"
-                      value={lastName}
-                      onChange={(e) => setLastName(e.target.value)}
-                    />
-                  </Form.Group>
-                </Row>
-                <Row className="mb-3">
-                  <Form.Group as={Col} md={6}>
-                    <Form.Control
-                      className={styles.inputText}
-                      type="email"
-                      placeholder="Enter email"
-                      value={email}
-                      onChange={handleEmailChange}
-                      isInvalid={!!emailError}
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      {emailError}
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                  <Form.Group as={Col} md={6}>
-                    <Form.Control
-                      className={styles.inputText}
-                      type="text"
-                      placeholder="Phone Number"
-                      value={phoneNumber}
-                      onChange={handlePhoneChange}
-                      isInvalid={!!phoneError}
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      {phoneError}
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                </Row>
-                <Form.Control
-                  className={styles.inputText}
-                  as="textarea"
-                  placeholder="Type here"
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  style={{ height: "130px" }}
-                />
-                <div className={styles.buttonContainer}>
-                  <button className={styles.button} type="submit">
-                    Submit
-                  </button>
-                </div>
-              </Form>
-            </div>
+              <div className={styles.formOverlay}>
+                <p className={`${styles.formHeading} max-lg:text-[40px] text-[70px]`}>{headline}</p>
+                <Form onSubmit={handleSubmit}>
+                  <Row className="mb-3">
+                    <Form.Group as={Col} md={6}>
+                      <Form.Control
+                        className={styles.inputText}
+                        type="text"
+                        placeholder="First Name"
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
+                      />
+                    </Form.Group>
+                    <Form.Group as={Col} md={6}>
+                      <Form.Control
+                        className={styles.inputText}
+                        type="text"
+                        placeholder="Last Name"
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
+                      />
+                    </Form.Group>
+                  </Row>
+                  <Row className="mb-3">
+                    <Form.Group as={Col} md={6}>
+                      <Form.Control
+                        className={styles.inputText}
+                        type="email"
+                        placeholder="Enter email"
+                        value={email}
+                        onChange={handleEmailChange}
+                        isInvalid={!!emailError}
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        {emailError}
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                    <Form.Group as={Col} md={6}>
+                      <Form.Control
+                        className={styles.inputText}
+                        type="text"
+                        placeholder="Phone Number"
+                        value={phoneNumber}
+                        onChange={handlePhoneChange}
+                        isInvalid={!!phoneError}
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        {phoneError}
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                  </Row>
+                  <Form.Control
+                    className={styles.textArea}
+                    as="textarea"
+                    placeholder="Type here"
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    style={{ height: "130px" }}
+                  />
+                  <div className={styles.buttonContainer}>
+                    <button className={styles.button} type="submit">
+                      Submit
+                    </button>
+                  </div>
+                </Form>
+              </div>
           </Col>
-          <Col xs={12} md={2}></Col>
+          <Col xs={12} md={2} className="md:min-h-[40rem]"></Col>
         </Row>
       </Container>
     </div>

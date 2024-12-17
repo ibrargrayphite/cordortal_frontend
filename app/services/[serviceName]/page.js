@@ -1,8 +1,9 @@
 import { fetchPagesData } from '../../utils/fetchPagesData'; // Adjust the path accordingly
 import styles from "./ServiceDetail.module.css";
-import ScrollHandler from "../../components/ScrollHandler";
 import { renderComponent } from "../../utils/renderComponent";
 import { generateCustomMetadata } from '../../utils/metadataHelper';
+import dynamic from 'next/dynamic';
+const ScrollHandler = dynamic(() => import("../../components/ScrollHandler"));
 
 // Generates static paths for each service
 export async function generateStaticParams() {
@@ -34,9 +35,8 @@ export const revalidate = 60; // Revalidate every 60 seconds
 // Generate dynamic metadata based on blog slug
 export async function generateMetadata({ params }) {
   const { serviceName } = params;
-  const data = await fetchPagesData();
   const currentPage = `/${serviceName}`;
-  const meta = await generateCustomMetadata(data, currentPage);
+  const meta = await generateCustomMetadata(currentPage);
 
   return {
     title: meta.title,

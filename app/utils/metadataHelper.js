@@ -1,36 +1,51 @@
-export async function generateCustomMetadata(currentLocation, currentPage) {
-  // console.log("🚀 ~ generateMetadata ~ currentPage:", currentPage);
+export async function generateCustomMetadata(currentPage) {
+  const currentDomain = process.env.NEXT_PUBLIC_DOMAIN;
+  let currentLocation = null;
 
-  // Get SEO configuration for the current page
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/template/seo/?domain=${currentDomain}`
+    );
+    currentLocation = await response.json();
+  } catch (error) {
+    console.error("Error fetching SEO data:", error);
+  }
+
   const SEO_CONFIG = currentLocation?.seo_config || {};
-  const currentSeo = SEO_CONFIG[currentPage];
-  // console.log("🚀 ~ generateMetadata ~ currentSeo:", currentSeo);
+  const currentSeo = SEO_CONFIG[currentPage] || {};
 
-  // Set fallback values
-  const fav = currentLocation?.favIcon;
+  // Fallback values
+  const favIcon = currentLocation?.fav_icon || "https://example.com/favicon.ico";
+  const media = currentLocation?.media || "https://example.com/images/fallback.png";
+  const pageUrl = currentSeo?.url || `https://${currentDomain}/${currentPage}`;
+  const languages = {
+    ...currentSeo?.languages,
+    en: pageUrl, // Self-referencing hreflang link
+  };
+
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": currentSeo?.title ?? "Default SEO Title",
-    "description": currentSeo?.description ?? "Default SEO Description",
-    "url": currentSeo?.url ?? "https://example.com",
-    "image": currentLocation?.media?.headerLogo ?? "https://example.com/images/fallback.png",
+    name: currentSeo?.title || "Default SEO Title",
+    description: currentSeo?.description || "Default SEO Description",
+    url: pageUrl,
+    image: media,
   };
 
   const meta = {
-    title: currentSeo?.title ?? "Default Title",
-    description: currentSeo?.description ?? "Default Description",
-    keywords: currentSeo?.keywords ?? "Default Keywords",
+    title: currentSeo?.title || "Default Title",
+    description: currentSeo?.description || "Default Description",
+    keywords: currentSeo?.keywords || "Default Keywords",
     viewport: "width=device-width, initial-scale=1",
     robots: "index, follow",
     openGraph: {
-      title: currentSeo?.title ?? "Default Title",
-      description: currentSeo?.description ?? "Default Description",
-      url: currentSeo?.url ?? "https://example.com",
+      title: currentSeo?.title || "Default Title",
+      description: currentSeo?.description || "Default Description",
+      url: pageUrl,
       type: "website",
       images: [
         {
-          url: currentLocation?.media?.headerLogo ?? "https://example.com/images/fallback.png",
+          url: media,
           width: 800,
           height: 600,
         },
@@ -38,30 +53,26 @@ export async function generateCustomMetadata(currentLocation, currentPage) {
     },
     twitter: {
       card: "summary_large_image",
-      title: currentSeo?.title ?? "Default Title",
-      description: currentSeo?.description ?? "Default Description",
-      images: [currentLocation?.media?.headerLogo ?? "https://example.com/images/fallback.png"],
+      title: currentSeo?.title || "Default Title",
+      description: currentSeo?.description || "Default Description",
+      images: [media],
     },
     alternates: {
-      canonical: currentSeo?.canonical ?? "https://example.com",
-      languages: {
-        en: "https://example.com/en/page",
-        es: "https://example.com/es/page",
-      },
+      canonical: pageUrl,
+      languages,
     },
     verification: {
       google: "your-google-site-verification-code",
       bing: "your-bing-site-verification-code",
     },
     icons: {
-      icon: fav ?? "https://example.com/favicon.ico",
+      icon: favIcon,
     },
     structuredData: JSON.stringify(structuredData),
   };
 
-  // For client-side rendering (browser)
   if (typeof window !== "undefined") {
-    // Dynamically update the document metadata (for client-side)
+    // Dynamically update the metadata for client-side rendering
     document.title = meta.title;
 
     const metaTags = {
@@ -82,7 +93,7 @@ export async function generateCustomMetadata(currentLocation, currentPage) {
       "bing-site-verification": meta.verification.bing,
     };
 
-    // Update meta tags dynamically for the browser
+    // Update meta tags dynamically
     Object.entries(metaTags).forEach(([name, content]) => {
       let tag = document.querySelector(`meta[name='${name}']`);
       if (!tag) {
@@ -93,7 +104,7 @@ export async function generateCustomMetadata(currentLocation, currentPage) {
       tag.setAttribute("content", content);
     });
 
-    // Update icons dynamically
+    // Update the favicon
     const iconLink = document.querySelector("link[rel='icon']");
     if (iconLink) {
       iconLink.setAttribute("href", meta.icons.icon);
@@ -104,7 +115,7 @@ export async function generateCustomMetadata(currentLocation, currentPage) {
       document.head.appendChild(newIconLink);
     }
 
-    // Update canonical links dynamically
+    // Update the canonical link
     let canonicalTag = document.querySelector("link[rel='canonical']");
     if (!canonicalTag) {
       canonicalTag = document.createElement("link");
@@ -113,7 +124,7 @@ export async function generateCustomMetadata(currentLocation, currentPage) {
     }
     canonicalTag.setAttribute("href", meta.alternates.canonical);
 
-    // Add structured data dynamically as a script tag
+    // Add structured data dynamically
     let structuredDataTag = document.querySelector("script[type='application/ld+json']");
     if (!structuredDataTag) {
       structuredDataTag = document.createElement("script");
@@ -121,8 +132,19 @@ export async function generateCustomMetadata(currentLocation, currentPage) {
       document.head.appendChild(structuredDataTag);
     }
     structuredDataTag.textContent = meta.structuredData;
+
+    // Add hreflang tags dynamically
+    Object.entries(meta.alternates.languages).forEach(([lang, url]) => {
+      let hreflangTag = document.querySelector(`link[rel='alternate'][hreflang='${lang}']`);
+      if (!hreflangTag) {
+        hreflangTag = document.createElement("link");
+        hreflangTag.setAttribute("rel", "alternate");
+        hreflangTag.setAttribute("hreflang", lang);
+        document.head.appendChild(hreflangTag);
+      }
+      hreflangTag.setAttribute("href", url);
+    });
   }
 
-  // Return metadata for server-side rendering (Next.js Head or similar)
   return meta;
 }

@@ -1,9 +1,11 @@
 import styles from "./blogDetail.module.css";
 import { Col, Container, Row } from "react-bootstrap";
-import HtmlContent from "../../components/HtmlContent";
 import { fetchPagesData } from "../../utils/fetchPagesData";
 import { generateCustomMetadata } from "../../utils/metadataHelper";
-import ScrollHandler from "../../components/ScrollHandler";
+import dynamic from 'next/dynamic';
+const ScrollHandler = dynamic(() => import("../../components/ScrollHandler"));
+const HtmlContent = dynamic(() => import("../../components/HtmlContent"));
+
 
 // This function is responsible for generating static paths for each blog
 export async function generateStaticParams() {
@@ -33,9 +35,8 @@ export const revalidate = 60;
 // Generate dynamic metadata based on blog slug
 export async function generateMetadata({ params }) {
   const { blogName } = params; // Extract the blogName parameter directly from params
-  const data = await fetchPagesData();
   const currentPage = `/${blogName}`;
-  const meta = await generateCustomMetadata(data, currentPage);
+  const meta = await generateCustomMetadata(currentPage);
 
   return {
     title: meta.title,
