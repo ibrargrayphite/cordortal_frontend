@@ -248,16 +248,20 @@ li.informationDropdown {
   }
 }
 
-@media (min-width: 991px) and (max-width: 1240px) {
+@media (min-width: 991px) and (max-width: 1200px) {
   .button {
    width: 185px !important;
-   font-size: 14px;
+   font-size: 16px;
   }
   .listStyle{
     font-size: 14px !important;
   }
   .logoMob {
     width: 178px !important;
+    height: 55px !important;
+  }
+  .aboutDropdown {
+    margin: 0 !important;
   }
 
 }
