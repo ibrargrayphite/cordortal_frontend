@@ -32,7 +32,7 @@ const ServiceCard = ({
               >
                 <div className={styles.solutionIcons}>
                   <Image 
-                  loading="lazy"
+                  priority={true}
                     width={100} 
                     height={116}
                     src={service.media && service.media?.startsWith('https') ? service.media : defaultMedia.src}

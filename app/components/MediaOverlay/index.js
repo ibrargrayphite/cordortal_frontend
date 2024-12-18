@@ -66,7 +66,7 @@ const MediaOverlay = ({ media, media2, headline, description, style, src }) => {
               </video>
             ) : (
               <Image 
-              loading="lazy"
+              priority={true}
               width={100} height={100}
                 id="media-element"
                 src={media}
