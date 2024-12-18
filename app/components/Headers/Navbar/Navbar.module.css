@@ -27,21 +27,17 @@
 }
 
 .listStyle {
-  /* margin-right: 69px; */
-
   color: #fff !important;
   list-style-type: none !important;
   cursor: pointer;
   text-decoration: none;
   font-size: 16px;
   font-weight: 600 !important;
-  /* padding: 0px 10px; */
 }
 .active {
   color: #fff !important;
 }
 .listStyle:hover {
-  /* color: #1f45b1 !important; */
   cursor: pointer;
 }
 
@@ -107,7 +103,6 @@ li.aboutDropdown {
   cursor: pointer;
   position: absolute;
   background-color: #fff;
-  /* background-color: #f9f9f9; */
   min-width: 160px;
   z-index: 1;
 }
@@ -181,7 +176,6 @@ li.informationDropdown {
   position: absolute;
   cursor: pointer;
   background-color: #fff;
-  /* background-color: #f9f9f9; */
   min-width: 160px;
   z-index: 1;
 }
@@ -254,6 +248,23 @@ li.informationDropdown {
   }
 }
 
+@media (min-width: 991px) and (max-width: 1200px) {
+  .button {
+   width: 185px !important;
+   font-size: 16px;
+  }
+  .listStyle{
+    font-size: 14px !important;
+  }
+  .logoMob {
+    width: 178px !important;
+    height: 55px !important;
+  }
+  .aboutDropdown {
+    margin: 0 !important;
+  }
+
+}
 @media only screen and (max-width: 767px) {
   .mobilelocationicon{
     height: 26px!important;
