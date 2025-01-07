@@ -10,7 +10,7 @@ import { useTheme } from '../../../context/ThemeContext';
 import defaultMedia from "../../../../public/assets/images/solutions/implants.png";
 import Image from "next/image";
 
-const NavBar = ({media,src,name}) => {
+const NavBar = ({media,src,name,buttonSrc="/information/finance"}) => {
   const theme = useTheme();
   const router = useRouter();
   const dropdownRef = useRef(null);
@@ -43,10 +43,15 @@ const NavBar = ({media,src,name}) => {
     };
   }, [locationDropdownVisible]);
 
-  const handleNavigation = (path) => {
-    router.push(path); // Use router.push for navigation
-    if (!(path === "/about-us" || path === "/services" || path === "/information")) {
-      setExpanded(false);
+  const handleNavigation = (path,src) => {
+    if (src) {
+      window.open("/information/finance", "_blank");
+    }
+    else {
+      router.push(path); // Use router.push for navigation
+      if (!(path === "/about-us" || path === "/services" || path === "/information")) {
+        setExpanded(false);
+      }
     }
   };
 
@@ -278,12 +283,15 @@ const NavBar = ({media,src,name}) => {
                   <a onClick={() => handleNavigation("/information/nhs")}>
                     NHS Pricing
                   </a>
-                  <a onClick={() => handleNavigation("/information/tabeo")}>
+                  <a onClick={() => handleNavigation("/information/finance", buttonSrc)}>
+                    Finance with Tabeo
+                  </a>
+                  {/* <a onClick={() => handleNavigation("/information/tabeo")}>
                     Tabeo
                   </a>
                   <a onClick={() => handleNavigation("/information/finance")}>
                     Finance Calculator
-                  </a>
+                  </a> */}
                   <a
                     onClick={() => handleNavigation("/information/forpatient")}
                   >

@@ -2118,22 +2118,13 @@
                 },
                 {
                     "id": "6",
-                    "slug": "tabeo",
-                    "media": "https://dental-bucket.s3.amazonaws.com/uploads/aade1a39-e21f-4e8f-9f65-c09414614572.svg",
-                    "scroll": "Tabeo",
-                    "component": "ImageWithDescription",
-                    "noBgColor": false,
-                    "description": "We are thrilled to tell you that we have partnered with Tabeo to come up with the best solutions and offer easy financing options that permit you to spread the cost of your dental treatment. With the help of this partnership, you will be able to apply for an interest-free loan of up to £30,000 in just 2 minutes and get a decision timely without any delays. After consulting, you will get a secure link to decide on a repayment plan that fits your budget and requirements well. This makes the procedure easy without having any hassle about the upfront costs. So, in order to be eligible, you should be over 18 and have a nice income as well. Oaklands Dental Practice is basically a credit agent, authorized and regulated by the financial conduct authority. Additionally, It works seamlessly with Tabeo to assist you in finding suitable financing options according to your needs. For more details, please visit Tabeo's website or contact our support team for a complete consultation."
+                    "component": "RightImage",
+                    "buttonSrc":"https://lead.tabeo.coukbailiff-bridge-dental-practicefinance",
+                    "media":"https://dental-bucket.s3.amazonaws.com/uploads/37e40a3f-549a-4fe6-84f8-40643e996309.jpeg",
+                    "description":"We are thrilled to tell you that we have partnered with Tabeo to come up with the best solutions and offer easy financing options that permit you to spread the cost of your dental treatment upto 5 years."
                 },
                 {
                     "id": "7",
-                    "slug": "finance",
-                    "scroll": "finance",
-                    "component": "FinanceCalculator",
-                    "noBgColor": false
-                },
-                {
-                    "id": "8",
                     "data": [
                         {
                             "url": "https://dental-bucket.s3.amazonaws.com/uploads/7ab9d48b-2cbb-4a3f-8e3b-551830b216b9.doc",
@@ -2239,7 +2230,7 @@
                     "noBgColor": false
                 },
                 {
-                    "id": "9",
+                    "id": "8",
                     "media": "https://dental-bucket.s3.amazonaws.com/uploads/695a8d83-e292-4f62-8132-dd13612fe51f.jpeg",
                     "headline": "Get in touch",
                     "component": "GetInTouch",
