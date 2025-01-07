@@ -6,11 +6,11 @@ import MenuIcon from "../../../../public/assets/images/navIcon.svg";
 import CrossIcon from "../../../../public/assets/images/cross.svg";
 import locationIcon from "../../../../public/assets/images/location.png";
 import styles from "./Navbar.module.css";
-import { useTheme } from '../../../context/ThemeContext';
+import { useTheme } from "../../../context/ThemeContext";
 import defaultMedia from "../../../../public/assets/images/solutions/implants.png";
 import Image from "next/image";
 
-const NavBar = ({media,src,name,buttonSrc="/information/finance"}) => {
+const NavBar = ({ media, src, name,menuItems }) => {
   const theme = useTheme();
   const router = useRouter();
   const dropdownRef = useRef(null);
@@ -19,12 +19,12 @@ const NavBar = ({media,src,name,buttonSrc="/information/finance"}) => {
   const [activeItem, setActiveItem] = useState("Home");
   const [expanded, setExpanded] = useState(false);
   const [locationDropdownVisible, setLocationDropdownVisible] = useState(false);
-  
+
   const toggleDropdown = (e) => {
     e.preventDefault();
     setLocationDropdownVisible(!locationDropdownVisible);
   };
-  
+
   const handleClickOutside = (e) => {
     if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
       setLocationDropdownVisible(false);
@@ -43,15 +43,13 @@ const NavBar = ({media,src,name,buttonSrc="/information/finance"}) => {
     };
   }, [locationDropdownVisible]);
 
-  const handleNavigation = (path,src) => {
-    if (src) {
-      window.open("/information/finance", "_blank");
-    }
-    else {
-      router.push(path); // Use router.push for navigation
-      if (!(path === "/about-us" || path === "/services" || path === "/information")) {
-        setExpanded(false);
-      }
+  const handleNavigation = (href) => {
+    if (href.startsWith("http") || href.startsWith("www")) {
+      // Open external links in a new tab
+      window.open(href, "_blank", "noopener,noreferrer");
+    } else {
+      // Navigate internally (you can use your router here, e.g., next/router or react-router)
+      window.location.href = href; // Replace with router.push(href) if using a router
     }
   };
 
@@ -67,6 +65,7 @@ const NavBar = ({media,src,name,buttonSrc="/information/finance"}) => {
   //   else if (currentPath === "/location") setActiveItem("Location");
   //   else setActiveItem("Home");
   // }, [currentPath]);
+
   return (
     <Navbar
       collapseOnSelect
@@ -87,7 +86,14 @@ const NavBar = ({media,src,name,buttonSrc="/information/finance"}) => {
           style={{ cursor: "pointer" }}
           onClick={() => handleNavigation("/")}
         >
-          <Image loading="lazy" width={100}  src={media && media?.startsWith('https') ? media : defaultMedia.src} height={69} className={styles.logoMob} alt={`Best Dental Care${name}`} />
+          <Image
+            loading="lazy"
+            width={100}
+            src={media && media?.startsWith("https") ? media : defaultMedia.src}
+            height={69}
+            className={styles.logoMob}
+            alt={`Best Dental Care${name}`}
+          />
         </Navbar.Brand>
         <div className={styles.locationMob}>
           <div
@@ -107,14 +113,14 @@ const NavBar = ({media,src,name,buttonSrc="/information/finance"}) => {
               } ${activeItem === "Location" ? styles.active : ""}`}
               onClick={toggleDropdown}
             >
-              <Image 
-              loading="lazy"
-                width={100} 
+              <Image
+                loading="lazy"
+                width={100}
                 height={26}
                 style={{ marginTop: 3 }}
                 className={styles.mobilelocationicon}
                 src={locationIcon.src}
-                alt={`Premier Dental Services at ${name}`}              
+                alt={`Premier Dental Services at ${name}`}
               />
             </a>
             <div
@@ -144,9 +150,19 @@ const NavBar = ({media,src,name,buttonSrc="/information/finance"}) => {
             }}
           >
             {expanded ? (
-              <CrossIcon width={22} height={24} className={styles.mobileMenuIcon} alt="cross" />
+              <CrossIcon
+                width={22}
+                height={24}
+                className={styles.mobileMenuIcon}
+                alt="cross"
+              />
             ) : (
-              <MenuIcon height={24} width={48} className={styles.mobileMenuIcon} alt="menu" />
+              <MenuIcon
+                height={24}
+                width={48}
+                className={styles.mobileMenuIcon}
+                alt="menu"
+              />
             )}
           </Navbar.Toggle>
         </div>
@@ -154,166 +170,43 @@ const NavBar = ({media,src,name,buttonSrc="/information/finance"}) => {
           id="responsive-navbar-nav  justify-content-center  "
           className=" d-lg-flex justify-content-end  "
           style={{
-            minHeight: '1vh',
-            maxHeight: '63vh',
-            overflow: 'auto'
+            minHeight: "1vh",
+            maxHeight: "63vh",
+            overflow: "auto",
           }}
         >
           <div>
             <Nav className="me-auto  d-flex flex-column flex-lg-row align-items-center   ">
-              <div
-                style={{ margin: "0px 18px" }}
-                className="mt-4 mb-4 mb-lg-0  mt-lg-0 "
-              >
-                {/* <a
-                  style={{ fontSize: "16px" }}
-                  className={`font-size-lg font-size-md-md font-size-sm-sm ${
-                    styles.listStyle
-                  } ${activeItem === "Home" ? styles.active : ""}`}
-                  onClick={() => handleNavigation("/")}
+              {menuItems?.map((item) => (
+                <div
+                  key={item.label}
+                  style={{ margin: "0px 18px" }}
+                  className={`${styles.aboutDropdown} mb-4 mb-lg-0`}
                 >
-                  Home
-                </a> */}
-              </div>
-              <div
-                style={{ margin: "0px 18px" }}
-                className={`${styles.aboutDropdown} mb-4 mb-lg-0`}
-              >
-                <a
-                  style={{ fontSize: "16px" }}
-                  className={`  ${styles.listStyle} ${
-                    activeItem === "about-us" ? styles.active : ""
-                  }`}
-                  onClick={() => handleNavigation("/about-us")}
-                >
-                  About Us
-                </a>
-                <div className={styles.aboutDropdownContent}>
-                  <a onClick={() => handleNavigation("/about-us")}>
-                    About {name}
+                  <a
+                    style={{ fontSize: "16px" }}
+                    className={`${styles.listStyle} ${
+                      activeItem === item.label ? styles.active : ""
+                    }`}
+                    onClick={() => handleNavigation(item.href)}
+                  >
+                    {item.label}
                   </a>
-                  <a onClick={() => handleNavigation("/team")}>
-                    Meet The Team
-                  </a>
-                  <a onClick={() => handleNavigation("/testimonials")}>
-                    Testimonials
-                  </a>
+                  {item.subItems.length > 0 && (
+                    <div className={styles[`${"aboutDropdown"}Content`]}>
+                      {item.subItems.map((subItem) => (
+                        <a
+                          key={subItem.label}
+                          onClick={() => handleNavigation(subItem.href)}
+                        >
+                          {subItem.label.replace("{name}", name)}
+                        </a>
+                      ))}
+                    </div>
+                  )}
                 </div>
-              </div>
-              <div
-                style={{ margin: "0px 18px" }}
-                className={`${styles.servicesDropdown} mb-4 mb-lg-0`}
-              >
-                <a
-                  style={{ fontSize: "16px" }}
-                  className={` font-size-lg font-size-md-md font-size-sm-sm ${
-                    styles.listStyle
-                  } ${activeItem === "Services" ? styles.active : ""}`}
-                  onClick={() => handleNavigation("/services")}
-                >
-                  Treatments
-                </a>
-                <div className={styles.servicesDropdownContent}>
-                  <a onClick={() => handleNavigation("/services/implants")}>
-                    Implants
-                  </a>
-                  <a onClick={() => handleNavigation("/services/smile")}>
-                    Smile Design
-                  </a>
-                  <a
-                    onClick={() => handleNavigation("/services/clear-aligners")}
-                  >
-                    Clear Aligners
-                  </a>
-                  <a
-                    onClick={() =>
-                      handleNavigation("/services/composite-bonding")
-                    }
-                  >
-                    Composite Bonding
-                  </a>
-                  <a
-                    onClick={() =>
-                      handleNavigation("/services/teeth-whitening")
-                    }
-                  >
-                    Teeth Whitening
-                  </a>
-
-                  <a
-                    onClick={() =>
-                      handleNavigation("/services/restorative-dentistry")
-                    }
-                  >
-                    Restorative Dentistry
-                  </a>
-
-                  <a onClick={() => handleNavigation("/services/family-care")}>
-                    Family Care
-                  </a>
-                  <a
-                    onClick={() =>
-                      handleNavigation("/services/minor-oral-surgery")
-                    }
-                  >
-                    Minor Oral Surgery
-                  </a>
-                  <a onClick={() => handleNavigation("/services/sedation")}>
-                    Sedation
-                  </a>
-                </div>
-              </div>
-              <div
-                style={{ margin: "0px 18px" }}
-                className={`${styles.informationDropdown} mb-4 mb-lg-0`}
-              >
-                <a
-                  style={{ fontSize: "16px" }}
-                  className={` font-size-lg font-size-md-md font-size-sm-sm ${
-                    styles.listStyle
-                  } ${activeItem === "Information" ? styles.active : ""}`}
-                  onClick={() => handleNavigation("/information")}
-                >
-                  Information
-                </a>
-                <div className={styles.informationDropdownContent}>
-                  <a onClick={() => handleNavigation("/information/pricing")}>
-                    Private Treatment Pricing
-                  </a>
-                  <a onClick={() => handleNavigation("/information/nhs")}>
-                    NHS Pricing
-                  </a>
-                  <a onClick={() => handleNavigation("/information/finance", buttonSrc)}>
-                    Finance with Tabeo
-                  </a>
-                  {/* <a onClick={() => handleNavigation("/information/tabeo")}>
-                    Tabeo
-                  </a>
-                  <a onClick={() => handleNavigation("/information/finance")}>
-                    Finance Calculator
-                  </a> */}
-                  <a
-                    onClick={() => handleNavigation("/information/forpatient")}
-                  >
-                    Information for Patients
-                  </a>
-                  {/* <a onClick={() => handleNavigation("/information/documents")}>
-                    Documents
-                  </a> */}
-                  <a onClick={() => handleNavigation("/blogs")}>Blogs</a>
-                </div>
-              </div>
-              {/* <div style={{ margin: "0px 18px" }} className="mb-4 mb-lg-0 ">
-                <a
-                  style={{ fontSize: "16px" }}
-                  className={`font-size-lg font-size-md-md font-size-sm-sm ${
-                    styles.listStyle
-                  } ${activeItem === "Blogs" ? styles.active : ""}`}
-                  onClick={() => handleNavigation("/blogs")}
-                >
-                  Blogs
-                </a>
-              </div> */}
+              ))}
+              {/* hardcoded emergency button */}
               <div style={{ margin: "0px 18px" }} className="mb-4 mb-lg-0 ">
                 <div style={{ display: "flex", gap: 10 }}>
                   <a
@@ -341,17 +234,6 @@ const NavBar = ({media,src,name,buttonSrc="/information/finance"}) => {
                   </div> */}
                 </div>
               </div>
-              {/* <div style={{ margin: "0px 18px" }} className="mb-4 mb-lg-0 me-4">
-                <a
-                  style={{ fontSize: "16px" }}
-                  className={`font-size-lg font-size-md-md font-size-sm-sm ${
-                    styles.listStyle
-                  } ${activeItem === "ContactUs" ? styles.active : ""}`}
-                  onClick={() => handleNavigation("/contact-us")}
-                >
-                  Contact Us
-                </a>
-              </div> */}
               <div className={styles.locationDropdown}>
                 <div
                   style={{ margin: "0px 18px" }}
@@ -365,7 +247,14 @@ const NavBar = ({media,src,name,buttonSrc="/information/finance"}) => {
                     } ${activeItem === "Location" ? styles.active : ""}`}
                     onClick={toggleDropdown}
                   >
-                    <Image loading="lazy" width={100}  height={32} className={styles.locationIconStyle} src={locationIcon.src} alt={`Exceptional Dental Service at ${name}`}  />
+                    <Image
+                      loading="lazy"
+                      width={100}
+                      height={32}
+                      className={styles.locationIconStyle}
+                      src={locationIcon.src}
+                      alt={`Exceptional Dental Service at ${name}`}
+                    />
                   </a>
                   <div
                     className={`${styles.informationDropdownContent} ${
@@ -395,7 +284,10 @@ const NavBar = ({media,src,name,buttonSrc="/information/finance"}) => {
                         <a className={styles.disabled}>Huddersfield</a>
                         <a
                           onClick={() =>
-                            window.open("https://www.bailiffbridgedental.com/", "_blank")
+                            window.open(
+                              "https://www.bailiffbridgedental.com/",
+                              "_blank"
+                            )
                           }
                         >
                           Brighouse
@@ -410,7 +302,10 @@ const NavBar = ({media,src,name,buttonSrc="/information/finance"}) => {
                         <a className={styles.disabled}>Brighouse</a>
                         <a
                           onClick={() =>
-                            window.open("https://oaklandsdentalhudds.co.uk/", "_blank")
+                            window.open(
+                              "https://oaklandsdentalhudds.co.uk/",
+                              "_blank"
+                            )
                           }
                         >
                           Huddersfield
