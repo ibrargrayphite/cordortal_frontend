@@ -3,7 +3,7 @@
     "domain": "oaklandsdentalhudds",
     "title": "Oakland",
     "name": "Oaklands Dental",
-    "media": "https://dental-bucket.s3.amazonaws.com/uploads/64d5aa61-5f9c-456c-ba89-eb8f08ea6db2.png",
+    "media": "https://dental-bucket.s3.amazonaws.com/uploads/ad45f0c9-7942-403e-9dbd-0356480f76c2.webp",
     "fontFamily": "josefinSans",
     "favIcon": "https://dental-bucket.s3.amazonaws.com/uploads/42f381c7-c49a-45fe-8557-cc0d76560e22.ico",
     "shared": {
@@ -58,138 +58,6 @@
         "subHeadlineColor": "#373f43"
     },
     "pages": [
-        {
-            "id": 44,
-            "pageName": "AboutUs",
-            "content": [
-                {
-                    "id": "1",
-                    "media": "https://dental-bucket.s3.amazonaws.com/uploads/8a751e8b-ea20-4a0a-949e-f0d49bb18264.png",
-                    "headline": "Wellness Partners",
-                    "component": "HeadingWithBgImage",
-                    "noBgColor": true
-                },
-                {
-                    "id": "2",
-                    "media": "https://dental-bucket.s3.amazonaws.com/uploads/0704a121-9a7a-44b3-9240-a568b67bfd2f.png",
-                    "component": "LeftImage",
-                    "noBgColor": true,
-                    "htmlContent": "<p><span style=\"background-color: transparent; color: rgb(0, 0, 0);\">At Oaklands Dental, we’re dedicated to providing exceptional dental care with a focus on innovation, comfort, and patient satisfaction. We understand that dental care is evolving rapidly, and our practice is at the forefront of these changes, embracing the latest technology and techniques to ensure the highest quality service.</span></p><p><br></p><p><span style=\"background-color: transparent; color: rgb(0, 0, 0);\">Whether you're visiting for a routine check-up or seeking advanced treatments, we offer a comprehensive range of services, from preventive care and cosmetic dentistry to cutting-edge orthodontics and restorative treatments. Our practice features modern amenities, including digital X-rays, 3D imaging, and state-of-the-art sterilization protocols, ensuring a safe and comfortable experience for every patient.</span></p><p><br></p><p><span style=\"background-color: transparent; color: rgb(0, 0, 0);\">We pride ourselves on creating a warm, welcoming environment for patients of all ages. Our experienced team of dentists, hygienists, and support staff are here to listen to your concerns, educate you on your options, and create personalized treatment plans that meet your unique needs.</span></p><p><br></p><p><span style=\"background-color: transparent; color: rgb(0, 0, 0);\">At Oaklands Dental, we don’t just care for your teeth – we care for your total well-being. Let us help you achieve a healthier, more confident smile with the latest in dental technology and a commitment to patient-centered care.</span></p><p><br></p><p><strong style=\"background-color: transparent; color: rgb(0, 0, 0);\">Join us in redefining modern dentistry, where your comfort and smile are our top priorities.</strong></p><p><br></p><p><br></p>"
-                },
-                {
-                    "id": "3",
-                    "media": "https://dental-bucket.s3.amazonaws.com/uploads/8a751e8b-ea20-4a0a-949e-f0d49bb18264.png",
-                    "headline": "Facts About Us",
-                    "component": "HeadingWithBgImage",
-                    "noBgColor": true
-                },
-                {
-                    "id": "4",
-                    "services": [
-                        {
-                            "media": "https://dental-bucket.s3.amazonaws.com/uploads/431cb2d7-4a6f-44c6-a04c-d5ad56d90ade.png",
-                            "headline": "Transparency",
-                            "description": "Oaklands believes in complete transparency. Before proceeding with any treatment, we ensure that you comprehend why the specific treatment is being suggested to you. We aim to help patients achieve the best oral health."
-                        },
-                        {
-                            "media": "https://dental-bucket.s3.amazonaws.com/uploads/e4c420c3-f7e9-4654-bc4c-3a94117cdcd9.png",
-                            "headline": "Professional Expertise",
-                            "description": "Enjoy every procedure with our complete care and expertise. By utilizing advanced dental technology, we figure out individual needs and offer speedy, painless treatment."
-                        },
-                        {
-                            "media": "https://dental-bucket.s3.amazonaws.com/uploads/06c94a43-ff6f-4265-ab40-351322b6c75f.png",
-                            "headline": "Sterilization & Quality",
-                            "description": "Your smile is our top priority. We use quality products and materials for better patient care."
-                        }
-                    ],
-                    "component": "ServiceCard"
-                },
-                {
-                    "id": "5",
-                    "media": [
-                        {
-                            "image": "https://dental-bucket.s3.amazonaws.com/uploads/b60d2545-b025-4ff7-9000-75ddcf26a17d.jpeg"
-                        },
-                        {
-                            "image": "https://dental-bucket.s3.amazonaws.com/uploads/61059df5-9085-41fd-99a2-166b913d5e45.jpeg"
-                        },
-                        {
-                            "image": "https://dental-bucket.s3.amazonaws.com/uploads/0d6f520e-a95d-4366-845f-1b964aef6e71.jpeg"
-                        }
-                    ],
-                    "component": "SimpleImageGallery"
-                },
-                {
-                    "id": "6",
-                    "media": "https://dental-bucket.s3.amazonaws.com/uploads/5fa7eb4c-fa78-43f1-983a-51774f77d900.png",
-                    "headline": "Smile Stories",
-                    "component": "HeadingWithBgImage",
-                    "noBgColor": true
-                },
-                {
-                    "id": "7",
-                    "media": [
-                        {
-                            "id": 1,
-                            "url": "https://dental-bucket.s3.amazonaws.com/uploads/bda3af7e-6480-48b9-984e-f570faa77108.mp4"
-                        },
-                        {
-                            "id": 2,
-                            "url": "https://dental-bucket.s3.amazonaws.com/uploads/cccb28c7-95fc-4acf-818b-6396fd2ddb62.mp4"
-                        },
-                        {
-                            "id": 3,
-                            "url": "https://dental-bucket.s3.amazonaws.com/uploads/39287fb4-9628-49a6-a836-3de93cabf7ef.mp4"
-                        }
-                    ],
-                    "component": "Carousel",
-                    "noBgColor": true
-                },
-                {
-                    "id": "8",
-                    "media": "https://dental-bucket.s3.amazonaws.com/uploads/6dd3eaec-df01-4d03-a87f-4a00b91e70ea.png",
-                    "headline": "Visit Now",
-                    "component": "HeadingWithBgImage",
-                    "noBgColor": true
-                },
-                {
-                    "id": "9",
-                    "src": "https://www.google.com/maps/embed?pb=!1m19!1m8!1m3!1d4729.06414045814!2d-1.7869509121058045!3d53.65531523678229!3m2!1i1024!2i768!4f13.1!4m8!3e6!4m0!4m5!1s0x487bdc6b07ba605f%3A0x459cc3454bf146a3!2sOaklands%20Dental%20Surgery%2060%20Bradford%20Rd%20Huddersfield%20HD1%206JE%20United%20Kingdom!3m2!1d53.6553164!2d-1.7820091!5e0!3m2!1sen!2s!4v1727094624316!5m2!1sen!2s",
-                    "component": "YourMap",
-                    "noBgColor": true
-                },
-                {
-                    "id": "10",
-                    "media": "https://dental-bucket.s3.amazonaws.com/uploads/f8ef3716-04a3-4c5d-9d03-fc1f2e479109.jpeg",
-                    "headline": "Get in touch",
-                    "component": "GetInTouch",
-                    "noBgColor": true
-                }
-            ]
-        },
-        {
-            "id": 51,
-            "pageName": "contactus",
-            "content": [
-                {
-                    "id": "1",
-                    "headline": "Contact Us",
-                    "component": "HeadingWithBgImage",
-                    "description": "Here at Oaklands we offer a wide variety of treatments from private to NHS funded. Please see below an approx price of our treatments. Please contact for further information and bookings.",
-                    "withoutBgImageHeading": true
-                },
-                {
-                    "id": "2",
-                    "component": "LeadForm"
-                },
-                {
-                    "id": "3",
-                    "src": "https://www.google.com/maps/embed?pb=!1m19!1m8!1m3!1d4729.06414045814!2d-1.7869509121058045!3d53.65531523678229!3m2!1i1024!2i768!4f13.1!4m8!3e6!4m0!4m5!1s0x487bdc6b07ba605f%3A0x459cc3454bf146a3!2sOaklands%20Dental%20Surgery%2060%20Bradford%20Rd%20Huddersfield%20HD1%206JE%20United%20Kingdom!3m2!1d53.6553164!2d-1.7820091!5e0!3m2!1sen!2s!4v1727094624316!5m2!1sen!2s",
-                    "component": "YourMap",
-                    "noBgColor": true
-                }
-            ]
-        },
         {
             "id": 46,
             "pageName": "testimonials",
@@ -2248,6 +2116,115 @@
             ]
         },
         {
+            "id": 44,
+            "pageName": "about-us",
+            "content": [
+                {
+                    "id": "1",
+                    "media": "https://dental-bucket.s3.amazonaws.com/uploads/8a751e8b-ea20-4a0a-949e-f0d49bb18264.png",
+                    "headline": "Wellness Partners",
+                    "component": "HeadingWithBgImage",
+                    "noBgColor": true
+                },
+                {
+                    "id": "2",
+                    "media": "https://dental-bucket.s3.amazonaws.com/uploads/0704a121-9a7a-44b3-9240-a568b67bfd2f.png",
+                    "component": "LeftImage",
+                    "noBgColor": true,
+                    "htmlContent": "<p><span style=\"background-color: transparent; color: rgb(0, 0, 0);\">At Oaklands Dental, we’re dedicated to providing exceptional dental care with a focus on innovation, comfort, and patient satisfaction. We understand that dental care is evolving rapidly, and our practice is at the forefront of these changes, embracing the latest technology and techniques to ensure the highest quality service.</span></p><p><br></p><p><span style=\"background-color: transparent; color: rgb(0, 0, 0);\">Whether you're visiting for a routine check-up or seeking advanced treatments, we offer a comprehensive range of services, from preventive care and cosmetic dentistry to cutting-edge orthodontics and restorative treatments. Our practice features modern amenities, including digital X-rays, 3D imaging, and state-of-the-art sterilization protocols, ensuring a safe and comfortable experience for every patient.</span></p><p><br></p><p><span style=\"background-color: transparent; color: rgb(0, 0, 0);\">We pride ourselves on creating a warm, welcoming environment for patients of all ages. Our experienced team of dentists, hygienists, and support staff are here to listen to your concerns, educate you on your options, and create personalized treatment plans that meet your unique needs.</span></p><p><br></p><p><span style=\"background-color: transparent; color: rgb(0, 0, 0);\">At Oaklands Dental, we don’t just care for your teeth – we care for your total well-being. Let us help you achieve a healthier, more confident smile with the latest in dental technology and a commitment to patient-centered care.</span></p><p><br></p><p><strong style=\"background-color: transparent; color: rgb(0, 0, 0);\">Join us in redefining modern dentistry, where your comfort and smile are our top priorities.</strong></p><p><br></p><p><br></p>"
+                },
+                {
+                    "id": "3",
+                    "media": "https://dental-bucket.s3.amazonaws.com/uploads/8a751e8b-ea20-4a0a-949e-f0d49bb18264.png",
+                    "headline": "Facts About Us",
+                    "component": "HeadingWithBgImage",
+                    "noBgColor": true
+                },
+                {
+                    "id": "4",
+                    "services": [
+                        {
+                            "media": "https://dental-bucket.s3.amazonaws.com/uploads/431cb2d7-4a6f-44c6-a04c-d5ad56d90ade.png",
+                            "headline": "Transparency",
+                            "description": "Oaklands believes in complete transparency. Before proceeding with any treatment, we ensure that you comprehend why the specific treatment is being suggested to you. We aim to help patients achieve the best oral health."
+                        },
+                        {
+                            "media": "https://dental-bucket.s3.amazonaws.com/uploads/e4c420c3-f7e9-4654-bc4c-3a94117cdcd9.png",
+                            "headline": "Professional Expertise",
+                            "description": "Enjoy every procedure with our complete care and expertise. By utilizing advanced dental technology, we figure out individual needs and offer speedy, painless treatment."
+                        },
+                        {
+                            "media": "https://dental-bucket.s3.amazonaws.com/uploads/06c94a43-ff6f-4265-ab40-351322b6c75f.png",
+                            "headline": "Sterilization & Quality",
+                            "description": "Your smile is our top priority. We use quality products and materials for better patient care."
+                        }
+                    ],
+                    "component": "ServiceCard"
+                },
+                {
+                    "id": "5",
+                    "media": [
+                        {
+                            "image": "https://dental-bucket.s3.amazonaws.com/uploads/b60d2545-b025-4ff7-9000-75ddcf26a17d.jpeg"
+                        },
+                        {
+                            "image": "https://dental-bucket.s3.amazonaws.com/uploads/61059df5-9085-41fd-99a2-166b913d5e45.jpeg"
+                        },
+                        {
+                            "image": "https://dental-bucket.s3.amazonaws.com/uploads/0d6f520e-a95d-4366-845f-1b964aef6e71.jpeg"
+                        }
+                    ],
+                    "component": "SimpleImageGallery"
+                },
+                {
+                    "id": "6",
+                    "media": "https://dental-bucket.s3.amazonaws.com/uploads/5fa7eb4c-fa78-43f1-983a-51774f77d900.png",
+                    "headline": "Smile Stories",
+                    "component": "HeadingWithBgImage",
+                    "noBgColor": true
+                },
+                {
+                    "id": "7",
+                    "media": [
+                        {
+                            "id": 1,
+                            "url": "https://dental-bucket.s3.amazonaws.com/uploads/bda3af7e-6480-48b9-984e-f570faa77108.mp4"
+                        },
+                        {
+                            "id": 2,
+                            "url": "https://dental-bucket.s3.amazonaws.com/uploads/cccb28c7-95fc-4acf-818b-6396fd2ddb62.mp4"
+                        },
+                        {
+                            "id": 3,
+                            "url": "https://dental-bucket.s3.amazonaws.com/uploads/39287fb4-9628-49a6-a836-3de93cabf7ef.mp4"
+                        }
+                    ],
+                    "component": "Carousel",
+                    "noBgColor": true
+                },
+                {
+                    "id": "8",
+                    "media": "https://dental-bucket.s3.amazonaws.com/uploads/6dd3eaec-df01-4d03-a87f-4a00b91e70ea.png",
+                    "headline": "Visit Now",
+                    "component": "HeadingWithBgImage",
+                    "noBgColor": true
+                },
+                {
+                    "id": "9",
+                    "src": "https://www.google.com/maps/embed?pb=!1m19!1m8!1m3!1d4729.06414045814!2d-1.7869509121058045!3d53.65531523678229!3m2!1i1024!2i768!4f13.1!4m8!3e6!4m0!4m5!1s0x487bdc6b07ba605f%3A0x459cc3454bf146a3!2sOaklands%20Dental%20Surgery%2060%20Bradford%20Rd%20Huddersfield%20HD1%206JE%20United%20Kingdom!3m2!1d53.6553164!2d-1.7820091!5e0!3m2!1sen!2s!4v1727094624316!5m2!1sen!2s",
+                    "component": "YourMap",
+                    "noBgColor": true
+                },
+                {
+                    "id": "10",
+                    "media": "https://dental-bucket.s3.amazonaws.com/uploads/f8ef3716-04a3-4c5d-9d03-fc1f2e479109.jpeg",
+                    "headline": "Get in touch",
+                    "component": "GetInTouch",
+                    "noBgColor": true
+                }
+            ]
+        },
+        {
             "id": 43,
             "pageName": "Homepage",
             "content": [
@@ -2263,7 +2240,7 @@
                 },
                 {
                     "id": "2",
-                    "media": "https://dental-bucket.s3.amazonaws.com/uploads/c6c3001c-0809-4525-b06d-33a96e6a3600.png",
+                    "media": "https://dental-bucket.s3.amazonaws.com/uploads/4da0b72f-cde3-42aa-a435-5ae7518f6e04.webp",
                     "headline": "Dental Treatments",
                     "component": "HeadingWithBgImage",
                     "noBgColor": false
@@ -2273,7 +2250,7 @@
                     "services": [
                         {
                             "slug": "implants",
-                            "media": "https://dental-bucket.s3.amazonaws.com/uploads/7255d020-52a9-4859-8de2-a4264be9ff45.png",
+                            "media": "https://dental-bucket.s3.amazonaws.com/uploads/48272444-8742-4139-8b2b-bbb86b2d3e87.webp",
                             "bullets": [
                                 "Crown And Bridges",
                                 "Dentures"
@@ -2282,7 +2259,7 @@
                         },
                         {
                             "slug": "smile",
-                            "media": "https://dental-bucket.s3.amazonaws.com/uploads/28cdc9a2-0b53-4bef-be41-62e53b9d40ab.png",
+                            "media": "https://dental-bucket.s3.amazonaws.com/uploads/ab470782-ae2d-48be-a268-7c78e5492093.webp",
                             "bullets": [
                                 "Cosmetic Dental Procedures"
                             ],
@@ -2290,7 +2267,7 @@
                         },
                         {
                             "slug": "clear-aligners",
-                            "media": "https://dental-bucket.s3.amazonaws.com/uploads/990c7ee3-a43e-46a9-af6a-7c35f63036df.png",
+                            "media": "https://dental-bucket.s3.amazonaws.com/uploads/4192e33b-ed30-419c-81df-3a6ecb305ef0.webp",
                             "bullets": [
                                 "Consultation",
                                 "Treatment Planning",
@@ -2301,7 +2278,7 @@
                         },
                         {
                             "slug": "composite-bonding",
-                            "media": "https://dental-bucket.s3.amazonaws.com/uploads/e4201e32-4ce1-45c5-8ccc-b54eff3b72d1.png",
+                            "media": "https://dental-bucket.s3.amazonaws.com/uploads/0cb41de6-f0a0-47ea-bb2c-1534294a1b8d.webp",
                             "bullets": [
                                 "Conceal Chips or Cracks",
                                 "Camouflage Tooth Discoloration"
@@ -2310,7 +2287,7 @@
                         },
                         {
                             "slug": "teeth-whitening",
-                            "media": "https://dental-bucket.s3.amazonaws.com/uploads/691fb598-3ee8-45d1-b128-5f353893f65c.png",
+                            "media": "https://dental-bucket.s3.amazonaws.com/uploads/cd6309fc-9e86-49a6-8ab0-4272acf7b1ed.webp",
                             "bullets": [
                                 "In-Office Whitening",
                                 "Take-Home Whitening Kits",
@@ -2320,7 +2297,7 @@
                         },
                         {
                             "slug": "restorative-dentistry",
-                            "media": "https://dental-bucket.s3.amazonaws.com/uploads/d3587d5d-194b-4182-9763-75297d48dbb4.png",
+                            "media": "https://dental-bucket.s3.amazonaws.com/uploads/39e3dde2-d9e6-4b4f-992c-977e87ff8ffb.webp",
                             "bullets": [
                                 "Fillings",
                                 "Root Canal Treatments"
@@ -2329,7 +2306,7 @@
                         },
                         {
                             "slug": "family-care",
-                            "media": "https://dental-bucket.s3.amazonaws.com/uploads/d08d3480-5c21-447d-9cff-2765c092d4f7.png",
+                            "media": "https://dental-bucket.s3.amazonaws.com/uploads/34b0b2e5-f870-47db-a8a4-cc31cd76094a.webp",
                             "bullets": [
                                 "Prevention"
                             ],
@@ -2337,7 +2314,7 @@
                         },
                         {
                             "slug": "minor-oral-surgery",
-                            "media": "https://dental-bucket.s3.amazonaws.com/uploads/5620d85c-4a67-4c05-90bf-974fa4fd93d3.png",
+                            "media": "https://dental-bucket.s3.amazonaws.com/uploads/fd09be79-d8ad-4e0e-a39b-aef186b63537.webp",
                             "bullets": [
                                 "Extractions"
                             ],
@@ -2345,7 +2322,7 @@
                         },
                         {
                             "slug": "sedation",
-                            "media": "https://dental-bucket.s3.amazonaws.com/uploads/dfe0aec4-977c-40c8-b64f-d85a9e724d7f.png",
+                            "media": "https://dental-bucket.s3.amazonaws.com/uploads/bd34c60a-cdf0-4a32-ab05-9022c4b04a5e.webp",
                             "bullets": [
                                 "Oral Sedation",
                                 "IV Sedation"
@@ -2407,6 +2384,29 @@
                     "id": "195b16a9-f2bf-4b90-aab7-f80c7138d8b9",
                     "component": "SeoInvisibleContent",
                     "htmlContent": "<p>At our dental clinic Your New Smile Starts Here, we are committed to providing a wide range of treatments designed to meet the unique needs of each patient. From preventive care, such as regular check-ups and cleanings, to advanced cosmetic procedures that can enhance your smile, our experienced team is here to help. We offer restorative dentistry options, including fillings, crowns, and bridges, to restore function and aesthetics to your teeth. For those seeking a brighter smile, our teeth whitening treatments can effectively remove stains and discoloration. Additionally, we specialize in sedation dentistry to ensure a comfortable experience for patients with dental anxiety. Whatever your dental needs may be, our goal is to provide exceptional care in a welcoming environment. To learn more about our comprehensive range of services, please</p><p>&nbsp;&nbsp;&nbsp;<a href=\"https://oaklandsdentalhudds.co.uk/services\" rel=\"noopener noreferrer\" target=\"_blank\">&nbsp;read more about treatments</a></p><p><span style=\"color: rgb(0, 0, 0); background-color: transparent;\">At Oaklands Dental, we’re dedicated to providing exceptional dental care with a focus on innovation, comfort, and patient satisfaction. We understand that dental care is evolving rapidly, and our practice is at the forefront of these changes, embracing the latest technology and techniques to ensure the highest quality service.</span></p><p><br></p><p><span style=\"color: rgb(0, 0, 0); background-color: transparent;\">Whether you're visiting for a routine check-up or seeking advanced treatments, we offer a comprehensive range of services, from preventive care and cosmetic dentistry to cutting-edge orthodontics and restorative treatments. Our practice features modern amenities, including digital X-rays, 3D imaging, and state-of-the-art sterilization protocols, ensuring a safe and comfortable experience for every patient.</span></p><p><br></p><p>&nbsp;&nbsp;&nbsp;<a href=\"https://oaklandsdentalhudds.co.uk/team\" rel=\"noopener noreferrer\" target=\"_blank\">&nbsp;view more experts</a></p><p><br></p><p><br></p><p><strong style=\"color: rgb(0, 0, 0); background-color: transparent;\">Join us in redefining modern dentistry, where your comfort and smile are our top priorities.</strong></p><p>&nbsp;&nbsp;&nbsp;<a href=\"https://oaklandsdentalhudds.co.uk/inforamtion\" rel=\"noopener noreferrer\" target=\"_blank\">&nbsp;view pricing </a></p>"
+                }
+            ]
+        },
+        {
+            "id": 51,
+            "pageName": "contact-us",
+            "content": [
+                {
+                    "id": "1",
+                    "headline": "Contact Us",
+                    "component": "HeadingWithBgImage",
+                    "description": "Here at Oaklands we offer a wide variety of treatments from private to NHS funded. Please see below an approx price of our treatments. Please contact for further information and bookings.",
+                    "withoutBgImageHeading": true
+                },
+                {
+                    "id": "2",
+                    "component": "LeadForm"
+                },
+                {
+                    "id": "3",
+                    "src": "https://www.google.com/maps/embed?pb=!1m19!1m8!1m3!1d4729.06414045814!2d-1.7869509121058045!3d53.65531523678229!3m2!1i1024!2i768!4f13.1!4m8!3e6!4m0!4m5!1s0x487bdc6b07ba605f%3A0x459cc3454bf146a3!2sOaklands%20Dental%20Surgery%2060%20Bradford%20Rd%20Huddersfield%20HD1%206JE%20United%20Kingdom!3m2!1d53.6553164!2d-1.7820091!5e0!3m2!1sen!2s!4v1727094624316!5m2!1sen!2s",
+                    "component": "YourMap",
+                    "noBgColor": true
                 }
             ]
         }
