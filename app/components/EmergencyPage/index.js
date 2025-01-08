@@ -28,7 +28,7 @@ const Emergency = () => {
 
   return (
     <Container fluid="sm" className={styles.MarginTopDefault}>
-      <ScrollHandler sectionScroll={null} scrollToCenter={true} />
+      <ScrollHandler sectionScroll={null} scrollToCenter={false} />
       {filtered.length > 0 ? (
         filtered.map((page, pageIndex) => (
           <div key={pageIndex}>

@@ -24,7 +24,7 @@ const ModernSlavery = () => {
   return (
     <div>
       <Container>
-        <ScrollHandler sectionScroll={null} scrollToCenter={true} />
+        <ScrollHandler sectionScroll={null} scrollToCenter={false} />
         <p className={styles.heading}>Anti Slavery Policy</p>
         <Row>
           <Col />

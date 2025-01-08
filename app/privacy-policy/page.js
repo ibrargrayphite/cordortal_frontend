@@ -22,7 +22,7 @@ const privacyPolicy = () => {
   return (
     <div>
       <Container>
-        <ScrollHandler sectionScroll={null} scrollToCenter={true} />
+        <ScrollHandler sectionScroll={null} scrollToCenter={false} />
         <p className={styles.heading}>Privacy Policy</p>
         <Row>
           <Col />

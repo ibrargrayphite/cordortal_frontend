@@ -14,6 +14,7 @@ const RightImage = ({
   media,
   buttonSrc,
   isIconButton = false,
+  headline
 }) => {
 
   const mediaSourceBefore = mediaBefore && mediaBefore?.startsWith('https') ? mediaBefore : defaultMedia.src;
@@ -32,6 +33,7 @@ const RightImage = ({
       <Container>
         <Row style={{alignItems: media?'center':'none'}}>
           <Col md={6} xs={12}>
+          <h1>{headline}</h1>
             <p className={styles.paragraph}>{description}</p>
             <div className={styles.buttonContainer}>
               <CustomButton
