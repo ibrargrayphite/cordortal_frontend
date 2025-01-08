@@ -64,7 +64,7 @@ const GetInTouch = ({headline,media}) => {
       // Success case
       try {
         const response = await fetch(
-         `${process.env.NEXT_PUBLIC_BASE_URL}/template/organization/lead`,
+         `${process.env.NEXT_PUBLIC_BASE_URL}/leads/organization/`,
           {
             method: "POST",
             headers: {
@@ -77,6 +77,7 @@ const GetInTouch = ({headline,media}) => {
               email: email,
               message: message,
               company_email: "huddsdental@outlook.com",
+              domain:process.env.NEXT_PUBLIC_DOMAIN
             }),
           }
         );

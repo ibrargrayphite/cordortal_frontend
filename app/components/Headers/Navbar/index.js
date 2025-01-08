@@ -230,7 +230,7 @@ const NavBar = ({ media, src, name,menuItems }) => {
                     Emergency
                   </div>
                   {/* <div>
-                    <Image loading="lazy" src={Emergency} height={10} />
+                    <Image priority={true}  src={Emergency} height={10} />
                   </div> */}
                 </div>
               </div>
