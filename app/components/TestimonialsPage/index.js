@@ -29,7 +29,7 @@ const TestimonialsPage = () => {
   return (
     <div className={styles.marginCustom}>
       <Container>
-        <ScrollHandler sectionScroll={null} scrollToCenter={true} />
+        <ScrollHandler sectionScroll={null} scrollToCenter={false} />
         {filtered.length > 0 ? (
           filtered.map((page, pageIndex) => (
             <div key={pageIndex}>
