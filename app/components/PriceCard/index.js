@@ -12,7 +12,7 @@ const PriceCard = ({ Package = false, data }) => {
     <Container>
       <Row className="d-flex justify-content-center">
         {data.map((item, index) => (
-          <Col key={index} sm={7} lg={4} className="d-flex">
+          <Col key={index} sm={7} lg={3} className="d-flex">
             {" "}
             {/* Added d-flex for flex behavior */}
             <Card
