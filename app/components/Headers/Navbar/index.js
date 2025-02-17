@@ -10,7 +10,7 @@ import { useTheme } from "../../../context/ThemeContext";
 import defaultMedia from "../../../../public/assets/images/solutions/implants.png";
 import Image from "next/image";
 
-const NavBar = ({ media, src, name,menuItems }) => {
+const NavBar = ({ media, src, name, menuItems }) => {
   const theme = useTheme();
   const router = useRouter();
   const dropdownRef = useRef(null);
@@ -42,14 +42,21 @@ const NavBar = ({ media, src, name,menuItems }) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [locationDropdownVisible]);
-
   const handleNavigation = (href) => {
     if (href.startsWith("http") || href.startsWith("www")) {
       // Open external links in a new tab
       window.open(href, "_blank", "noopener,noreferrer");
     } else {
-      // Navigate internally (you can use your router here, e.g., next/router or react-router)
-      window.location.href = href; // Replace with router.push(href) if using a router
+      router.push(href); // Use router.push for navigation
+      if (
+        !(
+          href === "/about-us" ||
+          href === "/services" ||
+          href === "/information"
+        )
+      ) {
+        setExpanded(false);
+      }
     }
   };
 
