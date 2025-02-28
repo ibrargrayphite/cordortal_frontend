@@ -90,7 +90,7 @@ const NavBar = ({ media, src, name, menuItems }) => {
     >
       <Container className={styles.navBarContainer}>
         <Navbar.Brand
-          style={{ cursor: "pointer" }}
+          style={{ cursor: "pointer", maxWidth: '207px' }}
           onClick={() => handleNavigation("/")}
         >
           <Image

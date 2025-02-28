@@ -261,7 +261,7 @@ li.informationDropdown {
     height: 55px !important;
   }
   .aboutDropdown {
-    margin: 0 !important;
+    /* margin: 0 !important; */
   }
 
 }
