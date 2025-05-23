@@ -6,7 +6,18 @@ import { renderComponent } from './utils/renderComponent';
 import { ThemeProvider } from './context/ThemeContext';
 import { PagesProvider } from './context/PagesContext';
 import { fetchPagesData } from './utils/fetchPagesData';
+import localFont from 'next/font/local';
 
+const balgin = localFont({
+  src: [{ path: '../public/assets/fonts/balgin-regular.otf', weight: '400', style: 'normal' }],
+  display: 'swap',
+  variable: '--font-balgin',
+});
+const touvlo = localFont({
+  src: [{ path: '../public/assets/fonts/touvlo-regular.otf', weight: '400', style: 'normal' }],
+  display: 'swap',
+  variable: '--font-touvlo',
+});
 // Load the fonts
 const josefinSans = Josefin_Sans({
   weight: ['400', '500', '600', '700'],
@@ -29,8 +40,15 @@ export default async function RootLayout({ children }) {
   const shared = location.shared || {};
 
   // Determine the active font based on the location's fontFamily
-  const activeFont = location.fontFamily === 'josefinSans' ? josefinSans : urbanist;
-
+  const activeFont = location.fontFamily === 'josefinSans' ? josefinSans : location.fontFamily === 'urbanist'?  urbanist: touvlo;
+  const secondaryFont =
+    location.font_family_heading && location.font_family_heading.trim() !== ''
+      ? location.font_family_heading === 'josefinSans'
+        ? josefinSans
+        : location.font_family_heading === 'urbanist'
+        ? urbanist
+        : balgin
+      : null;
   return (
     <html lang="en">
       <PagesProvider pagesData={pagesData}> {/* Pass data to PagesProvider */}
@@ -42,6 +60,20 @@ export default async function RootLayout({ children }) {
             }}
             className={activeFont.className} // Use the Google Fonts class
           >
+             <style>
+              {/* for content tags */}
+              {`
+                ul,li, p, span, div {
+                  font-family: ${activeFont.style.fontFamily}, sans-serif !important;
+                }
+              `}
+               {/* for heading tags */}
+              {`
+                h1, h2, h3, h4, h5 {
+                  font-family: ${secondaryFont.style.fontFamily}, sans-serif !important;
+                }
+              `}
+            </style>
             {shared &&
               renderComponent({
                 component: shared.header.name,
