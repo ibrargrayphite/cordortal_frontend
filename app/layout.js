@@ -70,7 +70,7 @@ export default async function RootLayout({ children }) {
                {/* for heading tags */}
               {`
                 h1, h2, h3, h4, h5 {
-                  font-family: ${secondaryFont.style.fontFamily}, sans-serif !important;
+                  font-family: ${secondaryFont?.style.fontFamily}, sans-serif !important;
                 }
               `}
             </style>

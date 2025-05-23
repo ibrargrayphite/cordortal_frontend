@@ -49,9 +49,14 @@ const Footer = ({ src, refersrc, title,data }) => {
   return (
     <>
       <footer>
-        <div className={styles.contactCard}>
+        
+        {
+         ContactCardData && Object.keys(ContactCardData).length > 0 ?
+         (<div className={styles.contactCard}>
           <ContactCard data={ContactCardData} />
-        </div>
+        </div>):""
+        }
+        
         <div className={styles.footerTopWhiteSpace}></div>
         <Container
           fluid
