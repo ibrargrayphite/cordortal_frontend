@@ -13,9 +13,9 @@ export const renderComponent = (block) => {
     headline: block.headline,
     description:block.description,
     media2:block.media2,
+    mediaType: block.mediaType,
     // data for services
     services: block.services,
-    
     // boolean state for serviceCard and HeadingWithBgImage
     withoutBgImageHeading:block.withoutBgImageHeading,
     noBgColor: block.noBgColor,
