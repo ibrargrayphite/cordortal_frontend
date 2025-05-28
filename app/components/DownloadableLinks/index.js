@@ -8,14 +8,16 @@ const DownloadableLinks = ({ data, noBgColor, headline }) => {
   const [fileUrl, setFileUrl] = useState(null);
 
   const downloadFile = (path) => {
-    setFileUrl(path);
-    // Trigger the download
-    const link = document.createElement("a");
-    link.href = path;
-    link.setAttribute("download", ""); // Set the attribute for download
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    if(path) {
+      setFileUrl(path);
+      // Trigger the download
+      const link = document.createElement("a");
+      link.href = path;
+      link.setAttribute("download", ""); // Set the attribute for download
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
   };
 
   // Split data into three columns
