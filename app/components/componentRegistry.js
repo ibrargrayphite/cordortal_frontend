@@ -4,6 +4,7 @@ const componentRegistry = {
   MediaOverlay: dynamic(() => import("./MediaOverlay")),
   landingPageOverlay: dynamic(() => import("./landingPageOverlay")),
   ServiceCard: dynamic(() => import("./ServiceCard")),
+  GPServiceCard: dynamic(() => import("./GPServiceCard")),
   HeadingWithBgImage: dynamic(() => import("./HeadingWithBgImage")),
   YourMap: dynamic(() => import("./YourMap")),
   GetInTouch: dynamic(() => import("./GetInTouch")),

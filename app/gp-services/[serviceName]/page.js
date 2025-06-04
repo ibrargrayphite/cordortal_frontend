@@ -12,7 +12,7 @@ export async function generateStaticParams() {
   const filteredLocations = filterByPage(data, pageName);
 
   const contentArray = filteredLocations.length > 0 ? filteredLocations[0].content : [];
-  const serviceCardData = contentArray.find((block) => block.component === "ServiceCard");
+  const serviceCardData = contentArray.find((block) => block.component === "GPServiceCard");
   const allServices = serviceCardData?.services || [];
 
   const finalServiceArray = allServices.length > 0 
@@ -59,7 +59,7 @@ const ServiceDetail = async ({ params }) => {
   const pageName = "services";
   const filteredLocations = filterByPage(data, pageName);
   const contentArray = filteredLocations.length > 0 ? filteredLocations[0].content : [];
-  const serviceCardData = contentArray.find((block) => block.component === "ServiceCard");
+  const serviceCardData = contentArray.find((block) => block.component === "GPServiceCard");
   const allServices = serviceCardData?.services || [];
   const specificService = allServices.find((service) => service.slug === serviceName);
 
