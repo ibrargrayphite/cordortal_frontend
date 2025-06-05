@@ -136,7 +136,13 @@ const NavBar = ({ media, src, name, menuItems }) => {
               }`}
               style={{ marginTop: 40 }}
             >
-              <a className={styles.disabled}>Huddersfield</a>
+              <a className={true?"":styles.disabled}
+                        onClick={() =>
+                          window.open(
+                            "https://www.google.com/maps/place/Cheadle,+UK/@53.3878217,-2.2276045,14z/data=!4m6!3m5!1s0x487a4cb5adc29405:0xa0cf9a1721bf9a0!8m2!3d53.394361!4d-2.214115!16zL20vMDV3bmxn?entry=ttu&g_ep=EgoyMDI1MDYwMy4wIKXMDSoASAFQAw%3D%3D",
+                            "_blank"
+                          )
+                        }>Huddersfield</a>
               <a
                 onClick={() =>
                   window.open("https://www.bailiffbridgedental.com/", "_blank")
@@ -268,8 +274,14 @@ const NavBar = ({ media, src, name, menuItems }) => {
                       locationDropdownVisible ? styles.visible : ""
                     }`}
                   >
-                    <a className={styles.disabled}>Huddersfield</a>
-                    <a
+                    <a className={true?"":styles.disabled}
+                        onClick={() =>
+                          window.open(
+                            "https://www.google.com/maps/place/Cheadle,+UK/@53.3878217,-2.2276045,14z/data=!4m6!3m5!1s0x487a4cb5adc29405:0xa0cf9a1721bf9a0!8m2!3d53.394361!4d-2.214115!16zL20vMDV3bmxn?entry=ttu&g_ep=EgoyMDI1MDYwMy4wIKXMDSoASAFQAw%3D%3D",
+                            "_blank"
+                          )
+                        }>Huddersfield</a>
+                    {/* <a
                       onClick={() =>
                         window.open(
                           "https://www.bailiffbridgedental.com/",
@@ -278,7 +290,7 @@ const NavBar = ({ media, src, name, menuItems }) => {
                       }
                     >
                       Brighouse
-                    </a>
+                    </a> */}
                   </div>
 
                   <>
@@ -288,7 +300,14 @@ const NavBar = ({ media, src, name, menuItems }) => {
                           locationDropdownVisible ? styles.visible : ""
                         }`}
                       >
-                        <a className={styles.disabled}>Huddersfield</a>
+                        
+                        <a className={true?"":styles.disabled}
+                        onClick={() =>
+                          window.open(
+                            "https://www.google.com/maps/place/Cheadle,+UK/@53.3878217,-2.2276045,14z/data=!4m6!3m5!1s0x487a4cb5adc29405:0xa0cf9a1721bf9a0!8m2!3d53.394361!4d-2.214115!16zL20vMDV3bmxn?entry=ttu&g_ep=EgoyMDI1MDYwMy4wIKXMDSoASAFQAw%3D%3D",
+                            "_blank"
+                          )
+                        }>Huddersfield</a>
                         <a
                           onClick={() =>
                             window.open(
@@ -310,7 +329,7 @@ const NavBar = ({ media, src, name, menuItems }) => {
                         <a
                           onClick={() =>
                             window.open(
-                              "https://oaklandsdentalhudds.co.uk/",
+                              "https://www.google.com/maps/place/Cheadle,+UK/@53.3878217,-2.2276045,14z/data=!4m6!3m5!1s0x487a4cb5adc29405:0xa0cf9a1721bf9a0!8m2!3d53.394361!4d-2.214115!16zL20vMDV3bmxn?entry=ttu&g_ep=EgoyMDI1MDYwMy4wIKXMDSoASAFQAw%3D%3D",
                               "_blank"
                             )
                           }

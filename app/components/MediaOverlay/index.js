@@ -92,7 +92,14 @@ const MediaOverlay = ({ media, media2,mediaType, headline, description, style, s
                 onClick={() => handleSecondaryAction(src)}
                 className={styles.customButton}
               />
-            </div>
+              <div className={styles.comingSoonText}>Coming Soon...</div>
+              <p className={styles.comingSoonTextContent}>
+              No, we’re not just renovating an old house...<br/>
+              We’re transforming the former St. Aidan’s chapel in Brighouse into a state of the art dental and wellness clinic!<br/>
+              Coming Autumn 2025.<br/>
+              Keep following for more renovation updates.
+              </p>
+            </div> 
           </div>
         </Col>
       </Row>
