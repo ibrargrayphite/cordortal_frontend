@@ -51,7 +51,7 @@ const Footer = ({ src, refersrc, title,data }) => {
       <footer>
         
         {
-         ContactCardData && Object.keys(ContactCardData).length > 0 ?
+         ContactCardData && Object.keys(ContactCardData).length > 1 ?
          (<div className={styles.contactCard}>
           <ContactCard data={ContactCardData} />
         </div>):""

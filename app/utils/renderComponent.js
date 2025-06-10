@@ -66,6 +66,7 @@ export const renderComponent = (block) => {
     // landingPageOverlay
     buttonName:block.buttonName,
     buttonSrc:block.buttonSrc,
+    locations:block.locations,
   
   });
 };

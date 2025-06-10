@@ -80,6 +80,7 @@ export default async function RootLayout({ children }) {
                 media: location.media,
                 src: shared.header.src,
                 name: location.name,
+                locations: location.data.locations,
                 menuItems: shared.header.menuItems,
                 button: shared.header.button,
               })

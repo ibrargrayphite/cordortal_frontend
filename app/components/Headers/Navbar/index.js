@@ -10,7 +10,7 @@ import { useTheme } from "../../../context/ThemeContext";
 import defaultMedia from "../../../../public/assets/images/solutions/implants.png";
 import Image from "next/image";
 
-const NavBar = ({ media, src, name, menuItems }) => {
+const NavBar = ({ media, src, name, menuItems, locations }) => {
   const theme = useTheme();
   const router = useRouter();
   const dropdownRef = useRef(null);
@@ -136,20 +136,15 @@ const NavBar = ({ media, src, name, menuItems }) => {
               }`}
               style={{ marginTop: 40 }}
             >
-              <a className={true?"":styles.disabled}
-                        onClick={() =>
-                          window.open(
-                            "https://www.google.com/maps/place/Cheadle,+UK/@53.3878217,-2.2276045,14z/data=!4m6!3m5!1s0x487a4cb5adc29405:0xa0cf9a1721bf9a0!8m2!3d53.394361!4d-2.214115!16zL20vMDV3bmxn?entry=ttu&g_ep=EgoyMDI1MDYwMy4wIKXMDSoASAFQAw%3D%3D",
-                            "_blank"
-                          )
-                        }>Huddersfield</a>
-              <a
+              {locations?.map((loc) => 
+              (<a key={loc.name+1} className={`${loc.disable===true?styles.disabled:""}`}
                 onClick={() =>
-                  window.open("https://www.bailiffbridgedental.com/", "_blank")
+                  window.open(loc.link, "_blank")
                 }
               >
-                Brighouse
+                {loc.name}
               </a>
+              ))}
             </div>
           </div>
           <Navbar.Toggle
@@ -274,71 +269,16 @@ const NavBar = ({ media, src, name, menuItems }) => {
                       locationDropdownVisible ? styles.visible : ""
                     }`}
                   >
-                    <a className={true?"":styles.disabled}
+                    {locations?.map((loc) => (
+                      <a key={loc.name+2} className={loc.disable?styles.disabled:""}
                         onClick={() =>
-                          window.open(
-                            "https://www.google.com/maps/place/Cheadle,+UK/@53.3878217,-2.2276045,14z/data=!4m6!3m5!1s0x487a4cb5adc29405:0xa0cf9a1721bf9a0!8m2!3d53.394361!4d-2.214115!16zL20vMDV3bmxn?entry=ttu&g_ep=EgoyMDI1MDYwMy4wIKXMDSoASAFQAw%3D%3D",
-                            "_blank"
-                          )
-                        }>Huddersfield</a>
-                    {/* <a
-                      onClick={() =>
-                        window.open(
-                          "https://www.bailiffbridgedental.com/",
-                          "_blank"
-                        )
-                      }
-                    >
-                      Brighouse
-                    </a> */}
+                          window.open(loc.link, "_blank")
+                        }
+                      >
+                        {loc.name}
+                      </a>
+                    ))}
                   </div>
-
-                  <>
-                    {name === "Oaklands Dental" ? (
-                      <div
-                        className={`${styles.informationDropdownContent} ${
-                          locationDropdownVisible ? styles.visible : ""
-                        }`}
-                      >
-                        
-                        <a className={true?"":styles.disabled}
-                        onClick={() =>
-                          window.open(
-                            "https://www.google.com/maps/place/Cheadle,+UK/@53.3878217,-2.2276045,14z/data=!4m6!3m5!1s0x487a4cb5adc29405:0xa0cf9a1721bf9a0!8m2!3d53.394361!4d-2.214115!16zL20vMDV3bmxn?entry=ttu&g_ep=EgoyMDI1MDYwMy4wIKXMDSoASAFQAw%3D%3D",
-                            "_blank"
-                          )
-                        }>Huddersfield</a>
-                        <a
-                          onClick={() =>
-                            window.open(
-                              "https://www.bailiffbridgedental.com/",
-                              "_blank"
-                            )
-                          }
-                        >
-                          Brighouse
-                        </a>
-                      </div>
-                    ) : name === "Bailiff Bridge" ? (
-                      <div
-                        className={`${styles.informationDropdownContent} ${
-                          locationDropdownVisible ? styles.visible : ""
-                        }`}
-                      >
-                        <a className={styles.disabled}>Brighouse</a>
-                        <a
-                          onClick={() =>
-                            window.open(
-                              "https://www.google.com/maps/place/Cheadle,+UK/@53.3878217,-2.2276045,14z/data=!4m6!3m5!1s0x487a4cb5adc29405:0xa0cf9a1721bf9a0!8m2!3d53.394361!4d-2.214115!16zL20vMDV3bmxn?entry=ttu&g_ep=EgoyMDI1MDYwMy4wIKXMDSoASAFQAw%3D%3D",
-                              "_blank"
-                            )
-                          }
-                        >
-                          Huddersfield
-                        </a>
-                      </div>
-                    ) : null}
-                  </>
                 </div>
               </div>
               <button

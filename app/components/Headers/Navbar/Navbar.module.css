@@ -1,6 +1,7 @@
 .logoMob{
   height: 69px!important;
   width: 100%;
+  object-fit: contain;
 }
 
 .locationIconStyle{
@@ -259,6 +260,7 @@ li.informationDropdown {
   .logoMob {
     width: 178px !important;
     height: 55px !important;
+    object-fit: contain;
   }
   .aboutDropdown {
     /* margin: 0 !important; */
