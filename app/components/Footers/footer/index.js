@@ -88,29 +88,20 @@ const Footer = ({ src, refersrc, title,data }) => {
               </div>
             </Col>
             <Col lg={4} sm={12} className={styles.mobileCenter}>
-              <p style={{ fontWeight: "bold", color: theme.content }}>
+              {/* <p style={{ fontWeight: "bold", color: theme.content }}>
                 Affiliated
               </p>
-                {/* <div style={{ cursor: "pointer", marginTop: 20 }} className={`${styles.footerAward} max-lg:flex max-lg:justify-center`}>
+                <div style={{ cursor: "pointer", marginTop: 20 }} className={`${styles.footerAward} max-lg:flex max-lg:justify-center`}>
                   <Cqc  height={"55px"} width={"170"}  alt="footerLogo1" onClick={() =>
                     window.open(
                       "https://www.cqc.org.uk/guidance-providers/dentists",
                       "_blank"
                     )
                   }/>
-                  </div> */}
-              {/* <div style={{ cursor: "pointer", marginTop: 20 }} className={`${styles.footerAward} max-lg:flex max-lg:justify-center`}> */}
-                {/* <Image
-                  height={50}
-                  loading="lazy"
-                  width={50}
-                  style={{ cursor: "pointer", marginTop: 20 }}
-                  src={Nhs}
-                  alt="nhs"
-                  onClick={() => window.open("https://www.nhs.uk/", "_blank")}
-                /> */}
-                {/* <Nhs  height={"55px"} width={"30%"}  alt="nhs" onClick={() => window.open("https://www.nhs.uk/", "_blank")} />
-              </div> */}
+                  </div>
+              <div style={{ cursor: "pointer", marginTop: 20 }} className={`${styles.footerAward} max-lg:flex max-lg:justify-center`}>
+                <Nhs  height={"55px"} width={"30%"}  alt="nhs" onClick={() => window.open("https://www.nhs.uk/", "_blank")} />
+              </div>
               <div className={`${styles.footerAward} max-lg:flex max-lg:justify-center`}>
                 <Image 
                 loading="lazy"
@@ -124,7 +115,7 @@ const Footer = ({ src, refersrc, title,data }) => {
                     window.open("https://www.gdc-uk.org/", "_blank")
                   }
                 />
-              </div>
+              </div> */}
             </Col>
           </Row>
           {/* for desktop */}
