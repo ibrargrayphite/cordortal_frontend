@@ -49,6 +49,29 @@
   word-wrap: break-word;
   z-index: 3;
 }
+.comingSoonText {
+  /* position: absolute;
+  top: 46%;
+  left: 43%; */
+  /* transform: translate(0, -100%); */
+  color: white;
+  font-size: 40px;
+  font-weight: bold;
+  margin-top: 12px;
+  /* text-transform: uppercase; */
+  letter-spacing: 2px;
+  z-index: 3;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  /* text-align: right; */
+}
+.comingSoonText p{
+  font-weight: normal;
+  letter-spacing: normal;
+  font-size: 19px;
+  text-align: left;
+  margin-top: 10px;
+  width: 70%;
+}
 
 .overlayContent h1,
 .overlayContent p {
@@ -82,6 +105,9 @@
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
+  }
+  .comingSoonText {
+    right: 20px;
   }
   .mediaOverlayContainer {
     height: 85vh; /*Prevent dynamic resizing */

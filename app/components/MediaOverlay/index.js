@@ -8,8 +8,7 @@ import defaultMedia from "../../../public/assets/video/oaklandslandingPageVideo.
 import defaultMedia2 from "../../../public/assets/images/home/oaklandsSkelton.png"
 import Image from "next/image";
 
-
-const MediaOverlay = ({ media, media2,mediaType, headline, description, style, src }) => {
+const MediaOverlay = ({ media, media2,mediaType, headline, description, style, src, htmlContent }) => {
   const mediaSource = media && media?.startsWith('https') ? media : defaultMedia;
   const mediaSource2 = media2 && media2?.startsWith('https') ? media2 : defaultMedia2;
   const [loading, setLoading] = useState(true);
@@ -92,6 +91,8 @@ const MediaOverlay = ({ media, media2,mediaType, headline, description, style, s
                 onClick={() => handleSecondaryAction(src)}
                 className={styles.customButton}
               />
+               <div className={styles.comingSoonText} dangerouslySetInnerHTML={{ __html: htmlContent }}>
+              </div>
             </div> 
           </div>
         </Col>
