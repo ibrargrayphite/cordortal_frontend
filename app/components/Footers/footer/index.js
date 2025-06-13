@@ -12,7 +12,7 @@ import CustomButton from "../../CustomButton";
 import { useTheme } from "../../../context/ThemeContext";
 import { usePages } from '../../../context/PagesContext';
 
-const Footer = ({ src, refersrc, title,data }) => {
+const Footer = ({ src, refersrc, title,data,media }) => {
   const { pages } = usePages();
   const ContactCardData = pages.data || {};
   const theme = useTheme();
@@ -88,9 +88,11 @@ const Footer = ({ src, refersrc, title,data }) => {
               </div>
             </Col>
             <Col lg={4} sm={12} className={styles.mobileCenter}>
-              {/* <p style={{ fontWeight: "bold", color: theme.content }}>
-                Affiliated
-              </p>
+            {(typeof media == 'undefined'  ||  media)? 
+              <>
+                <p style={{ fontWeight: "bold", color: theme.content }}>
+                  Affiliated
+                </p>
                 <div style={{ cursor: "pointer", marginTop: 20 }} className={`${styles.footerAward} max-lg:flex max-lg:justify-center`}>
                   <Cqc  height={"55px"} width={"170"}  alt="footerLogo1" onClick={() =>
                     window.open(
@@ -98,24 +100,26 @@ const Footer = ({ src, refersrc, title,data }) => {
                       "_blank"
                     )
                   }/>
-                  </div>
-              <div style={{ cursor: "pointer", marginTop: 20 }} className={`${styles.footerAward} max-lg:flex max-lg:justify-center`}>
-                <Nhs  height={"55px"} width={"30%"}  alt="nhs" onClick={() => window.open("https://www.nhs.uk/", "_blank")} />
-              </div>
-              <div className={`${styles.footerAward} max-lg:flex max-lg:justify-center`}>
-                <Image 
-                loading="lazy"
-                  height={70}
-                  width={70}
-                  style={{ cursor: "pointer", marginTop: 20 }}
-                  src={Gdc}
-                  
-                  alt="Certified by the General Dental Council"
-                  onClick={() =>
-                    window.open("https://www.gdc-uk.org/", "_blank")
-                  }
-                />
-              </div> */}
+                </div>
+                <div style={{ cursor: "pointer", marginTop: 20 }} className={`${styles.footerAward} max-lg:flex max-lg:justify-center`}>
+                  <Nhs  height={"55px"} width={"30%"}  alt="nhs" onClick={() => window.open("https://www.nhs.uk/", "_blank")} />
+                </div>
+                <div className={`${styles.footerAward} max-lg:flex max-lg:justify-center`}>
+                  <Image 
+                  loading="lazy"
+                    height={70}
+                    width={70}
+                    style={{ cursor: "pointer", marginTop: 20 }}
+                    src={Gdc}
+                    
+                    alt="Certified by the General Dental Council"
+                    onClick={() =>
+                      window.open("https://www.gdc-uk.org/", "_blank")
+                    }
+                  />
+                </div>
+              </>
+            : ""}
             </Col>
           </Row>
           {/* for desktop */}

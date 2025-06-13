@@ -76,7 +76,7 @@ export default async function RootLayout({ children }) {
             </style>
             {shared &&
               renderComponent({
-                component: shared.header.name,
+                component: shared.header?.name,
                 media: location.media,
                 src: shared.header.src,
                 name: location.name,
@@ -95,6 +95,7 @@ export default async function RootLayout({ children }) {
                   title: location.title,
                   footerRights: shared.footer.footerRights,
                   data: shared.footer.data,
+                  media: shared.footer.media,
                 })
               }
             </div>
