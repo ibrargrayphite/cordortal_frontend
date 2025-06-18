@@ -200,6 +200,9 @@ const NavBar = ({ media, src, name, menuItems, locations }) => {
                   >
                     {item.label}
                   </a>
+                  {item.htmlContent && (
+                    <span dangerouslySetInnerHTML={{ __html: item.htmlContent }} />
+                  )}
                   {item.subItems.length > 0 && (
                     <div className={styles[`${"aboutDropdown"}Content`]}>
                       {item.subItems.map((subItem) => (

@@ -1,8 +1,5 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import LocationIcon from '../../../public/assets/images/footer/location.png';
-import PhoneIcon from '../../../public/assets/images/footer/phone.png';
-import EmailIcon from '../../../public/assets/images/footer/emailIcon.png';
 import styles from './ContactCard.module.css';
 import defaultMedia from "../../../public/assets/images/solutions/implants.png";
 
@@ -26,7 +23,7 @@ export default function ContactCard({ data }) {
       <div className={styles.address}>
         <div style={{ display: 'flex', gap: 15 }}>
           <div>
-            <Image loading="lazy" src={LocationIcon} alt={`You can reach us ${data.address}`}  width={100} height={100} className={styles.cardIcons} />
+            <Image loading="lazy" src={data?.addressMedia} alt={`You can reach us ${data.address}`}  width={100} height={100} className={styles.cardIcons} />
           </div>
           <div style={{ marginTop: 2 }}>
             <p className={styles.contactCardHeading}>Address</p>
@@ -39,7 +36,7 @@ export default function ContactCard({ data }) {
       <div className={styles.address}>
         <div style={{ display: 'flex', gap: 15 }}>
           <div>
-            <Image loading="lazy" src={PhoneIcon} alt={`You can contact us on ${data.phone}`}  width={100} height={100} className={styles.cardIcons} />
+            <Image loading="lazy" src={data?.phoneMedia} alt={`You can contact us on ${data.phone}`}  width={100} height={100} className={styles.cardIcons} />
           </div>
           <div style={{ marginTop: 2 }}>
             <p className={styles.contactCardHeading}>Phone</p>
@@ -52,7 +49,7 @@ export default function ContactCard({ data }) {
       <div className={styles.address}>
         <div style={{ display: 'flex', gap: 15 }}>
           <div>
-            <Image loading="lazy" src={EmailIcon} alt={`You can email us at ${data.email}`}  width={100} height={100} className={styles.cardIcons} />
+            <Image loading="lazy" src={data?.emailMedia} alt={`You can email us at ${data.email}`}  width={100} height={100} className={styles.cardIcons} />
           </div>
           <div style={{ marginTop: 2 }}>
             <p className={styles.contactCardHeading}>Email</p>
