@@ -21,20 +21,24 @@ const HeadingWithBgImage = ({
       {withoutBgImageHeading ? (
         <Container fluid="sm">
           <p className={headlineLarge ? styles.HeadlineLarge : styles.Headline} dangerouslySetInnerHTML={{ __html: headline }} />
-          <Row>
-            <Col />
-            <Col lg={9} sm={12}>
-              <p className={styles.text}>
-                {description}{" "}
-                {showAnchorCall && (
-                  <span>
-                    <a href={`${telephoneNumber}`}>{anchorTextEnd}</a>
-                  </span>
-                )}
-              </p>
-            </Col>
-            <Col />
-          </Row>
+            {
+              (description || showAnchorCall || telephoneNumber || anchorTextEnd) && (
+                <Row>
+                  <Col />
+                  <Col lg={9} sm={12}>
+                    <p className={styles.text}>
+                      {description}{" "}
+                      {showAnchorCall && (
+                        <span>
+                          <a href={`${telephoneNumber}`}>{anchorTextEnd}</a>
+                        </span>
+                      )}
+                    </p>
+                  </Col>
+                  <Col />
+                </Row>
+              )
+            }
         </Container>
       ) : (
         <Container
