@@ -1,8 +1,8 @@
 import { Col, Container, Row } from "react-bootstrap";
 import styles from "./HeadingWithBgImage.module.css";
 import defaultMedia from "../../../public/assets/images/home/SOLUTIONS.png";
-import Image from "next/image";
 
+import Image from "next/image";
 const HeadingWithBgImage = ({
   headline,
   media,
@@ -20,9 +20,7 @@ const HeadingWithBgImage = ({
     <>
       {withoutBgImageHeading ? (
         <Container fluid="sm">
-          <p className={headlineLarge ? styles.HeadlineLarge : styles.Headline}>
-            {headline}
-          </p>
+          <p className={headlineLarge ? styles.HeadlineLarge : styles.Headline} dangerouslySetInnerHTML={{ __html: headline }} />
           <Row>
             <Col />
             <Col lg={9} sm={12}>
@@ -65,9 +63,8 @@ const HeadingWithBgImage = ({
                 className={
                   headlineLarge ? styles.overlayText2 : styles.overlayText
                 }
-              >
-                {headline}
-              </h2>
+                dangerouslySetInnerHTML={{ __html: headline }}
+              />
             </div>
             <Row>
               <Col />

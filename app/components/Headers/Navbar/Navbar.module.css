@@ -224,6 +224,15 @@ li.informationDropdown {
 .locationMob {
   display: none;
 }
+.informationDropdown, .aboutDropdown, .emergencyButton{
+  margin: 0 18px !important;
+}
+@media  only screen and (max-width: 1399px) and (min-width: 991px) {
+  .informationDropdown, .aboutDropdown, .emergencyButton{
+    margin: 0 10px !important;
+    line-height: 16px;
+  }
+}
 
 /* Adjust alignment of dropdowns */
 @media  only screen and (max-width: 991px) {
@@ -267,6 +276,7 @@ li.informationDropdown {
   }
 
 }
+
 @media only screen and (max-width: 767px) {
   .mobilelocationicon{
     height: 26px!important;

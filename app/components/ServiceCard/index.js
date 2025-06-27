@@ -41,7 +41,7 @@ const ServiceCard = ({
                   />
                 </div>
                 <Container>
-                  <h3 className={styles.solutionsTitle}>{service.headline}</h3>
+                  <h3 className={styles.solutionsTitle} dangerouslySetInnerHTML={{__html: service.headline}} />
                   <h4 className={styles.sectionText}>
                     <ul className={styles.noBullets}>
                       {service?.bullets?.map((bullet, bulletIndex) => (

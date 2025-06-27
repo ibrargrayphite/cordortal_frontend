@@ -188,7 +188,7 @@ const NavBar = ({ media, src, name, menuItems, locations }) => {
               {menuItems?.map((item) => (
                 <div
                   key={item.label}
-                  style={{ margin: "0px 18px" }}
+                  // style={{ margin: "0px 18px" }}
                   className={`${styles.aboutDropdown} mb-4 mb-lg-0`}
                 >
                   <a
@@ -218,7 +218,9 @@ const NavBar = ({ media, src, name, menuItems, locations }) => {
                 </div>
               ))}
               {/* hardcoded emergency button */}
-              <div style={{ margin: "0px 18px" }} className="mb-4 mb-lg-0 ">
+              <div 
+              // style={{ margin: "0px 18px" }} 
+              className={`mb-4 mb-lg-0 ${styles.emergencyButton}`}>
                 <div style={{ display: "flex", gap: 10 }}>
                   <a
                     style={{ fontSize: "16px" }}
@@ -247,7 +249,7 @@ const NavBar = ({ media, src, name, menuItems, locations }) => {
               </div>
               <div className={styles.locationDropdown}>
                 <div
-                  style={{ margin: "0px 18px" }}
+                  // style={{ margin: "0px 18px" }}
                   className={`${styles.informationDropdown} mb-4 mb-lg-0`}
                   ref={dropdownRef}
                 >
