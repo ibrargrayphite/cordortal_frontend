@@ -12,7 +12,7 @@ import CustomButton from "../../CustomButton";
 import { useTheme } from "../../../context/ThemeContext";
 import { usePages } from '../../../context/PagesContext';
 
-const Footer = ({ src, refersrc, title,data,media }) => {
+const Footer = ({ src, refersrc, title,data,media,noBgColor }) => {
   const { pages } = usePages();
   const ContactCardData = pages.data || {};
   const theme = useTheme();
@@ -61,7 +61,7 @@ const Footer = ({ src, refersrc, title,data,media }) => {
         <Container
           fluid
           className={styles.contentMain}
-          style={{ background: "#1f45b105", paddingTop: 30 }}
+          style={{ background: noBgColor?"":"#1f45b105", paddingTop: 30 }}
         >
           <Row className="max-lg:text-center">
             <Col xxl={2} />

@@ -96,6 +96,7 @@ export default async function RootLayout({ children }) {
                   footerRights: shared.footer.footerRights,
                   data: shared.footer.data,
                   media: shared.footer.media,
+                  noBgColor: shared.footer?.noBgColor,
                 })
               }
             </div>

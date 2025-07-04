@@ -9,13 +9,17 @@ import rightArrow from "../../../public/assets/images/right-arrow.png";
 import HtmlContent from "../HtmlContent";
 import defaultMedia from "../../../public/assets/images/solutions/implants.png";
 
-const LeftImage = ({ media, description, htmlContent, isIconButton = false }) => {
+const LeftImage = ({ media, description, htmlContent, isIconButton = false,src }) => {
   const router = useRouter();
   const mediaSource = media && media?.startsWith('https') ? media : defaultMedia.src;
 
   // Handle navigation to the contact page
-  const handlePrimaryAction = () => {
-    router.push("/contact-us");
+  const handlePrimaryAction = (src) => {
+    if(src){
+      window.open(src,"_blank")
+    }else{
+      router.push("/contact-us");
+    }
   };
 
   return (
@@ -35,7 +39,7 @@ const LeftImage = ({ media, description, htmlContent, isIconButton = false }) =>
             <div className={styles.buttonContainer}>
               <CustomButton
                 headline={"Let’s Start"}
-                onClick={handlePrimaryAction}
+                onClick={()=>handlePrimaryAction(src)}
                 className={styles.customButtonFirst}
               />
               {isIconButton && (
