@@ -41,6 +41,8 @@ Generate a production-ready build with:
 ```bash
 npm run build
 ```
+#run local build
+npx serve out
 
 ### Analyze Build Bundle
 To analyze the production build, use:

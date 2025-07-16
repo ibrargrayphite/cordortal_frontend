@@ -87,8 +87,16 @@
 .headingTextSecondary {
   font-size: 45px;
 }
-.customButtonFirst {
-  margin-right: 10px;
+.customButtonFirst{
+  margin-right: 20px;
+}
+.customButtonFirst,
+.customButton {
+  min-width: 220px;
+  min-height: 60px;
+  font-size: 1.2rem;
+  padding: 1rem 2rem;
+  border-radius: 8px;
 }
 .descriptionContent {
   font-weight: 500;
@@ -116,9 +124,12 @@
   .media {
     height: 85vh;
   }
-  .customButtonFirst {
-    margin-bottom: 15px;
-    margin-top: 25px;
+  .customButtonFirst,
+  .customButton {
+    min-width: 160px;
+    min-height: 48px;
+    font-size: 1rem;
+    padding: 0.75rem 1.5rem;
   }
   .headingTextPrimary {
     font-size: 19px;
@@ -140,5 +151,15 @@
 
   .overlayContent p {
     font-size: 14px;
+  }
+}
+
+@media (max-width: 767px) {
+  .headingTextPrimary {
+    text-align: center!important;
+  }
+  .customButtonFirst{
+    margin-bottom: 10px;
+    margin-right: 0px;
   }
 }

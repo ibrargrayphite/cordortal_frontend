@@ -15,6 +15,7 @@ const componentRegistry = {
   UserReviews: dynamic(() => import("./UserReviews")),
   RightImage: dynamic(() => import("./RightImage")),
   PriceCard: dynamic(() => import("./PriceCard")),
+  PriceTab: dynamic(() => import("./PriceTab")),
   ImageWithDescription: dynamic(() => import("./ImageWithDescription")),
   FinanceCalculator: dynamic(() => import("./Calculator")),
   DownloadableLinks: dynamic(() => import("./DownloadableLinks")),

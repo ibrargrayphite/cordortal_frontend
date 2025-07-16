@@ -9,6 +9,8 @@ import styles from "./Navbar.module.css";
 import { useTheme } from "../../../context/ThemeContext";
 import defaultMedia from "../../../../public/assets/images/solutions/implants.png";
 import Image from "next/image";
+import { Button } from "../../../components/ui/button";
+import { cn } from "../../../utils/utils"
 
 const NavBar = ({ media, src, name, menuItems, locations }) => {
   const theme = useTheme();
@@ -231,17 +233,17 @@ const NavBar = ({ media, src, name, menuItems, locations }) => {
                   >
                     {/* Emergency{" "} */}
                   </a>
-                  <div
-                    style={{
-                      color: "red",
-                      fontSize: "16px",
-                      cursor: "pointer",
-                    }}
+                  <Button
                     onClick={() => handleNavigation("/emergency")}
-                    className={styles.emergencyAppointment2}
+                    variant="emergency"
+                    className={cn(
+                      "border-2 border-red-500",
+                      "hover:bg-red-500",
+                      "hover:border-white"
+                    )}
                   >
                     Emergency
-                  </div>
+                  </Button>
                   {/* <div>
                     <Image priority={true}  src={Emergency} height={10} />
                   </div> */}
@@ -286,13 +288,15 @@ const NavBar = ({ media, src, name, menuItems, locations }) => {
                   </div>
                 </div>
               </div>
-              <button
-                className={styles.button}
+              <Button
                 onClick={() => handleBooking(src)}
+                className={`${styles.customNavbarBtn} bg-main-accent`}
                 style={{ width: 211, marginLeft: "14px" }}
+                variant="default"
+                size="default"
               >
                 Book Online
-              </button>
+              </Button>
             </Nav>
           </div>
         </Navbar.Collapse>

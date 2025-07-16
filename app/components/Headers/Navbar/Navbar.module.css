@@ -43,15 +43,12 @@
 }
 
 .emergencyAppointment2 {
-  color: white !important;
-  padding: 10px 15px;
-  border-radius: 5px;
-  font-weight: bold;
-  position: relative;
-  animation: pulse 2s infinite;
+  
+  border: 2px solid #ff4d4d!important;
+
 }
 
-.emergencyAppointment2::before {
+/* .emergencyAppointment2::before {
   content: "";
   position: absolute;
   top: -5px;
@@ -62,7 +59,7 @@
   color: #fff;
   border-radius: 5px;
   animation: pulse 1s infinite !important;
-}
+} */
 
 @keyframes pulse {
   0% {
@@ -90,6 +87,10 @@
   background-color: var(--main-accent-dark);
   color: #ffffff;
   border: 1px solid #fff;
+}
+.customNavbarBtn {
+  /* background: var(--main-accent-color)!important; */
+  color: #fff !important;
 }
 
 /* About dropdown*/

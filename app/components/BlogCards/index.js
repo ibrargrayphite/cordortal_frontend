@@ -1,8 +1,7 @@
 "use client";
-import { Row, Col, Card, Container } from "react-bootstrap";
-import styles from "./BlogCards.module.css";
-import { useRouter } from "next/navigation";
+import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "../ui/card";
 import defaultMedia from "../../../public/assets/images/solutions/implants.png";
+import { useRouter } from "next/navigation";
 
 const BlogCards = ({ blogs, posts, showPosts = false }) => {
   const router = useRouter();
@@ -11,52 +10,57 @@ const BlogCards = ({ blogs, posts, showPosts = false }) => {
     router.push(`/blogs${slug}`);
   };
 
-
   return (
-    <Container>
-      <Row className={styles.blogContainer}>
-        <Col lg={8}>
-          <Row>
+    <div className="w-full max-w-7xl mx-auto px-4">
+      <div className="flex flex-col lg:flex-row gap-8">
+        <div className="flex-1">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {blogs.map((blog, index) => (
-              <Col lg={6} key={index} className="mb-4">
-                {" "}
-                {/* 6 columns for 2 cards per row */}
-                <Card
-                  style={{ border: "none", cursor: "pointer" }}
-                  onClick={() => handleNavigation(blog.slug)}
-                >
-                  <Card.Img variant="top" 
-                   src={blog.image && blog.image?.startsWith('https') ? blog.image : defaultMedia.src}
-                   alt={blog.title} 
-                   />
-                  <div className={styles.dateContainer}>
-                    <p className={styles.date}>{blog.date}</p>
-                    <p className={styles.date}>by {blog.author}</p>
-                  </div>
-                  <p className={styles.title}>{blog.title}</p>
-                </Card>
-              </Col>
-            ))}
-          </Row>
-        </Col>
-        {showPosts && (
-          <Col lg={4}>
-            <div style={{ marginTop: 35 }}>
-              <p className={styles.heading2}>Latest Posts</p>
-            </div>
-            {posts.map((post, index) => (
-              <div key={index}>
-                <div className={styles.dateContainer}>
-                  <p className={styles.date}>{post.date}</p>
-                  <p className={styles.date}>by {post.author}</p>
+              <Card
+                key={index}
+                className="cursor-pointer transition-shadow hover:shadow-lg p-3"
+                onClick={() => handleNavigation(blog.slug)}
+              >
+                <div className="w-full aspect-[4/3] flex items-center justify-center bg-gray-100 rounded-t-lg overflow-hidden">
+                  <img
+                    src={blog.image && blog.image?.startsWith('https') ? blog.image : defaultMedia.src}
+                    alt={blog.title}
+                    className="w-full h-full object-contain"
+                  />
                 </div>
-                <p className={styles.descr}>{post.title}</p>
-              </div>
+                <CardContent className="pt-2 pb-2">
+                  <CardTitle className="mt-2 text-[#1b262c] font-bold text-lg font-sans leading-tight">
+                    {blog.title}
+                  </CardTitle>
+                </CardContent>
+                <CardFooter className="flex gap-4 mt-1 text-[15px] text-[var(--main-accent-color)] font-sans pt-2">
+                  <p>{blog.date}</p>
+                  <p>by {blog.author}</p>
+                </CardFooter>
+              </Card>
             ))}
-          </Col>
+          </div>
+        </div>
+        {showPosts && (
+          <div className="w-full lg:w-1/3 mt-8 lg:mt-0">
+            <div className="mt-9">
+              <p className="text-2xl font-bold text-[var(--main-accent-dark)] mb-2 font-sans">Latest Posts</p>
+            </div>
+            <div className="space-y-6">
+              {posts.map((post, index) => (
+                <div key={index}>
+                  <div className="flex gap-8 mt-2 text-[17px] text-[var(--main-accent-color)] font-sans">
+                    <p>{post.date}</p>
+                    <p>by {post.author}</p>
+                  </div>
+                  <p className="mt-2 text-[#1b262c] font-semibold text-lg font-sans leading-snug">{post.title}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         )}
-      </Row>
-    </Container>
+      </div>
+    </div>
   );
 };
 

@@ -53,7 +53,7 @@ const HeadingWithBgImage = ({
                   : styles.headingContainer
               }
             >
-              <Image   
+              {/* <Image   
                 loading="eager"
                 layout="responsive"
                 priority={true} 
@@ -62,7 +62,7 @@ const HeadingWithBgImage = ({
                 src={mediaSource} 
                 alt={headline} 
                 className={styles.bgImage}
-              />
+              /> */}
               <h2
                 className={
                   headlineLarge ? styles.overlayText2 : styles.overlayText

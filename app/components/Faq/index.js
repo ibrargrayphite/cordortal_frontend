@@ -1,65 +1,43 @@
-
 "use client";
-import React, { useState, useEffect } from 'react';
-import styles from './Faq.module.css'; 
-import { Container, Row, Col, Card } from 'react-bootstrap';
+import React from "react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "../ui/accordion";
 
-const Faq = ({ data }) => {
-  const [openIndexes, setOpenIndexes] = useState([]);
-
-  useEffect(() => {
-    setOpenIndexes(data.map((_, index) => index));
-  }, [data]);
-
-  const toggleAccordion = (index) => {
-    setOpenIndexes((prevIndexes) => {
-      if (prevIndexes.includes(index)) {
-        return prevIndexes.filter((i) => i !== index); 
-      } else {
-        return [...prevIndexes, index]; 
-      }
-    });
-  };
-
-  return (
-    <Container className={styles.parentAcordin}>
-      <Row className="justify-content-center">
-        <Col md={12}>
-          {data.map((item, index) => (
-            <div className={styles.accordionItem} key={index}>
-              <Card
-                className={styles.accordionHeader}
-                onClick={() => toggleAccordion(index)}
-              >
-                <h2>
-                  {item.headline}
-                </h2>
-                {/* icon wokring fin just commented we dont need to show look like faq */}
-                {/* <span className={styles.arrow}>
-                  {openIndexes.includes(index) ? '▲' : '▼'}
-                </span> */}
-              </Card>
-              {openIndexes.includes(index) && (
-                <div className={styles.accordionContent}>
-                  {typeof item.content === 'string' ? (
-                    <p>{item.content}</p> // For single string content
-                  ) : (
-                    <ol>
-                      {item.content.map((subItem, subIndex) => (
-                        <li key={subIndex}>
-                          <strong>{subItem.headline}</strong>: {subItem.content}
-                        </li>
-                      ))}
-                    </ol>
-                  )}
-                </div>
-              )}
-            </div>
-          ))}
-        </Col>
-      </Row>
-    </Container>
-  );
-};
+const Faq = ({ data }) => (
+  <div className="container mx-auto max-w-2xl px-4 my-8">
+    <Accordion type="single" collapsible>
+      {data.map((item, index) => (
+        <AccordionItem
+          value={`item-${index}`}
+          key={index}
+          className="mb-4 rounded-xl shadow-sm border border-gray-200 bg-white"
+        >
+          <AccordionTrigger
+            className="px-4 py-2 text-lg md:text-lg text-base font-semibold flex justify-between items-center rounded-xl"
+          >
+            {item.headline}
+          </AccordionTrigger>
+          <AccordionContent className="px-4 pb-2 pt-0 text-base text-gray-700">
+            {typeof item.content === "string" ? (
+              <p>{item.content}</p>
+            ) : (
+              <ol>
+                {item.content.map((subItem, subIndex) => (
+                  <li key={subIndex}>
+                    <strong>{subItem.headline}</strong>: {subItem.content}
+                  </li>
+                ))}
+              </ol>
+            )}
+          </AccordionContent>
+        </AccordionItem>
+      ))}
+    </Accordion>
+  </div>
+);
 
 export default Faq;

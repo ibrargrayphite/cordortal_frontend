@@ -1,3 +1,4 @@
+import { Button } from "../ui/button";
 import styles from "./CustomButton.module.css";
 
 
@@ -13,23 +14,25 @@ const CustomButton = ({
     <>
       {centerButton ? (
         <div style={{ textAlign: "center", marginTop: 10, marginBottom: 20 }}>
-          <button
-            className={`${styles.customButton} ${className}`} // Merge custom and additional styles
+          <Button
+            variant="customButton"
+            className={`${styles.customButton} ${className} bg-main-accent-dark`}
             onClick={onClick}
             style={style}
           >
             {headline}
-          </button>
+          </Button>
         </div>
       ) : (
-        <button
-          className={`${styles.customButton} ${className}`} // Merge custom and additional styles
+        <Button
+          variant="customButton"
+          className={`${styles.customButton} ${className} bg-main-accent-dark`}
           onClick={onClick}
           style={style}
         >
           {headline}
-          {icon && <span className={styles.buttonIcon}>{icon}</span>} {/* Render icon if provided */}
-        </button>
+          {icon && <span className={styles.buttonIcon}>{icon}</span>}
+        </Button>
       )}
     </>
   );

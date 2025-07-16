@@ -7,6 +7,7 @@ import { ThemeProvider } from './context/ThemeContext';
 import { PagesProvider } from './context/PagesContext';
 import { fetchPagesData } from './utils/fetchPagesData';
 import localFont from 'next/font/local';
+import ChatWidget from './components/ChatWidget';
 
 const balgin = localFont({
   src: [{ path: '../public/assets/fonts/balgin-regular.otf', weight: '400', style: 'normal' }],
@@ -38,6 +39,8 @@ export default async function RootLayout({ children }) {
   const pagesData = await fetchPagesData();
   const location = pagesData || {};
   const shared = location.shared || {};
+  const chatBot = pagesData.data.chatBot;
+  // need to add in organization data as for oaklands "chatBot": false,
 
   // Determine the active font based on the location's fontFamily
   const activeFont = location.fontFamily === 'josefinSans' ? josefinSans : location.fontFamily === 'urbanist'?  urbanist: touvlo;
@@ -60,20 +63,6 @@ export default async function RootLayout({ children }) {
             }}
             className={activeFont.className} // Use the Google Fonts class
           >
-             <style>
-              {/* for content tags */}
-              {`
-                ul,li, p, span, div {
-                  font-family: ${activeFont.style.fontFamily}, sans-serif !important;
-                }
-              `}
-               {/* for heading tags */}
-              {`
-                h1, h2, h3, h4, h5 {
-                  font-family: ${secondaryFont?.style.fontFamily}, sans-serif !important;
-                }
-              `}
-            </style>
             {shared &&
               renderComponent({
                 component: shared.header?.name,
@@ -100,6 +89,7 @@ export default async function RootLayout({ children }) {
                 })
               }
             </div>
+            {chatBot && <ChatWidget />}
           </body>
         </ThemeProvider>
       </PagesProvider>
