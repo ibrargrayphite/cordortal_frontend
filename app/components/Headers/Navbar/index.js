@@ -181,8 +181,7 @@ const NavBar = ({ media, src, name, menuItems, locations }) => {
           className=" d-lg-flex justify-content-end  "
           style={{
             minHeight: "1vh",
-            maxHeight: "63vh",
-            overflow: "auto",
+            maxHeight: "63vh"
           }}
         >
           <div>

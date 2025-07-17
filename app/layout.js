@@ -51,18 +51,34 @@ export default async function RootLayout({ children }) {
         : location.font_family_heading === 'urbanist'
         ? urbanist
         : balgin
-      : null;
+      : activeFont;
   return (
     <html lang="en">
       <PagesProvider pagesData={pagesData}> {/* Pass data to PagesProvider */}
         <ThemeProvider>
           <body
+          
             style={{
               '--dynamic-font': activeFont.style.fontFamily, // Set dynamic font variable
               fontFamily: 'var(--dynamic-font, sans-serif)', // Apply the variable directly
+              
             }}
             className={activeFont.className} // Use the Google Fonts class
           >
+          <style>
+            {/* for content tags */}
+            {`
+              ul,li, p, span, div {
+                font-family: ${activeFont.style.fontFamily}, sans-serif !important;
+              }
+            `}
+            {/* for heading tags */}
+            {`
+              h1, h2, h3, h4, h5 {
+                font-family: ${secondaryFont.style.fontFamily}, sans-serif !important;
+              }
+            `}
+          </style>
             {shared &&
               renderComponent({
                 component: shared.header?.name,

@@ -305,6 +305,7 @@ li.informationDropdown {
   .logoMob {
     height: 36px!important;
     min-width: 100px;
+    max-width: 110px;
   }
   .menuItems {
     display: none !important;
