@@ -1,8 +1,9 @@
 "use client"; 
 import { useEffect, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
-import Form from "react-bootstrap/Form";
-import styles from "./LeadForm.module.css";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
+import { Textarea } from "../ui/textarea";
+import { Label } from "../ui/label";
 import { ToastContainer, toast } from "react-toastify";
 
 const LeadForm = () => {
@@ -103,82 +104,106 @@ const LeadForm = () => {
       }
     }
   };
+
   return (
-    <div>
-      <Container>
-        <ToastContainer />
-        <Form className={styles.formContainer}>
-          <Row>
-            <Col lg={6} sm={12} style={{ marginTop: 24 }}>
-              <Form.Group>
-                <Form.Control
-                  className={styles.inputText}
-                  type="text"
-                  placeholder="First Name"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                />
-              </Form.Group>
-            </Col>
-            <Col lg={6} sm={12} style={{ marginTop: 24 }}>
-              <Form.Group>
-                <Form.Control
-                  className={styles.inputText}
-                  type="text"
-                  placeholder="Last Name"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                />
-              </Form.Group>
-            </Col>
-          </Row>
-          <Row>
-            <Col lg={6} sm={12} style={{ marginTop: 24 }}>
-              <Form.Group as={Col} controlId="formGridEmail">
-                <Form.Control
-                  className={styles.inputText}
-                  type="email"
-                  placeholder="Enter email"
-                  value={email}
-                  onChange={handleEmailChange}
-                  isInvalid={!!emailError}
-                />
-                <Form.Control.Feedback type="invalid">
-                  {emailError}
-                </Form.Control.Feedback>
-              </Form.Group>
-            </Col>
-            <Col lg={6} sm={12} style={{ marginTop: 24 }}>
-              <Form.Group as={Col}>
-                <Form.Control
-                  className={styles.inputText}
-                  type="text"
-                  placeholder="Phone Number"
-                  value={phoneNumber}
-                  onChange={handlePhoneChange}
-                  isInvalid={!!phoneError}
-                />
-                <Form.Control.Feedback type="invalid">
-                  {phoneError}
-                </Form.Control.Feedback>
-              </Form.Group>
-            </Col>
-          </Row>
-          <Form.Control
-            className={styles.inputText}
-            as="textarea"
-            placeholder="Type here"
+    <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <ToastContainer />
+      <form onSubmit={handleBooking} className="space-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-2">
+            <Label htmlFor="firstName" className="text-sm font-medium text-gray-700">
+              First Name
+            </Label>
+            <Input
+              id="firstName"
+              type="text"
+              placeholder="Enter your first name"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              className="w-full"
+              required
+            />
+          </div>
+          
+          <div className="space-y-2">
+            <Label htmlFor="lastName" className="text-sm font-medium text-gray-700">
+              Last Name
+            </Label>
+            <Input
+              id="lastName"
+              type="text"
+              placeholder="Enter your last name"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              className="w-full"
+              required
+            />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-2">
+            <Label htmlFor="email" className="text-sm font-medium text-gray-700">
+              Email Address
+            </Label>
+            <Input
+              id="email"
+              type="email"
+              placeholder="Enter your email address"
+              value={email}
+              onChange={handleEmailChange}
+              className={`w-full ${emailError ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
+              required
+            />
+            {emailError && (
+              <p className="text-sm text-red-600 mt-1">{emailError}</p>
+            )}
+          </div>
+          
+          <div className="space-y-2">
+            <Label htmlFor="phone" className="text-sm font-medium text-gray-700">
+              Phone Number
+            </Label>
+            <Input
+              id="phone"
+              type="tel"
+              placeholder="Enter your phone number"
+              value={phoneNumber}
+              onChange={handlePhoneChange}
+              className={`w-full ${phoneError ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
+              required
+            />
+            {phoneError && (
+              <p className="text-sm text-red-600 mt-1">{phoneError}</p>
+            )}
+          </div>
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="message" className="text-sm font-medium text-gray-700">
+            Message
+          </Label>
+          <Textarea
+            id="message"
+            placeholder="Type your message here..."
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            style={{ height: "268px", marginTop: 24 }}
+            className="w-full min-h-[120px] resize-none"
+            required
           />
-          <div style={{ textAlign: "center", marginTop: 41 }}>
-            <button className={styles.button} onClick={handleBooking}>
-              Submit
-            </button>
-          </div>
-        </Form>
-      </Container>
+        </div>
+
+        <div className="flex justify-center pt-4">
+          <Button 
+            type="submit"
+            variant="customButton"
+            size="lg"
+            className="px-8 py-3 min-w-[120px]"
+          >
+            Submit
+          </Button>
+        </div>
+      </form>
     </div>
   );
 };

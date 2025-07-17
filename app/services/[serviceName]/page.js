@@ -24,7 +24,7 @@ export async function generateStaticParams() {
       ];
 
   // Return all the services' slugs as params
-  return finalServiceArray.map((service) => ({
+  return finalServiceArray?.map((service) => ({
     serviceName: service.slug,
   }));
 }
@@ -70,7 +70,7 @@ const ServiceDetail = async ({ params }) => {
   return (
     <div className={styles.customMargin}>
       <ScrollHandler sectionScroll={null} scrollToCenter={true} />
-      {specificService.content.map((block, blockIndex) => (
+      {specificService?.content?.map((block, blockIndex) => (
         <div key={blockIndex} id={block.scroll}>
           {renderComponent(block)}
         </div>
@@ -83,7 +83,7 @@ const ServiceDetail = async ({ params }) => {
 function filterByPage(locationData, pageName) {
   const { pages } = locationData;
   if (!Array.isArray(pages)) return [];
-  return pages.filter((page) => page.pageName === pageName).map((page) => ({
+  return pages.filter((page) => page.pageName === pageName)?.map((page) => ({
     ...page,
     content: page.content || [],
   }));

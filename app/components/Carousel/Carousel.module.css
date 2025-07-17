@@ -47,26 +47,26 @@
 .slideC {
   display: flex;
   justify-content: center;
-  margin-top: 133px;
+  /* margin-top: 133px; */
   position: relative;
   perspective: 1000px;
   transform-style: preserve-3d;
   width: 162px;
-  height: 544px;
+  height: 375px;
   margin: 0 auto;
 }
 .prevIcon {
   position: absolute;
-  left: 185px;
-  bottom: 225px;
+  left: 285px;
+  bottom: 160px;
   height: 24px;
   width: 24px;
   cursor: pointer !important;
 }
 .nextIcon {
   position: absolute;
-  bottom: 225px;
-  right: 185px;
+  bottom: 160px;
+  right: 285px;
   height: 24px;
   width: 24px;
   cursor: pointer !important;
@@ -266,5 +266,27 @@
   .swiper-button-prev::after {
     width: 0px;
     font-size: 20px; /* Adjust the font size if necessary */
+  }
+}
+
+.carouselVideo {
+  width: 400px;
+  height: 225px;
+  max-width: 100%;
+  max-height: 60vh;
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+}
+
+@media (max-width: 768px) {
+  .carouselVideo {
+    width: 90vw;
+    height: 200px;
+  }
+}
+@media (max-width: 767px) {
+  .showMoreButton{
+    margin-top: 15px;
   }
 }

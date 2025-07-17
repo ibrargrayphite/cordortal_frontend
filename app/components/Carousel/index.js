@@ -1,4 +1,3 @@
-
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -14,8 +13,8 @@ import CustomButton from "../CustomButton";
 import Image from 'next/image';
 
 const Carousel = ({ media }) => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [activeSlide, setActiveSlide] = useState(2);
+  const [activeIndex, setActiveIndex] = useState(1);
+  const [activeSlide, setActiveSlide] = useState(1);
   const [data, setData] = useState([]);
   const [swiperInstance, setSwiperInstance] = useState(null);
   const router = useRouter();
@@ -119,6 +118,7 @@ const Carousel = ({ media }) => {
   };
 
   return (
+    <>
     <Container style={{ overflowX: "hidden", overflowY: "hidden" }}>
       <div className={styles.mobileCarousal}>
         <Swiper
@@ -127,6 +127,7 @@ const Carousel = ({ media }) => {
           onSwiper={setSwiperInstance}
           spaceBetween={30}
           loop={true}
+          initialSlide={1}
           pagination={{
             clickable: true,
           }}
@@ -142,7 +143,7 @@ const Carousel = ({ media }) => {
                 autoPlay
                 muted
                 playsInline
-                className={styles.iframe}
+                className={`${styles.iframe} ${styles.carouselVideo}`}
               >
                 <source src={item?.url} type="video/mp4" />
                 Your browser does not support the video tag.
@@ -185,31 +186,35 @@ const Carousel = ({ media }) => {
       />
         </div>
       </div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          marginTop: 30,
-          marginBottom: 20,
-        }}
-      >
-        {pathname !== "/testimonials" && (
-          <CustomButton headline="Show More" onClick={handleShowmore} />
-        )}
-      </div>
+      
     </Container>
+    <Container>
+    <div
+    style={{
+      display: "flex",
+      justifyContent: "center",
+      marginTop: 30,
+      marginBottom: 20,
+    }}
+  >
+    {pathname !== "/testimonials" && (
+      <CustomButton headline="Show More" onClick={handleShowmore} className={styles.showMoreButton} />
+    )}
+  </div>
+  </Container>
+  </>
   );
 };
 
 const SliderContent = React.forwardRef(({ controls, ...props }, ref) => (
-  <div style={{ cursor: "pointer", marginTop: 645 }}>
+  <div style={{ cursor: "pointer", marginTop: 400 }}>
     <div onClick={(e) => e.stopPropagation()}>
       <video
         ref={ref}
         controls={controls}
         muted
         style={{ borderRadius: 35 }}
-        className={styles.iframe}
+        className={`${styles.iframe} ${styles.carouselVideo}`}
       >
         <source src={props?.url} type="video/mp4" />
         Your browser does not support the video tag.

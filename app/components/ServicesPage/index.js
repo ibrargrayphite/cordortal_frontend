@@ -6,7 +6,7 @@ import { usePages } from '../../context/PagesContext';
 import dynamic from 'next/dynamic';
 const ScrollHandler = dynamic(() => import("../ScrollHandler"), { ssr: false });
 
-const Services = () => {
+const Services = ({currentPageName}) => {
   const { pages } = usePages(); // Access data from context
 
   const filterByPage = (pages, pageName) => {
@@ -22,7 +22,7 @@ const Services = () => {
       }));
   };
 
-  const pageName = "services";
+  const pageName = currentPageName || "services";
   const filtered = filterByPage(pages.pages, pageName);
 
   return (

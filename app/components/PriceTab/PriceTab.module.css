@@ -1,0 +1,284 @@
+.priceCardContainer {
+  width: 100%;
+  padding: 32px 0;
+  background: #f8fafd;
+  display: flex;
+  justify-content: center;
+}
+
+.cardGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  justify-content: center;
+  width: 100%;
+  max-width: 1400px;
+}
+
+.cardWrapper {
+  flex: 1 1 280px;
+  min-width: 280px;
+  max-width: 340px;
+  display: flex;
+}
+
+.cardParent {
+  border: none;
+  border-radius: 30px!important;
+  background: #fff;
+  box-shadow: 0px 0px 20px 0px rgba(0, 40, 255, 0.08);
+  text-align: center;
+  margin-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 540px;
+  transition: box-shadow 0.2s;
+}
+.cardParent:hover {
+  box-shadow: 0px 4px 32px 0px rgba(0, 40, 255, 0.15);
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  padding: 32px 24px 0 24px;
+  align-items: center;
+}
+
+.cardFooter {
+  margin-top: auto;
+  padding-bottom: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.servicesList {
+  width: 100%;
+  margin: 16px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.servicePriceCard {
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.cardHeading {
+  color: #000;
+  font-size: 30px;
+  font-weight: 700;
+  margin-top: 10px;
+  line-height: normal;
+  margin-bottom: 20px;
+}
+
+.cardPricing {
+  color: var(--main-accent-dark);
+  font-size: 40px;
+  font-weight: 700;
+}
+
+.cardDescription {
+  color: #878787;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 141.176%;
+  margin-bottom: 10px;
+}
+.servicePricing {
+  color: var(--main-accent-dark);
+}
+.serviceDetail {
+  text-align: center;
+  font-size: 15px;
+  font-weight: 400;
+  color: #000;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.packageDetail {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 400;
+  color: #000;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+.customButton {
+  margin-bottom: 0;
+  margin-top: 0;
+  width: 160px;
+}
+@media (max-width: 1024px) {
+  .cardGrid {
+    gap: 20px;
+  }
+  .cardWrapper {
+    min-width: 220px;
+    max-width: 100%;
+  }
+  .cardParent {
+    min-height: 480px;
+  }
+}
+@media (max-width: 768px) {
+  .cardGrid {
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+  }
+  .cardHeading {
+    font-size: 24px;
+  }
+  .cardPricing {
+    font-size: 32px;
+  }
+  .packageDetail {
+    margin-bottom: 15px;
+    margin-top: 15px;
+  }
+  .cardParent {
+    min-height: 360px;
+  }
+}
+
+.tabsContainer {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 0 0 0;
+  margin-bottom: 40px;
+}
+
+.tabsList {
+  display: flex;
+  flex-wrap: nowrap;
+  border-bottom: 1.5px solid #e5e7eb;
+  margin-bottom: 18px;
+  background: transparent;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  gap: 2px;
+}
+.tabsList::-webkit-scrollbar {
+  display: none;
+}
+
+.tabTrigger {
+  background: none;
+  border: none;
+  outline: none;
+  color: #6b7280;
+  font-size: 1.18rem;
+  font-weight: 500;
+  padding: 0 24px 12px 0;
+  margin-right: 12px;
+  cursor: pointer;
+  border-bottom: 2.5px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+  white-space: nowrap;
+  text-align: left;
+}
+.tabTrigger[data-state="active"] {
+  /* color: var(--main-accent-color); */
+  font-weight: 600;
+  /* border-bottom: 2.5px solid var(--main-accent-color); */
+  background: none;
+}
+
+.tabContent {
+  width: 100%;
+  padding-top: 0;
+}
+
+.servicesGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px 32px;
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .servicesGrid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+}
+
+@media (max-width: 600px) {
+  .tabsContainer {
+    padding: 16px 0 0 0;
+    margin-bottom: 24px;
+  }
+  .tabsList {
+    margin-bottom: 10px;
+    padding-left: 4px;
+    gap: 0;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    width: 100vw;
+    box-sizing: border-box;
+  }
+  .tabTrigger {
+    font-size: 0.98rem;
+    padding: 0 0px 0px 4px!important;
+    margin-right: 6px;
+    white-space: normal;
+    box-sizing: border-box;
+  }
+  .tabContent {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .servicesGrid {
+    gap: 10px;
+  }
+  .serviceRow {
+    padding: 12px 10px;
+    font-size: 0.98rem;
+  }
+  .serviceName, .servicePrice {
+    font-size: 1rem;
+  }
+}
+
+.serviceRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f7fafd;
+  border-radius: 16px;
+  border-left: 4px solid var(--main-accent-dark);
+  padding: 18px 24px;
+  font-size: 1.13rem;
+  font-weight: 500;
+  box-shadow: none;
+  transition: box-shadow 0.15s, border-color 0.2s;
+}
+.serviceRow:hover {
+  box-shadow: 0 2px 12px 0 rgba(37,99,235,0.07);
+  border-left-width: 5px;
+}
+
+.serviceName {
+  color: #1e293b;
+  font-weight: 600;
+  font-size: 1.08rem;
+  margin-bottom: 0;
+}
+
+.servicePrice {
+  font-weight: 600;
+  font-size: 1.08rem;
+  color: var(--main-accent-color);
+}

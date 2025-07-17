@@ -8,13 +8,11 @@ import defaultMedia from "../../../public/assets/video/oaklandslandingPageVideo.
 import defaultMedia2 from "../../../public/assets/images/home/oaklandsSkelton.png"
 import Image from "next/image";
 
-
-const MediaOverlay = ({ media, media2, headline, description, style, src }) => {
+const MediaOverlay = ({ media, media2,mediaType, headline, description, style, src, htmlContent }) => {
   const mediaSource = media && media?.startsWith('https') ? media : defaultMedia;
   const mediaSource2 = media2 && media2?.startsWith('https') ? media2 : defaultMedia2;
   const [loading, setLoading] = useState(true);
   const [mediaError, setMediaError] = useState(false);
-  const [mediaType, setMediaType] = useState("video");
 
   const router = useRouter();
 
@@ -69,14 +67,9 @@ const MediaOverlay = ({ media, media2, headline, description, style, src }) => {
               priority={true}
               width={100} height={100}
                 id="media-element"
-                src={media}
+                src={media2}
                 alt="media"
                 className={styles.media}
-                onLoad={handleLoadedData}
-                onError={() => {
-                  setLoading(false);
-                  setMediaError(true);
-                }}
                 style={{ display: loading ? "none" : "block" }}
               />
             )}
@@ -98,7 +91,9 @@ const MediaOverlay = ({ media, media2, headline, description, style, src }) => {
                 onClick={() => handleSecondaryAction(src)}
                 className={styles.customButton}
               />
-            </div>
+               <div className={styles.comingSoonText} dangerouslySetInnerHTML={{ __html: htmlContent }}>
+              </div>
+            </div> 
           </div>
         </Col>
       </Row>

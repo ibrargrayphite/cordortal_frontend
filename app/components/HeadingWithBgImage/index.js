@@ -1,8 +1,8 @@
 import { Col, Container, Row } from "react-bootstrap";
 import styles from "./HeadingWithBgImage.module.css";
 import defaultMedia from "../../../public/assets/images/home/SOLUTIONS.png";
-import Image from "next/image";
 
+import Image from "next/image";
 const HeadingWithBgImage = ({
   headline,
   media,
@@ -20,23 +20,25 @@ const HeadingWithBgImage = ({
     <>
       {withoutBgImageHeading ? (
         <Container fluid="sm">
-          <p className={headlineLarge ? styles.HeadlineLarge : styles.Headline}>
-            {headline}
-          </p>
-          <Row>
-            <Col />
-            <Col lg={9} sm={12}>
-              <p className={styles.text}>
-                {description}{" "}
-                {showAnchorCall && (
-                  <span>
-                    <a href={`${telephoneNumber}`}>{anchorTextEnd}</a>
-                  </span>
-                )}
-              </p>
-            </Col>
-            <Col />
-          </Row>
+          <p className={headlineLarge ? styles.HeadlineLarge : styles.Headline} dangerouslySetInnerHTML={{ __html: headline }} />
+            {
+              (description || showAnchorCall || telephoneNumber || anchorTextEnd) && (
+                <Row>
+                  <Col />
+                  <Col lg={9} sm={12}>
+                    <p className={styles.text}>
+                      {description}{" "}
+                      {showAnchorCall && (
+                        <span>
+                          <a href={`${telephoneNumber}`}>{anchorTextEnd}</a>
+                        </span>
+                      )}
+                    </p>
+                  </Col>
+                  <Col />
+                </Row>
+              )
+            }
         </Container>
       ) : (
         <Container
@@ -51,7 +53,7 @@ const HeadingWithBgImage = ({
                   : styles.headingContainer
               }
             >
-              <Image   
+              {/* <Image   
                 loading="eager"
                 layout="responsive"
                 priority={true} 
@@ -60,14 +62,13 @@ const HeadingWithBgImage = ({
                 src={mediaSource} 
                 alt={headline} 
                 className={styles.bgImage}
-              />
+              /> */}
               <h2
                 className={
                   headlineLarge ? styles.overlayText2 : styles.overlayText
                 }
-              >
-                {headline}
-              </h2>
+                dangerouslySetInnerHTML={{ __html: headline }}
+              />
             </div>
             <Row>
               <Col />

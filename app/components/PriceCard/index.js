@@ -40,7 +40,9 @@ const PriceCard = ({ Package = false, data }) => {
                       <>
                       <div key={i} className={styles.servicePriceCard}>
                         <p className={styles.serviceDetail}>
-                          {service.serviceName}{`${service.servicePrice?": ":""}`}
+                          <span dangerouslySetInnerHTML={{ __html: service.serviceName }}/>
+                          <span dangerouslySetInnerHTML={{ __html: service.servicePrice?": ":"" }}/>
+                          {/* {service.serviceName}{`${service.servicePrice?": ":""}`} */}
                           <span className={styles.servicePricing}>
                             {service.servicePrice}
                           </span>{" "}

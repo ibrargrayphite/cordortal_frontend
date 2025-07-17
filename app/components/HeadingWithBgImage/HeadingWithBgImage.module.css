@@ -46,7 +46,7 @@
   color: var(--headline-color);
   font-weight: bold;
   text-align: center;
-  font-size: 85px; /* Retaining 85px for LCP */
+  font-size: 45px; /* Retaining 85px for LCP */
   line-height: 1;
   transition: font-size 0.3s ease; /* Smooth transition if font size changes */
 }

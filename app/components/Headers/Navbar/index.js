@@ -9,8 +9,10 @@ import styles from "./Navbar.module.css";
 import { useTheme } from "../../../context/ThemeContext";
 import defaultMedia from "../../../../public/assets/images/solutions/implants.png";
 import Image from "next/image";
+import { Button } from "../../../components/ui/button";
+import { cn } from "../../../utils/utils"
 
-const NavBar = ({ media, src, name, menuItems }) => {
+const NavBar = ({ media, src, name, menuItems, locations }) => {
   const theme = useTheme();
   const router = useRouter();
   const dropdownRef = useRef(null);
@@ -136,14 +138,15 @@ const NavBar = ({ media, src, name, menuItems }) => {
               }`}
               style={{ marginTop: 40 }}
             >
-              <a className={styles.disabled}>Huddersfield</a>
-              <a
+              {locations?.map((loc) => 
+              (<a key={loc.name+1} className={`${loc.disable===true?styles.disabled:""}`}
                 onClick={() =>
-                  window.open("https://www.bailiffbridgedental.com/", "_blank")
+                  window.open(loc.link, "_blank")
                 }
               >
-                Brighouse
+                {loc.name}
               </a>
+              ))}
             </div>
           </div>
           <Navbar.Toggle
@@ -178,8 +181,7 @@ const NavBar = ({ media, src, name, menuItems }) => {
           className=" d-lg-flex justify-content-end  "
           style={{
             minHeight: "1vh",
-            maxHeight: "63vh",
-            overflow: "auto",
+            maxHeight: "63vh"
           }}
         >
           <div>
@@ -187,7 +189,7 @@ const NavBar = ({ media, src, name, menuItems }) => {
               {menuItems?.map((item) => (
                 <div
                   key={item.label}
-                  style={{ margin: "0px 18px" }}
+                  // style={{ margin: "0px 18px" }}
                   className={`${styles.aboutDropdown} mb-4 mb-lg-0`}
                 >
                   <a
@@ -199,6 +201,9 @@ const NavBar = ({ media, src, name, menuItems }) => {
                   >
                     {item.label}
                   </a>
+                  {item.htmlContent && (
+                    <span dangerouslySetInnerHTML={{ __html: item.htmlContent }} />
+                  )}
                   {item.subItems.length > 0 && (
                     <div className={styles[`${"aboutDropdown"}Content`]}>
                       {item.subItems.map((subItem) => (
@@ -214,7 +219,9 @@ const NavBar = ({ media, src, name, menuItems }) => {
                 </div>
               ))}
               {/* hardcoded emergency button */}
-              <div style={{ margin: "0px 18px" }} className="mb-4 mb-lg-0 ">
+              <div 
+              // style={{ margin: "0px 18px" }} 
+              className={`mb-4 mb-lg-0 ${styles.emergencyButton}`}>
                 <div style={{ display: "flex", gap: 10 }}>
                   <a
                     style={{ fontSize: "16px" }}
@@ -225,17 +232,17 @@ const NavBar = ({ media, src, name, menuItems }) => {
                   >
                     {/* Emergency{" "} */}
                   </a>
-                  <div
-                    style={{
-                      color: "red",
-                      fontSize: "16px",
-                      cursor: "pointer",
-                    }}
+                  <Button
                     onClick={() => handleNavigation("/emergency")}
-                    className={styles.emergencyAppointment2}
+                    variant="emergency"
+                    className={cn(
+                      "border-2 border-red-500",
+                      "hover:bg-red-500",
+                      "hover:border-white"
+                    )}
                   >
                     Emergency
-                  </div>
+                  </Button>
                   {/* <div>
                     <Image priority={true}  src={Emergency} height={10} />
                   </div> */}
@@ -243,7 +250,7 @@ const NavBar = ({ media, src, name, menuItems }) => {
               </div>
               <div className={styles.locationDropdown}>
                 <div
-                  style={{ margin: "0px 18px" }}
+                  // style={{ margin: "0px 18px" }}
                   className={`${styles.informationDropdown} mb-4 mb-lg-0`}
                   ref={dropdownRef}
                 >
@@ -268,67 +275,27 @@ const NavBar = ({ media, src, name, menuItems }) => {
                       locationDropdownVisible ? styles.visible : ""
                     }`}
                   >
-                    <a className={styles.disabled}>Huddersfield</a>
-                    <a
-                      onClick={() =>
-                        window.open(
-                          "https://www.bailiffbridgedental.com/",
-                          "_blank"
-                        )
-                      }
-                    >
-                      Brighouse
-                    </a>
+                    {locations?.map((loc) => (
+                      <a key={loc.name+2} className={loc.disable?styles.disabled:""}
+                        onClick={() =>
+                          window.open(loc.link, "_blank")
+                        }
+                      >
+                        {loc.name}
+                      </a>
+                    ))}
                   </div>
-
-                  <>
-                    {name === "Oaklands Dental" ? (
-                      <div
-                        className={`${styles.informationDropdownContent} ${
-                          locationDropdownVisible ? styles.visible : ""
-                        }`}
-                      >
-                        <a className={styles.disabled}>Huddersfield</a>
-                        <a
-                          onClick={() =>
-                            window.open(
-                              "https://www.bailiffbridgedental.com/",
-                              "_blank"
-                            )
-                          }
-                        >
-                          Brighouse
-                        </a>
-                      </div>
-                    ) : name === "Bailiff Bridge" ? (
-                      <div
-                        className={`${styles.informationDropdownContent} ${
-                          locationDropdownVisible ? styles.visible : ""
-                        }`}
-                      >
-                        <a className={styles.disabled}>Brighouse</a>
-                        <a
-                          onClick={() =>
-                            window.open(
-                              "https://oaklandsdentalhudds.co.uk/",
-                              "_blank"
-                            )
-                          }
-                        >
-                          Huddersfield
-                        </a>
-                      </div>
-                    ) : null}
-                  </>
                 </div>
               </div>
-              <button
-                className={styles.button}
+              <Button
                 onClick={() => handleBooking(src)}
+                className={`${styles.customNavbarBtn} bg-main-accent`}
                 style={{ width: 211, marginLeft: "14px" }}
+                variant="default"
+                size="default"
               >
                 Book Online
-              </button>
+              </Button>
             </Nav>
           </div>
         </Navbar.Collapse>

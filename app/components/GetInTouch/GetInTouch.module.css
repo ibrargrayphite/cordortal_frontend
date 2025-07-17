@@ -12,96 +12,151 @@
   position: relative; /* Positioning context for the overlay */
 }
 
+.backgroundWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
 .backgroundImage {
   width: 100%;
-  height: auto;
-  border-radius: 71px; /* Rounded corners for the image */
+  height: 100%;
+  object-fit: cover;
+  border-radius: 2rem;
+  filter: brightness(0.85) saturate(1.1);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
 }
 
 .formOverlay {
   position: absolute;
-  top: 50%; /* Adjust the top position to shrink from the top */
-  left: auto;
-  right: -28%;
-  transform: translateY(-50%);
-  background-color: #5fb8bc;
-  border-radius: 15px;
-  padding: 20px; /* Reduced padding for top and bottom */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  z-index: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 100%;
-  max-width: 70%;
-
-  /* Apply only on larger screens */
-  @media (min-width: 769px) {
-    max-height: 600px;
-    overflow-y: auto;
-  }
+  max-width: 520px;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  background: none;
+  box-shadow: none;
 }
 
-.formContainer {
+.formCard {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 2rem;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+  backdrop-filter: blur(12px) saturate(1.2);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  padding: 2.5rem 2rem 2rem 2rem;
   display: flex;
   flex-direction: column;
-  border-radius: 50px;
-  background: #5fb8bc; /* Form background color */
-  padding: 20px; /* Reduced padding inside form */
+  align-items: center;
 }
 
 .formHeading {
-  color: #fff; /* Heading text color */
-  /* font-size: 70px; Responsive font size */
+  color: #222;
+  font-size: 2.5rem;
   font-weight: 700;
-  text-align: center; /* Center heading text */
-  margin-bottom: 15px; /* Space below heading */
-}
-
-.inputText {
-  height: 60px!important;
-}
-.inputText,.textArea {
-  border: none!important;
-  border-radius: 10px!important;
-  background: #30989c!important; /* Input background color */
-  color: rgba(255, 255, 255, 0.33)!important; /* Input text color */
-  font-size: 20px!important;
-  margin-bottom: 15px!important; /* Reduced space between inputs */
-  padding: 10px!important; /* Padding for better usability */
-}
-
-.inputText::placeholder,
-.textArea::placeholder
- {
-  color: rgba(255, 255, 255, 0.33)!important; /* Placeholder color */
-}
-
-.inputText:focus,
-.textArea:focus {
-  background: #30989c; /* Input color on focus */
-  color: rgba(255, 255, 255, 0.33); /* Text color on focus */
-  border: none !important;
-}
-
-.button {
-  padding: 8px 50px;
-  border-radius: 31px;
-  background: var(--main-accent-dark); /* Button background */
-  border: 1px solid var(--main-accent-dark); /* Button border */
-  transition: 0.3s;
-  color: #fff; /* Button text */
-  font-size: 18px;
-  font-weight: 600;
   text-align: center;
-  cursor: pointer;
+  margin-bottom: 1.5rem;
+  letter-spacing: -1px;
 }
 
-.button:hover {
-  background: #fff; /* Hover background */
-  color: var(--main-accent-dark); /* Hover text */
+.formContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  background: none;
+  padding: 0;
+}
+
+.inputGroup {
+  margin-bottom: 0.5rem;
+}
+
+.inputText, .textArea {
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0.75rem !important;
+  background: rgba(255,255,255,0.7) !important;
+  color: #222 !important;
+  font-size: 1.1rem !important;
+  transition: box-shadow 0.2s, background 0.2s;
+}
+
+.inputText:focus, .textArea:focus {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  background: #fff !important;
+  box-shadow: 0 4px 16px rgba(31,38,135,0.13);
+}
+
+.inputText::placeholder, .textArea::placeholder {
+  color: #888 !important;
+  opacity: 1;
+}
+
+.textArea {
+  min-height: 120px;
+  resize: vertical;
 }
 
 .buttonContainer {
-  margin-top: 30px; /* Space above button */
-  text-align: center; /* Center button */
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.button {
+  padding: 0.75rem 2.5rem;
+  border-radius: 2rem;
+  background: linear-gradient(90deg, #5fb8bc 0%, #30989c 100%);
+  border: none;
+  color: #fff;
+  font-size: 1.15rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(31,38,135,0.10);
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.button:hover, .button:focus {
+  background: linear-gradient(90deg, #30989c 0%, #5fb8bc 100%);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(31,38,135,0.18);
+}
+
+@media (max-width: 900px) {
+  .formOverlay {
+    max-width: 95vw;
+  }
+  .formCard {
+    padding: 2rem 1rem 1.5rem 1rem;
+  }
+  .formHeading {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .formOverlay {
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 99vw;
+  }
+  .formCard {
+    padding: 1.2rem 0.5rem 1rem 0.5rem;
+    border-radius: 1.2rem;
+  }
+  .formHeading {
+    font-size: 1.3rem;
+  }
 }
 
 @media (max-width: 768px) {
@@ -136,3 +191,185 @@
     min-height: 38rem;
   }
 }
+
+.splitRow {
+  min-height: 520px;
+  display: flex;
+  align-items: stretch;
+}
+
+.splitImageWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 400px;
+  border-radius: 2rem 0 0 2rem;
+  overflow: hidden;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.10);
+}
+
+.splitBackgroundImage {
+  position: absolute !important;
+  top: 0; left: 0; right: 0; bottom: 0;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+  border-radius: 2rem 0 0 2rem;
+}
+
+.formCol {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f7fafc;
+  border-radius: 0 2rem 2rem 0;
+  min-height: 400px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.10);
+}
+
+.splitFormCard {
+  width: 100%;
+  max-width: 420px;
+  background: #fff;
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.10);
+  padding: 2.5rem 2rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.splitFormHeading {
+  color: #222;
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  letter-spacing: -1px;
+}
+
+.splitFormContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  background: none;
+  padding: 0;
+}
+
+.splitInputGroup {
+  margin-bottom: 0.5rem;
+}
+
+.floatingLabelGroup {
+  position: relative;
+  margin-bottom: 1.2rem;
+}
+
+.splitInputText, .splitTextArea {
+  width: 100%;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 0.75rem !important;
+  background: #f7fafc !important;
+  color: #222 !important;
+  font-size: 1.1rem !important;
+  box-shadow: 0 2px 8px rgba(31,38,135,0.04);
+  transition: box-shadow 0.2s, background 0.2s, border 0.2s;
+  padding: 1.2rem 1rem 0.6rem 1rem !important;
+}
+
+.splitInputText:focus, .splitTextArea:focus {
+  background: #fff !important;
+  box-shadow: 0 4px 16px rgba(31,38,135,0.10);
+  border: 1.5px solid #5fb8bc !important;
+  outline: none !important;
+}
+
+.floatingLabelGroup label {
+  position: absolute;
+  left: 1rem;
+  top: 1.1rem;
+  color: #888;
+  font-size: 1rem;
+  pointer-events: none;
+  transition: 0.2s all;
+  background: transparent;
+}
+
+.floatingLabelGroup input:focus + label,
+.floatingLabelGroup textarea:focus + label,
+.floatingLabelGroup .filled {
+  top: 0.2rem;
+  left: 1rem;
+  font-size: 0.85rem;
+  color: #5fb8bc;
+  background: #fff;
+  padding: 0 0.2rem;
+}
+
+.splitTextArea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.splitButtonContainer {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.splitButton {
+  padding: 0.75rem 2.5rem;
+  border-radius: 2rem;
+  background: linear-gradient(90deg, #5fb8bc 0%, #30989c 100%);
+  border: none;
+  color: #fff;
+  font-size: 1.15rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(31,38,135,0.10);
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.splitButton:hover, .splitButton:focus {
+  background: linear-gradient(90deg, #30989c 0%, #5fb8bc 100%);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(31,38,135,0.18);
+}
+
+@media (max-width: 900px) {
+  .splitRow {
+    flex-direction: column;
+    min-height: unset;
+  }
+  .splitImageWrapper, .formCol {
+    border-radius: 2rem;
+    min-height: 220px;
+  }
+  .splitFormCard {
+    padding: 2rem 1rem 1.5rem 1rem;
+    border-radius: 1.2rem;
+  }
+  .splitFormHeading {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .splitFormCard {
+    padding: 1.2rem 0.5rem 1rem 0.5rem;
+    border-radius: 1.2rem;
+  }
+  .splitFormHeading {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .getInTouchBox {
+    border-bottom-left-radius: 0 !important;
+  }
+  .getInTouchImage {
+    border-bottom-left-radius: 0 !important;
+  }
+}
+

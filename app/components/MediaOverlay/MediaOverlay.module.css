@@ -27,7 +27,7 @@
   /* Adjust video height */
   /* height: 550px;  */
   height: 95vh; /* Set a fixed height to avoid dynamic changes */
-  object-fit: cover;
+  object-fit: fill;
 }
 
 .skeletonLoader {
@@ -49,6 +49,29 @@
   word-wrap: break-word;
   z-index: 3;
 }
+.comingSoonText {
+  /* position: absolute;
+  top: 46%;
+  left: 43%; */
+  /* transform: translate(0, -100%); */
+  color: white;
+  font-size: 40px;
+  font-weight: bold;
+  margin-top: 12px;
+  /* text-transform: uppercase; */
+  letter-spacing: 2px;
+  z-index: 3;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  /* text-align: right; */
+}
+.comingSoonText p{
+  font-weight: normal;
+  letter-spacing: normal;
+  font-size: 19px;
+  text-align: left;
+  margin-top: 10px;
+  width: 70%;
+}
 
 .overlayContent h1,
 .overlayContent p {
@@ -64,8 +87,16 @@
 .headingTextSecondary {
   font-size: 45px;
 }
-.customButtonFirst {
-  margin-right: 10px;
+.customButtonFirst{
+  margin-right: 20px;
+}
+.customButtonFirst,
+.customButton {
+  min-width: 220px;
+  min-height: 60px;
+  font-size: 1.2rem;
+  padding: 1rem 2rem;
+  border-radius: 8px;
 }
 .descriptionContent {
   font-weight: 500;
@@ -83,6 +114,9 @@
     transform: translate(-50%, -50%);
     text-align: center;
   }
+  .comingSoonText {
+    right: 20px;
+  }
   .mediaOverlayContainer {
     height: 85vh; /*Prevent dynamic resizing */
 
@@ -90,9 +124,12 @@
   .media {
     height: 85vh;
   }
-  .customButtonFirst {
-    margin-bottom: 15px;
-    margin-top: 25px;
+  .customButtonFirst,
+  .customButton {
+    min-width: 160px;
+    min-height: 48px;
+    font-size: 1rem;
+    padding: 0.75rem 1.5rem;
   }
   .headingTextPrimary {
     font-size: 19px;
@@ -114,5 +151,15 @@
 
   .overlayContent p {
     font-size: 14px;
+  }
+}
+
+@media (max-width: 767px) {
+  .headingTextPrimary {
+    text-align: center!important;
+  }
+  .customButtonFirst{
+    margin-bottom: 10px;
+    margin-right: 0px;
   }
 }
