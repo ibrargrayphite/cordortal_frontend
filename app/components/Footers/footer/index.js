@@ -188,7 +188,7 @@ const Footer = ({ src, refersrc, title,data,media,noBgColor,footerLogin }) => {
                         </Col>
                       ))}
                       {/* Login button - only show if footerLogin is true AND user is not authenticated */}
-                      {footerLogin && !authenticated && (
+                      {footerLogin &&(
                         <Col lg={4} sm={6} xs={6}>
                           <li>
                             <a
