@@ -2,6 +2,9 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import styles from './ContactCard.module.css';
 import defaultMedia from "../../../public/assets/images/solutions/implants.png";
+import locationIcon from "../../../public/assets/images/footer/location.png";
+import phoneIcon from "../../../public/assets/images/footer/phone.png";
+import emailIcon from "../../../public/assets/images/footer/emailIcon.png";
 
 export default function ContactCard({ data }) {
   const router = useRouter();
@@ -23,7 +26,14 @@ export default function ContactCard({ data }) {
       <div className={styles.address}>
         <div style={{ display: 'flex', gap: 15 }}>
           <div>
-            <Image loading="lazy" src={data?.addressMedia} alt={`You can reach us ${data.address}`}  width={100} height={100} className={styles.cardIcons} />
+            <Image 
+              loading="lazy" 
+              src={data?.addressMedia && data.addressMedia?.startsWith('https') ? data.addressMedia : locationIcon.src} 
+              alt={`You can reach us ${data.address}`}  
+              width={100} 
+              height={100} 
+              className={styles.cardIcons} 
+            />
           </div>
           <div style={{ marginTop: 2 }}>
             <p className={styles.contactCardHeading}>Address</p>
@@ -36,7 +46,14 @@ export default function ContactCard({ data }) {
       <div className={styles.address}>
         <div style={{ display: 'flex', gap: 15 }}>
           <div>
-            <Image loading="lazy" src={data?.phoneMedia} alt={`You can contact us on ${data.phone}`}  width={100} height={100} className={styles.cardIcons} />
+            <Image 
+              loading="lazy" 
+              src={data?.phoneMedia && data.phoneMedia?.startsWith('https') ? data.phoneMedia : phoneIcon.src} 
+              alt={`You can contact us on ${data.phone}`}  
+              width={100} 
+              height={100} 
+              className={styles.cardIcons} 
+            />
           </div>
           <div style={{ marginTop: 2 }}>
             <p className={styles.contactCardHeading}>Phone</p>
@@ -49,7 +66,14 @@ export default function ContactCard({ data }) {
       <div className={styles.address}>
         <div style={{ display: 'flex', gap: 15 }}>
           <div>
-            <Image loading="lazy" src={data?.emailMedia} alt={`You can email us at ${data.email}`}  width={100} height={100} className={styles.cardIcons} />
+            <Image 
+              loading="lazy" 
+              src={data?.emailMedia && data.emailMedia?.startsWith('https') ? data.emailMedia : emailIcon.src} 
+              alt={`You can email us at ${data.email}`}  
+              width={100} 
+              height={100} 
+              className={styles.cardIcons} 
+            />
           </div>
           <div style={{ marginTop: 2 }}>
             <p className={styles.contactCardHeading}>Email</p>

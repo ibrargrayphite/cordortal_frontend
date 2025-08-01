@@ -67,6 +67,8 @@ export const renderComponent = (block) => {
     buttonName:block.buttonName,
     buttonSrc:block.buttonSrc,
     locations:block.locations,
+    // footer login button
+    footerLogin: block.footerLogin,
   
   });
 };

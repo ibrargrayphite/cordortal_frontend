@@ -8,6 +8,7 @@ import { PagesProvider } from './context/PagesContext';
 import { fetchPagesData } from './utils/fetchPagesData';
 import localFont from 'next/font/local';
 import ChatWidget from './components/ChatWidget';
+import LayoutWrapper from './components/LayoutWrapper';
 
 const balgin = localFont({
   src: [{ path: '../public/assets/fonts/balgin-regular.otf', weight: '400', style: 'normal' }],
@@ -54,6 +55,9 @@ export default async function RootLayout({ children }) {
       : activeFont;
   return (
     <html lang="en">
+      <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+      </head>
       <PagesProvider pagesData={pagesData}> {/* Pass data to PagesProvider */}
         <ThemeProvider>
           <body
@@ -79,33 +83,13 @@ export default async function RootLayout({ children }) {
               }
             `}
           </style>
-            {shared &&
-              renderComponent({
-                component: shared.header?.name,
-                media: location.media,
-                src: shared.header.src,
-                name: location.name,
-                locations: location.data.locations,
-                menuItems: shared.header.menuItems,
-                button: shared.header.button,
-              })
-            }
-            <main>{children}</main>
-            <div className={styles.footerContaner}>
-              {shared &&
-                renderComponent({
-                  component: shared.footer.name,
-                  src: shared.footer.src,
-                  refersrc: shared.footer.refersrc,
-                  title: location.title,
-                  footerRights: shared.footer.footerRights,
-                  data: shared.footer.data,
-                  media: shared.footer.media,
-                  noBgColor: shared.footer?.noBgColor,
-                })
-              }
-            </div>
-            {chatBot && <ChatWidget />}
+            <LayoutWrapper 
+              shared={shared}
+              location={location}
+              chatBot={chatBot}
+            >
+              {children}
+            </LayoutWrapper>
           </body>
         </ThemeProvider>
       </PagesProvider>

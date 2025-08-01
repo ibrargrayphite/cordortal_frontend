@@ -94,6 +94,7 @@
         "phone": "01484 531964",
         "address": "60 Bradford Road Huddersfield, HD1 6JE"
     },
+    "footerLogin": true,
     "colors": {
         "media": "https://dental-bucket.s3.amazonaws.com/uploads/264869fe-1118-4616-8473-18e1213ba596.png",
         "bgColor": "#00000005",

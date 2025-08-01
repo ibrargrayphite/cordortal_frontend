@@ -11,12 +11,19 @@ import HoursOfOperation from "../../HoursOfOperations";
 import CustomButton from "../../CustomButton";
 import { useTheme } from "../../../context/ThemeContext";
 import { usePages } from '../../../context/PagesContext';
+import { isAuthenticated } from '../../../utils/auth';
+import { useState, useEffect } from 'react';
 
-const Footer = ({ src, refersrc, title,data,media,noBgColor }) => {
+const Footer = ({ src, refersrc, title,data,media,noBgColor,footerLogin }) => {
   const { pages } = usePages();
   const ContactCardData = pages.data || {};
   const theme = useTheme();
   const router = useRouter();
+  const [authenticated, setAuthenticated] = useState(false);
+
+  useEffect(() => {
+    setAuthenticated(isAuthenticated());
+  }, []);
 
   const handleNavigation = (path, external = false) => {
     if (external) {
@@ -44,6 +51,10 @@ const Footer = ({ src, refersrc, title,data,media,noBgColor }) => {
 
   const handleHome = () => {
     router.push("/");
+  };
+
+  const handleLogin = () => {
+    router.push('/login');
   };
 
   return (
@@ -176,6 +187,24 @@ const Footer = ({ src, refersrc, title,data,media,noBgColor }) => {
                           </li>
                         </Col>
                       ))}
+                      {/* Login button - only show if footerLogin is true AND user is not authenticated */}
+                      {footerLogin && !authenticated && (
+                        <Col lg={4} sm={6} xs={6}>
+                          <li>
+                            <a
+                              style={{ 
+                                cursor: "pointer",
+                                fontSize: "0.85rem",
+                                opacity: 0.8,
+                                fontStyle: "italic"
+                              }}
+                              onClick={handleLogin}
+                            >
+                              Login
+                            </a>
+                          </li>
+                        </Col>
+                      )}
                     </Row>
                   </Container>
                 </ul>
