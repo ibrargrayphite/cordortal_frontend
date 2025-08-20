@@ -25,11 +25,18 @@ export const clearTokens = () => {
 };
 
 export const isAuthenticated = () => {
-  if (typeof window !== 'undefined') {
+  // Always return false on server-side to prevent hydration mismatch
+  if (typeof window === 'undefined') {
+    return false;
+  }
+  
+  try {
     const accessToken = localStorage.getItem('accessToken');
     return !!accessToken;
+  } catch (error) {
+    console.error('Error checking authentication:', error);
+    return false;
   }
-  return false;
 };
 
 export const getAuthHeaders = () => {

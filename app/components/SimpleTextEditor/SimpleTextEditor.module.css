@@ -1,0 +1,52 @@
+.editorWrapper {
+  width: 100%;
+  min-height: 450px;
+  direction: ltr !important;
+}
+
+.textarea {
+  width: 100%;
+  min-height: 400px;
+  padding: 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1.6;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  resize: vertical;
+  outline: none;
+  direction: ltr !important;
+  text-align: left !important;
+  background-color: white;
+  transition: border-color 0.2s ease-in-out;
+}
+
+.textarea:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.textarea::placeholder {
+  color: #9ca3af;
+  font-style: italic;
+  direction: ltr !important;
+  text-align: left !important;
+}
+
+/* Force LTR direction for all content */
+.textarea * {
+  direction: ltr !important;
+  text-align: left !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .textarea {
+    min-height: 300px;
+    font-size: 16px; /* Prevent zoom on mobile */
+  }
+
+  .editorWrapper {
+    min-height: 350px;
+  }
+}

@@ -20,9 +20,16 @@ const Footer = ({ src, refersrc, title,data,media,noBgColor,footerLogin }) => {
   const theme = useTheme();
   const router = useRouter();
   const [authenticated, setAuthenticated] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setAuthenticated(isAuthenticated());
+    // Delay mounting to ensure hydration is complete
+    const timer = setTimeout(() => {
+      setMounted(true);
+      setAuthenticated(isAuthenticated());
+    }, 100);
+
+    return () => clearTimeout(timer);
   }, []);
 
   const handleNavigation = (path, external = false) => {
@@ -187,8 +194,8 @@ const Footer = ({ src, refersrc, title,data,media,noBgColor,footerLogin }) => {
                           </li>
                         </Col>
                       ))}
-                      {/* Login button - only show if footerLogin is true AND user is not authenticated */}
-                      {footerLogin &&(
+                      {/* Login button - always show if footerLogin is true and component is mounted */}
+                      {mounted && footerLogin && (
                         <Col lg={4} sm={6} xs={6}>
                           <li>
                             <a

@@ -1,0 +1,246 @@
+/* Toast Container */
+.toastContainer {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 400px;
+  width: 100%;
+}
+
+/* Individual Toast */
+.toast {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transform: translateX(100%);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.toast.visible {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* Toast Types */
+.toast.success {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.95) 0%, rgba(5, 150, 105, 0.95) 100%);
+  color: white;
+}
+
+.toast.error {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.95) 0%, rgba(220, 38, 38, 0.95) 100%);
+  color: white;
+}
+
+.toast.warning {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.95) 0%, rgba(217, 119, 6, 0.95) 100%);
+  color: white;
+}
+
+.toast.info {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.95) 0%, rgba(37, 99, 235, 0.95) 100%);
+  color: white;
+}
+
+/* Toast Icon */
+.toastIcon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+  animation: iconPulse 0.5s ease-out;
+}
+
+@keyframes iconPulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Toast Content */
+.toastContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.toastMessage {
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+/* Close Button */
+.closeButton {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 0.875rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  opacity: 0.7;
+  flex-shrink: 0;
+}
+
+.closeButton:hover {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Progress Bar */
+.progressBar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: rgba(255, 255, 255, 0.5);
+  width: 100%;
+  transform: translateX(-100%);
+  animation: progressAnimation linear forwards;
+}
+
+@keyframes progressAnimation {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* Hover Effects */
+.toast:hover {
+  transform: translateX(-5px) scale(1.02);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.toast:hover .progressFill {
+  animation-play-state: paused;
+}
+
+/* Mobile Responsive */
+@media (max-width: 480px) {
+  .toastContainer {
+    top: 10px;
+    right: 10px;
+    left: 10px;
+    max-width: none;
+  }
+  
+  .toast {
+    padding: 0.875rem;
+    font-size: 0.85rem;
+  }
+  
+  .toastIcon {
+    font-size: 1.1rem;
+  }
+  
+  .toastMessage {
+    font-size: 0.85rem;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .toast {
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .closeButton:hover {
+    background: rgba(255, 255, 255, 0.15);
+  }
+  
+  .progressBar {
+    background: rgba(255, 255, 255, 0.15);
+  }
+  
+  .progressFill {
+    background: rgba(255, 255, 255, 0.4);
+  }
+}
+
+/* Animation for multiple toasts */
+.toast:nth-child(1) { animation-delay: 0ms; }
+.toast:nth-child(2) { animation-delay: 100ms; }
+.toast:nth-child(3) { animation-delay: 200ms; }
+.toast:nth-child(4) { animation-delay: 300ms; }
+.toast:nth-child(5) { animation-delay: 400ms; }
+
+/* Entrance animations */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* Loading shimmer effect */
+.toast::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}

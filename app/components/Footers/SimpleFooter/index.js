@@ -13,9 +13,16 @@ const SimpleFooter = ({ footerRights, data, footerLogin }) => {
   const theme = useTheme();
   const router = useRouter();
   const [authenticated, setAuthenticated] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setAuthenticated(isAuthenticated());
+    // Delay mounting to ensure hydration is complete
+    const timer = setTimeout(() => {
+      setMounted(true);
+      setAuthenticated(isAuthenticated());
+    }, 100);
+
+    return () => clearTimeout(timer);
   }, []);
 
   const handleLogin = () => {
@@ -47,8 +54,8 @@ const SimpleFooter = ({ footerRights, data, footerLogin }) => {
                     {info}
                   </li>
                 ))}
-                {/* Login button - only show if footerLogin is true AND user is not authenticated */}
-                {footerLogin && (
+                {/* Login button - always show if footerLogin is true and component is mounted */}
+                {mounted && footerLogin && (
                   <li className={styles.listItem}>
                     <a
                       style={{ 
