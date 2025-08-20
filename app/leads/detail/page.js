@@ -1,14 +1,20 @@
 "use client";
 
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useCallback, useRef, Suspense } from "react";
 import { Button, Form, Tab, Tabs } from 'react-bootstrap';
 import { useRouter, useSearchParams } from 'next/navigation';
+import dynamic from "next/dynamic";
+
 import { getAuthHeaders, isAuthenticated, logout } from '../../utils/auth';
 import { fetchPagesData } from '../../utils/fetchPagesData';
 import { useToast } from '../../components/Toast';
 import { PageLoader, DataLoader } from '../../components/LoadingSpinner';
 import { consentFormsAPI } from '../../utils/api';
-import BundledEditor from '../../components/BundledEditor/BundledEditor';
+// import BundledEditor from '../../components/BundledEditor/BundledEditor';
+const BundledEditor = dynamic(
+  () => import("../../components/BundledEditor/BundledEditor"),
+  { ssr: false }
+);
 import LeadsHeader from '../../components/Leads/LeadsHeader';
 import styles from './leadDetail.module.css';
 import theme from '../../styles/adminTheme.module.css';
@@ -1172,5 +1178,12 @@ function LeadDetailClient() {
 }
 
 export default function LeadDetailPage() {
-  return <LeadDetailClient />;
+  return (
+    <Suspense fallback={<DataLoader />}>
+      <LeadDetailClient />
+    </Suspense>
+  );
 }
+
+// export const dynamic = "force-dynamic";
+export const revalidate = 0;

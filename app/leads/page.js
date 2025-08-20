@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, Suspense } from "react";
 import { Button, Modal, Alert } from "react-bootstrap";
 import { useRouter, useSearchParams } from "next/navigation";
 import { isAuthenticated, logout } from "../utils/auth";
@@ -17,7 +17,7 @@ import TemplatesTab from "../components/Leads/TemplatesTab";
 import styles from "./leads.module.css";
 import theme from "../styles/adminTheme.module.css";
 
-const LeadsPage = () => {
+const InnerLeadsPage = () => {
   const searchParams = useSearchParams();
   const seletedTab = searchParams.get("tab");
   const [orgData, setOrgData] = useState(null);
@@ -436,5 +436,11 @@ const LeadsPage = () => {
     </div>
   );
 };
-
-export default LeadsPage;
+export default function LeadsPage() {
+  return (
+    <Suspense fallback={<DataLoader />}>
+      <InnerLeadsPage />
+    </Suspense>
+  );
+}
+// export default LeadsPage;

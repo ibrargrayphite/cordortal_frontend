@@ -10,8 +10,13 @@ import { useToast } from "../../components/Toast";
 import { PageLoader, ButtonLoader } from "../../components/LoadingSpinner";
 import styles from "./templateDetail.module.css";
 import theme from "../../styles/adminTheme.module.css";
-import TemplateForm from "../../components/TemplateForm/TemplateForm";
+// import TemplateForm from "../../components/TemplateForm/TemplateForm";
+const TemplateForm = dynamic(
+  () => import("../../components/TemplateForm/TemplateForm"),
+  { ssr: false, loading: () => <PageLoader message="Loading editor..." /> }
+);
 
+export const revalidate = 0;
 const TemplateDetailClient = () => {
   const [template, setTemplate] = useState(null);
   const [orgData, setOrgData] = useState(null);

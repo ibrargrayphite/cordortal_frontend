@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, Suspense } from "react";
+import dynamic from "next/dynamic";
 import { Button } from "react-bootstrap";
 import { useRouter } from "next/navigation";
 import { getAuthHeaders, isAuthenticated, logout } from "../../utils/auth";
@@ -8,7 +9,11 @@ import { useToast } from "../../components/Toast";
 import { PageLoader } from "../../components/LoadingSpinner";
 import styles from "../detail/templateDetail.module.css";
 import theme from "../../styles/adminTheme.module.css";
-import TemplateForm from "../../components/TemplateForm/TemplateForm";
+// import TemplateForm from "../../components/TemplateForm/TemplateForm";
+const TemplateForm = dynamic(
+    () => import("../../components/TemplateForm/TemplateForm"),
+    { ssr: false, loading: () => <PageLoader message="Loading editor..." /> }
+  );
 import { fetchPagesData } from "@/app/utils/fetchPagesData";
 
 const TemplateDetailClient = () => {
@@ -160,12 +165,6 @@ const TemplateDetailClient = () => {
     );
 };
 
-const TemplateCreatePage = () => {
-    return (
-        <Suspense fallback={<PageLoader />}>
-            <TemplateDetailClient />
-        </Suspense>
-    );
-};
-
-export default TemplateCreatePage;
+export default function TemplateCreatePage() {
+    return <TemplateDetailClient />;
+  }  
