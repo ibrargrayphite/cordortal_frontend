@@ -1,6 +1,4 @@
 "use client";
-import { useState, useEffect } from "react";
-import { Col, Container, Row } from "react-bootstrap";
 import { useRouter } from "next/navigation";
 import CustomButton from "../CustomButton";
 import { useTheme } from "../../context/ThemeContext";
@@ -21,15 +19,15 @@ const LandingPageBanner = ({ description , media, headline,headlineLarge,title,b
   
   return (
         <div className="flex w-100 max-md:justify-center -mt-10 max-md:px-0 p-[70px]" style={{background: theme.mainAccentDark}}>
-          <Row className="justify-content-center">
-             <Col md={6} sm={12} className="text-center">
+          <div className="flex flex-wrap justify-center">
+             <div className="w-full md:w-1/2 text-center">
               <div className="max-md:container md:p-4 ">
                 <div >
                   <h1 className={styles.headingTextPrimary}>{headline}
                   </h1>
                 </div>
                 <p className={styles.descriptionContent}>{description}</p>
-                <div className="d-flex justify-center xs:flex-col md:flex-row justify-center items-center">
+                <div className="flex xs:flex-col md:flex-row justify-center items-center">
                 <CustomButton
                   headline={buttonName ? buttonName : "Book Now"}
                   onClick={() => handlePrimaryAction(buttonSrc)}
@@ -42,8 +40,8 @@ const LandingPageBanner = ({ description , media, headline,headlineLarge,title,b
                 />
                 </div>
               </div>
-            </Col>
-          </Row>
+            </div>
+          </div>
         </div>
   );
 };

@@ -2,11 +2,10 @@
 import React from "react";
 import CountUp from "react-countup";
 import styles from "./CountNumber.module.css";
-import { Container } from "react-bootstrap";
 
 const CountNumber = ({ data }) => {
   return (
-    <Container className="relative -mt-20 mb-20 z-10">
+    <div className="relative -mt-20 mb-20 z-10 container mx-auto">
       <div className={styles.container}>
         {data.map((item, index) => (
           <div key={item.name} className={styles.card}>
@@ -23,7 +22,7 @@ const CountNumber = ({ data }) => {
           </div>
         ))}
       </div>
-    </Container>
+    </div>
   );
 };
 

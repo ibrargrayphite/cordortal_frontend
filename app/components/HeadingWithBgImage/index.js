@@ -1,8 +1,6 @@
-import { Col, Container, Row } from "react-bootstrap";
 import styles from "./HeadingWithBgImage.module.css";
 import defaultMedia from "../../../public/assets/images/home/SOLUTIONS.png";
 
-import Image from "next/image";
 const HeadingWithBgImage = ({
   headline,
   media,
@@ -15,37 +13,46 @@ const HeadingWithBgImage = ({
   headlineLarge = false,
 }) => {
   const mediaSource = media && media?.startsWith('https') ? media : defaultMedia.src;
+  console.log(noBgColor, 'noBgColor===', headline,)
 
   return (
     <>
       {withoutBgImageHeading ? (
-        <Container fluid="sm">
-          <p className={headlineLarge ? styles.HeadlineLarge : styles.Headline} dangerouslySetInnerHTML={{ __html: headline }} />
-            {
-              (description || showAnchorCall || telephoneNumber || anchorTextEnd) && (
-                <Row>
-                  <Col />
-                  <Col lg={9} sm={12}>
-                    <p className={styles.text}>
-                      {description}{" "}
-                      {showAnchorCall && (
-                        <span>
-                          <a href={`${telephoneNumber}`}>{anchorTextEnd}</a>
-                        </span>
-                      )}
-                    </p>
-                  </Col>
-                  <Col />
-                </Row>
-              )
+        <div className="container mx-auto">
+          <p
+            className={
+              headlineLarge ? styles.HeadlineLarge : styles.Headline
             }
-        </Container>
+            dangerouslySetInnerHTML={{ __html: headline }}
+          />
+          {(description || showAnchorCall || telephoneNumber || anchorTextEnd) && (
+            <div className="flex flex-wrap">
+              {/* left spacer */}
+              <div className="hidden lg:block flex-1" />
+
+              {/* main content */}
+              <div className="w-full lg:w-9/12 px-3 flex">
+                <p className={styles.text}>
+                  {description}{" "}
+                  {showAnchorCall && (
+                    <span>
+                      <a href={`${telephoneNumber}`}>{anchorTextEnd}</a>
+                    </span>
+                  )}
+                </p>
+              </div>
+
+              {/* right spacer */}
+              <div className="hidden lg:block flex-1" />
+            </div>
+          )}
+        </div>
       ) : (
-        <Container
-          fluid
+        <div
+          
           className={noBgColor ? styles.noBgColor : styles.bgColor}
         >
-          <Container>
+          <div className="container mx-auto">
             <div
               className={
                 headlineLarge
@@ -53,9 +60,9 @@ const HeadingWithBgImage = ({
                   : styles.headingContainer
               }
             >
+              {/* Background image (if needed in future) */}
               {/* <Image   
                 loading="eager"
-                layout="responsive"
                 priority={true} 
                 width={100} 
                 height={100} 
@@ -70,9 +77,13 @@ const HeadingWithBgImage = ({
                 dangerouslySetInnerHTML={{ __html: headline }}
               />
             </div>
-            <Row>
-              <Col />
-              <Col lg={9} sm={12}>
+
+            <div className="flex flex-wrap -mx-3">
+              {/* left spacer */}
+              <div className="hidden lg:block flex-1" />
+
+              {/* main content */}
+              <div className="w-full lg:w-9/12 px-3 flex">
                 <p
                   className={
                     description ? styles.textImage : styles.textImageHide
@@ -85,11 +96,13 @@ const HeadingWithBgImage = ({
                     </span>
                   )}
                 </p>
-              </Col>
-              <Col />
-            </Row>
-          </Container>
-        </Container>
+              </div>
+
+              {/* right spacer */}
+              <div className="hidden lg:block flex-1" />
+            </div>
+          </div>
+        </div>
       )}
     </>
   );

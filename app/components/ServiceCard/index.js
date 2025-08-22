@@ -1,7 +1,6 @@
 "use client";
 
-import { Container } from "react-bootstrap";
-import styles from "./ServiceCard.module.css"; // Assuming you have styles for your component
+import styles from "./ServiceCard.module.css"; 
 import { useRouter } from "next/navigation";
 import defaultMedia from "../../../public/assets/images/solutions/implants.png";
 import Image from "next/image";
@@ -15,7 +14,7 @@ const ServiceCard = ({
 
   return (
     <div className={noBgColor ? styles.noBgColor : styles.solutionsContainer0}>
-      <Container className={styles.servicesParent}>
+      <div className={`${styles.servicesParent} container mx-auto`}>
         <div className={styles.cardGrid}>
           {services &&
             services.map((service, index) => (
@@ -29,16 +28,19 @@ const ServiceCard = ({
                 }}
               >
                 <div className={styles.card}>
-                  <Image 
+                  <Image
                     priority={true}
-                    width={100} 
+                    width={100}
                     height={116}
                     src={service.media && service.media?.startsWith('https') ? service.media : defaultMedia.src}
                     className={styles.imageSize}
                     alt={`${service.headline}`}
                   />
-                  <Container>
-                    <h3 className={styles.title} dangerouslySetInnerHTML={{__html: service.headline}} />
+                  <div className="container">
+                    <h3
+                      className={styles.title}
+                      dangerouslySetInnerHTML={{ __html: service.headline }}
+                    />
                     <h4 className={styles.subtitle}>
                       <ul className={styles.noBullets}>
                         {service?.bullets?.map((bullet, bulletIndex) => (
@@ -49,12 +51,12 @@ const ServiceCard = ({
                     <h5 className={styles.description}>
                       {service.description}
                     </h5>
-                  </Container>
+                  </div>
                 </div>
               </div>
             ))}
         </div>
-      </Container>
+      </div>
     </div>
   );
 };

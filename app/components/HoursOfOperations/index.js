@@ -1,28 +1,27 @@
 import React from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
 import styles from "./HoursOfOperation.module.css";
 
 const HoursOfOperation = ({ hoursData = [],lunchTime }) => {
 
   return (
-    <Container style={{ paddingBottom: 25 }}>
+    <div className="container mx-auto" style={{ paddingBottom: 25 }}>
       <h2 className={styles.heading}>Clinic Hours</h2>
       {hoursData.map(({ day, time }, index) => (
-        <Row key={index} className="py-2">
-          <Col xs={6} sm={4}>
+        <div key={index} className="flex flex-wrap py-2">
+          <div className='w-1/2 sm:w-1/3'>
             <strong>{day}:</strong>
-          </Col>
-          <Col xs={6} sm={8}>
+          </div>
+          <div className='w-1/2 sm:w-2/3'>
             {time}
-          </Col>
-        </Row>
+          </div>
+        </div>
       ))}
-      <Row className="mt-3">
-        <Col xs={12} className={styles.closed}>
+      <div className="flex flex-wrap mt-3">
+        <div className={`w-full ${styles.closed}`}>
           <strong>Closed for lunch:</strong> {lunchTime}
-        </Col>
-      </Row>
-    </Container>
+        </div>
+      </div>
+    </div>
   );
 };
 

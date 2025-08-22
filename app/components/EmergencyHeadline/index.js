@@ -1,4 +1,3 @@
-import { Container } from "react-bootstrap";
 import CustomButton from "../CustomButton";
 import HeadingWithBgImage from "../HeadingWithBgImage";
 import Link from "next/link";
@@ -21,7 +20,7 @@ const EmergencyHeadline = ({
   };
   return (
     <div>
-      <Container>
+      <div className="container mx-auto">
         <HeadingWithBgImage
           withoutBgImageHeading={withoutBgImageHeading}
           media={media}
@@ -41,7 +40,7 @@ const EmergencyHeadline = ({
         />
        </Link>
         }
-      </Container>
+      </div>
     </div>
   );
 };

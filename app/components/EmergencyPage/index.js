@@ -1,6 +1,5 @@
 "use client";
 
-import { Container } from "react-bootstrap";
 import { renderComponent } from "../../utils/renderComponent";
 import { usePages } from '../../context/PagesContext';
 import styles from "./Emergency.module.css";
@@ -27,7 +26,7 @@ const Emergency = () => {
   const filtered = filterByPage(pages.pages, pageName);
 
   return (
-    <Container fluid="sm" className={styles.MarginTopDefault}>
+    <div className={`mx-auto w-full max-w-sm ${styles.MarginTopDefault}`}>
       <ScrollHandler sectionScroll={null} scrollToCenter={false} />
       {filtered.length > 0 ? (
         filtered.map((page, pageIndex) => (
@@ -42,7 +41,7 @@ const Emergency = () => {
       ) : (
         <p>No locations found.</p>
       )}
-    </Container>
+    </div>
   );
 };
 

@@ -1,6 +1,5 @@
 "use client";
 
-import { Container } from "react-bootstrap";
 import styles from "./Testimonials.module.css";
 import { renderComponent } from "../../utils/renderComponent";
 import { usePages } from '../../context/PagesContext';
@@ -28,7 +27,7 @@ const TestimonialsPage = () => {
 
   return (
     <div className={styles.marginCustom}>
-      <Container>
+      <div className="container mx-auto">
         <ScrollHandler sectionScroll={null} scrollToCenter={false} />
         {filtered.length > 0 ? (
           filtered.map((page, pageIndex) => (
@@ -43,7 +42,7 @@ const TestimonialsPage = () => {
         ) : (
           <p>No content available.</p>
         )}
-      </Container>
+      </div>
     </div>
   );
 };

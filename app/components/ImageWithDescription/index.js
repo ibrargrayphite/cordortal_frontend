@@ -1,5 +1,4 @@
 import styles from "./ImageWithDescription.module.css";
-import { Container } from "react-bootstrap";
 import defaultMedia from "../../../public/assets/images/solutions/implants.png";
 import Image from "next/image";
 
@@ -8,7 +7,7 @@ const ImageWithDescription = ({ media, description, noBgColor }) => {
 
   return (
     <div className={noBgColor ? styles.noBgColor : styles.solutionsContainer0}>
-      <Container>
+      <div className="container mx-auto">
         <div>
           <div style={{ paddingTop: 78 }}>
             <div className={styles.logo}>
@@ -21,7 +20,7 @@ const ImageWithDescription = ({ media, description, noBgColor }) => {
             <p className={styles.financeDesc}>{description}</p>
           </div>
         </div>
-      </Container>
+      </div>
     </div>
   );
 };

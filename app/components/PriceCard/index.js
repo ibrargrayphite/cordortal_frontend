@@ -1,4 +1,3 @@
-import { Row, Col, Card, Container } from "react-bootstrap";
 import styles from "./PriceCard.module.css"; 
 import CustomButton from "../CustomButton";
 import Link from "next/link";
@@ -9,20 +8,19 @@ const PriceCard = ({ Package = false, data }) => {
   };
 
   return (
-    <Container>
-      <Row className="d-flex justify-content-center">
+    <div className="container mx-auto">
+      {/* Bootstrap row mimic: flex-wrap + negative margins for gutters */}
+      <div className="flex flex-wrap justify-center">
         {data.map((item, index) => (
-          <Col key={index} sm={7} lg={3} className="d-flex">
-            {" "}
-            {/* Added d-flex for flex behavior */}
-            <Card
-              className={`${styles.cardParent} d-flex flex-column flex-grow-1`}
-            >
-              {" "}
-              {/* flex-grow-1 ensures equal height */}
-              <Container className="d-flex flex-column flex-grow-1">
-                {" "}
-                {/* Vertically align content */}
+          <div
+            key={index}
+            // Bootstrap Col: sm=7, lg=3 with gutter padding
+            className="w-full sm:w-7/12 lg:w-3/12 px-2 flex"
+          >
+            {/* Card */}
+            <div className={`${styles.cardParent} flex flex-col flex-grow`}>
+              {/* Inner content wrapper */}
+              <div className="flex flex-col flex-grow container">
                 <p className={styles.cardHeading}>{item.headline}</p>
                 {/* Conditionally show cardPricing when Package is true */}
                 {Package && (
@@ -37,7 +35,6 @@ const PriceCard = ({ Package = false, data }) => {
                 {!Package && item.services && (
                   <>
                     {item.services.map((service, i) => (
-                      <>
                       <div key={i} className={styles.servicePriceCard}>
                         <p className={styles.serviceDetail}>
                           <span dangerouslySetInnerHTML={{ __html: service.serviceName }}/>
@@ -51,25 +48,26 @@ const PriceCard = ({ Package = false, data }) => {
                           )}
                         </p>
                       </div>
-                     </>
                     ))}
+
+                    {/* Button aligned bottom */}
                     <div className="mt-auto">
                       <Link href={item.src} target="_blank">
-                       <CustomButton
-                         headline="Get Started"
-                        //  onClick={() => handleBooking(item.src)}
-                         className={styles.customButton}
-                       />
+                        <CustomButton
+                          headline="Get Started"
+                          //  onClick={() => handleBooking(item.src)}
+                          className={styles.customButton}
+                        />
                       </Link>
-                     </div>
+                    </div>
                   </>
                 )}
-              </Container>
-            </Card>
-          </Col>
+              </div>
+            </div>
+          </div>
         ))}
-      </Row>
-    </Container>
+      </div>
+    </div>
   );
 };
 

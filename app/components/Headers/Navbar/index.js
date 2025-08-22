@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Container, Nav, Navbar } from "react-bootstrap";
 import MenuIcon from "../../../../public/assets/images/navIcon.svg";
 import CrossIcon from "../../../../public/assets/images/cross.svg";
 import locationIcon from "../../../../public/assets/images/location.png";
@@ -10,7 +9,7 @@ import { useTheme } from "../../../context/ThemeContext";
 import defaultMedia from "../../../../public/assets/images/solutions/implants.png";
 import Image from "next/image";
 import { Button } from "../../../components/ui/button";
-import { cn } from "../../../utils/utils"
+import { cn } from "../../../utils/utils";
 
 const NavBar = ({ media, src, name, menuItems, locations }) => {
   const theme = useTheme();
@@ -76,35 +75,147 @@ const NavBar = ({ media, src, name, menuItems, locations }) => {
   // }, [currentPath]);
 
   return (
-    <Navbar
-      collapseOnSelect
+    <div
       style={{
         background: theme.mainAccentDark,
         position: "fixed",
-        width: "100%",
-        top: "0px",
+        width: "100%",    // FIXED: was 100vw
+        left: 0,
+        right: 0,
+        top: 0,
         zIndex: 1100,
+        margin: 0,
+        padding: 0,
       }}
       className={styles.navbarCollapse}
-      expand="lg"
-      // className=" mt-3"
-      expanded={expanded}
     >
-      <Container className={styles.navBarContainer}>
-        <Navbar.Brand
-          style={{ cursor: "pointer", maxWidth: '207px' }}
+      <div className={`container mx-auto flex items-center justify-between px-4 min-h-[120px] ${styles.navBarContainer}`}>
+        {/* Logo (always visible) */}
+        <div
+          style={{ cursor: "pointer", maxWidth: "207px" }}
           onClick={() => handleNavigation("/")}
         >
           <Image
             loading="lazy"
             width={100}
-            src={media && media?.startsWith("https") ? media : defaultMedia.src}
             height={69}
+            src={media?.startsWith("https") ? media : defaultMedia.src}
             className={styles.logoMob}
-            alt={`Best Dental Care${name}`}
+            alt={`Best Dental Care ${name}`}
           />
-        </Navbar.Brand>
-        <div className={styles.locationMob}>
+        </div>
+
+        {/* Desktop nav (hidden on mobile) */}
+        <div
+          className={`hidden md:flex items-center justify-end`}
+          style={{ minHeight: "1vh", maxHeight: "63vh" }}
+        >
+          <div className="me-auto flex flex-col lg:flex-row items-center">
+            {menuItems?.map((item) => (
+              <div
+                key={item.label}
+                className={`${styles.aboutDropdown} !mb-4 lg:!mb-0`}
+              >
+                <a
+                  style={{ fontSize: "16px" }}
+                  className={`${styles.listStyle} ${
+                    activeItem === item.label ? styles.active : ""
+                  }`}
+                  onClick={() => handleNavigation(item.href)}
+                >
+                  {item.label}
+                </a>
+                {item.htmlContent && (
+                  <span dangerouslySetInnerHTML={{ __html: item.htmlContent }} />
+                )}
+                {item.subItems.length > 0 && (
+                  <div className={styles[`${"aboutDropdown"}Content`]}>
+                    {item.subItems.map((subItem) => (
+                      <a
+                        key={subItem.label}
+                        onClick={() => handleNavigation(subItem.href)}
+                      >
+                        {subItem.label.replace("{name}", name)}
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+
+            {/* Emergency button */}
+            <div className={`!mb-4 lg:!mb-0 ${styles.emergencyButton}`}>
+              <div style={{ display: "flex", gap: 10 }}>
+                <Button
+                  onClick={() => handleNavigation("/emergency")}
+                  variant="emergency"
+                  className={cn(
+                    "border-2 border-red-500",
+                    "hover:bg-red-500",
+                    "hover:border-white"
+                  )}
+                >
+                  Emergency
+                </Button>
+              </div>
+            </div>
+
+            {/* Desktop location dropdown */}
+            <div className={styles.locationDropdown}>
+              <div
+                className={`${styles.informationDropdown} !mb-4 lg:!mb-0`}
+                ref={dropdownRef}
+              >
+                <a
+                  style={{ fontSize: "16px" }}
+                  className={` font-size-lg font-size-md-md font-size-sm-sm ${
+                    styles.listStyle
+                  } ${activeItem === "Location" ? styles.active : ""}`}
+                  onClick={toggleDropdown}
+                >
+                  <Image
+                    loading="lazy"
+                    width={100}
+                    height={32}
+                    className={styles.locationIconStyle}
+                    src={locationIcon.src}
+                    alt={`Exceptional Dental Service at ${name}`}
+                  />
+                </a>
+                <div
+                  className={`${styles.informationDropdownContent} ${
+                    locationDropdownVisible ? styles.visible : ""
+                  }`}
+                >
+                  {locations?.map((loc) => (
+                    <a
+                      key={loc.name + 2}
+                      className={loc.disable ? styles.disabled : ""}
+                      onClick={() => window.open(loc.link, "_blank")}
+                    >
+                      {loc.name}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Book Online button */}
+            <Button
+              onClick={() => handleBooking(src)}
+              className={`${styles.customNavbarBtn} bg-main-accent`}
+              style={{ width: 211, marginLeft: "14px" }}
+              variant="default"
+              size="default"
+            >
+              Book Online
+            </Button>
+          </div>
+        </div>
+
+        {/* Mobile controls (only on < md) */}
+        <div className={`flex md:hidden items-center gap-2 ${styles.locationMob}`}>
+          {/* Location dropdown (mobile) */}
           <div
             style={{
               margin: "0px 6px",
@@ -138,25 +249,25 @@ const NavBar = ({ media, src, name, menuItems, locations }) => {
               }`}
               style={{ marginTop: 40 }}
             >
-              {locations?.map((loc) => 
-              (<a key={loc.name+1} className={`${loc.disable===true?styles.disabled:""}`}
-                onClick={() =>
-                  window.open(loc.link, "_blank")
-                }
-              >
-                {loc.name}
-              </a>
+              {locations?.map((loc) => (
+                <a
+                  key={loc.name + 1}
+                  className={`${loc.disable === true ? styles.disabled : ""}`}
+                  onClick={() => window.open(loc.link, "_blank")}
+                >
+                  {loc.name}
+                </a>
               ))}
             </div>
           </div>
-          <Navbar.Toggle
-            aria-controls="responsive-navbar-nav"
-            onClick={() => setExpanded(expanded ? false : "expanded")}
+
+          {/* Mobile menu toggle */}
+          <button
+            onClick={() => setExpanded(expanded ? false : true)}
             style={{
               border: "none",
               backgroundColor: "transparent",
               outline: "none",
-              boxShadow: "none",
             }}
           >
             {expanded ? (
@@ -174,33 +285,31 @@ const NavBar = ({ media, src, name, menuItems, locations }) => {
                 alt="menu"
               />
             )}
-          </Navbar.Toggle>
+          </button>
         </div>
-        <Navbar.Collapse
-          id="responsive-navbar-nav  justify-content-center  "
-          className=" d-lg-flex justify-content-end  "
-          style={{
-            minHeight: "1vh",
-            maxHeight: "63vh"
-          }}
+      </div>
+
+      {/* Collapsible nav for mobile (below logo + controls) */}
+      {expanded && (
+        <div
+          className="block md:hidden"
+          style={{ minHeight: "1vh", maxHeight: "63vh" }}
         >
-          <div>
-            <Nav className="me-auto  d-flex flex-column flex-lg-row align-items-center   ">
-              {menuItems?.map((item) => (
-                <div
-                  key={item.label}
-                  // style={{ margin: "0px 18px" }}
-                  className={`${styles.aboutDropdown} mb-4 mb-lg-0`}
+          <div className="me-auto flex flex-col items-center">
+            {menuItems?.map((item) => (
+              <div
+                key={item.label}
+                className={`${styles.aboutDropdown} !mb-4`}
+              >
+                <a
+                  style={{ fontSize: "16px" }}
+                  className={`${styles.listStyle} ${
+                    activeItem === item.label ? styles.active : ""
+                  }`}
+                  onClick={() => handleNavigation(item.href)}
                 >
-                  <a
-                    style={{ fontSize: "16px" }}
-                    className={`${styles.listStyle} ${
-                      activeItem === item.label ? styles.active : ""
-                    }`}
-                    onClick={() => handleNavigation(item.href)}
-                  >
-                    {item.label}
-                  </a>
+                  {item.label}
+                </a>
                   {item.htmlContent && (
                     <span dangerouslySetInnerHTML={{ __html: item.htmlContent }} />
                   )}
@@ -221,7 +330,7 @@ const NavBar = ({ media, src, name, menuItems, locations }) => {
               {/* hardcoded emergency button */}
               <div 
               // style={{ margin: "0px 18px" }} 
-              className={`mb-4 mb-lg-0 ${styles.emergencyButton}`}>
+              className={`!mb-4 lg:!mb-0 ${styles.emergencyButton}`}>
                 <div style={{ display: "flex", gap: 10 }}>
                   <a
                     style={{ fontSize: "16px" }}
@@ -251,7 +360,7 @@ const NavBar = ({ media, src, name, menuItems, locations }) => {
               <div className={styles.locationDropdown}>
                 <div
                   // style={{ margin: "0px 18px" }}
-                  className={`${styles.informationDropdown} mb-4 mb-lg-0`}
+                  className={`${styles.informationDropdown} mb-4 lg:!mb-0`}
                   ref={dropdownRef}
                 >
                   <a
@@ -287,20 +396,19 @@ const NavBar = ({ media, src, name, menuItems, locations }) => {
                   </div>
                 </div>
               </div>
-              <Button
-                onClick={() => handleBooking(src)}
-                className={`${styles.customNavbarBtn} bg-main-accent`}
-                style={{ width: 211, marginLeft: "14px" }}
-                variant="default"
-                size="default"
-              >
-                Book Online
-              </Button>
-            </Nav>
+            <Button
+              onClick={() => handleBooking(src)}
+              className={`${styles.customNavbarBtn} bg-main-accent`}
+              style={{ width: 211, marginLeft: "14px" }}
+              variant="default"
+              size="default"
+            >
+              Book Online
+            </Button>
           </div>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+        </div>
+      )}
+    </div>
   );
 };
 export default NavBar;

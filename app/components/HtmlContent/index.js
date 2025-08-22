@@ -1,12 +1,11 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
 import styles from "./html.module.css"
 
 const HtmlContent = ({ htmlContent }) => {
   return (
-    <Container className='mt-5'>
+    <div className='mt-5 container mx-auto'>
     <div className={styles.content} dangerouslySetInnerHTML={{ __html: htmlContent }} />
-    </Container>
+    </div>
   );
 };
 

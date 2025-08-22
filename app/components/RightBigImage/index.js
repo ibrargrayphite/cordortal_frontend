@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import styles from "./RightBigImage.module.css";
-import { Container, Row, Col } from "react-bootstrap";
 import { useTheme } from "../../context/ThemeContext";
 import { useRouter } from "next/navigation";
 import {
@@ -37,23 +36,20 @@ const RightBigImage = ({ headline, description, media, data }) => {
   };
 
   return (
-    <Container className="py-5">
-      <Row className="align-items-center g-0">
+    <div className="container mx-auto py-5">
+      <div className="flex flex-wrap items-center g-0">
         {/* Left Section */}
-        <Col xs={12} md={6}>
-          <Container className="mt-10 mb-5 flex items-center">
+        <div className="w-full md:w-1/2">
+          <div className="container mx-auto mt-10 mb-5 flex items-center">
             <div className=" px-3 ">
               <p className={styles.description}>{description}</p>
               <h2 className={styles.headline}>{headline}</h2>
               <div className={styles.BulletParent}>
-                <Row>
+                <div className="flex flex-wrap items-center">
                   {data.map((item, index) => (
-                    <Col
+                    <div
                       key={index}
-                      md={6}
-                      sm={6}
-                      xs={12}
-                      className="flex flex-col p-2"
+                      class="w-full sm:w-1/2 md:w-1/2 flex flex-col p-2"
                     >
                       <div className={styles.icon}>
                       {item.icon === "FaGlobe" && <FaGlobe />}
@@ -89,22 +85,22 @@ const RightBigImage = ({ headline, description, media, data }) => {
                           />
                         </div>
                       </a>
-                    </Col>
+                    </div>
                   ))}
-                </Row>
+                </div>
               </div>
             </div>
-          </Container>
-        </Col>
+          </div>
+        </div>
 
         {/* Right Section: Image with shadow/reflection */}
-        <Col xs={12} md={6} className="d-flex justify-content-center">
+        <div className="w-full md:w-1/2 flex justify-center">
           <div className={styles.imageWrapper}>
             <Image loading="lazy" width={100} height={100} src={media && media?.startsWith('https') ? media : defaultMedia.src} alt="Right Section" className="img-fluid h-auto w-full" />
           </div>
-        </Col>
-      </Row>
-    </Container>
+        </div>
+      </div>
+    </div>
   );
 };
 

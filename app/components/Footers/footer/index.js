@@ -1,5 +1,4 @@
 "use client";
-import { Col, Container, Row } from "react-bootstrap";
 import styles from "./Footer.module.css";
 import ContactCard from "../../ContactCard";
 import { useRouter } from "next/navigation";
@@ -58,21 +57,18 @@ const Footer = ({ src, refersrc, title,data,media,noBgColor }) => {
         }
         
         <div className={styles.footerTopWhiteSpace}></div>
-        <Container
-          fluid
-          className={styles.contentMain}
+        <div
+          className={`w-full ${styles.contentMain}`}
           style={{ background: noBgColor?"":"#1f45b105", paddingTop: 30 }}
         >
-          <Row className="max-lg:text-center">
-            <Col xxl={2} />
-            <Col lg={4} sm={12}>
+          <div className="flex flex-wrap max-lg:text-center">
+            <div className="xxl:w-1/6" />
+            <div className="w-full lg:w-1/3">
               <HoursOfOperation hoursData={data?.hoursData} lunchTime={data?.lunchTime}/>
-            </Col>
+            </div>
             {/* for mobile view */}
-            <Col
-              lg={4}
-              sm={12}
-              className={`${styles.bookingButton} ${styles.mobileBookingButton}`}
+            <div
+              className={`w-full lg:w-1/3 flex flex-col items-center ${styles.bookingButton} ${styles.mobileBookingButton}`}
             >
               <CustomButton
                 headline="Book an Appointment"
@@ -86,8 +82,8 @@ const Footer = ({ src, refersrc, title,data,media,noBgColor }) => {
                   </li>
                 </ul>
               </div>
-            </Col>
-            <Col lg={4} sm={12} className={styles.mobileCenter}>
+            </div>
+            <div className={`w-full lg:w-1/3 flex flex-col items-start ${styles.mobileCenter}`}>
             {(typeof media == 'undefined'  ||  media)? 
               <>
                 <p style={{ fontWeight: "bold", color: theme.content }}>
@@ -120,12 +116,12 @@ const Footer = ({ src, refersrc, title,data,media,noBgColor }) => {
                 </div>
               </>
             : ""}
-            </Col>
-          </Row>
+            </div>
+          </div>
           {/* for desktop */}
-          <Row>
-            <Col lg={4} />
-            <Col lg={4} sm={12} className={styles.hideOnMobile}>
+          <div className="flex flex-wrap">
+            <div className="w-full lg:w-1/3"/>
+            <div className={`w-full lg:w-1/3 flex flex-col text-center ${styles.hideOnMobile}`}>
               <div className={`max-lg:mt-0 max-xl:mt-40 ${styles.leftButton}`}>
                 <CustomButton
                   headline="Book an Appointment"
@@ -147,23 +143,18 @@ const Footer = ({ src, refersrc, title,data,media,noBgColor }) => {
                   </li>
                 </ul>
               </div>
-            </Col>
-            <Col />
-          </Row>
-          <Row>
-            <Col lg={2} />
-            <Col lg={8} sm={12} className={styles.footerContent}>
+            </div>
+            <div className="flex-1" />
+          </div>
+          <div className="flex flex-wrap">
+            <div className="w-full lg:w-1/6" />
+            <div className={`w-full lg:w-8/12 ${styles.footerContent}`}>
               <div className={styles.contentMain}>
                 <ul className={styles.footerLink}>
-                  <Container fluid>
-                    <Row>
+                  <div className="w-full">
+                    <div className="flex flex-wrap">
                       {footerLinks.map((link, index) => (
-                        <Col
-                          key={index}
-                          lg={4}
-                          sm={6}
-                          xs={6}
-                        >
+                        <div key={index} className="w-1/2 lg:w-1/3">
                           <li>
                             <a
                               style={{ cursor: "pointer" }}
@@ -174,16 +165,16 @@ const Footer = ({ src, refersrc, title,data,media,noBgColor }) => {
                               {link.label}
                             </a>
                           </li>
-                        </Col>
+                        </div>
                       ))}
-                    </Row>
-                  </Container>
+                    </div>
+                  </div>
                 </ul>
               </div>
-            </Col>
-            <Col lg={2} />
-          </Row>
-        </Container>
+            </div>
+            <div className="w-full lg:w-1/6" />
+          </div>
+        </div>
       </footer>
       <div className={styles.copywrightText}>
         Copyright 2024 All Rights Reserved by{" "}

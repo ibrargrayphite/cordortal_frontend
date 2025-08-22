@@ -1,7 +1,5 @@
-
 "use client";
 import styles from "./Trusted.module.css";
-import { Col, Container, Row } from "react-bootstrap";
 import { useRouter } from "next/navigation";
 import CustomButton from "../CustomButton";
 import Image from "next/image";
@@ -30,10 +28,14 @@ const RightImage = ({
   };
   return (
     <div>
-      <Container>
-        <Row style={{alignItems: media?'center':'none'}}>
-          <Col md={6} xs={12}>
-          <h1>{headline}</h1>
+      <div className="container mx-auto px-4">
+        <div
+          className="flex flex-wrap justify-center"
+          style={{ alignItems: media ? "center" : "none" }}
+        >
+          {/* Left Column */}
+          <div className="w-full md:w-1/2">
+            <h1>{headline}</h1>
             <p className={styles.paragraph}>{description}</p>
             <div className={styles.buttonContainer}>
               <CustomButton
@@ -53,8 +55,8 @@ const RightImage = ({
                   onClick={() => router.push("/about-us")}
                 >
                   <button className={styles.button2}>{"Read more"}</button>
-                  <Image 
-                  loading="lazy"
+                  <Image
+                    loading="lazy"
                     src={icon}
                     height={11}
                     className={styles.rightArrowAlign}
@@ -63,8 +65,10 @@ const RightImage = ({
                 </div>
               )}
             </div>
-          </Col>
-          <Col md={6} xs={12}>
+          </div>
+
+          {/* Right Column */}
+          <div className="w-full md:w-1/2">
             {media ? (
               <Image
                 loading="lazy"
@@ -103,9 +107,9 @@ const RightImage = ({
                 </div>
               </div>
             )}
-          </Col>
-        </Row>
-      </Container>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

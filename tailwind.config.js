@@ -9,7 +9,8 @@ module.exports = {
   theme: {
   	extend: {
   		screens: {
-  			xs: '300px'
+  			xs: '300px',
+			xxl: '1400px'
   		},
   		borderRadius: {
   			lg: 'var(--radius)',

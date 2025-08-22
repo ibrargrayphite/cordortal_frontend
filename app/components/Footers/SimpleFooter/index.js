@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
 import { useTheme } from "../../../context/ThemeContext";
 import styles from "./SimpleFooter.module.css";
 import Image from "next/image";
@@ -12,20 +11,19 @@ const SimpleFooter = ({ footerRights, data }) => {
 
   return (
     <>
-      <Container
-        fluid
+      <div className="w-full"
         style={{
           backgroundColor: theme.bgColor,
           padding: "50px 0",
           marginTop: 80,
         }}
       >
-        <Container>
-          <Row>
+        <div className="container mx-auto">
+          <div className="flex flex-wrap">
             
 
             {/* Information Section */}
-            <Col>
+            <div className="flex flex-col">
               <h5 className={styles.sectionHeading}>
                 {data.sections.information.heading}
               </h5>
@@ -36,10 +34,10 @@ const SimpleFooter = ({ footerRights, data }) => {
                   </li>
                 ))}
               </ul>
-            </Col>
+            </div>
 
             {/* Company Section */}
-            <Col>
+            <div className="flex flex-col">
               <h5 className={styles.sectionHeading}>
                 {data.sections.company.heading}
               </h5>
@@ -50,10 +48,10 @@ const SimpleFooter = ({ footerRights, data }) => {
                   </li>
                 ))}
               </ul>
-            </Col>
+            </div>
 
             {/* About Us Section */}
-            <Col>
+            <div className="flex flex-col">
               <h5 className={styles.sectionHeading}>
                 {data.sections.aboutUs.heading}
               </h5>
@@ -66,8 +64,8 @@ const SimpleFooter = ({ footerRights, data }) => {
               <p className={styles.listItem}>
                 <strong>Phone:</strong> {data.sections.aboutUs.contact.phone}
               </p>
-            </Col>
-            <Col>
+            </div>
+            <div>
   <div className="flex flex-wrap justify-center gap-4">
     {data.media.map((image, index) => (
       <div 
@@ -86,15 +84,15 @@ const SimpleFooter = ({ footerRights, data }) => {
       </div>
     ))}
   </div>
-</Col>
-          </Row>
-        </Container>
-      </Container>
-      <Row className="mt-4 text-center">
-        <Col>
+</div>
+          </div>
+        </div>
+      </div>
+      <div className="flex flex-wrap mt-4 text-center">
+        <div>
           <p>&copy; {footerRights}</p>
-        </Col>
-      </Row>
+        </div>
+      </div>
     </>
   );
 };

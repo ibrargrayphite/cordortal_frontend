@@ -1,6 +1,5 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-import { Container } from "react-bootstrap";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
@@ -25,10 +24,10 @@ const ReviewSlider = ({ userReviews = [], headline, description }) => {
 
   if (!userReviews.length) {
     return (
-      <Container className={styles.ReviewContainer}>
+      <div className={`container mx-auto ${styles.ReviewContainer}`}>
         <HeadingTopDiscription headline={headline} description={description} />
         <p>No user review to display at the moment.</p>
-      </Container>
+      </div>
     );
   }
 
@@ -98,7 +97,7 @@ const ReviewSlider = ({ userReviews = [], headline, description }) => {
 
               return (
                 <SwiperSlide key={item.id} className={styles.SlideParent}>
-                  <Container
+                  <div className="container mx-auto"
                     style={{
                       marginBottom: 20,
                       textAlign: "center",
@@ -158,7 +157,7 @@ const ReviewSlider = ({ userReviews = [], headline, description }) => {
                         </div>
                       </a>
                     </div>
-                  </Container>
+                  </div>
                 </SwiperSlide>
               );
             })}
