@@ -89,7 +89,7 @@ const NavBar = ({ media, src, name, menuItems, locations }) => {
       }}
       className={styles.navbarCollapse}
     >
-      <div className={`container mx-auto flex items-center justify-between px-4 min-h-[120px] ${styles.navBarContainer}`}>
+      <div className={`container mx-auto flex items-center justify-between xxl:max-w-[1320px] py-3 ${styles.navBarContainer}`}>
         {/* Logo (always visible) */}
         <div
           style={{ cursor: "pointer", maxWidth: "207px" }}
@@ -107,7 +107,7 @@ const NavBar = ({ media, src, name, menuItems, locations }) => {
 
         {/* Desktop nav (hidden on mobile) */}
         <div
-          className={`hidden md:flex items-center justify-end`}
+          className={`hidden lg:flex items-center justify-end`}
           style={{ minHeight: "1vh", maxHeight: "63vh" }}
         >
           <div className="me-auto flex flex-col lg:flex-row items-center">
@@ -214,7 +214,7 @@ const NavBar = ({ media, src, name, menuItems, locations }) => {
         </div>
 
         {/* Mobile controls (only on < md) */}
-        <div className={`flex md:hidden items-center gap-2 ${styles.locationMob}`}>
+        <div className={`flex lg:hidden items-center gap-2 ${styles.locationMob}`}>
           {/* Location dropdown (mobile) */}
           <div
             style={{

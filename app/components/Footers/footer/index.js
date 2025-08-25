@@ -68,7 +68,7 @@ const Footer = ({ src, refersrc, title,data,media,noBgColor }) => {
             </div>
             {/* for mobile view */}
             <div
-              className={`w-full lg:w-1/3 flex lg:hidden flex-col items-center ${styles.bookingButton} ${styles.mobileBookingButton}`}
+              className={`w-full lg:w-1/3 flex md:hidden flex-col items-center ${styles.bookingButton} ${styles.mobileBookingButton}`}
             >
               <CustomButton
                 headline="Book an Appointment"
@@ -98,7 +98,7 @@ const Footer = ({ src, refersrc, title,data,media,noBgColor }) => {
                   }/>
                 </div>
                 <div style={{ cursor: "pointer", marginTop: 20 }} className={`${styles.footerAward} max-lg:flex max-lg:justify-center`}>
-                  <Nhs  height={"55px"} width={"30%"}  alt="nhs" onClick={() => window.open("https://www.nhs.uk/", "_blank")} />
+                  <Nhs  height={"55px"} width={"100%"}  alt="nhs" onClick={() => window.open("https://www.nhs.uk/", "_blank")} />
                 </div>
                 <div className={`${styles.footerAward} max-lg:flex max-lg:justify-center`}>
                   <Image 
@@ -119,7 +119,7 @@ const Footer = ({ src, refersrc, title,data,media,noBgColor }) => {
             </div>
           </div>
           {/* for desktop */}
-          <div className="lg:flex flex-wrap hidden">
+          <div className="md:flex flex-wrap hidden">
             <div className="w-full lg:w-1/3"/>
             <div className={`w-full lg:w-1/3 flex flex-col text-center ${styles.hideOnMobile}`}>
               <div className={`max-lg:mt-0 max-xl:mt-40 ${styles.leftButton}`}>
@@ -151,7 +151,7 @@ const Footer = ({ src, refersrc, title,data,media,noBgColor }) => {
             <div className={`w-full lg:w-8/12 ${styles.footerContent}`}>
               <div className={styles.contentMain}>
                 <ul className={styles.footerLink}>
-                  <div className="w-full">
+                  <div className="w-full px-6 pb-6">
                     <div className="flex flex-wrap">
                       {footerLinks.map((link, index) => (
                         <div key={index} className="w-1/2 lg:w-1/3">

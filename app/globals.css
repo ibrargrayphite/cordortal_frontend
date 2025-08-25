@@ -30,7 +30,7 @@
     -moz-osx-font-smoothing: grayscale;
     /* font-family: var(--font-josefin-sans) !important;  */
     font-family: var(--dynamic-font, sans-serif) !important; /* Force dynamic font with !important */
-
+    background-color: white;
   }
   
   * {
