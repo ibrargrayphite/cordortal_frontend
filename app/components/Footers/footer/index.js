@@ -61,14 +61,14 @@ const Footer = ({ src, refersrc, title,data,media,noBgColor }) => {
           className={`w-full ${styles.contentMain}`}
           style={{ background: noBgColor?"":"#1f45b105", paddingTop: 30 }}
         >
-          <div className="flex flex-wrap max-lg:text-center">
+          <div className="flex flex-wrap md:text-center lg:text-start">
             <div className="xxl:w-1/6" />
             <div className="w-full lg:w-1/3">
               <HoursOfOperation hoursData={data?.hoursData} lunchTime={data?.lunchTime}/>
             </div>
             {/* for mobile view */}
             <div
-              className={`w-full lg:w-1/3 flex flex-col items-center ${styles.bookingButton} ${styles.mobileBookingButton}`}
+              className={`w-full lg:w-1/3 flex lg:hidden flex-col items-center ${styles.bookingButton} ${styles.mobileBookingButton}`}
             >
               <CustomButton
                 headline="Book an Appointment"
@@ -83,7 +83,7 @@ const Footer = ({ src, refersrc, title,data,media,noBgColor }) => {
                 </ul>
               </div>
             </div>
-            <div className={`w-full lg:w-1/3 flex flex-col items-start ${styles.mobileCenter}`}>
+            <div className={`w-full lg:w-1/3 flex flex-col md:items-center lg:items-start ${styles.mobileCenter}`}>
             {(typeof media == 'undefined'  ||  media)? 
               <>
                 <p style={{ fontWeight: "bold", color: theme.content }}>
@@ -119,7 +119,7 @@ const Footer = ({ src, refersrc, title,data,media,noBgColor }) => {
             </div>
           </div>
           {/* for desktop */}
-          <div className="flex flex-wrap">
+          <div className="lg:flex flex-wrap hidden">
             <div className="w-full lg:w-1/3"/>
             <div className={`w-full lg:w-1/3 flex flex-col text-center ${styles.hideOnMobile}`}>
               <div className={`max-lg:mt-0 max-xl:mt-40 ${styles.leftButton}`}>

@@ -37,7 +37,7 @@ const urbanist = Urbanist({
 export default async function RootLayout({ children }) {
   // Fetch data server-side
   const pagesData = await fetchPagesData();
-  console.log(pagesData.pages[7].content, 'pagesData===')
+  console.log(pagesData.pages[0].content, 'pagesData===')
   const location = pagesData || {};
   const shared = location.shared || {};
   const chatBot = pagesData.data.chatBot;

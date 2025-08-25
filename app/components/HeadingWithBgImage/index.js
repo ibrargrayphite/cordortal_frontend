@@ -13,7 +13,6 @@ const HeadingWithBgImage = ({
   headlineLarge = false,
 }) => {
   const mediaSource = media && media?.startsWith('https') ? media : defaultMedia.src;
-  console.log(noBgColor, 'noBgColor===', headline,)
 
   return (
     <>
@@ -48,10 +47,7 @@ const HeadingWithBgImage = ({
           )}
         </div>
       ) : (
-        <div
-          
-          className={noBgColor ? styles.noBgColor : styles.bgColor}
-        >
+        <div className={noBgColor ? styles.noBgColor : styles.bgColor}>
           <div className="container mx-auto">
             <div
               className={
