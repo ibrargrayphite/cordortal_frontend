@@ -23,7 +23,7 @@ const SimpleFooter = ({ footerRights, data }) => {
             
 
             {/* Information Section */}
-            <div className="flex flex-col w-1/4">
+            <div className="flex flex-col w-1/2 md:w-1/4">
               <h5 className={styles.sectionHeading}>
                 {data.sections.information.heading}
               </h5>
@@ -37,7 +37,7 @@ const SimpleFooter = ({ footerRights, data }) => {
             </div>
 
             {/* Company Section */}
-            <div className="flex flex-col w-1/4">
+            <div className="flex flex-col w-1/2 md:w-1/4">
               <h5 className={styles.sectionHeading}>
                 {data.sections.company.heading}
               </h5>
@@ -51,7 +51,7 @@ const SimpleFooter = ({ footerRights, data }) => {
             </div>
 
             {/* About Us Section */}
-            <div className="flex flex-col w-1/4">
+            <div className="flex flex-col w-1/2 md:w-1/4">
               <h5 className={styles.sectionHeading}>
                 {data.sections.aboutUs.heading}
               </h5>
@@ -66,7 +66,7 @@ const SimpleFooter = ({ footerRights, data }) => {
               </p>
             </div>
             <div>
-  <div className="flex justify-center items-center gap-4">
+  <div className="flex flex-col md:flex-row justify-center items-center gap-4">
     {data.media.map((image, index) => (
       <div 
         key={index} 
