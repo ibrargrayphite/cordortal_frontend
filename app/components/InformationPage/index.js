@@ -1,7 +1,6 @@
 "use client";
 
 import styles from "./Pricing.module.css";
-import { Container } from "react-bootstrap";
 import { renderComponent } from "../../utils/renderComponent";
 import { usePages } from '../../context/PagesContext';
 import dynamic from 'next/dynamic';
@@ -25,11 +24,11 @@ const Pricing = () => {
 
   const pageName = "information";
   const filtered = filterByPage(pages.pages, pageName);
-
+  console.log('filtered', filtered);
   return (
     <div className={styles.customMargin}>
       <ScrollHandler sectionScroll={null} scrollToCenter={true} />
-      <Container fluid className="p-0">
+      <div fluid className="w-full p-0">
         {filtered.length > 0 ? (
           filtered.map((page, pageIndex) => (
             <div key={pageIndex}>
@@ -43,7 +42,7 @@ const Pricing = () => {
         ) : (
           <p>No content available.</p>
         )}
-      </Container>
+      </div>
     </div>
   );
 };

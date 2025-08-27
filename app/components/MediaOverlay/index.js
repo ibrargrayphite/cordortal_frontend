@@ -1,6 +1,5 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Col, Container, Row } from "react-bootstrap";
 import { useRouter } from "next/navigation";
 import CustomButton from "../CustomButton";
 import styles from "./MediaOverlay.module.css";
@@ -35,9 +34,9 @@ const MediaOverlay = ({ media, media2,mediaType, headline, description, style, s
   }, [loading]); // Trigger when 'loading' changes to false
 
   return (
-    <Container fluid>
-      <Row>
-        <Col lg={12} sm={12} style={{ paddingLeft: 0, paddingRight: 0 }}>
+    <div className="w-full">
+      <div className="grid grid-cols-1">
+        <div className="col-span-1 px-0">
           <div
             className={styles.mediaOverlayContainer}
             style={{
@@ -63,9 +62,10 @@ const MediaOverlay = ({ media, media2,mediaType, headline, description, style, s
                 Your browser does not support the video tag.
               </video>
             ) : (
-              <Image 
-              priority={true}
-              width={100} height={100}
+              <Image
+                priority={true}
+                width={100}
+                height={100}
                 id="media-element"
                 src={media2}
                 alt="media"
@@ -91,13 +91,15 @@ const MediaOverlay = ({ media, media2,mediaType, headline, description, style, s
                 onClick={() => handleSecondaryAction(src)}
                 className={styles.customButton}
               />
-               <div className={styles.comingSoonText} dangerouslySetInnerHTML={{ __html: htmlContent }}>
-              </div>
-            </div> 
+              <div
+                className={styles.comingSoonText}
+                dangerouslySetInnerHTML={{ __html: htmlContent }}
+              ></div>
+            </div>
           </div>
-        </Col>
-      </Row>
-    </Container>
+        </div>
+      </div>
+    </div>
   );
 };
 

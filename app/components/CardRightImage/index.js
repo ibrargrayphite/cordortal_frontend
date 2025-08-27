@@ -3,7 +3,6 @@
 import { useRouter } from "next/navigation";
 import { useTheme } from "../../context/ThemeContext";
 import CustomButton from "../CustomButton";
-import { Container, Row, Col, Card } from "react-bootstrap";
 import styles from "./CardRightImage.module.css";
 import { FaArrowRight } from "react-icons/fa";
 import defaultMedia from "../../../public/assets/images/solutions/implants.png";
@@ -21,7 +20,7 @@ const CardRightImage = ({ description, media, headline,buttonName,buttonSrc }) =
   };
 
   return (
-    <div className="container mx-auto">
+    <div className="container lg:max-w-[960px] xxl:max-w-[1320px] mx-auto">
       <div
       className="xs:p-4 sm:p-4 md:p-16 md:my-16 xs:my-2 sm:my-2 max-md:text-center justify-center items-center flex max-md:flex-col"
         style={{
@@ -50,7 +49,7 @@ const CardRightImage = ({ description, media, headline,buttonName,buttonSrc }) =
                 className={styles.customButtonFirst}
               />
               </div>
-              <div className="d-flex justify-center xs:mt-4 md:mt-0 text-center">
+              <div className="flex justify-center xs:mt-4 md:mt-0 text-center">
                 <CustomButton
                   headline={buttonName ? buttonName : "Book Now"}
                   onClick={() => handleSecondaryAction(buttonSrc)}

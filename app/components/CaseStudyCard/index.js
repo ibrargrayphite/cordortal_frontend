@@ -1,7 +1,6 @@
 "use client"
 import React from "react";
 import { useRouter } from "next/navigation";
-import { Row, Col, Container } from "react-bootstrap";
 import styles from "./CaseStudyCard.module.css";
 import HeadingTopDiscription from "../HeadingTopDiscription";
 import CustomButton from "../CustomButton";
@@ -18,12 +17,12 @@ const CaseStudyCard = ({ data,headline,description }) => {
   return (
     <>
     <HeadingTopDiscription headline={headline} description={description} className={styles.h1Width} />
-    <Container>
+    <div className="container mx-auto">
       {data.map((caseStudy, index) => (
         <div id={caseStudy.slug} key={index} className={`${styles.Card} lg:p-10 mb-5`} style={{ backgroundColor: "#FAF7EF" }}>
-          <Row>
+          <div className="flex flex-wrap">
             {/* Left Column */}
-            <Col md={7} className="d-flex ">
+            <div className="w-full md:w-7/12 flex">
             {/* <video src= */}
             {caseStudy.video && 
             <video
@@ -48,9 +47,9 @@ const CaseStudyCard = ({ data,headline,description }) => {
                 width={100} height={100}
                   src={caseStudy.mediaAfter && caseStudy.mediaAfter?.startsWith('https') ? caseStudy.mediaAfter : defaultMediaPic} alt="After" className={styles.mediaImageAfter} />
               }
-            </Col>
+            </div>
             {/* Right Column */}
-            <Col md={5}>
+            <div className="w-full md:w-5/12 flex">
             <div style={{marginLeft:"20px"}}>
               <h3 className={`${styles.heading} lg:text-[40px] max-md:text-lg`}>{caseStudy.heading}</h3>
               <ul className="mb-3" style={{ listStyleType: "disc", paddingLeft: "20px"}}>
@@ -60,20 +59,20 @@ const CaseStudyCard = ({ data,headline,description }) => {
               </ul>
               <p className={styles.date}>Updated: {caseStudy.date}</p>
               </div>
-            </Col>
-          </Row>
+            </div>
+          </div>
         </div>
       ))}
-      <Row>
-      <Col md={12} className="d-flex justify-center">
+      <div className="flex flex-wrap">
+      <div className="w-full flex justify-center">
       <CustomButton
                 headline="View More"
                 onClick={handlePrimaryAction}
                 className={styles.customButton}
               />
-              </Col>
-              </Row>
-      </Container>
+              </div>
+              </div>
+    </div>
     </>
   );
 };

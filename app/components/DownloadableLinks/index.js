@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import { Container, Row, Col } from "react-bootstrap";
 import styles from "./DownloadableLinks.module.css";
 import HeadingWithBgImage from "../HeadingWithBgImage";
 
@@ -28,14 +27,16 @@ const DownloadableLinks = ({ data, noBgColor, headline }) => {
 
   return (
     <div className={noBgColor ? styles.noBgColor : styles.solutionsContainer0}>
-      <Container>
-        <Row>
-          <HeadingWithBgImage
-            withoutBgImageHeading={true}
-            headline={headline}
-          />
+      <div className="container lg:max-w-[960px] xxl:max-w-[1320px] mx-auto">
+        <div className="flex flex-wrap">
+          {/* Heading */}
+          <div className="w-full">
+            <HeadingWithBgImage withoutBgImageHeading={true} headline={headline} />
+          </div>
+
+          {/* Columns */}
           {columns.map((column, colIndex) => (
-            <Col lg={4} sm={12} key={colIndex}>
+            <div key={colIndex} className="px-1 w-full lg:w-1/3">
               <ul className={styles.noBullets}>
                 {column.map((file, index) => (
                   <li key={index} className={styles.listStyle}>
@@ -52,10 +53,10 @@ const DownloadableLinks = ({ data, noBgColor, headline }) => {
                   </li>
                 ))}
               </ul>
-            </Col>
+            </div>
           ))}
-        </Row>
-      </Container>
+        </div>
+      </div>
     </div>
   );
 };

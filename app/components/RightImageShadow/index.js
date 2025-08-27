@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import styles from "./RightImageShadow.module.css";
-import { Container, Row, Col } from "react-bootstrap";
 import CustomButton from "../CustomButton";
 import { useTheme } from "../../context/ThemeContext";
 import { useRouter } from "next/navigation";
@@ -17,10 +16,10 @@ const RightImageShadow = ({ headline, description, media,buttonName,buttonSrc })
   };
 
   return (
-    <Container className="py-5">
-      <Row className="items-center justify-center g-0">
+    <div className="container lg:max-w-[960px] xxl:max-w-[1320px] mx-auto py-5">
+      <div className="flex flex-wrap items-center justify-center g-0">
         {/* Left Section */}
-        <Col xs={12} md={6} className="text-center text-md-start">
+        <div className="w-full md:w-1/2 text-center text-md-start">
         <div className="lg:pl-20 md:p-0 lg:pr-8">
           <h2 className={styles.headline}>{headline}</h2>
           <p className={styles.description}>{description}</p>
@@ -30,10 +29,10 @@ const RightImageShadow = ({ headline, description, media,buttonName,buttonSrc })
             className={styles.customButtonFirst}
           />
         </div>
-        </Col>
+        </div>
 
         {/* Right Section: Image with shadow/reflection */}
-        <Col xs={9} md={6} className="d-flex justify-content-center">
+        <div className="w-9/12 md:w-1/2 flex justify-center">
           <div className={styles.imageWrapper}>
             <Image 
             loading="lazy"
@@ -43,9 +42,9 @@ const RightImageShadow = ({ headline, description, media,buttonName,buttonSrc })
               className="img-fluid w-full h-auto"
             />
           </div>
-        </Col>
-      </Row>
-    </Container>
+        </div>
+      </div>
+    </div>
   );
 };
 

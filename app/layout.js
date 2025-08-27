@@ -1,6 +1,5 @@
 import { Josefin_Sans, Urbanist } from 'next/font/google';
 import './globals.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from './Layout.module.css';
 import { renderComponent } from './utils/renderComponent';
 import { ThemeProvider } from './context/ThemeContext';
@@ -37,6 +36,7 @@ const urbanist = Urbanist({
 export default async function RootLayout({ children }) {
   // Fetch data server-side
   const pagesData = await fetchPagesData();
+  console.log("PAGES DATA IN LAYOUT:", pagesData);
   const location = pagesData || {};
   const shared = location.shared || {};
   const chatBot = pagesData.data.chatBot;

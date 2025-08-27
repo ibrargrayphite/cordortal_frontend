@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import styles from "./ModernSlavery.module.css";
-import { Col, Container, Row } from "react-bootstrap";
 import GetInTouch from "../components/GetInTouch";
 import getInTouch from "../../public/assets/images/getBackground.jpeg";
 import { usePages } from '../context/PagesContext'; // Import the usePages hook
@@ -23,20 +22,20 @@ const ModernSlavery = () => {
 
   return (
     <div>
-      <Container>
+      <div className="container mx-auto">
         <ScrollHandler sectionScroll={null} scrollToCenter={false} />
         <p className={styles.heading}>Anti Slavery Policy</p>
-        <Row>
-          <Col />
-          <Col lg={7} sm={12}>
+        <div className="flex flex-wrap">
+          <div className="flex-1" />
+          <div className="w-full lg:w-7/12">
             <p className={styles.text}>
               Here at {pages?.title} we a wide varierty of treatments from private to
               NHS funded. Please see below an approx price of our treatments
               please contact for further infomation and bookings
             </p>
-          </Col>
-          <Col />
-        </Row>
+          </div>
+          <div className="flex-1" />
+        </div>
         {/* <div style={{ textAlign: "center", marginTop: 0 }}>
           <button className={styles.button}>Book an Appointment</button>
         </div> */}
@@ -162,7 +161,7 @@ const ModernSlavery = () => {
             if they breach this policy.
           </p>
         </div>
-      </Container>
+      </div>
       <div className={styles.getTouchContainer}>
         <GetInTouch headline={"Get in touch"} media={getInTouch.src}/>
       </div>
