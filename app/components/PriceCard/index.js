@@ -8,7 +8,7 @@ const PriceCard = ({ Package = false, data }) => {
   };
 
   return (
-    <div className="container mx-auto">
+    <div className="container lg:max-w-[960px] xxl:max-w-[1320px] mx-auto">
       {/* Bootstrap row mimic: flex-wrap + negative margins for gutters */}
       <div className="flex flex-wrap justify-center">
         {data.map((item, index) => (

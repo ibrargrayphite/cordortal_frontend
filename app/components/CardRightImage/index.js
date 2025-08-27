@@ -20,7 +20,7 @@ const CardRightImage = ({ description, media, headline,buttonName,buttonSrc }) =
   };
 
   return (
-    <div className="container mx-auto">
+    <div className="container lg:max-w-[960px] xxl:max-w-[1320px] mx-auto">
       <div
       className="xs:p-4 sm:p-4 md:p-16 md:my-16 xs:my-2 sm:my-2 max-md:text-center justify-center items-center flex max-md:flex-col"
         style={{

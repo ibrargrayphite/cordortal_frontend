@@ -32,7 +32,7 @@ const HeaderDefault = ({ media, name, menuItems, button }) => {
 
   return (
     <div className={styles.header} style={{ background: theme.mainAccentDark }}>
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto xxl:max-w-[1320px]">
         <nav>
           <div className="flex flex-wrap items-center justify-between mx-auto">
             {/* Logo */}

@@ -16,7 +16,7 @@ const YourTeamSlider = ({ teamMembers = [], headline, description }) => {
 
   if (!teamMembers.length) {
     return (
-      <div className={`container mx-auto ${styles.teamContainer}`}>
+      <div className={`container lg:max-w-[960px] xxl:max-w-[1320px] mx-auto ${styles.teamContainer}`}>
         <HeadingTopDiscription headline={headline} description={description} />
         <p>No team members to display at the moment.</p>
       </div>
@@ -32,7 +32,7 @@ const YourTeamSlider = ({ teamMembers = [], headline, description }) => {
         marginTop: 40,
       }}
     >
-      <div className="container mx-auto">
+      <div className="container lg:max-w-[960px] xxl:max-w-[1320px] mx-auto">
         <HeadingTopDiscription headline={headline} description={description} />
         <div className={styles.teamContainer}>
           <Swiper

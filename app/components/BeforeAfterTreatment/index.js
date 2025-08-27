@@ -10,7 +10,7 @@ const BeforeAfterTreatment = ({ mediaBefore, mediaAfter, noBgColor }) => {
 
   return (
     <div className={noBgColor ? styles.noBgColor : styles.solutionsContainer0}>
-      <div className={`container mx-auto ${styles.beforeAfterContainer}`}>
+      <div className={`container lg:max-w-[960px] xxl:max-w-[1320px] mx-auto ${styles.beforeAfterContainer}`}>
         <div className="flex flex-wrap justify-center">
           <div className={`px-3 w-full md:w-1/3 ${styles.imageContainer}`}>
             <div className={styles.imageWrapper}>

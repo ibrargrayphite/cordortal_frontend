@@ -5,7 +5,7 @@ import styles from "./CountNumber.module.css";
 
 const CountNumber = ({ data }) => {
   return (
-    <div className="relative -mt-20 mb-20 z-10 container mx-auto">
+    <div className="relative -mt-20 mb-20 z-10 container lg:max-w-[960px] xxl:max-w-[1320px] mx-auto">
       <div className={styles.container}>
         {data.map((item, index) => (
           <div key={item.name} className={styles.card}>

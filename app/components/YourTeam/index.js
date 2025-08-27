@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const YourTeam = ({ teamMembers }) => {
   return (
-    <div className={`container mx-auto ${styles.teamContainer}`}>
+    <div className={`container lg:max-w-[960px] xxl:max-w-[1320px] mx-auto ${styles.teamContainer}`}>
       {/* Mimic Bootstrap Row: negative margins for gutters + flex-wrap */}
       <div className="flex flex-wrap">
         {teamMembers.map((member) => (

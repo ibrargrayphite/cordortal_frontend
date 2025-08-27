@@ -16,7 +16,7 @@ const RightImageShadow = ({ headline, description, media,buttonName,buttonSrc })
   };
 
   return (
-    <div className="container mx-auto py-5">
+    <div className="container lg:max-w-[960px] xxl:max-w-[1320px] mx-auto py-5">
       <div className="flex flex-wrap items-center justify-center g-0">
         {/* Left Section */}
         <div className="w-full md:w-1/2 text-center text-md-start">

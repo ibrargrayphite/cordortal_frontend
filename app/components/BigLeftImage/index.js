@@ -6,7 +6,7 @@ import Image from "next/image";
 
 const BigLeftImage = ({ title, headline, description, media, media2 }) => {
   return (
-    <div className="container mx-auto">
+    <div className="container lg:max-w-[960px] xxl:max-w-[1320px] mx-auto">
       <div className={styles.parent}>
         <div className="container mx-auto py-10">
           <div className="flex flex-col md:flex-row items-center">

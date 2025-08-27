@@ -295,11 +295,11 @@ const NavBar = ({ media, src, name, menuItems, locations }) => {
           className="block md:hidden"
           style={{ minHeight: "1vh", maxHeight: "63vh" }}
         >
-          <div className="me-auto flex flex-col items-center">
+          <div className="me-auto flex flex-col items-center pb-2 gap-4">
             {menuItems?.map((item) => (
               <div
                 key={item.label}
-                className={`${styles.aboutDropdown} !mb-4`}
+                className={`${styles.aboutDropdown}`}
               >
                 <a
                   style={{ fontSize: "16px" }}
@@ -330,7 +330,7 @@ const NavBar = ({ media, src, name, menuItems, locations }) => {
               {/* hardcoded emergency button */}
               <div 
               // style={{ margin: "0px 18px" }} 
-              className={`!mb-4 lg:!mb-0 ${styles.emergencyButton}`}>
+              className={`lg:!mb-0 ${styles.emergencyButton}`}>
                 <div style={{ display: "flex", gap: 10 }}>
                   <a
                     style={{ fontSize: "16px" }}

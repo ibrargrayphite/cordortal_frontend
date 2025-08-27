@@ -14,7 +14,7 @@ const ServiceCard = ({
 
   return (
     <div className={noBgColor ? styles.noBgColor : styles.solutionsContainer0}>
-      <div className={`container mx-auto ${styles.servicesParent}`}>
+      <div className={`container lg:max-w-[960px] xxl:max-w-[1320px] mx-auto ${styles.servicesParent}`}>
         {/* Bootstrap Row replacement: gutters + flex wrap */}
         <div className="flex flex-wrap">
           {services &&

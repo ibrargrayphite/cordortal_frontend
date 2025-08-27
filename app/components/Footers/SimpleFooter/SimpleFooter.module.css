@@ -1,6 +1,8 @@
 .sectionHeading{
     color: var(--content-color);
     margin-bottom: 30px;
+    font-size: 1.25rem;
+    font-weight: 500;
 }
 .listItem{
     color: var(--subheadline-color);

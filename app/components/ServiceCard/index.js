@@ -14,7 +14,7 @@ const ServiceCard = ({
 
   return (
     <div className={noBgColor ? styles.noBgColor : styles.solutionsContainer0}>
-      <div className={`${styles.servicesParent} container mx-auto`}>
+      <div className={`${styles.servicesParent} container w-full lg:max-w-[960px] xxl:max-w-[1320px] mx-auto`}>
         <div className={styles.cardGrid}>
           {services &&
             services.map((service, index) => (

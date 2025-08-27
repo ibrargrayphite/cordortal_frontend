@@ -18,12 +18,12 @@ const SimpleFooter = ({ footerRights, data }) => {
           marginTop: 80,
         }}
       >
-        <div className="container mx-auto">
-          <div className="flex flex-wrap">
+        <div className="container mx-auto lg:max-w-[960px] xxl:max-w-[1320px]">
+          <div className="flex flex-wrap w-full justify-between g-0">
             
 
             {/* Information Section */}
-            <div className="flex flex-col">
+            <div className="flex flex-col w-1/4">
               <h5 className={styles.sectionHeading}>
                 {data.sections.information.heading}
               </h5>
@@ -37,7 +37,7 @@ const SimpleFooter = ({ footerRights, data }) => {
             </div>
 
             {/* Company Section */}
-            <div className="flex flex-col">
+            <div className="flex flex-col w-1/4">
               <h5 className={styles.sectionHeading}>
                 {data.sections.company.heading}
               </h5>
@@ -51,7 +51,7 @@ const SimpleFooter = ({ footerRights, data }) => {
             </div>
 
             {/* About Us Section */}
-            <div className="flex flex-col">
+            <div className="flex flex-col w-1/4">
               <h5 className={styles.sectionHeading}>
                 {data.sections.aboutUs.heading}
               </h5>
@@ -66,7 +66,7 @@ const SimpleFooter = ({ footerRights, data }) => {
               </p>
             </div>
             <div>
-  <div className="flex flex-wrap justify-center gap-4">
+  <div className="flex justify-center items-center gap-4">
     {data.media.map((image, index) => (
       <div 
         key={index} 
@@ -88,7 +88,7 @@ const SimpleFooter = ({ footerRights, data }) => {
           </div>
         </div>
       </div>
-      <div className="flex flex-wrap mt-4 text-center">
+      <div className="flex flex-wrap mt-4 items-center justify-center text-center">
         <div>
           <p>&copy; {footerRights}</p>
         </div>

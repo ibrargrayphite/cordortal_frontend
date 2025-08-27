@@ -27,17 +27,17 @@ const DownloadableLinks = ({ data, noBgColor, headline }) => {
 
   return (
     <div className={noBgColor ? styles.noBgColor : styles.solutionsContainer0}>
-      <div className="container mx-auto">
+      <div className="container lg:max-w-[960px] xxl:max-w-[1320px] mx-auto">
         {/* Bootstrap Row replacement */}
         <div className="flex flex-wrap">
           {/* Heading */}
-          <div className="w-full px-3">
+          <div className="w-full">
             <HeadingWithBgImage withoutBgImageHeading={true} headline={headline} />
           </div>
 
           {/* Columns */}
           {columns.map((column, colIndex) => (
-            <div key={colIndex} className="px-3 w-full lg:w-1/3">
+            <div key={colIndex} className="px-1 w-full lg:w-1/3">
               <ul className={styles.noBullets}>
                 {column.map((file, index) => (
                   <li key={index} className={styles.listStyle}>

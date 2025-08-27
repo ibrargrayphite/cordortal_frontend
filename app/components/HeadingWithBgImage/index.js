@@ -17,7 +17,7 @@ const HeadingWithBgImage = ({
   return (
     <>
       {withoutBgImageHeading ? (
-        <div className="container mx-auto">
+        <div className="container w-full xxl:max-w-[1320px] xl:mx-auto">
           <p
             className={
               headlineLarge ? styles.HeadlineLarge : styles.Headline
@@ -30,7 +30,7 @@ const HeadingWithBgImage = ({
               <div className="hidden lg:block flex-1" />
 
               {/* main content */}
-              <div className="w-full lg:w-9/12 px-3 flex">
+              <div className="w-full mx-auto flex items-center justify-center lg:w-9/12">
                 <p className={styles.text}>
                   {description}{" "}
                   {showAnchorCall && (
@@ -48,7 +48,7 @@ const HeadingWithBgImage = ({
         </div>
       ) : (
         <div className={noBgColor ? styles.noBgColor : styles.bgColor}>
-          <div className="container mx-auto">
+          <div className="container xxl:max-w-[1320px] mx-auto">
             <div
               className={
                 headlineLarge
@@ -79,7 +79,7 @@ const HeadingWithBgImage = ({
               <div className="hidden lg:block flex-1" />
 
               {/* main content */}
-              <div className="w-full lg:w-9/12 px-3 flex">
+              <div className="w-full mx-auto flex items-center justify-center lg:w-9/12">
                 <p
                   className={
                     description ? styles.textImage : styles.textImageHide

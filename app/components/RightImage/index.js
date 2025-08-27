@@ -28,7 +28,7 @@ const RightImage = ({
   };
   return (
     <div>
-      <div className="container mx-auto px-4">
+      <div className="container lg:max-w-[960px] xxl:max-w-[1320px] mx-auto px-4">
         <div
           className="flex flex-wrap justify-center"
           style={{ alignItems: media ? "center" : "none" }}
