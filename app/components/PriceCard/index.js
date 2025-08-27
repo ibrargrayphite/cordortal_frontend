@@ -9,12 +9,10 @@ const PriceCard = ({ Package = false, data }) => {
 
   return (
     <div className="container lg:max-w-[960px] xxl:max-w-[1320px] mx-auto">
-      {/* Bootstrap row mimic: flex-wrap + negative margins for gutters */}
       <div className="flex flex-wrap justify-center">
         {data.map((item, index) => (
           <div
             key={index}
-            // Bootstrap Col: sm=7, lg=3 with gutter padding
             className="w-full sm:w-7/12 lg:w-3/12 px-2 flex"
           >
             {/* Card */}

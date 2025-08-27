@@ -25,8 +25,10 @@ const Emergency = () => {
   const pageName = "emergency";
   const filtered = filterByPage(pages.pages, pageName);
 
+  console.log('EmergencyPage', filtered);
+
   return (
-    <div className={`mx-auto w-full max-w-sm ${styles.MarginTopDefault}`}>
+    <div className={`w-full sm:container sm:mx-auto sm:px-4 ${styles.MarginTopDefault}`}>
       <ScrollHandler sectionScroll={null} scrollToCenter={false} />
       {filtered.length > 0 ? (
         filtered.map((page, pageIndex) => (

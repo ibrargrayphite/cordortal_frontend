@@ -20,7 +20,7 @@ const EmergencyHeadline = ({
   };
   return (
     <div>
-      <div className="container mx-auto">
+      <div className="container lg:max-w-[960px] xxl:max-w-[1320px] mx-auto">
         <HeadingWithBgImage
           withoutBgImageHeading={withoutBgImageHeading}
           media={media}

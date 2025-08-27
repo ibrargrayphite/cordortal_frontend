@@ -1,6 +1,5 @@
 import { Josefin_Sans, Urbanist } from 'next/font/google';
 import './globals.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from './Layout.module.css';
 import { renderComponent } from './utils/renderComponent';
 import { ThemeProvider } from './context/ThemeContext';

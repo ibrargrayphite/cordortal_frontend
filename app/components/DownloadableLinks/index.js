@@ -28,7 +28,6 @@ const DownloadableLinks = ({ data, noBgColor, headline }) => {
   return (
     <div className={noBgColor ? styles.noBgColor : styles.solutionsContainer0}>
       <div className="container lg:max-w-[960px] xxl:max-w-[1320px] mx-auto">
-        {/* Bootstrap Row replacement */}
         <div className="flex flex-wrap">
           {/* Heading */}
           <div className="w-full">
