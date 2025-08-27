@@ -46,9 +46,7 @@ const ServiceCard = ({
                         ))}
                       </ul>
                     </h4>
-                    <h5 className={styles.description}>
-                      {service.description}
-                    </h5>
+                    <h5 className={styles.description} dangerouslySetInnerHTML={{__html: service.description}} />
                   </Container>
                 </div>
               </div>
