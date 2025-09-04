@@ -1,6 +1,6 @@
 "use client";
 import dynamic from "next/dynamic";
-import React, { useState, useEffect, useRef, useMemo, useCallback } from "react";
+import React, { useState, useEffect, useRef, useMemo, useCallback, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { Button, Form, Modal } from "react-bootstrap";
 //import SignatureCanvas from "react-signature-canvas";
@@ -259,6 +259,10 @@ function ConsentFormPage() {
     );
 }
 
-export default ConsentFormPage;
-
-export const revalidate = 0;
+export default function Page() {
+    return (
+      <Suspense fallback={<DataLoader message="Loading consent form..." />}>
+        <ConsentFormPage />
+      </Suspense>
+    );
+  }
