@@ -13,6 +13,7 @@
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -313,9 +314,17 @@
   color: #1f2937;
 }
 
-.htmlPreview h1 { font-size: 1.875rem; }
-.htmlPreview h2 { font-size: 1.5rem; }
-.htmlPreview h3 { font-size: 1.25rem; }
+.htmlPreview h1 {
+  font-size: 1.875rem;
+}
+
+.htmlPreview h2 {
+  font-size: 1.5rem;
+}
+
+.htmlPreview h3 {
+  font-size: 1.25rem;
+}
 
 .htmlPreview p {
   margin: 0.5rem 0;
@@ -371,9 +380,17 @@
   color: #1f2937;
 }
 
-.templatePreview h1 { font-size: 1.875rem; }
-.templatePreview h2 { font-size: 1.5rem; }
-.templatePreview h3 { font-size: 1.25rem; }
+.templatePreview h1 {
+  font-size: 1.875rem;
+}
+
+.templatePreview h2 {
+  font-size: 1.5rem;
+}
+
+.templatePreview h3 {
+  font-size: 1.25rem;
+}
 
 .templatePreview p {
   margin: 0.5rem 0;
@@ -508,4 +525,4 @@
   .templateContent {
     font-size: 0.75rem;
   }
-} 
+}

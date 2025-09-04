@@ -9,11 +9,13 @@ const LayoutWrapper = ({ children, shared, location, chatBot }) => {
   const pathname = usePathname();
   const isLoginPage = pathname === '/login' || pathname === '/login/';
   const isLeadsPage = pathname === '/leads' || pathname === '/leads/';
+  const isConsentPage = pathname === '/consent-form/get' || pathname === '/consent-form/get/';
+
   const isLeadDetailPage = pathname.startsWith('/leads/detail');
   const isTemplateDetailPage = pathname.startsWith('/templates/detail');
   const isTemplateCreatePage = pathname.startsWith('/templates/create');
 
-  const isAdminPage = isLoginPage || isLeadsPage || isLeadDetailPage || isTemplateDetailPage || isTemplateCreatePage;
+  const isAdminPage = isLoginPage || isLeadsPage || isLeadDetailPage || isTemplateDetailPage || isTemplateCreatePage || isConsentPage;
 
   return (
     <>

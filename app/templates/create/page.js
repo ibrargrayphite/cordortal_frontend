@@ -13,7 +13,7 @@ import theme from "../../styles/adminTheme.module.css";
 const TemplateForm = dynamic(
     () => import("../../components/TemplateForm/TemplateForm"),
     { ssr: false, loading: () => <PageLoader message="Loading editor..." /> }
-  );
+);
 import { fetchPagesData } from "@/app/utils/fetchPagesData";
 
 const TemplateDetailClient = () => {
@@ -114,26 +114,26 @@ const TemplateDetailClient = () => {
             className={`${styles.templateDetailContainer} ${fadeIn ? styles.fadeIn : ""
                 }`}
         >
-                  {/* Modern Header */}
-      <div className={theme.domainHeader}>
-        <div className={styles.headerContent}>
-          <h1 className={theme.domainName}>
-            {orgData?.name || orgData?.title || "Clinic Admin"}
-          </h1>
-          <Button onClick={handleLogout} className={theme.logoutButton}>
-            <i className="fas fa-sign-out-alt me-2"></i> Logout
-          </Button>
-        </div>
-      </div>
+            {/* Modern Header */}
+            <div className={theme.domainHeader}>
+                <div className={styles.headerContent}>
+                    <h1 className={theme.domainName}>
+                        {orgData?.name || orgData?.title || "Clinic Admin"}
+                    </h1>
+                    <Button onClick={handleLogout} className={theme.logoutButton}>
+                        <i className="fas fa-sign-out-alt me-2"></i> Logout
+                    </Button>
+                </div>
+            </div>
 
             {/* Main Content Area */}
             <div className={styles.mainContent}>
                 {/* Simple Content Header */}
                 <div className={styles.simpleContentHeader}>
                     <div className={styles.templateInfo}>
-                      <Button onClick={handleBackToTemplates} className={theme.backButton}>
-                        <i className="fas fa-arrow-left me-2"></i> Back to Templates
-                      </Button>
+                        <Button onClick={handleBackToTemplates} className={theme.backButton}>
+                            <i className="fas fa-arrow-left me-2"></i> Back to Templates
+                        </Button>
                     </div>
                 </div>
 
@@ -167,4 +167,4 @@ const TemplateDetailClient = () => {
 
 export default function TemplateCreatePage() {
     return <TemplateDetailClient />;
-  }  
+}  
