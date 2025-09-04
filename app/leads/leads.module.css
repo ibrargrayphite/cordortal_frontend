@@ -1,9 +1,10 @@
 /* Admin Container - Modern Design */
 .adminContainer {
-  min-height: 100vh;
+  height: 100vh;
   background: #f8fafc;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 /* Modern Header */
@@ -21,8 +22,6 @@
   align-items: flex-start;
   width: 100%;
 }
-
-
 
 .headerLeft {
   flex: 1;
@@ -129,32 +128,49 @@
   flex-shrink: 0;
 }
 
-
+/* Main Layout */
+.mainLayout {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  align-items: flex-start;
+  overflow-y: auto;
+  height: 100vh;
+}
 
 /* Main Layout */
 .mainLayout {
   display: flex;
   flex: 1;
   min-height: 0;
+  position: relative;
+  align-items: flex-start;
+  overflow-y: auto;
+  height: 100vh;
 }
 
+/* Main Wrapper */
 .mainWrapper {
   display: flex;
   flex: 1;
   min-height: 0;
+  width: 100%;
 }
 
 /* Modern EFC-POS Style Sidebar */
+
 .sidebar {
   width: 280px;
   background: white;
-  border-right: none;
-  overflow-y: auto;
   flex-shrink: 0;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
   box-shadow: 4px 0 12px rgba(0, 0, 0, 0.1);
-  border-radius: 0 20px 20px 0;
-  position: relative;
   transition: all 0.3s ease;
+  position: sticky;
+  top: 0;
 }
 
 .sidebar::after {
@@ -169,12 +185,13 @@
 }
 
 
-
 .sidebarContent {
   padding: 1.5rem 0;
   display: flex;
   flex-direction: column;
   height: 100%;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .sidebarSection {
@@ -200,6 +217,8 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  width: calc(100% - 2rem);
+  box-sizing: border-box;
 }
 
 .navItem:hover {
@@ -217,8 +236,9 @@
 .contentArea {
   flex: 1;
   background: #ffffff;
-  padding: 2rem;
+  padding: 2rem 2rem 4rem 2rem;
   overflow-y: auto;
+  height: 100vh;
 }
 
 /* Breadcrumb - Removed for clean admin UI */
@@ -309,6 +329,7 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   margin-top: 1rem;
+  margin-bottom: 4rem;
 }
 
 .tableHeader {
@@ -350,6 +371,7 @@
     opacity: 0;
     transform: translateY(20px) scale(0.98);
   }
+
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -374,6 +396,7 @@
     opacity: 0;
     transform: translateY(-10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -539,8 +562,9 @@
 .modernPaginationWrapper {
   display: flex;
   justify-content: center;
-  padding: 1.5rem;
+  padding: 1.5rem 2rem 2.5rem 2rem;
   box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.05);
+  background: #ffffff;
 }
 
 .modernPaginationControls {
@@ -992,6 +1016,7 @@
 
 /* Print Styles */
 @media print {
+
   .simpleHeader,
   .sidebar,
   .contentActions,
@@ -1024,6 +1049,7 @@
     opacity: 0;
     transform: translateY(-10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -1035,6 +1061,7 @@
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -1042,17 +1069,25 @@
 }
 
 @keyframes pulseGlow {
-  0%, 100% {
+
+  0%,
+  100% {
     box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
   }
+
   50% {
     box-shadow: 0 0 0 8px rgba(59, 130, 246, 0);
   }
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes scaleIn {
@@ -1060,6 +1095,7 @@
     opacity: 0;
     transform: scale(0.9);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -1194,16 +1230,45 @@
 }
 
 /* Staggered animation for table rows */
-.tableRow:nth-child(1) { animation-delay: 0.1s; }
-.tableRow:nth-child(2) { animation-delay: 0.15s; }
-.tableRow:nth-child(3) { animation-delay: 0.2s; }
-.tableRow:nth-child(4) { animation-delay: 0.25s; }
-.tableRow:nth-child(5) { animation-delay: 0.3s; }
-.tableRow:nth-child(6) { animation-delay: 0.35s; }
-.tableRow:nth-child(7) { animation-delay: 0.4s; }
-.tableRow:nth-child(8) { animation-delay: 0.45s; }
-.tableRow:nth-child(9) { animation-delay: 0.5s; }
-.tableRow:nth-child(10) { animation-delay: 0.55s; }
+.tableRow:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.tableRow:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.tableRow:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.tableRow:nth-child(4) {
+  animation-delay: 0.25s;
+}
+
+.tableRow:nth-child(5) {
+  animation-delay: 0.3s;
+}
+
+.tableRow:nth-child(6) {
+  animation-delay: 0.35s;
+}
+
+.tableRow:nth-child(7) {
+  animation-delay: 0.4s;
+}
+
+.tableRow:nth-child(8) {
+  animation-delay: 0.45s;
+}
+
+.tableRow:nth-child(9) {
+  animation-delay: 0.5s;
+}
+
+.tableRow:nth-child(10) {
+  animation-delay: 0.55s;
+}
 
 /* Page Size Controls */
 .pageSizeControls {

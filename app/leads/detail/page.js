@@ -292,6 +292,7 @@ function LeadDetailClient() {
   const handleDateFilterChange = (newDateFilter) => {
     setDateFilter(newDateFilter);
     handleSearchNotes(searchQuery, newDateFilter);
+    setShowDateFilter(false);
   };
 
   const clearAllFilters = () => {
@@ -641,9 +642,6 @@ function LeadDetailClient() {
                   </>
                 )}
               </Button>
-              <div className={styles.leadHeaderInfo}>
-                <h3 className={styles.leadEmail}>{lead.email}</h3>
-              </div>
             </div>
 
             <div className={styles.sidebarTabs}>

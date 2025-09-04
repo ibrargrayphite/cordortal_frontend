@@ -15,11 +15,19 @@
 }
 
 /* Modern Header - Only Domain Name and Logout */
-.simpleHeader {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-bottom: none;
+.modernHeader {
+  background: white;
   padding: 1.5rem 2rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 80px;
+  opacity: 0;
+  transform: translateY(-20px);
+  animation: headerSlideDown 0.8s ease-out 0.2s forwards;
 }
 
 .headerContent {
@@ -40,9 +48,7 @@
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* NEW CHATGPT-LIKE LAYOUT STYLES */
-
-/* Main Layout - ChatGPT Style */
+/* Main Layout*/
 .mainLayout {
   display: flex;
   flex: 1;
@@ -369,6 +375,8 @@
   overflow-y: auto;
   padding: 0.5rem;
   scroll-behavior: smooth;
+  max-height: calc(100vh - 300px);
+  /* Adjust based on your layout */
 }
 
 .notesListContent {
@@ -397,8 +405,8 @@
   background: #94a3b8;
 }
 
-/* Firefox scrollbar */
-.notesList {
+.notesList,
+.consentList {
   scrollbar-width: thin;
   scrollbar-color: #cbd5e1 #f1f5f9;
 }
@@ -500,7 +508,10 @@
 
 /* Consent Forms Styling */
 .consentList {
-  padding: 1rem;
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.5rem;
+  max-height: calc(100vh - 300px);
 }
 
 .consentFormItem {
