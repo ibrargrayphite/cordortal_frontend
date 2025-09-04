@@ -52,6 +52,8 @@ function LeadDetailClient() {
   const searchParams = useSearchParams();
   const leadId = searchParams.get("id");
   const { showError, showSuccess, showWarning } = useToast();
+  const [selectedTemplateId, setSelectedTemplateId] = useState(null); // Track selected template
+  const [showCancelView, setShowCancelView] = useState(false);
 
   // Open a blank editor + live preview
   const handleCreateBlankTemplate = () => {
@@ -62,6 +64,13 @@ function LeadDetailClient() {
     setActiveTab("consent");
     setFromNotesFlow(false);
     //showSuccess("Blank template ready for editing!");
+  };
+
+  const handleCancelConsentForm = () => {
+    setSelectedConsentForm(null);
+    setEditingTemplate(null);
+    setShowCancelView(true);
+    //showSuccess("Consent form canceled.");
   };
 
   // Fetch templates for dropdown
@@ -1112,7 +1121,13 @@ function LeadDetailClient() {
 
             {activeTab === "consent" && (
               <div className={styles.consentInterface}>
-                {editingTemplate ? (
+                {showCancelView ? (
+                  <div className={styles.emptyConsent}>
+                    <i className="fas fa-file-signature"></i>
+                    <p>No Consent Forms</p>
+                    <small>No consent forms found for this lead</small>
+                  </div>
+                ) : editingTemplate ? (
                   <TemplateForm
                     mode="consent"
                     handleFormChange={handleFormChange}
@@ -1128,6 +1143,7 @@ function LeadDetailClient() {
                     isSigned={selectedConsentForm?.is_signed || false}
                     fromNotesFlow={fromNotesFlow}
                     setFromNotesFlow={setFromNotesFlow}
+                    handleCancelConsentForm={handleCancelConsentForm} // New prop
                   />
                 ) : selectedConsentForm ? (
                   <div className={styles.viewConsentInterface}>
