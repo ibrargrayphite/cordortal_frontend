@@ -170,10 +170,11 @@ export const notesAPI = {
 };
 
 export const consentFormsAPI = {
-  getConsentForms: async (leadId) => {
+  getConsentForms: async (leadId, page = 1, pageSize = 5) => {
     const params = new URLSearchParams({
       lead_id: leadId.toString(),
-
+      page: page.toString(),
+      page_size: pageSize.toString(),
     });
     const response = await api.get(`/leads/consent-forms/?${params.toString()}`);
     return response.data;
