@@ -43,6 +43,8 @@ const LeadsTable = ({
               <TableHead>EMAIL</TableHead>
               <TableHead>PHONE</TableHead>
               <TableHead>SOURCE</TableHead>
+              <TableHead className="text-center">NOTES</TableHead>
+              <TableHead className="text-center">CONSENT FORMS</TableHead>
               <TableHead className={styles.actionHeader} style={{ textAlign: "center" }}>ACTIONS</TableHead>
             </TableRow>
           </TableHeader>
@@ -61,7 +63,7 @@ const LeadsTable = ({
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={5} className={styles.emptyRow}>
+                <TableCell colSpan={7} className={styles.emptyRow}>
                   <div className={styles.emptyState}>
                     <i className="fas fa-users"></i>
                     <h4>No leads found</h4>

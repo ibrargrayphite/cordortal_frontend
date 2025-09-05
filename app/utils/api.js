@@ -79,7 +79,7 @@ export const authAPI = {
 };
 
 export const leadsAPI = {
-  getLeads: async (page = 1, pageSize = 10, search = '') => {
+  getLeads: async (page = 1, pageSize = 10, search = '', includeCounts = true) => {
     const params = new URLSearchParams({
       page: page.toString(),
       page_size: pageSize.toString(),
@@ -87,6 +87,10 @@ export const leadsAPI = {
 
     if (search) {
       params.append('q', search);
+    }
+
+    if (includeCounts) {
+      params.append('include_counts', 'true');
     }
 
     const response = await api.get(`/leads/?${params.toString()}`);

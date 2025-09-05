@@ -55,6 +55,20 @@ const LeadRow = React.memo(({
           </span>
         )}
       </TableCell>
+      <TableCell className="text-center">
+        <div className="flex items-center justify-center">
+          <span className="inline-flex items-center justify-center w-8 h-8 text-sm font-medium text-blue-700 bg-blue-100 rounded-full">
+            {lead.notes_count || 0}
+          </span>
+        </div>
+      </TableCell>
+      <TableCell className="text-center">
+        <div className="flex items-center justify-center">
+          <span className="inline-flex items-center justify-center w-8 h-8 text-sm font-medium text-green-700 bg-green-100 rounded-full">
+            {lead.consent_count || 0}
+          </span>
+        </div>
+      </TableCell>
       <TableCell className={styles.modernActionCell}>
         <ActionButtons
           onView={() => onView(lead.id)}

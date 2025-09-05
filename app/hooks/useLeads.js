@@ -35,7 +35,7 @@ export const useLeads = () => {
       }
 
       const pageSizeToUse = customPageSize || pageSize;
-      const data = await leadsAPI.getLeads(page, pageSizeToUse, search);
+      const data = await leadsAPI.getLeads(page, pageSizeToUse, search, true);
       
       // Handle paginated response structure
       const leadsArray = data.results ? data.results : Array.isArray(data) ? data : [];
