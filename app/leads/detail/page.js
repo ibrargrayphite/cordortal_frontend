@@ -1,12 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useCallback, Suspense } from "react";
-import { Button } from "../../components/ui/button";
-import { Input } from "../../components/ui/input";
-import { Label } from "../../components/ui/label";
-import { Textarea } from "../../components/ui/textarea";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../components/ui/tabs";
-import { DropdownMenuMenu, DropdownMenuMenuContent, DropdownMenuMenuItem, DropdownMenuMenuTrigger } from "../../components/ui/dropdown-menu";
+import { Button, Form, Tab, Tabs, Dropdown } from "react-bootstrap";
 import { useRouter, useSearchParams } from "next/navigation";
 import dynamic from "next/dynamic";
 import { getAuthHeaders, isAuthenticated, logout } from "../../utils/auth";
@@ -1068,8 +1063,8 @@ function LeadDetailClient() {
                   >
                     <i className="fas fa-plus me-2"></i> New Blank Form
                   </Button>
-                  <DropdownMenuMenu onOpenChange={(isOpen) => isOpen && fetchTemplates()}>
-                    <DropdownMenuMenuTrigger asChild>
+                  <Dropdown onToggle={(isOpen) => isOpen && fetchTemplates()}>
+                    <DropdownTrigger >
                       <Button
                         variant="default"
                         size="sm"
@@ -1086,26 +1081,26 @@ function LeadDetailClient() {
                           </>
                         )}
                       </Button>
-                    </DropdownMenuMenuTrigger>
-                    <DropdownMenuMenuContent>
+                    </DropdownTrigger>
+                    <DropdownContent>
                       {templatesLoading ? (
-                        <DropdownMenuMenuItem disabled>
+                        <DropdownItem disabled>
                           <i className="fas fa-spinner fa-spin me-2"></i> Loading templates...
-                        </DropdownMenuMenuItem>
+                        </DropdownItem>
                       ) : templates.length > 0 ? (
                         templates.map((template) => (
-                          <DropdownMenuMenuItem
+                          <DropdownItem
                             key={template.id}
                             onClick={() => handleGenerateConsentForm(template.id)}
                           >
                             {template.name}
-                          </DropdownMenuMenuItem>
+                          </DropdownItem>
                         ))
                       ) : (
-                        <DropdownMenuMenuItem disabled>No templates available</DropdownMenuMenuItem>
+                        <DropdownItem disabled>No templates available</DropdownItem>
                       )}
-                    </DropdownMenuMenuContent>
-                  </DropdownMenuMenu>
+                    </DropdownContent>
+                  </Dropdown>
                 </div>
               )}
             </div>
@@ -1171,8 +1166,8 @@ function LeadDetailClient() {
                             </>
                           )}
                         </Button>
-                        <DropdownMenu onToggle={(isOpen) => isOpen && fetchTemplates()} className="ms-2">
-                          <DropdownMenuTrigger
+                        <Dropdown onToggle={(isOpen) => isOpen && fetchTemplates()} className="ms-2">
+                          <Dropdown.Toggle
                             variant="outline-primary"
                             disabled={savingTemplate}
                           >
@@ -1185,26 +1180,26 @@ function LeadDetailClient() {
                                 <i className="fas fa-file-alt me-2"></i> Generate Consent Form
                               </>
                             )}
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent>
+                          </Dropdown.Toggle>
+                          <Dropdown.Menu>
                             {templatesLoading ? (
-                              <DropdownMenuItem disabled>
+                              <Dropdown.Item disabled>
                                 <i className="fas fa-spinner fa-spin me-2"></i> Loading templates...
-                              </DropdownMenuItem>
+                              </Dropdown.Item>
                             ) : templates.length > 0 ? (
                               templates.map((template) => (
-                                <DropdownMenuItem
+                                <Dropdown.Item
                                   key={template.id}
                                   onClick={() => handleGenerateConsentForm(template.id)}
                                 >
                                   {template.name}
-                                </DropdownMenuItem>
+                                </Dropdown.Item>
                               ))
                             ) : (
-                              <DropdownMenuItem disabled>No templates available</DropdownMenuItem>
+                              <Dropdown.Item disabled>No templates available</Dropdown.Item>
                             )}
-                          </DropdownMenuContent>
-                        </DropdownMenu>
+                          </Dropdown.Menu>
+                        </Dropdown>
                       </div>
                     </div>
                   </div>
@@ -1235,8 +1230,8 @@ function LeadDetailClient() {
                             </>
                           )}
                         </Button>
-                        <DropdownMenu onToggle={(isOpen) => isOpen && fetchTemplates()} className="ms-2">
-                          <DropdownMenuTrigger
+                        <Dropdown onToggle={(isOpen) => isOpen && fetchTemplates()} className="ms-2">
+                          <Dropdown.Toggle
                             variant="outline-primary"
                             disabled={savingTemplate}
                           >
@@ -1249,26 +1244,26 @@ function LeadDetailClient() {
                                 <i className="fas fa-file-alt me-2"></i> Generate Consent Form
                               </>
                             )}
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent>
+                          </Dropdown.Toggle>
+                          <Dropdown.Menu>
                             {templatesLoading ? (
-                              <DropdownMenuItem disabled>
+                              <Dropdown.Item disabled>
                                 <i className="fas fa-spinner fa-spin me-2"></i> Loading templates...
-                              </DropdownMenuItem>
+                              </Dropdown.Item>
                             ) : templates.length > 0 ? (
                               templates.map((template) => (
-                                <DropdownMenuItem
+                                <Dropdown.Item
                                   key={template.id}
                                   onClick={() => handleGenerateConsentForm(template.id)}
                                 >
                                   {template.name}
-                                </DropdownMenuItem>
+                                </Dropdown.Item>
                               ))
                             ) : (
-                              <DropdownMenuItem disabled>No templates available</DropdownMenuItem>
+                              <Dropdown.Item disabled>No templates available</Dropdown.Item>
                             )}
-                          </DropdownMenuContent>
-                        </DropdownMenu>
+                          </Dropdown.Menu>
+                        </Dropdown>
                       </div>
                     </div>
                   </div>
