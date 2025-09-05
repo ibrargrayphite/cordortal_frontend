@@ -52,11 +52,13 @@ function LeadDetailClient() {
   const searchParams = useSearchParams();
   const leadId = searchParams.get("id");
   const { showError, showSuccess, showWarning } = useToast();
-  const [selectedTemplateId, setSelectedTemplateId] = useState(null); // Track selected template
+  const [selectedTemplateId, setSelectedTemplateId] = useState(null);
   const [showCancelView, setShowCancelView] = useState(false);
 
   // Open a blank editor + live preview
   const handleCreateBlankTemplate = () => {
+    setSelectedConsentForm(null); // Clear selected consent form
+    setShowCancelView(false); // Reset cancel view
     setEditingTemplate({
       template: "",
       name: "",
@@ -108,6 +110,8 @@ function LeadDetailClient() {
     try {
       setGeneratingConsentForm(true);
       setSavingTemplate(true);
+      setSelectedConsentForm(null); // Clear selected consent form
+      setShowCancelView(false); // Reset cancel view
 
       if (!templateId) {
         throw new Error("No template selected");
@@ -196,6 +200,7 @@ function LeadDetailClient() {
     setEditingTemplate(null);
     setSelectedConsentForm(null);
     setFromNotesFlow(false);
+    setShowCancelView(true); // Show cancel view after canceling
   };
 
   // Handle saving
@@ -209,6 +214,7 @@ function LeadDetailClient() {
   // Handle editing or previewing a consent form
   const handleTemplateEdit = (consentForm) => {
     setSelectedConsentForm(consentForm);
+    setShowCancelView(false); // Reset cancel view
     setEditingTemplate({
       id: consentForm.id,
       template: consentForm.consent_data || "",
@@ -875,10 +881,20 @@ function LeadDetailClient() {
                     </div>
                   ))
                 ) : (
-                  <div className={styles.emptyConsent}>
-                    <i className="fas fa-file-signature"></i>
-                    <p>No Consent Forms</p>
-                    <small>No consent forms found for this lead</small>
+                  <div className={styles.defaultConsentInterface}>
+                    <div className={styles.interfaceHeader}>
+                      <h4 className={styles.consentTitle}>
+                        <i className="fas fa-file-signature me-2"></i> Consent Forms
+                      </h4>
+                      <p className={styles.consentSubtitle}>
+                        Select a consent form from the sidebar or generate a new one
+                      </p>
+                    </div>
+                    <div className={styles.consentPlaceholder}>
+                      <i className="fas fa-file-signature"></i>
+                      <h5>No Consent Form Selected</h5>
+                      <p>Choose a consent form from the sidebar or select a template to create a new one</p>
+                    </div>
                   </div>
                 )}
               </div>
@@ -1122,10 +1138,20 @@ function LeadDetailClient() {
             {activeTab === "consent" && (
               <div className={styles.consentInterface}>
                 {showCancelView ? (
-                  <div className={styles.emptyConsent}>
-                    <i className="fas fa-file-signature"></i>
-                    <p>No Consent Forms</p>
-                    <small>No consent forms found for this lead</small>
+                  <div className={styles.defaultConsentInterface}>
+                    <div className={styles.interfaceHeader}>
+                      <h4 className={styles.consentTitle}>
+                        <i className="fas fa-file-signature me-2"></i> Consent Forms
+                      </h4>
+                      <p className={styles.consentSubtitle}>
+                        Select a consent form from the sidebar or generate a new one
+                      </p>
+                    </div>
+                    <div className={styles.consentPlaceholder}>
+                      <i className="fas fa-file-signature"></i>
+                      <h5>No Consent Form Selected</h5>
+                      <p>Choose a consent form from the sidebar or select a template to create a new one</p>
+                    </div>
                   </div>
                 ) : editingTemplate ? (
                   <TemplateForm

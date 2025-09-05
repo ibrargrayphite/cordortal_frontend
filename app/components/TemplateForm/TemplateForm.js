@@ -23,7 +23,7 @@ function TemplateForm({
   fetchConsentForms,
   isSigned = false,
   fromNotesFlow = false,
-  setFromNotesFlow = () => {},
+  setFromNotesFlow = () => { },
 }) {
   const { showError: originalShowError, showSuccess: originalShowSuccess } = useToast();
   const showError = useCallback(
@@ -317,7 +317,7 @@ function TemplateForm({
                     menubar: false,
                     plugins: ["lists", "autolink", "link", "pagebreak", "image"],
                     toolbar:
-                      "styles | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+                      "styles | bold italic underline forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
                     images_upload_handler: async (blobInfo) => {
                       try {
                         const csrftoken = getCookie("csrftoken");
