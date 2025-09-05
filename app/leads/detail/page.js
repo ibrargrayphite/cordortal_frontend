@@ -1,7 +1,12 @@
 "use client";
 
 import React, { useState, useEffect, useCallback, Suspense } from "react";
-import { Button, Form, Tab, Tabs, Dropdown } from "react-bootstrap";
+import { Button } from "../../components/ui/button";
+import { Input } from "../../components/ui/input";
+import { Label } from "../../components/ui/label";
+import { Textarea } from "../../components/ui/textarea";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../components/ui/tabs";
+import { DropdownMenuMenu, DropdownMenuMenuContent, DropdownMenuMenuItem, DropdownMenuMenuTrigger } from "../../components/ui/dropdown-menu";
 import { useRouter, useSearchParams } from "next/navigation";
 import dynamic from "next/dynamic";
 import { getAuthHeaders, isAuthenticated, logout } from "../../utils/auth";
@@ -211,11 +216,29 @@ function LeadDetailClient() {
   };
 
   // Handle saving
-  const handleTemplateSave = async () => {
-    await fetchConsentForms();
-    setEditingTemplate(null);
-    setSelectedConsentForm(null);
-    showSuccess("Consent form saved!");
+  const handleTemplateSave = async (savedConsentForm) => {
+    try {
+      // Refresh the consent forms list to show the new/updated record
+      await fetchConsentForms();
+      
+      // If we have the saved consent form data, update the selected consent form
+      if (savedConsentForm && savedConsentForm.id) {
+        setSelectedConsentForm(savedConsentForm);
+        
+        // Update the editing template with the saved data to ensure we're in edit mode
+        setEditingTemplate({
+          id: savedConsentForm.id,
+          template: savedConsentForm.consent_data || "",
+          name: savedConsentForm.name || "",
+          is_signed: savedConsentForm.is_signed,
+        });
+      }
+      
+      // Success message is already shown in TemplateForm component
+    } catch (error) {
+      console.error("Error in handleTemplateSave:", error);
+      showError("Failed to refresh consent forms list");
+    }
   };
 
   // Handle editing or previewing a consent form
@@ -1045,42 +1068,44 @@ function LeadDetailClient() {
                   >
                     <i className="fas fa-plus me-2"></i> New Blank Form
                   </Button>
-                  <Dropdown onToggle={(isOpen) => isOpen && fetchTemplates()}>
-                    <Dropdown.Toggle
-                      variant="primary"
-                      size="sm"
-                      disabled={savingTemplate}
-                      className={styles.primaryActionButton}
-                    >
-                      {savingTemplate ? (
-                        <>
-                          <i className="fas fa-spinner fa-spin me-2"></i> Loading...
-                        </>
-                      ) : (
-                        <>
-                          <i className="fas fa-file-alt me-2"></i> Generate Form
-                        </>
-                      )}
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu>
+                  <DropdownMenuMenu onOpenChange={(isOpen) => isOpen && fetchTemplates()}>
+                    <DropdownMenuMenuTrigger asChild>
+                      <Button
+                        variant="default"
+                        size="sm"
+                        disabled={savingTemplate}
+                        className={styles.primaryActionButton}
+                      >
+                        {savingTemplate ? (
+                          <>
+                            <i className="fas fa-spinner fa-spin me-2"></i> Loading...
+                          </>
+                        ) : (
+                          <>
+                            <i className="fas fa-file-alt me-2"></i> Generate Form
+                          </>
+                        )}
+                      </Button>
+                    </DropdownMenuMenuTrigger>
+                    <DropdownMenuMenuContent>
                       {templatesLoading ? (
-                        <Dropdown.Item disabled>
+                        <DropdownMenuMenuItem disabled>
                           <i className="fas fa-spinner fa-spin me-2"></i> Loading templates...
-                        </Dropdown.Item>
+                        </DropdownMenuMenuItem>
                       ) : templates.length > 0 ? (
                         templates.map((template) => (
-                          <Dropdown.Item
+                          <DropdownMenuMenuItem
                             key={template.id}
                             onClick={() => handleGenerateConsentForm(template.id)}
                           >
                             {template.name}
-                          </Dropdown.Item>
+                          </DropdownMenuMenuItem>
                         ))
                       ) : (
-                        <Dropdown.Item disabled>No templates available</Dropdown.Item>
+                        <DropdownMenuMenuItem disabled>No templates available</DropdownMenuMenuItem>
                       )}
-                    </Dropdown.Menu>
-                  </Dropdown>
+                    </DropdownMenuMenuContent>
+                  </DropdownMenuMenu>
                 </div>
               )}
             </div>
@@ -1146,8 +1171,8 @@ function LeadDetailClient() {
                             </>
                           )}
                         </Button>
-                        <Dropdown onToggle={(isOpen) => isOpen && fetchTemplates()} className="ms-2">
-                          <Dropdown.Toggle
+                        <DropdownMenu onToggle={(isOpen) => isOpen && fetchTemplates()} className="ms-2">
+                          <DropdownMenuTrigger
                             variant="outline-primary"
                             disabled={savingTemplate}
                           >
@@ -1160,26 +1185,26 @@ function LeadDetailClient() {
                                 <i className="fas fa-file-alt me-2"></i> Generate Consent Form
                               </>
                             )}
-                          </Dropdown.Toggle>
-                          <Dropdown.Menu>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent>
                             {templatesLoading ? (
-                              <Dropdown.Item disabled>
+                              <DropdownMenuItem disabled>
                                 <i className="fas fa-spinner fa-spin me-2"></i> Loading templates...
-                              </Dropdown.Item>
+                              </DropdownMenuItem>
                             ) : templates.length > 0 ? (
                               templates.map((template) => (
-                                <Dropdown.Item
+                                <DropdownMenuItem
                                   key={template.id}
                                   onClick={() => handleGenerateConsentForm(template.id)}
                                 >
                                   {template.name}
-                                </Dropdown.Item>
+                                </DropdownMenuItem>
                               ))
                             ) : (
-                              <Dropdown.Item disabled>No templates available</Dropdown.Item>
+                              <DropdownMenuItem disabled>No templates available</DropdownMenuItem>
                             )}
-                          </Dropdown.Menu>
-                        </Dropdown>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
                       </div>
                     </div>
                   </div>
@@ -1210,8 +1235,8 @@ function LeadDetailClient() {
                             </>
                           )}
                         </Button>
-                        <Dropdown onToggle={(isOpen) => isOpen && fetchTemplates()} className="ms-2">
-                          <Dropdown.Toggle
+                        <DropdownMenu onToggle={(isOpen) => isOpen && fetchTemplates()} className="ms-2">
+                          <DropdownMenuTrigger
                             variant="outline-primary"
                             disabled={savingTemplate}
                           >
@@ -1224,26 +1249,26 @@ function LeadDetailClient() {
                                 <i className="fas fa-file-alt me-2"></i> Generate Consent Form
                               </>
                             )}
-                          </Dropdown.Toggle>
-                          <Dropdown.Menu>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent>
                             {templatesLoading ? (
-                              <Dropdown.Item disabled>
+                              <DropdownMenuItem disabled>
                                 <i className="fas fa-spinner fa-spin me-2"></i> Loading templates...
-                              </Dropdown.Item>
+                              </DropdownMenuItem>
                             ) : templates.length > 0 ? (
                               templates.map((template) => (
-                                <Dropdown.Item
+                                <DropdownMenuItem
                                   key={template.id}
                                   onClick={() => handleGenerateConsentForm(template.id)}
                                 >
                                   {template.name}
-                                </Dropdown.Item>
+                                </DropdownMenuItem>
                               ))
                             ) : (
-                              <Dropdown.Item disabled>No templates available</Dropdown.Item>
+                              <DropdownMenuItem disabled>No templates available</DropdownMenuItem>
                             )}
-                          </Dropdown.Menu>
-                        </Dropdown>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
                       </div>
                     </div>
                   </div>
@@ -1316,12 +1341,9 @@ function LeadDetailClient() {
                         </Button>
                       </div>
                     </div>
-                    <div className={styles.consentPreview}>
-                      <div className={styles.previewHeader}>
-                        <h5>Consent Form Preview</h5>
-                      </div>
+                    <div className={styles.fullWidthConsentPreview}>
                       <div
-                        className={styles.templatePreview}
+                        className={styles.fullWidthTemplatePreview}
                         dangerouslySetInnerHTML={{
                           __html: selectedConsentForm.consent_data || "<p>No content available</p>",
                         }}
