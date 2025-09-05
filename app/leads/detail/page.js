@@ -738,6 +738,182 @@ function LeadDetailClient() {
     }
   };
 
+  const handlePrintConsentForm = (consentForm) => {
+    // Create a new window/tab for printing
+    const printWindow = window.open('', '_blank');
+    
+    if (!printWindow) {
+      showError("Please allow popups to enable printing.");
+      return;
+    }
+
+    // Create the HTML content for the print page
+    const printContent = `
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Consent Form - ${consentForm.name || `Form ${consentForm.id}`}</title>
+        <style>
+          * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+          }
+          
+          body {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 12pt;
+            line-height: 1.6;
+            color: #000;
+            background: white;
+            padding: 1in;
+            max-width: 8.5in;
+            margin: 0 auto;
+          }
+          
+          .header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #000;
+            padding-bottom: 20px;
+          }
+          
+          .header h1 {
+            font-size: 18pt;
+            font-weight: bold;
+            margin-bottom: 10px;
+          }
+          
+          .header .meta {
+            font-size: 10pt;
+            color: #666;
+          }
+          
+          .content {
+            margin-bottom: 30px;
+          }
+          
+          .content h1, .content h2, .content h3, .content h4, .content h5, .content h6 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-weight: bold;
+          }
+          
+          .content h1 { font-size: 16pt; }
+          .content h2 { font-size: 14pt; }
+          .content h3 { font-size: 13pt; }
+          .content h4 { font-size: 12pt; }
+          
+          .content p {
+            margin-bottom: 10px;
+            text-align: justify;
+          }
+          
+          .content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+          }
+          
+          .content table, .content th, .content td {
+            border: 1px solid #000;
+          }
+          
+          .content th, .content td {
+            padding: 8px;
+            text-align: left;
+          }
+          
+          .content th {
+            background-color: #f5f5f5;
+            font-weight: bold;
+          }
+          
+          .signature-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ccc;
+          }
+          
+          .signature-section h4 {
+            margin-bottom: 15px;
+          }
+          
+          .signature-section img {
+            max-width: 300px;
+            max-height: 100px;
+            border: 1px solid #ccc;
+            padding: 5px;
+            margin-bottom: 10px;
+          }
+          
+          .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ccc;
+            font-size: 10pt;
+            color: #666;
+            text-align: center;
+          }
+          
+          @media print {
+            body {
+              padding: 0.5in;
+            }
+            
+            .no-print {
+              display: none;
+            }
+            
+            .page-break {
+              page-break-before: always;
+            }
+          }
+        </style>
+      </head>
+      <body>
+        <div class="header">
+          <h1>${consentForm.name || `Consent Form ${consentForm.id}`}</h1>
+          <div class="meta">
+            <p><strong>Status:</strong> ${consentForm.is_signed ? 'Signed' : 'Unsigned'}</p>
+            <p><strong>Lead:</strong> ${consentForm.lead_email || 'N/A'}</p>
+            ${consentForm.signed_at ? `<p><strong>Signed Date:</strong> ${new Date(consentForm.signed_at).toLocaleDateString()}</p>` : ''}
+            <p><strong>Generated:</strong> ${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}</p>
+          </div>
+        </div>
+        
+        <div class="content">
+          ${consentForm.consent_data || '<p>No content available</p>'}
+        </div>
+        
+        <div class="footer">
+          <p>This document was generated from the clinic management system.</p>
+        </div>
+        
+        <script>
+          // Auto-focus and print when page loads
+          window.onload = function() {
+            window.focus();
+            window.print();
+          };
+          
+          // Close the window after printing (optional)
+          window.onafterprint = function() {
+            // Uncomment the next line if you want to auto-close after printing
+            // window.close();
+          };
+        </script>
+      </body>
+      </html>
+    `;
+
+    // Write the content to the new window
+    printWindow.document.write(printContent);
+    printWindow.document.close();
+  };
+
   if (loading) {
     return <PageLoader message="Loading lead details..." />;
   }
@@ -1358,6 +1534,14 @@ function LeadDetailClient() {
                         </div>
                       </div>
                       <div className={styles.previewPageActions}>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => handlePrintConsentForm(selectedConsentForm)}
+                          className={styles.secondaryButton}
+                        >
+                          <i className="fas fa-print me-2"></i> Print
+                        </Button>
                         <Button
                           variant="outline"
                           size="sm"
