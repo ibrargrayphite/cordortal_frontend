@@ -325,7 +325,7 @@ function TemplateForm({
                         let fd = new FormData();
                         fd.append("upload", blobInfo.blob(), blobInfo.filename());
                         const res = await fetch(
-                          `${process.env.NEXT_PUBLIC_BASE_URL}/ckeditor/image_upload/`,
+                          `${process.env.NEXT_PUBLIC_BASE_URL}/leads/image/upload/`,
                           {
                             method: "POST",
                             credentials: "include",

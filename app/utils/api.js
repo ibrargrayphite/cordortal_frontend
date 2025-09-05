@@ -171,7 +171,7 @@ export const notesAPI = {
 
 export const consentFormsAPI = {
   getConsentForms: async (leadId) => {
-    const response = await api.get(`/leads/consent-forms/?lead=${leadId}`);
+    const response = await api.get(`/leads/consent-forms/?lead_id=${leadId}`);
     return response.data;
   },
   

@@ -60,7 +60,7 @@ export default function BundledEditor(props) {
     menubar: false,
     statusbar: false,
     resize: true,
-    plugins: ["lists", "autolink", "link", "pagebreak", "image"],
+    plugins: ["lists", "autolink", "link", "pagebreak", "image",],
     toolbar: "styles | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
     spellchecker_rpc_url: "localhost/ephox-spelling",
     contextmenu: false,
@@ -79,7 +79,7 @@ export default function BundledEditor(props) {
         );
 
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/ckeditor/image_upload/`,
+          `${process.env.NEXT_PUBLIC_BASE_URL}/leads/image/upload/`,
           {
             method: "POST",
             credentials: "include",
