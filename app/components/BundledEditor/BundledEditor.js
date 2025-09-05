@@ -61,7 +61,7 @@ export default function BundledEditor(props) {
     statusbar: false,
     resize: true,
     plugins: ["lists", "autolink", "link", "pagebreak", "image"],
-    toolbar: "styles | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+    toolbar: "styles | bold italic underline forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
     spellchecker_rpc_url: "localhost/ephox-spelling",
     contextmenu: false,
     // Image upload handler for client-side only
