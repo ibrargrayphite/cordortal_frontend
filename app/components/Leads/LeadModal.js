@@ -96,14 +96,14 @@ const LeadModal = ({
           <Button 
             variant="outline" 
             onClick={onHide}
-            className={theme.secondaryButton}
+            className={`${theme.secondaryButton} min-w-[100px]`}
           >
             Cancel
           </Button>
           <Button 
             onClick={onSave} 
             disabled={saving}
-            className={theme.successButton}
+            className={`${theme.successButton} min-w-[120px]`}
           >
             {saving ? (
               <>

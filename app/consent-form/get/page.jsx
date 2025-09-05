@@ -241,7 +241,7 @@ function ConsentFormPage() {
                         <Button
                             variant="outline"
                             onClick={handleCloseSignatureModal}
-                            className={theme.secondaryButton}
+                            className={`${theme.secondaryButton} min-w-[100px]`}
                             disabled={isSubmitting}
                         >
                             Cancel
@@ -249,7 +249,7 @@ function ConsentFormPage() {
                         <Button
                             variant="default"
                             onClick={handleSaveSignature}
-                            className={theme.successButton}
+                            className={`${theme.successButton} min-w-[120px]`}
                             disabled={isSubmitting}
                         >
                             {isSubmitting ? <ButtonLoader message="Saving..." /> : "Save Signature"}
