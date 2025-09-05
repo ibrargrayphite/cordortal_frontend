@@ -224,13 +224,19 @@ function LeadDetailClient() {
       if (savedConsentForm && savedConsentForm.id) {
         setSelectedConsentForm(savedConsentForm);
         
-        // Update the editing template with the saved data to ensure we're in edit mode
-        setEditingTemplate({
-          id: savedConsentForm.id,
-          template: savedConsentForm.consent_data || "",
-          name: savedConsentForm.name || "",
-          is_signed: savedConsentForm.is_signed,
-        });
+        // If the consent form is signed, clear the editing state to show preview
+        if (savedConsentForm.is_signed) {
+          setEditingTemplate(null);
+          setShowCancelView(false);
+        } else {
+          // Update the editing template with the saved data to ensure we're in edit mode
+          setEditingTemplate({
+            id: savedConsentForm.id,
+            template: savedConsentForm.consent_data || "",
+            name: savedConsentForm.name || "",
+            is_signed: savedConsentForm.is_signed,
+          });
+        }
       }
       
       // Success message is already shown in TemplateForm component
@@ -698,6 +704,40 @@ function LeadDetailClient() {
     }
   };
 
+  const handleDeleteConsentForm = async (consentFormId) => {
+    try {
+      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+      const response = await fetch(`${baseUrl}/leads/consent-forms/${consentFormId}/`, {
+        method: "DELETE",
+        headers: getAuthHeaders(),
+      });
+
+      if (response.status === 401) {
+        logout();
+        window.location.replace("/login");
+        return;
+      }
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      // Remove from consent forms list
+      setConsentForms(consentForms.filter((form) => form.id !== consentFormId));
+      setFilteredConsentForms(filteredConsentForms.filter((form) => form.id !== consentFormId));
+      
+      // Reset selected form and editing state
+      setSelectedConsentForm(null);
+      setEditingTemplate(null);
+      setShowCancelView(false);
+      
+      showSuccess("Consent form deleted successfully!");
+    } catch (err) {
+      console.error("Delete consent form error:", err);
+      showError("Failed to delete consent form. Please try again.");
+    }
+  };
+
   if (loading) {
     return <PageLoader message="Loading lead details..." />;
   }
@@ -982,7 +1022,7 @@ function LeadDetailClient() {
                   </div>
                 ) : filteredConsentForms.length > 0 ? (
                   <>
-                    {filteredConsentForms.map((consentForm) => (
+                    {filteredConsentForms?.map((consentForm) => (
                       <div
                         key={consentForm.id}
                         className={`${styles.consentFormItem} ${selectedConsentForm?.id === consentForm.id ? styles.selected : ""}`}
@@ -1054,9 +1094,15 @@ function LeadDetailClient() {
             <div className={styles.actionPanelHeader}>
               <h3 className={styles.panelTitle}>
                 {activeTab === "notes" && (selectedNote ? "Edit Note" : "Create Note")}
-                {activeTab === "consent" && (editingTemplate ? "Consent Form Editor" : "Consent Actions")}
+                {activeTab === "consent" && (
+                  selectedConsentForm?.is_signed 
+                    ? "Signed Consent Form Preview" 
+                    : editingTemplate 
+                      ? "Consent Form Editor" 
+                      : "Consent Actions"
+                )}
               </h3>
-              {activeTab === "consent" && (
+              {activeTab === "consent" && !selectedConsentForm?.is_signed && (
                 <div className={styles.actionButtons}>
                   <Button
                     variant="outline"
@@ -1287,6 +1333,60 @@ function LeadDetailClient() {
                       <i className="fas fa-file-signature"></i>
                       <h5>No Consent Form Selected</h5>
                       <p>Choose a consent form from the sidebar or select a template to create a new one</p>
+                    </div>
+                  </div>
+                ) : selectedConsentForm?.is_signed ? (
+                  <div className={styles.signedConsentPreviewPage}>
+                    <div className={styles.previewPageHeader}>
+                      <div className={styles.previewPageInfo}>
+                        <h2 className={styles.previewPageTitle}>
+                          {selectedConsentForm.name || `Consent Form ${selectedConsentForm.id}`}
+                        </h2>
+                        <div className={styles.previewPageMeta}>
+                          <span className={`${styles.statusBadge} ${styles.signed}`}>
+                            <i className="fas fa-check-circle me-2"></i>
+                            Signed
+                          </span>
+                          <span className={styles.previewPageSubtitle}>
+                            Lead: {selectedConsentForm.lead_email}
+                          </span>
+                          {selectedConsentForm.signed_at && (
+                            <span className={styles.previewPageSubtitle}>
+                              Signed: {formatDateTime(selectedConsentForm.signed_at).full}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      <div className={styles.previewPageActions}>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => {
+                            setSelectedConsentForm(null);
+                            setEditingTemplate(null);
+                            setShowCancelView(false);
+                          }}
+                          className={styles.secondaryButton}
+                        >
+                          <i className="fas fa-arrow-left me-2"></i> Back to List
+                        </Button>
+                        <Button
+                          variant="destructive"
+                          size="sm"
+                          onClick={() => handleDeleteConsentForm(selectedConsentForm.id)}
+                          className={styles.dangerButton}
+                        >
+                          <i className="fas fa-trash me-2"></i> Delete
+                        </Button>
+                      </div>
+                    </div>
+                    <div className={styles.previewPageContent}>
+                      <div
+                        className={styles.signedConsentDocument}
+                        dangerouslySetInnerHTML={{
+                          __html: selectedConsentForm.consent_data || "<p>No content available</p>",
+                        }}
+                      />
                     </div>
                   </div>
                 ) : editingTemplate ? (

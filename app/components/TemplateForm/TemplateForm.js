@@ -5,6 +5,7 @@ import { Label } from '../ui/label';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '../ui/dialog';
 import SignatureCanvas from "react-signature-canvas";
 import { useToast } from "../../components/Toast";
+import SendLinkModal from '../SendLinkModal/SendLinkModal';
 import styles from "../../templates/detail/templateDetail.module.css";
 import theme from "../../styles/adminTheme.module.css";
 import { getCookie } from "../../utils/cookiesHanlder";
@@ -47,6 +48,7 @@ function TemplateForm({
   const [signatureData, setSignatureData] = useState(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const [isSendingLink, setIsSendingLink] = useState(false);
+  const [showSendLinkModal, setShowSendLinkModal] = useState(false);
   const signatureCanvasRef = useRef(null);
   const [previewMode, setPreviewMode] = useState(false);
 
@@ -59,19 +61,26 @@ function TemplateForm({
     return new Blob([new Uint8Array(byteNumbers)], { type: mime });
   }
 
-  // Handler for Send Link button
-  const handleGetLink = async () => {
+  // Handler for Send Link button - opens modal
+  const handleGetLink = () => {
     if (!formData?.id) {
       showError("Consent form ID is missing.");
       return;
     }
+    setShowSendLinkModal(true);
+  };
 
+  // Handler for actually sending the link with email data
+  const handleSendLinkWithEmail = async (emailData) => {
     try {
       setIsSendingLink(true);
       const domain = window.location.origin;
       const payload = {
         consent_form_id: formData.id,
         domain: `${domain}/consent-form/get/`,
+        email_to: emailData.to,
+        email_subject: emailData.subject,
+        email_message: emailData.message,
       };
       console.log("Payload ---->", payload);
 
@@ -104,7 +113,8 @@ function TemplateForm({
         throw new Error(errorMessage);
       }
 
-      showSuccess("Link is sent successfully.");
+      showSuccess("Link sent successfully!");
+      setShowSendLinkModal(false);
     } catch (error) {
       console.error("Error sending link:", error);
       showError(error.message || "Failed to send link. Please try again.");
@@ -207,14 +217,25 @@ function TemplateForm({
         throw new Error(errorMessage);
       }
 
+      // Get the saved consent form data from response
+      const savedConsentForm = await response.json();
+      
       showSuccess(hasSignature ? "Consent form signed!" : "Consent form saved!");
       await fetchConsentForms();
+      
+      // Update formData with the ID from the saved consent form
       setFormData((prev) => ({
         ...prev,
+        id: savedConsentForm.id, // Set the ID from the response
         is_signed: hasSignature,
       }));
       setPreviewMode(true);
       setFromNotesFlow(false);
+      
+      // Call parent's handleSave to update the parent component's state
+      if (handleSave) {
+        await handleSave(savedConsentForm);
+      }
     } catch (error) {
       console.error(error);
       showError(error.message || "Failed to save consent form.");
@@ -526,6 +547,16 @@ function TemplateForm({
           </DialogContent>
         </Dialog>
       )}
+
+      {/* Send Link Modal */}
+      <SendLinkModal
+        show={showSendLinkModal}
+        onHide={() => setShowSendLinkModal(false)}
+        onSendLink={handleSendLinkWithEmail}
+        leadData={lead}
+        formData={formData}
+        isSending={isSendingLink}
+      />
     </div>
   );
 }

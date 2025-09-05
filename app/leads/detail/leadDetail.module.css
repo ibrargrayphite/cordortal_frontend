@@ -382,6 +382,141 @@
   overflow-y: auto;
 }
 
+/* Signed Consent Preview Page */
+.signedConsentPreviewPage {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.previewPageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 2rem 2rem 1rem 2rem;
+  border-bottom: 1px solid #e5e7eb;
+  background: #f8fafc;
+  color: #374151;
+  border-radius: 8px 8px 0 0;
+}
+
+.previewPageInfo {
+  flex: 1;
+}
+
+.previewPageTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  color: #111827;
+}
+
+.previewPageMeta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.previewPageMeta .statusBadge {
+  background: #dcfdf7;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+.previewPageSubtitle {
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.previewPageActions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.previewPageContent {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+  background: white;
+  max-height: calc(100vh - 300px);
+}
+
+.signedConsentDocument {
+  max-width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  line-height: 1.6;
+  font-size: 1rem;
+  color: #374151;
+}
+
+.signedConsentDocument h1,
+.signedConsentDocument h2,
+.signedConsentDocument h3,
+.signedConsentDocument h4,
+.signedConsentDocument h5,
+.signedConsentDocument h6 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.signedConsentDocument h1 {
+  font-size: 2rem;
+}
+
+.signedConsentDocument h2 {
+  font-size: 1.5rem;
+}
+
+.signedConsentDocument p {
+  margin-bottom: 1rem;
+}
+
+.signedConsentDocument table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  max-width: 100%;
+  table-layout: fixed;
+}
+
+.signedConsentDocument th,
+.signedConsentDocument td {
+  border: 1px solid #d1d5db;
+  padding: 0.75rem;
+  text-align: left;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.signedConsentDocument th {
+  background-color: #f9fafb;
+  font-weight: 600;
+}
+
+.signedConsentDocument img,
+.signedConsentDocument video,
+.signedConsentDocument iframe {
+  max-width: 100%;
+  height: auto;
+}
+
+.signedConsentDocument pre {
+  background: #f3f4f6;
+  padding: 1rem;
+  border-radius: 4px;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  max-width: 100%;
+}
+
 .consentMetaInfo {
   display: flex;
   justify-content: space-between;

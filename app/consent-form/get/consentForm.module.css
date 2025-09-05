@@ -6,6 +6,9 @@
     color: #333;
     background-color: #f8f9fa;
     min-height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
 }
 
 .consentInterface {
@@ -53,13 +56,24 @@
     background: white;
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    overflow: hidden;
+    overflow: visible;
+    width: 100%;
+    flex: 1;
+}
+
+.consentPreview.fullWidth {
+    max-width: none;
+    width: 100%;
 }
 
 .previewHeader {
     background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
     color: white;
     padding: 1rem 1.5rem;
+}
+
+.fullWidth .previewHeader {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
 }
 
 .previewHeader h5 {
@@ -76,9 +90,12 @@
 
 .templatePreview {
     padding: 2rem;
-    max-height: 60vh;
-    overflow-y: auto;
     line-height: 1.6;
+    width: 100%;
+    min-height: auto;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
 }
 
 .templatePreview h1,
@@ -103,8 +120,11 @@
 
 .templatePreview table {
     width: 100%;
+    max-width: 100%;
     border-collapse: collapse;
     margin-bottom: 1rem;
+    table-layout: fixed;
+    word-wrap: break-word;
 }
 
 .templatePreview table,
@@ -117,11 +137,27 @@
 .templatePreview td {
     padding: 0.75rem;
     text-align: left;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .templatePreview th {
     background-color: #f8f9fa;
     font-weight: 600;
+}
+
+.templatePreview img,
+.templatePreview video,
+.templatePreview iframe {
+    max-width: 100%;
+    height: auto;
+}
+
+.templatePreview pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
 }
 
 .editActions {
@@ -185,6 +221,14 @@
 
 .signatureModal :global(.modal-body) {
     padding: 1.5rem;
+    overflow: hidden;
+}
+
+/* Additional styling for shadcn/ui Dialog */
+.signatureModal {
+    max-width: 90vw;
+    width: auto;
+    overflow-x: hidden;
 }
 
 .signatureCanvasWrapper {
@@ -192,6 +236,10 @@
     flex-direction: column;
     align-items: center;
     gap: 1rem;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    padding: 0 1rem;
 }
 
 .signatureCanvas {
@@ -200,6 +248,9 @@
     background-color: #f8f9fa;
     cursor: crosshair;
     transition: border-color 0.2s;
+    max-width: 100%;
+    width: auto;
+    height: auto;
 }
 
 .signatureCanvas:hover {
@@ -223,6 +274,7 @@
 @media (max-width: 768px) {
     .adminContainer {
         padding: 1rem;
+        overflow-x: hidden;
     }
 
     .consentInterface {
@@ -231,6 +283,7 @@
 
     .templatePreview {
         padding: 1.5rem;
+        overflow-x: hidden;
     }
 
     .signatureCanvas {

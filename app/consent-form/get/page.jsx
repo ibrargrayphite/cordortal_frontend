@@ -143,11 +143,19 @@ function ConsentFormPage() {
     };
 
 
-    const canvasProps = useMemo(() => ({
-        className: styles.signatureCanvas,
-        width: 500,
-        height: 200,
-    }), []);
+    const canvasProps = useMemo(() => {
+        // Calculate responsive canvas width
+        const maxWidth = 480; // Max width for the canvas
+        const minWidth = 300; // Min width for mobile
+        const availableWidth = typeof window !== 'undefined' ? window.innerWidth - 120 : 480; // Account for modal padding
+        const canvasWidth = Math.max(minWidth, Math.min(maxWidth, availableWidth));
+        
+        return {
+            className: styles.signatureCanvas,
+            width: canvasWidth,
+            height: 200,
+        };
+    }, []);
 
     if (loading) {
         return <DataLoader message="Loading consent form..." />;
@@ -189,9 +197,9 @@ function ConsentFormPage() {
             </div>
 
             <div className={styles.consentInterface}>
-                <div className={styles.consentPreview}>
+                <div className={`${styles.consentPreview} ${consentForm.is_signed ? styles.fullWidth : ''}`}>
                     <div className={styles.previewHeader}>
-                        <h5>Consent Form Preview</h5>
+                        <h5>{consentForm.is_signed ? 'Signed Consent Form' : 'Consent Form Preview'}</h5>
                     </div>
                     <div
                         className={styles.templatePreview}
@@ -201,29 +209,31 @@ function ConsentFormPage() {
                     />
                 </div>
 
-                <div className={styles.editActions}>
-                    <Button
-                        variant="default"
-                        onClick={handleOpenSignatureModal}
-                        disabled={consentForm.is_signed || isSubmitting}
-                        className={theme.successButton}
-                    >
-                        {isSubmitting ? (
-                            <ButtonLoader message="Signing..." />
-                        ) : (
-                            <>
-                                <i className="fas fa-signature me-2"></i> Get Signed
-                            </>
-                        )}
-                    </Button>
-                </div>
+                {!consentForm.is_signed && (
+                    <div className={styles.editActions}>
+                        <Button
+                            variant="default"
+                            onClick={handleOpenSignatureModal}
+                            disabled={isSubmitting}
+                            className={theme.successButton}
+                        >
+                            {isSubmitting ? (
+                                <ButtonLoader message="Signing..." />
+                            ) : (
+                                <>
+                                    <i className="fas fa-signature me-2"></i> Get Signed
+                                </>
+                            )}
+                        </Button>
+                    </div>
+                )}
             </div>
 
             <Dialog
                 open={showSignatureModal}
                 onOpenChange={handleCloseSignatureModal}
             >
-                <DialogContent className={styles.signatureModal}>
+                <DialogContent className={`${styles.signatureModal} sm:max-w-[600px]`}>
                     <DialogHeader>
                         <DialogTitle>Add Your Signature</DialogTitle>
                     </DialogHeader>
