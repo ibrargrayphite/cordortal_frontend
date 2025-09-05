@@ -226,11 +226,11 @@ li.informationDropdown {
   display: none;
 }
 .informationDropdown, .aboutDropdown, .emergencyButton{
-  margin: 0 18px !important;
+  margin: 0 18px;
 }
 @media  only screen and (max-width: 1399px) and (min-width: 991px) {
   .informationDropdown, .aboutDropdown, .emergencyButton{
-    margin: 0 10px !important;
+    margin: 0 10px;
     line-height: 16px;
   }
 }

@@ -1,5 +1,4 @@
 import styles from "./blogDetail.module.css";
-import { Col, Container, Row } from "react-bootstrap";
 import { fetchPagesData } from "../../utils/fetchPagesData";
 import { generateCustomMetadata } from "../../utils/metadataHelper";
 import dynamic from 'next/dynamic';
@@ -68,13 +67,13 @@ const BlogDetail = async ({ params }) => {
   }
 
   return (
-    <Container>
+    <div className="container mx-auto">
       <ScrollHandler sectionScroll={null} scrollToCenter={true} />
-      <Row className={styles.customMargin}>
-        <Col lg={8}>
+      <div className={`flex flex-wrap ${styles.customMargin}`}>
+        <div className="w-full lg:w-8/12">
           <HtmlContent htmlContent={specificBlog.htmlContent} />
-        </Col>
-        <Col lg={4}>
+        </div>
+        <div className="w-full lg:w-4/12">
           <h5 className={styles.heading}>Category</h5>
           <div style={{ marginBottom: "20px" }}>
             <p className={styles.listing}>{specificBlog.category.name}</p>
@@ -85,9 +84,9 @@ const BlogDetail = async ({ params }) => {
               <div key={index} className={styles.listing}>{tag.name}</div>
             ))}
           </div>
-        </Col>
-      </Row>
-    </Container>
+        </div>
+      </div>
+    </div>
   );
 };
 

@@ -1,7 +1,10 @@
 "use client";
 
 import React, { useState, useEffect, Suspense } from "react";
-import { Button, Form, Card } from "react-bootstrap";
+import { Button } from '../../components/ui/button';
+import { Input } from '../../components/ui/input';
+import { Label } from '../../components/ui/label';
+import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/card';
 import { useSearchParams, useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 import { getAuthHeaders, isAuthenticated, logout } from "../../utils/auth";
@@ -184,7 +187,7 @@ const TemplateDetailClient = () => {
           <h1 className={theme.domainName}>
             {orgData?.name || orgData?.title || "Clinic Admin"}
           </h1>
-          <Button onClick={handleLogout} className={theme.logoutButton}>
+          <Button variant="destructive" onClick={handleLogout} className={theme.logoutButton}>
             <i className="fas fa-sign-out-alt me-2"></i> Logout
           </Button>
         </div>
@@ -195,7 +198,7 @@ const TemplateDetailClient = () => {
         {/* Simple Content Header */}
         <div className={styles.simpleContentHeader}>
           <div className={styles.templateInfo}>
-            <Button onClick={handleBackToTemplates} className={theme.backButton}>
+            <Button variant="ghost" onClick={handleBackToTemplates} className={theme.backButton}>
               <i className="fas fa-arrow-left me-2"></i> Back to Templates
             </Button>
             <span className={styles.templateTitle}>/ {template.name}</span>
@@ -211,6 +214,7 @@ const TemplateDetailClient = () => {
               </h3>
               {!isEditing && (
                 <Button
+                  variant="secondary"
                   onClick={() => setIsEditing(true)}
                   className={theme.warningButton}
                 >

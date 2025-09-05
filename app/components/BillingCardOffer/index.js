@@ -34,7 +34,7 @@ const BillingCardOffer = ({ data }) => {
                 </li>
               ))}
             </ul>
-            <div className="d-flex justify-center">
+            <div className="flex justify-center">
               <CustomButton
                 headline="Get Now"
                 onClick={handlePrimaryAction}

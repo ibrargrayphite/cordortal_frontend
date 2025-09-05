@@ -3,12 +3,10 @@ import { useState } from "react";
 import Link from "next/link";
 import { useTheme } from "../../../context/ThemeContext";
 import styles from "./HeaderDefault.module.css";
-import { Container, Nav, Navbar } from "react-bootstrap";
 import defaultMedia from "../../../../public/assets/images/solutions/implants.png";
 import { useRouter } from "next/navigation";
 import CrossIcon from "../../../../public/assets/images/cross.svg";
 import MenuIcon from "../../../../public/assets/images/navIcon.svg";
-
 import Image from "next/image";
 
 const HeaderDefault = ({ media, name, menuItems, button }) => {
@@ -18,18 +16,14 @@ const HeaderDefault = ({ media, name, menuItems, button }) => {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
   const handleLinkClick = (index) => {
-    if(index =='/')
-       {
-        router.push('/')
-       }
-    setActiveLink(index);
-    if(isMenuOpen) {
-      setIsMenuOpen(false)
+    if (index == "/") {
+      router.push("/");
     }
+    setActiveLink(index);
+    if (isMenuOpen) setIsMenuOpen(false);
   };
 
   const handleBooking = (src) => {
@@ -38,60 +32,47 @@ const HeaderDefault = ({ media, name, menuItems, button }) => {
 
   return (
     <div className={styles.header} style={{ background: theme.mainAccentDark }}>
-      <div className="container">
+      <div className="container mx-auto xxl:max-w-[1320px]">
         <nav>
-          <div class="flex flex-wrap items-center justify-between mx-auto">
-            <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
-              <div className={styles.container}>
-                {/* Logo Section */}
-                <div
-                  className={styles.logo}
-                  onClick={() => handleLinkClick("/")}
-                >
-                  <Navbar.Brand>
-                    <Image 
-                    loading="lazy"
-                    width={100} height={100}
-                      src={
-                        media && media?.startsWith("https")
-                          ? media
-                          : defaultMedia.src
-                      }
-                      alt={`Best Dental Care ${name}`}
-                      className="h-10 w-full"
-                    />
-                  </Navbar.Brand>
-                  {/* </Link> */}
-                </div>
+          <div className="flex flex-wrap items-center justify-between mx-auto">
+            {/* Logo */}
+            <div className={styles.container}>
+              <div
+                className={styles.logo}
+                onClick={() => handleLinkClick("/")}
+              >
+                <Image
+                  loading="lazy"
+                  width={100}
+                  height={100}
+                  src={media?.startsWith("https") ? media : defaultMedia.src}
+                  alt={`Best Dental Care ${name}`}
+                  className="h-10 w-full"
+                />
               </div>
-            </a>
+            </div>
+
+            {/* Mobile Menu Toggle */}
             <div className="lg:hidden text-white" onClick={toggleMenu}>
               {isMenuOpen ? (
-                <CrossIcon width={22} height={24} className={styles.mobileMenuIcon} alt="cross" />
+                <CrossIcon
+                  width={22}
+                  height={24}
+                  className={styles.mobileMenuIcon}
+                  alt="cross"
+                />
               ) : (
-                <MenuIcon height={24} width={48} className={styles.mobileMenuIcon} alt="menu" />
+                <MenuIcon
+                  height={24}
+                  width={48}
+                  className={styles.mobileMenuIcon}
+                  alt="menu"
+                />
               )}
             </div>
-            {/* <button className="lg:hidden text-white" onClick={toggleMenu}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                className="h-6 w-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-            </button> */}
-            <div
-              class="hidden w-full lg:flex md:w-auto gap-4"
-              id="navbar-default"
-            >
+
+            {/* Desktop Nav */}
+            <div className="hidden w-full lg:flex md:w-auto gap-4" id="navbar-default">
               {menuItems.map((item, index) =>
                 item.dropdown ? (
                   <div
@@ -130,7 +111,9 @@ const HeaderDefault = ({ media, name, menuItems, button }) => {
                 )
               )}
             </div>
-            <div class="hidden lg:block">
+
+            {/* Desktop CTA */}
+            <div className="hidden lg:block">
               <button
                 onClick={() => handleBooking(button.href)}
                 className={styles.bookNowButton}
@@ -139,7 +122,8 @@ const HeaderDefault = ({ media, name, menuItems, button }) => {
               </button>
             </div>
           </div>
-          {/* Mobile Menu (toggles visibility based on state) */}
+
+          {/* Mobile Menu */}
           <div
             className={`lg:hidden ${
               isMenuOpen ? "block" : "hidden"

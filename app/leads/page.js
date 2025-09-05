@@ -1,7 +1,9 @@
 "use client";
 
 import React, { useState, useEffect, useCallback, Suspense } from "react";
-import { Button, Modal, Alert } from "react-bootstrap";
+import { Button } from '../components/ui/button';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '../components/ui/dialog';
+import { Alert, AlertDescription } from '../components/ui/alert';
 import { useRouter, useSearchParams } from "next/navigation";
 import { isAuthenticated, logout } from "../utils/auth";
 import { fetchPagesData } from "../utils/fetchPagesData";
@@ -367,72 +369,76 @@ const InnerLeadsPage = () => {
         saving={saving}
       />
 
-      {/* Delete Confirmation Modal */}
-      <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Confirm Delete</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          Are you sure you want to delete the lead for{" "}
-          {selectedLead?.first_name} {selectedLead?.last_name}? This action
-          cannot be undone.
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
-            Cancel
-          </Button>
-          <Button
-            variant="danger"
-            onClick={handleConfirmDelete}
-            disabled={saving}
-          >
-            {saving ? (
-              <>
-                <span className="spinner-border spinner-border-sm me-2"></span>
-                Deleting...
-              </>
-            ) : (
-              "Delete Lead"
-            )}
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      {/* Delete Confirmation Dialog */}
+      <Dialog open={showDeleteModal} onOpenChange={() => setShowDeleteModal(false)}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Confirm Delete</DialogTitle>
+          </DialogHeader>
+          <div className="py-4">
+            Are you sure you want to delete the lead for{" "}
+            {selectedLead?.first_name} {selectedLead?.last_name}? This action
+            cannot be undone.
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowDeleteModal(false)}>
+              Cancel
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={handleConfirmDelete}
+              disabled={saving}
+            >
+              {saving ? (
+                <>
+                  <span className="animate-spin inline-block w-4 h-4 border-2 border-current border-t-transparent rounded-full me-2"></span>
+                  Deleting...
+                </>
+              ) : (
+                "Delete Lead"
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
-      {/* Delete Template Confirmation Modal */}
-      <Modal
-        show={showDeleteTemplateModal}
-        onHide={() => setShowDeleteTemplateModal(false)}
+      {/* Delete Template Confirmation Dialog */}
+      <Dialog
+        open={showDeleteTemplateModal}
+        onOpenChange={() => setShowDeleteTemplateModal(false)}
       >
-        <Modal.Header closeButton>
-          <Modal.Title>Confirm Delete Template</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          Are you sure you want to delete the template "{selectedTemplate?.name}
-          "? This action cannot be undone.
-        </Modal.Body>
-        <Modal.Footer>
-          <Button
-            variant="secondary"
-            onClick={() => setShowDeleteTemplateModal(false)}
-          >
-            Cancel
-          </Button>
-          <Button
-            variant="danger"
-            onClick={handleConfirmDeleteTemplate}
-            disabled={deletingTemplateId}
-          >
-            {deletingTemplateId ? (
-              <>
-                <span className="spinner-border spinner-border-sm me-2"></span>
-                Deleting...
-              </>
-            ) : (
-              "Delete Template"
-            )}
-          </Button>
-        </Modal.Footer>
-      </Modal>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Confirm Delete Template</DialogTitle>
+          </DialogHeader>
+          <div className="py-4">
+            Are you sure you want to delete the template "{selectedTemplate?.name}
+            "? This action cannot be undone.
+          </div>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setShowDeleteTemplateModal(false)}
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={handleConfirmDeleteTemplate}
+              disabled={deletingTemplateId}
+            >
+              {deletingTemplateId ? (
+                <>
+                  <span className="animate-spin inline-block w-4 h-4 border-2 border-current border-t-transparent rounded-full me-2"></span>
+                  Deleting...
+                </>
+              ) : (
+                "Delete Template"
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

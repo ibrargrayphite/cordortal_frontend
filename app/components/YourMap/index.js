@@ -7,7 +7,7 @@ const YourMap = ({
 }) => (
   <div className="max-w-5xl mx-auto my-12">
     {/* Map Card */}
-    <div className="bg-white rounded-2xl shadow-lg flex flex-col p-8">
+    <div className="bg-white rounded-2xl flex flex-col p-8" style={{boxShadow: '0 1rem 3rem rgba(0, 0, 0, 0.175)'}}>
       <div className="text-2xl font-bold text-[#4a3f2a] mb-6">{title}</div>
       {description && (
         <div className="text-base text-gray-600 mb-4">{description}</div>

@@ -3,7 +3,6 @@
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import styles from "./Trusted.module.css";
-import { Col, Container, Row } from "react-bootstrap";
 import CustomButton from "../CustomButton";
 import rightArrow from "../../../public/assets/images/right-arrow.png";
 import HtmlContent from "../HtmlContent";
@@ -24,12 +23,21 @@ const LeftImage = ({ media, description, htmlContent, isIconButton = false,src }
 
   return (
     <div>
-      <Container>
-        <Row className={styles.section2}>
-          <Col md={6} xs={12} className={styles.headerGroup2}>
-            <Image loading="lazy" className={styles.leftimageWidth} src={mediaSource} alt="providing exceptional dental care with a focus on innovation, comfort, and patient satisfaction" width={100} height={350} />
-          </Col>
-          <Col md={6} xs={12}>
+      <div className="container mx-auto w-full lg:max-w-[960px] xxl:max-w-[1320px]">
+        <div className={`${styles.section2} flex flex-wrap`}>
+          <div className={`${styles.headerGroup2} w-full md:w-1/2 md:pr-3`}>
+            <Image
+              loading="lazy"
+              className={styles.leftimageWidth}
+              src={mediaSource}
+              alt="providing exceptional dental care with a focus on innovation, comfort, and patient satisfaction"
+              width={100}
+              height={350}
+            />
+          </div>
+
+         
+          <div className="w-full md:w-1/2 md:pl-3">
             {description ? (
               <p className={styles.paragraph}>{description}</p>
             ) : (
@@ -55,7 +63,7 @@ const LeftImage = ({ media, description, htmlContent, isIconButton = false,src }
                 >
                   <button className={styles.button2}>Read more</button>
                   <Image
-                  loading="lazy"
+                    loading="lazy"
                     src={rightArrow}
                     alt="rightArrow"
                     height={11}
@@ -65,9 +73,9 @@ const LeftImage = ({ media, description, htmlContent, isIconButton = false,src }
                 </div>
               )}
             </div>
-          </Col>
-        </Row>
-      </Container>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

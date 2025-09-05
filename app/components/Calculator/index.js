@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import { Container, Row, Col, Form, Card } from "react-bootstrap";
 import styles from "./Calculator.module.css";
 
 const FinanceCalculator = ({ noBgColor }) => {
@@ -41,39 +40,47 @@ const FinanceCalculator = ({ noBgColor }) => {
 
   return (
     <div className={noBgColor ? styles.noBgColor : styles.solutionsContainer0}>
-      <Container>
-        <Row className="justify-content-center">
-          <Col xs={12} md={8} lg={8}>
+      {/* Container */}
+      <div className="container mx-auto">
+        {/* Row */}
+        <div className="flex flex-wrap justify-center">
+          {/* Col xs=12 md=8 lg=8 */}
+          <div className="px-3 w-full md:w-8/12 lg:w-8/12">
             <h1 className={styles.heading2}>Finance calculator</h1>
             <p className={styles.text}>Enter the amount you wish to finance*</p>
-            <Row>
-              <Col lg={3} />
-              <Col lg={6}>
-                <Form style={{ marginTop: 40 }}>
-                  <Form.Group controlId="financeAmount">
-                    <Form.Control
+
+            {/* Row */}
+            <div className="flex flex-wrap">
+              <div className="px-3 hidden lg:block lg:w-3/12" />
+              <div className="px-3 w-full lg:w-6/12">
+                <form style={{ marginTop: 40 }}>
+                  <div>
+                    <input
                       className={styles.inputText}
                       value={amount > 1000000 ? 0 : amount}
                       onChange={handleAmount}
                       type="text"
                       placeholder="Enter Amount"
                     />
-                  </Form.Group>
+                  </div>
                   {error && (
                     <p style={{ color: "red" }} className="mt-2">
                       {error}
                     </p>
                   )}
-                </Form>
-              </Col>
-              <Col lg={3} />
-            </Row>
+                </form>
+              </div>
+              <div className="px-3 hidden lg:block lg:w-3/12" />
+            </div>
+
             <p className={styles.text}>Select the number of monthly payments</p>
-            <Row>
-              <Col lg={3} />
-              <Col lg={6}>
+
+            {/* Row */}
+            <div className="flex flex-wrap">
+              <div className="px-3 hidden lg:block lg:w-3/12" />
+              <div className="px-3 w-full lg:w-6/12">
                 <div
-                  className="d-flex justify-content-center mt-4 mb-4"
+                  className="flex justify-center mt-4 mb-4"
                   style={{ background: "F5F5F5" }}
                 >
                   {[3, 6, 10, 12].map((month) => (
@@ -90,51 +97,45 @@ const FinanceCalculator = ({ noBgColor }) => {
                     </button>
                   ))}
                 </div>
-              </Col>
-              <Col lg={3} />
-            </Row>
-            <Card className={styles.calculationCard}>
-              <Card.Body className="text-center mt-4">
-                <Card.Title className={styles.perMonth}>
+              </div>
+              <div className="px-3 hidden lg:block lg:w-3/12" />
+            </div>
+
+            {/* Card */}
+            <div className={`${styles.calculationCard} rounded-lg shadow`}>
+              <div className="text-center mt-4">
+                <h2 className={styles.perMonth}>
                   £{credit.toFixed(2)} Per Month
-                </Card.Title>
-                <Row style={{ marginTop: 40 }}>
-                  <Col>
-                    <Card.Text>
-                      <strong className={styles.cardTitle}>
-                        INTEREST (APR)
-                      </strong>
-                      <br />
-                      <p className={styles.cardValue}>0.0% (0.0%)</p>
-                      <p style={{ color: "#0A1721", fontSize: 12 }}>Fixed</p>
-                    </Card.Text>
-                  </Col>
-                  <Col>
-                    <Card.Text>
-                      <strong className={styles.cardTitle}>
-                        COST OF CREDIT
-                      </strong>
-                      <br />
-                      <p className={styles.cardValue}>£0.00</p>
-                    </Card.Text>
-                  </Col>
-                  <Col>
-                    <Card.Text>
-                      <strong className={styles.cardTitle}>
-                        TOTAL TO PAY BACK
-                      </strong>
-                      <br />
-                      <p className={styles.cardValue}>
-                        £{amount >= 250 && amount <= 30000 ? amount : 0}
-                      </p>
-                    </Card.Text>
-                  </Col>
-                </Row>
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row>
-      </Container>
+                </h2>
+
+                {/* Row */}
+                <div className="flex flex-wrap" style={{ marginTop: 40 }}>
+                  <div className="w-full md:w-4/12">
+                    <strong className={styles.cardTitle}>INTEREST (APR)</strong>
+                    <br />
+                    <p className={styles.cardValue}>0.0% (0.0%)</p>
+                    <p style={{ color: "#0A1721", fontSize: 12 }}>Fixed</p>
+                  </div>
+                  <div className="w-full md:w-4/12">
+                    <strong className={styles.cardTitle}>COST OF CREDIT</strong>
+                    <br />
+                    <p className={styles.cardValue}>£0.00</p>
+                  </div>
+                  <div className="w-full md:w-4/12">
+                    <strong className={styles.cardTitle}>
+                      TOTAL TO PAY BACK
+                    </strong>
+                    <br />
+                    <p className={styles.cardValue}>
+                      £{amount >= 250 && amount <= 30000 ? amount : 0}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>  
     </div>
   );
 };

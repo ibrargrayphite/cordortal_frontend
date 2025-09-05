@@ -1,17 +1,15 @@
 "use client";
 import React from "react";
-import CountUp from "react-countup";
 import styles from "./BigLeftImage.module.css";
-import { Container } from "react-bootstrap";
 import defaultMedia from "../../../public/assets/images/solutions/implants.png";
 import Image from "next/image";
 
 const BigLeftImage = ({ title, headline, description, media, media2 }) => {
   return (
-    <Container>
+    <div className="container lg:max-w-[960px] xxl:max-w-[1320px] mx-auto">
       <div className={styles.parent}>
         <div className="container mx-auto py-10">
-          <div className="d-md-flex flex-col md:flex-row items-center">
+          <div className="flex flex-col md:flex-row items-center">
             {/* Left Section: Image */}
             <div className="col-12 col-md-6 flex justify-center relative">
               <Image
@@ -49,7 +47,7 @@ const BigLeftImage = ({ title, headline, description, media, media2 }) => {
           </div>
         </div>
       </div>
-    </Container>
+    </div>
   );
 };
 

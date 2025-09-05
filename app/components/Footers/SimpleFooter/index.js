@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col } from "react-bootstrap";
 import { useTheme } from "../../../context/ThemeContext";
 import { useRouter } from "next/navigation";
 import { isAuthenticated } from '../../../utils/auth';
@@ -31,20 +30,19 @@ const SimpleFooter = ({ footerRights, data, footerLogin }) => {
 
   return (
     <>
-      <Container
-        fluid
+      <div className="w-full"
         style={{
           backgroundColor: theme.bgColor,
           padding: "50px 0",
           marginTop: 80,
         }}
       >
-        <Container>
-          <Row>
+        <div className="container mx-auto lg:max-w-[960px] xxl:max-w-[1320px]">
+          <div className="flex flex-wrap w-full justify-between g-0">
             
 
             {/* Information Section */}
-            <Col>
+            <div className="flex flex-col w-1/2 md:w-1/4">
               <h5 className={styles.sectionHeading}>
                 {data.sections.information.heading}
               </h5>
@@ -71,10 +69,10 @@ const SimpleFooter = ({ footerRights, data, footerLogin }) => {
                   </li>
                 )}
               </ul>
-            </Col>
+            </div>
 
             {/* Company Section */}
-            <Col>
+            <div className="flex flex-col w-1/2 md:w-1/4">
               <h5 className={styles.sectionHeading}>
                 {data.sections.company.heading}
               </h5>
@@ -85,10 +83,10 @@ const SimpleFooter = ({ footerRights, data, footerLogin }) => {
                   </li>
                 ))}
               </ul>
-            </Col>
+            </div>
 
             {/* About Us Section */}
-            <Col>
+            <div className="flex flex-col w-1/2 md:w-1/4">
               <h5 className={styles.sectionHeading}>
                 {data.sections.aboutUs.heading}
               </h5>
@@ -101,9 +99,9 @@ const SimpleFooter = ({ footerRights, data, footerLogin }) => {
               <p className={styles.listItem}>
                 <strong>Phone:</strong> {data.sections.aboutUs.contact.phone}
               </p>
-            </Col>
-            <Col>
-  <div className="flex flex-wrap justify-center gap-4">
+            </div>
+            <div>
+  <div className="flex flex-col md:flex-row justify-center items-center gap-4">
     {data.media.map((image, index) => (
       <div 
         key={index} 
@@ -121,15 +119,15 @@ const SimpleFooter = ({ footerRights, data, footerLogin }) => {
       </div>
     ))}
   </div>
-</Col>
-          </Row>
-        </Container>
-      </Container>
-      <Row className="mt-4 text-center">
-        <Col>
+</div>
+          </div>
+        </div>
+      </div>
+      <div className="flex flex-wrap mt-4 items-center justify-center text-center">
+        <div>
           <p>&copy; {footerRights}</p>
-        </Col>
-      </Row>
+        </div>
+      </div>
     </>
   );
 };

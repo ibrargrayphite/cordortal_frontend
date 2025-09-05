@@ -1,7 +1,9 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { Button } from '../components/ui/button';
+import { Input } from '../components/ui/input';
+import { Label } from '../components/ui/label';
 import { useAuth } from '../hooks/useAuth';
 import { PageLoader, ButtonLoader } from '../components/LoadingSpinner';
 import styles from './login.module.css';
@@ -53,7 +55,7 @@ const LoginPage = () => {
               {authenticated && (
                 <div className={styles.logoutSection}>
                   <Button
-                    variant="outline-danger"
+                    variant="destructive"
                     size="sm"
                     onClick={logout}
                     className={styles.logoutButton}
@@ -65,14 +67,15 @@ const LoginPage = () => {
               )}
 
               {/* Login Form */}
-              <Form onSubmit={handleSubmit} className={styles.loginForm}>
-                <Form.Group className="mb-4">
-                  <Form.Label className={styles.formLabel}>
+              <form onSubmit={handleSubmit} className={styles.loginForm}>
+                <div className="mb-4">
+                  <Label htmlFor="username" className={styles.formLabel}>
                     Username
-                  </Form.Label>
+                  </Label>
                   <div className={styles.inputWrapper}>
                     <i className={`fas fa-user ${styles.inputIcon}`}></i>
-                    <Form.Control
+                    <Input
+                      id="username"
                       type="text"
                       name="username"
                       value={formData.username}
@@ -82,15 +85,16 @@ const LoginPage = () => {
                       required
                     />
                   </div>
-                </Form.Group>
+                </div>
 
-                <Form.Group className="mb-4">
-                  <Form.Label className={styles.formLabel}>
+                <div className="mb-4">
+                  <Label htmlFor="password" className={styles.formLabel}>
                     Password
-                  </Form.Label>
+                  </Label>
                   <div className={styles.inputWrapper}>
                     <i className={`fas fa-lock ${styles.inputIcon}`}></i>
-                    <Form.Control
+                    <Input
+                      id="password"
                       type={showPassword ? "text" : "password"}
                       name="password"
                       value={formData.password}
@@ -107,7 +111,7 @@ const LoginPage = () => {
                       <i className={`fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
                     </button>
                   </div>
-                </Form.Group>
+                </div>
 
                 <Button
                   type="submit"
@@ -123,7 +127,7 @@ const LoginPage = () => {
                     </>
                   )}
                 </Button>
-              </Form>
+              </form>
             </div>
           </div>
         </div>

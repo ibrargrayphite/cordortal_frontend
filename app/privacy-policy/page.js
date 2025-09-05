@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 import styles from "./Documents.module.css";
-import { Col, Row, Container } from "react-bootstrap";
 import GetInTouch from "../components/GetInTouch";
 import getInTouch from "../../public/assets/images/getBackground.jpeg";
 import { usePages } from '../context/PagesContext'; // Import the usePages hook
@@ -21,20 +20,20 @@ const privacyPolicy = () => {
   }
   return (
     <div>
-      <Container>
+      <div className="container mx-auto">
         <ScrollHandler sectionScroll={null} scrollToCenter={false} />
         <p className={styles.heading}>Privacy Policy</p>
-        <Row>
-          <Col />
-          <Col lg={7} sm={12}>
+        <div className="flex flex-wrap">
+          <div className="flex-1" />
+          <div className="w-full lg:w-7/12">
             <p className={styles.text}>
               Here at {pages.name} we a wide varierty of treatments from private to
               NHS funded. Please see below an approx price of our treatments
               please contact for further infomation and bookings
             </p>
-          </Col>
-          <Col />
-        </Row>
+          </div>
+          <div className="flex-1" />
+        </div>
         {/* <div style={{ textAlign: "center", marginTop: 0 }}>
           <button className={styles.button}>Book an Appointment</button>
         </div> */}
@@ -160,7 +159,7 @@ const privacyPolicy = () => {
             if they breach this policy.
           </p>
         </div>
-      </Container>
+      </div>
       <div className={styles.getTouchContainer}>
         <GetInTouch headline={"Get in touch"} media={getInTouch.src} />
       </div>

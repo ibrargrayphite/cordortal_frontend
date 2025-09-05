@@ -1,4 +1,5 @@
 import React from 'react';
+import { TableCell, TableRow } from '../ui/table';
 import styles from '../../leads/leads.module.css';
 import ActionButtons from './ActionButtons';
 
@@ -11,8 +12,8 @@ const LeadRow = React.memo(({
   viewingId 
 }) => {
   return (
-    <tr key={lead.id} className={styles.tableRow}>
-      <td className={styles.modernNameCell}>
+    <TableRow key={lead.id} className={styles.tableRow}>
+      <TableCell className={styles.modernNameCell}>
         <div className={styles.modernProfileInfo}>
           <div className={styles.modernAvatar}>
             <img
@@ -26,24 +27,24 @@ const LeadRow = React.memo(({
             </div>
           </div>
         </div>
-      </td>
-      <td className={styles.modernEmailCell}>
+      </TableCell>
+      <TableCell className={styles.modernEmailCell}>
         <a
           href={`mailto:${lead.email}`}
           className={styles.modernEmailLink}
         >
           {lead.email}
         </a>
-      </td>
-      <td className={styles.modernPhoneCell}>
+      </TableCell>
+      <TableCell className={styles.modernPhoneCell}>
         <a
           href={`tel:${lead.phone}`}
           className={styles.modernPhoneLink}
         >
           {lead.phone}
         </a>
-      </td>
-      <td className={styles.modernSourceCell}>
+      </TableCell>
+      <TableCell className={styles.modernSourceCell}>
         {lead.source ? (
           <span className={styles.modernSourceTag}>
             {lead.source}
@@ -53,8 +54,8 @@ const LeadRow = React.memo(({
             Not specified
           </span>
         )}
-      </td>
-      <td className={styles.modernActionCell}>
+      </TableCell>
+      <TableCell className={styles.modernActionCell}>
         <ActionButtons
           onView={() => onView(lead.id)}
           onEdit={() => onEdit(lead)}
@@ -64,8 +65,8 @@ const LeadRow = React.memo(({
           viewLoading={viewingId === lead.id}
           editLoading={editingId === lead.id}
         />
-      </td>
-    </tr>
+      </TableCell>
+    </TableRow>
   );
 });
 

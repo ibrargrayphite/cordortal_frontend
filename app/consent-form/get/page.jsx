@@ -2,7 +2,10 @@
 import dynamic from "next/dynamic";
 import React, { useState, useEffect, useRef, useMemo, useCallback, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { Button, Form, Modal } from "react-bootstrap";
+import { Button } from '../../components/ui/button';
+import { Input } from '../../components/ui/input';
+import { Label } from '../../components/ui/label';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '../../components/ui/dialog';
 //import SignatureCanvas from "react-signature-canvas";
 import { ButtonLoader, DataLoader } from "../../components/LoadingSpinner";
 import { useToast } from "../../components/Toast";
@@ -200,6 +203,7 @@ function ConsentFormPage() {
 
                 <div className={styles.editActions}>
                     <Button
+                        variant="default"
                         onClick={handleOpenSignatureModal}
                         disabled={consentForm.is_signed || isSubmitting}
                         className={theme.successButton}
@@ -215,16 +219,14 @@ function ConsentFormPage() {
                 </div>
             </div>
 
-            <Modal
-                show={showSignatureModal}
-                onHide={handleCloseSignatureModal}
-                centered
-                className={styles.signatureModal}
+            <Dialog
+                open={showSignatureModal}
+                onOpenChange={handleCloseSignatureModal}
             >
-                <Modal.Header closeButton>
-                    <Modal.Title>Add Your Signature</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
+                <DialogContent className={styles.signatureModal}>
+                    <DialogHeader>
+                        <DialogTitle>Add Your Signature</DialogTitle>
+                    </DialogHeader>
                     <div className={styles.signatureCanvasWrapper}>
                         <SignatureCanvas
                             ref={signatureCanvasRef}
@@ -235,26 +237,26 @@ function ConsentFormPage() {
                             <div className={styles.signatureError}>{signatureError}</div>
                         )}
                     </div>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button
-                        variant="outline-secondary"
-                        onClick={handleCloseSignatureModal}
-                        className={theme.secondaryButton}
-                        disabled={isSubmitting}
-                    >
-                        Cancel
-                    </Button>
-                    <Button
-                        variant="primary"
-                        onClick={handleSaveSignature}
-                        className={theme.successButton}
-                        disabled={isSubmitting}
-                    >
-                        {isSubmitting ? <ButtonLoader message="Saving..." /> : "Save Signature"}
-                    </Button>
-                </Modal.Footer>
-            </Modal>
+                    <DialogFooter>
+                        <Button
+                            variant="outline"
+                            onClick={handleCloseSignatureModal}
+                            className={theme.secondaryButton}
+                            disabled={isSubmitting}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            variant="default"
+                            onClick={handleSaveSignature}
+                            className={theme.successButton}
+                            disabled={isSubmitting}
+                        >
+                            {isSubmitting ? <ButtonLoader message="Saving..." /> : "Save Signature"}
+                        </Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
         </div>
     );
 }

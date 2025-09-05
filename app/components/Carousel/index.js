@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Container } from "react-bootstrap";
 import "swiper/css";
 import "swiper/swiper-bundle.css";
 import { Navigation } from "swiper/modules";
@@ -119,90 +118,90 @@ const Carousel = ({ media }) => {
 
   return (
     <>
-    <Container style={{ overflowX: "hidden", overflowY: "hidden" }}>
-      <div className={styles.mobileCarousal}>
-        <Swiper
-          style={{ marginTop: 35 }}
-          slidesPerView={1}
-          onSwiper={setSwiperInstance}
-          spaceBetween={30}
-          loop={true}
-          initialSlide={1}
-          pagination={{
-            clickable: true,
-          }}
-          navigation
-          modules={[Navigation]}
-          className="mySwiper"
-          id="swip"
-        >
-          {data.map((item, index) => (
-            <SwiperSlide key={index} style={{ textAlign: "center" }}>
-              <video
-                controls
-                autoPlay
-                muted
-                playsInline
-                className={`${styles.iframe} ${styles.carouselVideo}`}
-              >
-                <source src={item?.url} type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+      <div className="container mx-auto overflow-hidden">
+        <div className={styles.mobileCarousal}>
+          <Swiper
+            style={{ marginTop: 35 }}
+            slidesPerView={1}
+            onSwiper={setSwiperInstance}
+            spaceBetween={30}
+            loop={true}
+            initialSlide={1}
+            pagination={{
+              clickable: true,
+            }}
+            navigation
+            modules={[Navigation]}
+            className="mySwiper"
+            id="swip"
+          >
+            {data.map((item, index) => (
+              <SwiperSlide key={index} style={{ textAlign: "center" }}>
+                <video
+                  controls
+                  autoPlay
+                  muted
+                  playsInline
+                  className={`${styles.iframe} ${styles.carouselVideo}`}
+                >
+                  <source src={item?.url} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+        <div className={styles.desktopCarousal}>
+          <div className={styles.slideC}>
+            {data.map((item, i) => (
+              <React.Fragment key={item.id}>
+                <div className={styles.slide} style={{ ...getStyles(i) }}>
+                  <SliderContent
+                    ref={(el) => (iframeRefs.current[i] = el)}
+                    controls={i === activeIndex}
+                    {...item}
+                  />
+                </div>
+                <div className={styles.reflection} style={{ ...getStyles(i) }} />
+              </React.Fragment>
+            ))}
+          </div>
+          <div style={{ position: "relative" }}>
+            <Image
+              loading="lazy"
+              src={previousIcon}
+              alt="Previous button to view earlier testimonials"
+              className={styles.prevIcon}
+              onClick={prev}
+            />
+          </div>
+          <div style={{ position: "relative" }}>
+            <Image
+              loading="lazy"
+              src={nextIcon}
+              alt="Next button to view more testimonials"
+              className={styles.nextIcon}
+              onClick={next}
+            />
+          </div>
+        </div>
       </div>
-      <div className={styles.desktopCarousal}>
-        <div className={styles.slideC}>
-          {data.map((item, i) => (
-            <React.Fragment key={item.id}>
-              <div className={styles.slide} style={{ ...getStyles(i) }}>
-                <SliderContent
-                  ref={(el) => (iframeRefs.current[i] = el)}
-                  controls={i === activeIndex}
-                  {...item}
-                />
-              </div>
-              <div className={styles.reflection} style={{ ...getStyles(i) }} />
-            </React.Fragment>
-          ))}
-        </div>
-        <div style={{ position: "relative" }}>
-           <Image
-           loading="lazy"
-        src={previousIcon}
-        alt="Previous button to view earlier testimonials"
-        className={styles.prevIcon}
-        onClick={prev}
-      />
-        </div>
-        <div style={{ position: "relative" }}>
-        <Image
-        loading="lazy"
-        src={nextIcon}
-        alt="Next button to view more testimonials"
-        className={styles.nextIcon}
-        onClick={next}
-      />
+
+      <div className="container mx-auto">
+        <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          marginTop: 30,
+          marginBottom: 20,
+        }}
+    >
+          {pathname !== "/testimonials" && (
+            <CustomButton headline="Show More" onClick={handleShowmore} className={styles.showMoreButton} />
+          )}
         </div>
       </div>
-      
-    </Container>
-    <Container>
-    <div
-    style={{
-      display: "flex",
-      justifyContent: "center",
-      marginTop: 30,
-      marginBottom: 20,
-    }}
-  >
-    {pathname !== "/testimonials" && (
-      <CustomButton headline="Show More" onClick={handleShowmore} className={styles.showMoreButton} />
-    )}
-  </div>
-  </Container>
-  </>
+    </>
   );
 };
 

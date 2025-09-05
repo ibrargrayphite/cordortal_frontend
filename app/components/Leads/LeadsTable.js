@@ -1,4 +1,5 @@
 import React from 'react';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table';
 import styles from '../../leads/leads.module.css';
 import LeadRow from './LeadRow';
 
@@ -35,17 +36,17 @@ const LeadsTable = ({
       <div
         className={`${styles.tableContainer} ${fadeOut ? styles.fadeOut : styles.fadeIn} ${pageLoading ? styles.loading : ""}`}
       >
-        <table className={styles.table}>
-          <thead>
-            <tr>
-              <th>NAME</th>
-              <th>EMAIL</th>
-              <th>PHONE</th>
-              <th>SOURCE</th>
-              <th className={styles.actionHeader} style={{ textAlign: "center" }}>ACTIONS</th>
-            </tr>
-          </thead>
-          <tbody>
+        <Table className={styles.table}>
+          <TableHeader>
+            <TableRow>
+              <TableHead>NAME</TableHead>
+              <TableHead>EMAIL</TableHead>
+              <TableHead>PHONE</TableHead>
+              <TableHead>SOURCE</TableHead>
+              <TableHead className={styles.actionHeader} style={{ textAlign: "center" }}>ACTIONS</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
             {leads.length > 0 ? (
               leads.map((lead) => (
                 <LeadRow
@@ -59,8 +60,8 @@ const LeadsTable = ({
                 />
               ))
             ) : (
-              <tr>
-                <td colSpan="5" className={styles.emptyRow}>
+              <TableRow>
+                <TableCell colSpan={5} className={styles.emptyRow}>
                   <div className={styles.emptyState}>
                     <i className="fas fa-users"></i>
                     <h4>No leads found</h4>
@@ -68,11 +69,11 @@ const LeadsTable = ({
                       Start by adding your first lead using the "Add Lead" button above.
                     </p>
                   </div>
-                </td>
-              </tr>
+                </TableCell>
+              </TableRow>
             )}
-          </tbody>
-        </table>
+          </TableBody>
+        </Table>
       </div>
     </div>
   );

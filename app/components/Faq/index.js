@@ -8,7 +8,7 @@ import {
 } from "../ui/accordion";
 
 const Faq = ({ data }) => (
-  <div className="container mx-auto max-w-2xl px-4 my-8">
+  <div className="container mx-auto lg:max-w-[960px] xxl:max-w-[1320px] px-4 my-8">
     <Accordion type="single" collapsible>
       {data.map((item, index) => (
         <AccordionItem
@@ -25,7 +25,7 @@ const Faq = ({ data }) => (
             {typeof item.content === "string" ? (
               <p>{item.content}</p>
             ) : (
-              <ol>
+              <ol className="pl-8">
                 {item.content.map((subItem, subIndex) => (
                   <li key={subIndex}>
                     <strong>{subItem.headline}</strong>: {subItem.content}

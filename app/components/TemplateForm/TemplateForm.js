@@ -1,5 +1,8 @@
 import React, { useState, useRef, useCallback } from "react";
-import { Button, Form, Modal } from "react-bootstrap";
+import { Button } from '../ui/button';
+import { Input } from '../ui/input';
+import { Label } from '../ui/label';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '../ui/dialog';
 import SignatureCanvas from "react-signature-canvas";
 import { useToast } from "../../components/Toast";
 import styles from "../../templates/detail/templateDetail.module.css";
@@ -266,10 +269,11 @@ function TemplateForm({
   if (!formData) return null;
 
   return (
-    <Form>
-      <Form.Group className="mb-3">
-        <Form.Label>{mode === "template" ? "Template Name" : "Consent Form Name"}</Form.Label>
-        <Form.Control
+    <div>
+      <div className="mb-3 space-y-2">
+        <Label htmlFor="template-name">{mode === "template" ? "Template Name" : "Consent Form Name"}</Label>
+        <Input
+          id="template-name"
           type="text"
           value={formData.name || ""}
           onChange={(e) => handleFormChange("name", e.target.value)}
@@ -277,7 +281,7 @@ function TemplateForm({
           maxLength={255}
           disabled={isSigned}
         />
-      </Form.Group>
+      </div>
 
       <div className={styles.fullPageEditorContainer}>
         <div className={styles.editorHeader}>
@@ -487,16 +491,14 @@ function TemplateForm({
       </div>
 
       {mode === "consent" && (
-        <Modal
-          show={showSignatureModal}
-          onHide={handleCloseSignatureModal}
-          centered
-          className={styles.signatureModal}
+        <Dialog
+          open={showSignatureModal}
+          onOpenChange={handleCloseSignatureModal}
         >
-          <Modal.Header closeButton>
-            <Modal.Title>Add Your Signature</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
+          <DialogContent className={styles.signatureModal}>
+            <DialogHeader>
+              <DialogTitle>Add Your Signature</DialogTitle>
+            </DialogHeader>
             <div className={styles.signatureCanvasWrapper}>
               <SignatureCanvas
                 ref={signatureCanvasRef}
@@ -505,26 +507,26 @@ function TemplateForm({
               />
               {signatureError && <div className={styles.signatureError}>{signatureError}</div>}
             </div>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button
-              variant="outline-secondary"
-              onClick={handleCloseSignatureModal}
-              className={theme.secondaryButton}
-            >
-              Cancel
-            </Button>
-            <Button
-              variant="primary"
-              onClick={handleSaveSignature}
-              className={theme.successButton}
-            >
-              Save Signature
-            </Button>
-          </Modal.Footer>
-        </Modal>
+            <DialogFooter>
+              <Button
+                variant="outline"
+                onClick={handleCloseSignatureModal}
+                className={theme.secondaryButton}
+              >
+                Cancel
+              </Button>
+              <Button
+                variant="default"
+                onClick={handleSaveSignature}
+                className={theme.successButton}
+              >
+                Save Signature
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       )}
-    </Form>
+    </div>
   );
 }
 

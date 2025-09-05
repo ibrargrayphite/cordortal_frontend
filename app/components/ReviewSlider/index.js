@@ -1,6 +1,5 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-import { Container } from "react-bootstrap";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
@@ -25,10 +24,10 @@ const ReviewSlider = ({ userReviews = [], headline, description }) => {
 
   if (!userReviews.length) {
     return (
-      <Container className={styles.ReviewContainer}>
+      <div className={`container mx-auto ${styles.ReviewContainer}`}>
         <HeadingTopDiscription headline={headline} description={description} />
         <p>No user review to display at the moment.</p>
-      </Container>
+      </div>
     );
   }
 
@@ -54,6 +53,7 @@ const ReviewSlider = ({ userReviews = [], headline, description }) => {
       style={{
         paddingBottom: "40px",
       }}
+      className="-mt-5"
     >
       {/* <Container> */}
       {/* <div className="max-md:container"> */}
@@ -98,7 +98,7 @@ const ReviewSlider = ({ userReviews = [], headline, description }) => {
 
               return (
                 <SwiperSlide key={item.id} className={styles.SlideParent}>
-                  <Container
+                  <div className="container mx-auto"
                     style={{
                       marginBottom: 20,
                       textAlign: "center",
@@ -121,8 +121,8 @@ const ReviewSlider = ({ userReviews = [], headline, description }) => {
                       alt="Big Left"
                     />
                     <p className={`"pt-2 ${styles.description}`}>
-                      {item.description.split(" ").slice(0, 20).join(" ")}
-                      {item.description.split(" ").length > 20 && "..."}
+                      {item.link ? item.description.split(" ").slice(0, 20).join(" "):item.description }
+                      {item.link ? item.description.split(" ").length > 20 && "...":""}
                     </p>
                     <hr className="border-t border-gray-300" />
                     <div className={styles.reviewerParent}>
@@ -142,23 +142,25 @@ const ReviewSlider = ({ userReviews = [], headline, description }) => {
                         </div>
                       </div>
                     </div>
-                    <div className={styles.readMore}>
-                      <a
-                        style={{
-                          textDecoration: "none",
-                          color: theme.mainAccentDark,
-                        }}
-                        href={item.link || "#"}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <div style={{ display: "flex" }}>
-                          <p> Read More</p>{" "}
-                          <FaChevronRight style={{ marginLeft: 10, marginTop: 5 }} />
-                        </div>
-                      </a>
-                    </div>
-                  </Container>
+                    {item.link && (
+                      <div className={styles.readMore}>
+                        <a
+                          style={{
+                            textDecoration: "none",
+                            color: theme.mainAccentDark,
+                          }}
+                          href={item.link || "#"}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <div style={{ display: "flex" }}>
+                            <p> Read More</p>{" "}
+                            <FaChevronRight style={{ marginLeft: 10, marginTop: 5 }} />
+                          </div>
+                        </a>
+                      </div>
+                    )}
+                  </div>
                 </SwiperSlide>
               );
             })}

@@ -1,5 +1,5 @@
 "use client";
-import { Container } from "react-bootstrap";
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
@@ -16,10 +16,10 @@ const YourTeamSlider = ({ teamMembers = [], headline, description }) => {
 
   if (!teamMembers.length) {
     return (
-      <Container className={styles.teamContainer}>
+      <div className={`container lg:max-w-[960px] xxl:max-w-[1320px] mx-auto ${styles.teamContainer}`}>
         <HeadingTopDiscription headline={headline} description={description} />
         <p>No team members to display at the moment.</p>
-      </Container>
+      </div>
     );
   }
 
@@ -32,7 +32,7 @@ const YourTeamSlider = ({ teamMembers = [], headline, description }) => {
         marginTop: 40,
       }}
     >
-      <Container>
+      <div className="container lg:max-w-[960px] xxl:max-w-[1320px] mx-auto">
         <HeadingTopDiscription headline={headline} description={description} />
         <div className={styles.teamContainer}>
           <Swiper
@@ -85,7 +85,7 @@ const YourTeamSlider = ({ teamMembers = [], headline, description }) => {
                     }
                   />
                 </div>
-                <Container style={{  textAlign: "center" }}>
+                <div className="container mx-auto" style={{  textAlign: "center" }}>
                   <p className={styles.name}>
                     {member.teamMemberName || "N/A"}
                   </p>
@@ -116,7 +116,7 @@ const YourTeamSlider = ({ teamMembers = [], headline, description }) => {
                       <FaTwitter className={styles.icon} />
                     </a>
                   </div>
-                </Container>
+                </div>
               </SwiperSlide>
             ))}
             {/* Navigation Buttons */}
@@ -132,7 +132,7 @@ const YourTeamSlider = ({ teamMembers = [], headline, description }) => {
           </>
           }
         </div>
-      </Container>
+      </div>
     </div>
   );
 };
