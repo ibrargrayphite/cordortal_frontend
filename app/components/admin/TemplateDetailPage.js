@@ -194,7 +194,7 @@ const TemplateDetailPage = () => {
     <AppShell
       pageTitle={template.name || `Template ${templateId}`}
       breadcrumbItems={breadcrumbItems}
-      pageActions={pageActions}
+      // pageActions={pageActions}
     >
       <div className="admin-container">
         <div className="admin-card">
