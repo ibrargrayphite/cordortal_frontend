@@ -7,7 +7,7 @@ import {
   PageSpinner 
 } from './index';
 import { fetchPagesData } from '../../utils/fetchPagesData';
-import { fetchData } from '../../utils/api';
+import api from '../../utils/api';
 
 const IntegrationsPage = () => {
   const [integrations, setIntegrations] = useState([]);
@@ -53,24 +53,27 @@ const IntegrationsPage = () => {
   const checkGmailConnection = async () => {
     try {
       // Check if Gmail is already connected
-      const response = await fetchData(`${process.env.NEXT_PUBLIC_API_URL}/user/gmail/status/`);
-      if (response.success) {
+      const response = await api.get('/user/gmail/status/');
+      if (response.data.connected) {
         setGmailConnected(true);
         setGmailData(response.data);
+      } else {
+        setGmailConnected(false);
+        setGmailData(null);
       }
     } catch (err) {
       console.log('Gmail not connected yet');
+      setGmailConnected(false);
+      setGmailData(null);
     }
   };
 
   const handleGmailConnect = async () => {
     try {
-        
-      const response = await fetchData(`${process.env.NEXT_PUBLIC_API_URL}/user/gmail/login/`);
-      if (response.success && response.data.authUrl) {
-        // Redirect to Gmail OAuthr
-
-        window.location.href = response.data.authUrl;
+      const response = await api.post('/user/gmail/login/');
+      if (response.data.auth_url) {
+        // Redirect to Gmail OAuth
+        window.location.href = response.data.auth_url;
       } else {
         setError('Failed to get Gmail authorization URL');
       }
@@ -82,14 +85,11 @@ const IntegrationsPage = () => {
 
   const handleGmailDisconnect = async () => {
     try {
-      const response = await fetchData('/user/gmail/disconnect/', {
-        method: 'POST'
-      });
-      if (response.success) {
-        setGmailConnected(false);
-        setGmailData(null);
-        fetchIntegrations();
-      }
+      const response = await api.post('/user/gmail/disconnect/');
+      // The disconnect API returns a success message, so we can assume it worked
+      setGmailConnected(false);
+      setGmailData(null);
+      fetchIntegrations();
     } catch (err) {
       setError('Failed to disconnect Gmail');
       console.error('Gmail disconnect error:', err);
@@ -97,38 +97,14 @@ const IntegrationsPage = () => {
   };
 
   const handleSaveFilters = async () => {
-    try {
-      const response = await fetchData('/user/gmail/filters/', {
-        method: 'POST',
-        body: JSON.stringify(gmailFilters)
-      });
-      if (response.success) {
-        setShowGmailModal(false);
-        // Show success message
-      }
-    } catch (err) {
-      setError('Failed to save Gmail filters');
-      console.error('Filter save error:', err);
-    }
+    // TODO: Implement when filter API is available
+    setShowGmailModal(false);
+    setError('Filter configuration not yet implemented');
   };
 
   const handleSyncGmail = async () => {
-    try {
-      setLoading(true);
-      const response = await fetchData('/user/gmail/sync/', {
-        method: 'POST'
-      });
-      if (response.success) {
-        // Refresh integrations data
-        await fetchIntegrations();
-        await checkGmailConnection();
-      }
-    } catch (err) {
-      setError('Failed to sync Gmail data');
-      console.error('Gmail sync error:', err);
-    } finally {
-      setLoading(false);
-    }
+    // TODO: Implement when sync API is available
+    setError('Gmail sync not yet implemented');
   };
 
   const breadcrumbItems = [
@@ -137,9 +113,10 @@ const IntegrationsPage = () => {
 
   const pageActions = gmailConnected ? [
     {
-      label: 'Sync Gmail',
+      label: 'Sync Gmail (Coming Soon)',
       icon: '🔄',
-      onClick: handleSyncGmail
+      onClick: handleSyncGmail,
+      disabled: true
     }
   ] : [];
 
@@ -223,16 +200,18 @@ const IntegrationsPage = () => {
                     <button
                       onClick={() => setShowGmailModal(true)}
                       className="admin-button admin-button-secondary"
-                      style={{ fontSize: '0.875rem' }}
+                      style={{ fontSize: '0.875rem', opacity: 0.6, cursor: 'not-allowed' }}
+                      disabled
                     >
-                      ⚙️ Configure
+                      ⚙️ Configure (Coming Soon)
                     </button>
                     <button
                       onClick={handleSyncGmail}
-                      className="admin-button admin-button-primary"
-                      style={{ fontSize: '0.875rem' }}
+                      className="admin-button admin-button-secondary"
+                      style={{ fontSize: '0.875rem', opacity: 0.6, cursor: 'not-allowed' }}
+                      disabled
                     >
-                      🔄 Sync Now
+                      🔄 Sync Now (Coming Soon)
                     </button>
                     <button
                       onClick={handleGmailDisconnect}

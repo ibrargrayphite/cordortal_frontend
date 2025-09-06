@@ -14,6 +14,7 @@ import { useToast } from "../../components/Toast";
 import { PageLoader, DataLoader, ButtonLoader } from "../../components/LoadingSpinner";
 import { consentFormsAPI } from "../../utils/api";
 import { AppShell } from './index';
+import SpeechToTextDictation from '../SpeechToTextDictation';
 import styles from "../../leads/detail/leadDetail.module.css";
 import theme from "../../styles/adminTheme.module.css";
 
@@ -1401,12 +1402,12 @@ function LeadDetailClient() {
                       </div>
                     </div>
                     <div className={styles.editArea}>
-                      <textarea
-                        className={styles.noteTextarea}
+                      <SpeechToTextDictation
                         value={selectedNote.notes}
-                        onChange={(e) => setSelectedNote({ ...selectedNote, notes: e.target.value })}
-                        placeholder="Write your note here..."
+                        onChange={(value) => setSelectedNote({ ...selectedNote, notes: value })}
+                        placeholder="Write your note here or click the microphone to speak..."
                         rows={15}
+                        className={styles.noteTextarea}
                       />
                       <div className={styles.editActions}>
                         <Button
@@ -1468,12 +1469,12 @@ function LeadDetailClient() {
                 ) : (
                   <div className={styles.newNoteInterface}>
                     <div className={styles.editArea}>
-                      <textarea
-                        className={styles.noteTextarea}
+                      <SpeechToTextDictation
                         value={newNote}
-                        onChange={(e) => setNewNote(e.target.value)}
-                        placeholder="Start writing a new note for this lead..."
+                        onChange={setNewNote}
+                        placeholder="Start writing a new note for this lead or click the microphone to speak..."
                         rows={15}
+                        className={styles.noteTextarea}
                       />
                       <div className={styles.editActions}>
                         <Button
