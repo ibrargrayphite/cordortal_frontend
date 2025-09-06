@@ -280,7 +280,7 @@ const LeadsPage = () => {
             searchValue={searchInput}
             onSearchChange={handleSearchChange}
             searchPlaceholder="Search leads by name, email, or phone..."
-            showPagination={true}
+            showPagination={false}
             pageSize={leadsHook.pageSize || 10}
             emptyState={
               <EmptyState
@@ -302,6 +302,177 @@ const LeadsPage = () => {
               />
             }
           />
+        )}
+
+        {/* Custom Pagination Controls */}
+        {!leadsHook.loading && leadsHook.totalPages > 1 && (
+          <div style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'space-between',
+            marginTop: '1rem',
+            gap: '1rem',
+            flexWrap: 'wrap'
+          }}>
+            {/* Page Info and Page Size */}
+            <div style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: '1rem',
+              flexWrap: 'wrap'
+            }}>
+              <div style={{ 
+                fontSize: '0.875rem', 
+                color: 'var(--admin-muted-foreground)' 
+              }}>
+                Page {leadsHook.currentPage} of {leadsHook.totalPages}
+                {leadsHook.totalPages === 1 && ` (${leadsHook.leadsCount} items)`}
+              </div>
+              
+              {/* Page Size Dropdown */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <label style={{ 
+                  fontSize: '0.875rem', 
+                  color: 'var(--admin-muted-foreground)' 
+                }}>
+                  Show:
+                </label>
+                <select
+                  value={leadsHook.pageSize}
+                  onChange={(e) => leadsHook.handlePageSizeChange(Number(e.target.value))}
+                  className="admin-input"
+                  style={{ 
+                    padding: '0.25rem 0.5rem',
+                    fontSize: '0.875rem',
+                    minWidth: '60px'
+                  }}
+                >
+                  {[5, 10, 20, 50, 100].map(pageSize => (
+                    <option key={pageSize} value={pageSize}>
+                      {pageSize}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            
+            {/* Pagination Controls */}
+            <div style={{ display: 'flex', gap: '0.25rem', alignItems: 'center' }}>
+              {/* To Start Button */}
+              <button
+                onClick={() => leadsHook.handlePageChange(1)}
+                disabled={leadsHook.currentPage === 1}
+                className="admin-button admin-button-secondary"
+                style={{ padding: '0.5rem' }}
+                title="Go to first page"
+              >
+                ⏮
+              </button>
+              
+              {/* Previous Page Button */}
+              <button
+                onClick={leadsHook.handlePreviousPage}
+                disabled={leadsHook.currentPage === 1}
+                className="admin-button admin-button-secondary"
+                style={{ padding: '0.5rem' }}
+                title="Previous page"
+              >
+                ←
+              </button>
+              
+              {/* Page Numbers */}
+              <div style={{ display: 'flex', gap: '0.25rem', margin: '0 0.5rem' }}>
+                {(() => {
+                  const currentPage = leadsHook.currentPage;
+                  const totalPages = leadsHook.totalPages;
+                  const pages = [];
+                  
+                  // Show first page
+                  if (currentPage > 2) {
+                    pages.push(
+                      <button
+                        key={1}
+                        onClick={() => leadsHook.handlePageChange(1)}
+                        className="admin-button admin-button-secondary"
+                        style={{ padding: '0.5rem', minWidth: '2rem' }}
+                      >
+                        1
+                      </button>
+                    );
+                    if (currentPage > 3) {
+                      pages.push(
+                        <span key="ellipsis1" style={{ padding: '0.5rem', color: 'var(--admin-muted-foreground)' }}>
+                          ...
+                        </span>
+                      );
+                    }
+                  }
+                  
+                  // Show pages around current page
+                  const startPage = Math.max(1, currentPage - 1);
+                  const endPage = Math.min(totalPages, currentPage + 1);
+                  
+                  for (let i = startPage; i <= endPage; i++) {
+                    pages.push(
+                      <button
+                        key={i}
+                        onClick={() => leadsHook.handlePageChange(i)}
+                        className={`admin-button ${i === currentPage ? 'admin-button-primary' : 'admin-button-secondary'}`}
+                        style={{ padding: '0.5rem', minWidth: '2rem' }}
+                      >
+                        {i}
+                      </button>
+                    );
+                  }
+                  
+                  // Show last page
+                  if (currentPage < totalPages - 2) {
+                    if (currentPage < totalPages - 3) {
+                      pages.push(
+                        <span key="ellipsis2" style={{ padding: '0.5rem', color: 'var(--admin-muted-foreground)' }}>
+                          ...
+                        </span>
+                      );
+                    }
+                    pages.push(
+                      <button
+                        key={totalPages}
+                        onClick={() => leadsHook.handlePageChange(totalPages)}
+                        className="admin-button admin-button-secondary"
+                        style={{ padding: '0.5rem', minWidth: '2rem' }}
+                      >
+                        {totalPages}
+                      </button>
+                    );
+                  }
+                  
+                  return pages;
+                })()}
+              </div>
+              
+              {/* Next Page Button */}
+              <button
+                onClick={leadsHook.handleNextPage}
+                disabled={leadsHook.currentPage === leadsHook.totalPages}
+                className="admin-button admin-button-secondary"
+                style={{ padding: '0.5rem' }}
+                title="Next page"
+              >
+                →
+              </button>
+              
+              {/* To End Button */}
+              <button
+                onClick={() => leadsHook.handlePageChange(leadsHook.totalPages)}
+                disabled={leadsHook.currentPage === leadsHook.totalPages}
+                className="admin-button admin-button-secondary"
+                style={{ padding: '0.5rem' }}
+                title="Go to last page"
+              >
+                ⏭
+              </button>
+            </div>
+          </div>
         )}
       </div>
 

@@ -122,7 +122,7 @@ const TemplatesListPage = () => {
     <AppShell
       pageTitle="Template Management"
       breadcrumbItems={breadcrumbItems}
-      pageActions={pageActions}
+      // pageActions={pageActions}
     >
       <div className="admin-container">
         {/* Page Header */}

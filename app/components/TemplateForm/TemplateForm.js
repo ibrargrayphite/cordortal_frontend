@@ -338,7 +338,7 @@ function TemplateForm({
                   onEditorChange={(newValue) => handleFormChange("template", newValue)}
                   key={`template-editor-${template?.id || "new"}`}
                   init={{
-                    height: 700,
+                    height: "100%", // Use flexible height instead of fixed
                     menubar: false,
                     plugins: ["lists", "autolink", "link", "pagebreak", "image"],
                     toolbar:

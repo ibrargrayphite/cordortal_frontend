@@ -181,15 +181,15 @@
 .mainLayout {
   display: flex;
   gap: 2rem;
-  height: 100%;
+  height: calc(100vh - 120px); /* Increased height for more space */
   width: 100%;
-  min-height: calc(100vh - 200px);
+  max-height: calc(100vh - 120px);
 }
 
-/* Data Sidebar (Left Panel) - 25% width */
+/* Data Sidebar (Left Panel) - 20% width */
 .dataSidebar {
-  width: 25%;
-  min-width: 300px;
+  width: 20%;
+  min-width: 280px;
   background: white;
   border-radius: 12px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -199,9 +199,9 @@
   transition: all 0.3s ease;
 }
 
-/* Action Panel (Right Panel) - 75% width */
+/* Action Panel (Right Panel) - 80% width */
 .actionPanel {
-  width: 75%;
+  width: 80%;
   background: white;
   border-radius: 12px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -209,10 +209,11 @@
   flex-direction: column;
   overflow: hidden;
   transition: all 0.3s ease;
+  height: 100%; /* Ensure it takes full height */
 }
 
 .actionPanelHeader {
-  padding: 1.5rem 2rem;
+  padding: 1rem 1.5rem; /* Reduced padding for more editor space */
   border-bottom: 1px solid #e5e7eb;
   display: flex;
   justify-content: space-between;
@@ -378,8 +379,8 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 2rem;
-  overflow-y: auto;
+  padding: 1rem; /* Reduced padding for more editor space */
+  overflow: hidden; /* Remove scroll to prevent multiple scroll bars */
 }
 
 /* Signed Consent Preview Page */
