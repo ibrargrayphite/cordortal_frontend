@@ -923,15 +923,6 @@ function LeadDetailClient() {
   }
 
   // Page actions for AppShell
-  const pageActions = [
-    {
-      label: 'Edit Lead',
-      onClick: () => {
-        // Add edit lead functionality here
-        console.log('Edit lead clicked');
-      }
-    }
-  ];
 
   return (
     <AppShell
@@ -940,7 +931,6 @@ function LeadDetailClient() {
         { label: lead.full_name || lead.email, href: '#' }
       ]}
       pageTitle="Lead Details"
-      pageActions={pageActions}
       orgData={orgData}
       leadData={lead}
     >

@@ -172,10 +172,7 @@ const TopBar = ({ onMenuClick, breadcrumbItems, pageTitle, actions, pageActions,
           }}>
             <div>
               <div style={{ fontWeight: 600, fontSize: '0.875rem' }}>
-                {leadData.full_name || 'Unknown Lead'}
-              </div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--admin-muted-foreground)' }}>
-                {leadData.email}
+                {leadData.first_name+''+leadData.last_name || 'Unknown Lead'}
               </div>
             </div>
             {leadData.phone && (
