@@ -611,3 +611,146 @@
 .js-focus-visible .admin-nav-item:focus:not(.focus-visible) {
   outline: none;
 }
+
+/* Modal Styles */
+.admin-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  padding: 1rem;
+}
+
+.admin-modal {
+  background-color: var(--admin-card);
+  border-radius: var(--admin-radius);
+  box-shadow: var(--admin-shadow-lg);
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--admin-border);
+}
+
+.admin-modal-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.admin-modal-body {
+  padding: 1.5rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.admin-modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding: 1.5rem;
+  border-top: 1px solid var(--admin-border);
+}
+
+/* Alert Styles */
+.admin-alert {
+  padding: 0.75rem 1rem;
+  border-radius: var(--admin-radius);
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.admin-alert-error {
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+}
+
+.dark .admin-alert-error {
+  background-color: #1f2937;
+  border-color: #374151;
+  color: #fca5a5;
+}
+
+.admin-alert-success {
+  background-color: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #16a34a;
+}
+
+.dark .admin-alert-success {
+  background-color: #1f2937;
+  border-color: #374151;
+  color: #86efac;
+}
+
+/* Input Help Text */
+.admin-input-help {
+  font-size: 0.75rem;
+  color: var(--admin-muted-foreground);
+  margin-top: 0.25rem;
+}
+
+/* Grid Layout */
+.admin-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+/* Integration Card Specific Styles */
+.admin-integration-card {
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.admin-integration-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--admin-shadow-lg);
+}
+
+/* Status Badge for Integrations */
+.admin-status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.admin-status-badge.connected {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.dark .admin-status-badge.connected {
+  background-color: #1f2937;
+  color: #86efac;
+}
+
+.admin-status-badge.disconnected {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.dark .admin-status-badge.disconnected {
+  background-color: #1f2937;
+  color: #fbbf24;
+}

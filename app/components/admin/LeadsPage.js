@@ -111,7 +111,7 @@ const LeadsPage = () => {
           <StatusBadge variant="notes" count={getValue() || 0} />
         ),
       }),
-      columnHelper.accessor('consent_forms_count', {
+      columnHelper.accessor('consent_count', {
         header: 'Consent Forms',
         enableSorting: false,
         cell: ({ getValue }) => (

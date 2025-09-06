@@ -50,6 +50,12 @@ const Sidebar = ({ isOpen, onClose, currentPath, orgData, isCollapsed, onToggleC
       icon: '📄',
       current: currentPath.startsWith('/templates'),
     },
+    {
+      name: 'Integrations',
+      href: '/integrations',
+      icon: '🔗',
+      current: currentPath.startsWith('/integrations'),
+    },
   ];
 
   const handleNavigation = (href) => {
