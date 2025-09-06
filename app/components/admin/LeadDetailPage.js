@@ -59,12 +59,67 @@ function LeadDetailClient() {
   const [activeTab, setActiveTab] = useState("notes");
   const [fromNotesFlow, setFromNotesFlow] = useState(false);
   const [generatingConsentForm, setGeneratingConsentForm] = useState(false);
+  const [loadingMessage, setLoadingMessage] = useState('');
+  const [loadingTimeout, setLoadingTimeout] = useState(null);
   const router = useRouter();
   const searchParams = useSearchParams();
   const leadId = searchParams.get("id");
   const { showError, showSuccess, showWarning } = useToast();
   const [selectedTemplateId, setSelectedTemplateId] = useState(null);
   const [showCancelView, setShowCancelView] = useState(false);
+
+  // Progressive loading messages for consent form generation
+  const startProgressiveLoading = () => {
+    setLoadingMessage('Preparing...');
+    
+    // Clear any existing timeout
+    if (loadingTimeout) {
+      clearTimeout(loadingTimeout);
+    }
+    
+    // After 3 seconds, show "Analyzing notes..."
+    const timeout1 = setTimeout(() => {
+      setLoadingMessage('Analyzing notes...');
+    }, 3000);
+    
+    // After 6 seconds, show "Analyzing template..."
+    const timeout2 = setTimeout(() => {
+      setLoadingMessage('Analyzing template...');
+    }, 6000);
+    
+    // After 9 seconds, show "Processing with AI..."
+    const timeout3 = setTimeout(() => {
+      setLoadingMessage('Processing with AI...');
+    }, 9000);
+    
+    // After 12 seconds, show "Generating consent form..."
+    const timeout4 = setTimeout(() => {
+      setLoadingMessage('Generating consent form...');
+    }, 12000);
+    
+    // After 15 seconds, show "Almost done..."
+    const timeout5 = setTimeout(() => {
+      setLoadingMessage('Almost done...');
+    }, 15000);
+    
+    // Store all timeouts for cleanup
+    setLoadingTimeout({ timeout1, timeout2, timeout3, timeout4, timeout5 });
+  };
+
+  const clearProgressiveLoading = () => {
+    if (loadingTimeout) {
+      Object.values(loadingTimeout).forEach(timeout => clearTimeout(timeout));
+      setLoadingTimeout(null);
+    }
+    setLoadingMessage('');
+  };
+
+  // Cleanup timeouts on unmount
+  useEffect(() => {
+    return () => {
+      clearProgressiveLoading();
+    };
+  }, []);
 
   // Open a blank editor + live preview
   const handleCreateBlankTemplate = () => {
@@ -123,6 +178,9 @@ function LeadDetailClient() {
       setSavingTemplate(true);
       setSelectedConsentForm(null); // Clear selected consent form
       setShowCancelView(false); // Reset cancel view
+      
+      // Start progressive loading messages
+      startProgressiveLoading();
 
       if (!templateId) {
         throw new Error("No template selected");
@@ -196,6 +254,7 @@ function LeadDetailClient() {
     } finally {
       setGeneratingConsentForm(false);
       setSavingTemplate(false);
+      clearProgressiveLoading();
     }
   };
 
@@ -1272,7 +1331,8 @@ function LeadDetailClient() {
                       >
                         {savingTemplate ? (
                           <>
-                            <i className="fas fa-spinner fa-spin me-2"></i> Loading...
+                            <i className="fas fa-spinner fa-spin me-2"></i> 
+                            {loadingMessage || 'Loading...'}
                           </>
                         ) : (
                           <>
@@ -1373,7 +1433,8 @@ function LeadDetailClient() {
                             >
                               {savingTemplate ? (
                                 <>
-                                  <i className="fas fa-spinner fa-spin me-2"></i> Loading...
+                                  <i className="fas fa-spinner fa-spin me-2"></i> 
+                                  {loadingMessage || 'Loading...'}
                                 </>
                               ) : (
                                 <>
@@ -1439,7 +1500,8 @@ function LeadDetailClient() {
                             >
                               {savingTemplate ? (
                                 <>
-                                  <i className="fas fa-spinner fa-spin me-2"></i> Loading...
+                                  <i className="fas fa-spinner fa-spin me-2"></i> 
+                                  {loadingMessage || 'Loading...'}
                                 </>
                               ) : (
                                 <>

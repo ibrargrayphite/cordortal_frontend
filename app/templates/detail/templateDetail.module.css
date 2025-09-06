@@ -193,6 +193,10 @@
   margin-top: 2rem;
   padding-top: 1rem;
   border-top: 1px solid #e5e7eb;
+  position: sticky;
+  bottom: 0;
+  background: white;
+  z-index: 10;
 }
 
 .saveButton {
@@ -306,7 +310,8 @@
 .previewContainer {
   flex: 1;
   padding: 1rem; /* Reduced padding for more editor space */
-  overflow: hidden; /* Remove scroll to prevent multiple scroll bars */
+  overflow-y: auto; /* Allow vertical scrolling for large content */
+  overflow-x: hidden; /* Prevent horizontal scroll */
   background: #ffffff;
   border: none;
 }
@@ -374,7 +379,8 @@
   margin-top: 0.5rem;
   min-height: 600px;
   height: 100%; /* Use full height instead of max-height */
-  overflow: hidden; /* Remove scroll to prevent multiple scroll bars */
+  overflow-y: auto; /* Allow vertical scrolling for large content */
+  overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
 .templatePreview {
