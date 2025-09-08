@@ -37,6 +37,12 @@ function LeadDetailClient() {
   const [dateFilter, setDateFilter] = useState("");
   const [showDateFilter, setShowDateFilter] = useState(false);
   const [navigatingBack, setNavigatingBack] = useState(false);
+  const [isSpeechEnabled, setIsSpeechEnabled] = useState(false);
+  
+  // Debug speech enabled state
+  useEffect(() => {
+    console.log('isSpeechEnabled state changed:', isSpeechEnabled);
+  }, [isSpeechEnabled]);
   const searchTimeoutRef = useRef(null);
   const [notesPage, setNotesPage] = useState(1);
   const [notesTotalPages, setNotesTotalPages] = useState(1);
@@ -465,6 +471,7 @@ function LeadDetailClient() {
 
     fetchLeadData();
     fetchOrgData();
+    fetchUserData();
     fetchNotes();
   }, [leadId]);
 
@@ -561,6 +568,37 @@ function LeadDetailClient() {
       showError(errorMessage);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchUserData = async () => {
+    try {
+      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+      const response = await fetch(`${baseUrl}/user/`, {
+        method: "GET",
+        headers: getAuthHeaders(),
+      });
+
+      if (response.status === 401) {
+        logout();
+        window.location.replace("/login");
+        return;
+      }
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const userData = await response.json();
+      console.log('User data received:', userData);
+      // Handle array response format
+      const user = Array.isArray(userData) ? userData[0] : userData;
+      console.log('is_speech_enabled value:', user.is_speech_enabled);
+      setIsSpeechEnabled(user.is_speech_enabled || false);
+    } catch (err) {
+      console.error("User data fetch error:", err);
+      // Default to false if there's an error
+      setIsSpeechEnabled(false);
     }
   };
 
@@ -1389,13 +1427,29 @@ function LeadDetailClient() {
                       </div>
                     </div>
                     <div className={styles.editArea}>
-                      <SpeechToTextDictation
-                        value={selectedNote.notes}
-                        onChange={(value) => setSelectedNote({ ...selectedNote, notes: value })}
-                        placeholder="Write your note here or click the microphone to speak..."
-                        rows={15}
-                        className={styles.noteTextarea}
-                      />
+                      {isSpeechEnabled ? (
+                        <>
+                          {console.log('Rendering SpeechToTextDictation for edit note')}
+                          <SpeechToTextDictation
+                            value={selectedNote.notes}
+                            onChange={(value) => setSelectedNote({ ...selectedNote, notes: value })}
+                            placeholder="Write your note here or click the microphone to speak..."
+                            rows={15}
+                            className={styles.noteTextarea}
+                          />
+                        </>
+                      ) : (
+                        <>
+                          {console.log('Rendering textarea for edit note')}
+                          <textarea
+                            value={selectedNote.notes}
+                            onChange={(e) => setSelectedNote({ ...selectedNote, notes: e.target.value })}
+                            placeholder="Write your note here..."
+                            rows={15}
+                            className={styles.noteTextarea}
+                          />
+                        </>
+                      )}
                       <div className={styles.editActions}>
                         <Button
                           variant="default"
@@ -1456,13 +1510,29 @@ function LeadDetailClient() {
                 ) : (
                   <div className={styles.newNoteInterface}>
                     <div className={styles.editArea}>
-                      <SpeechToTextDictation
-                        value={newNote}
-                        onChange={setNewNote}
-                        placeholder="Start writing a new note for this lead or click the microphone to speak..."
-                        rows={15}
-                        className={styles.noteTextarea}
-                      />
+                      {isSpeechEnabled ? (
+                        <>
+                          {console.log('Rendering SpeechToTextDictation for new note')}
+                          <SpeechToTextDictation
+                            value={newNote}
+                            onChange={setNewNote}
+                            placeholder="Start writing a new note for this lead or click the microphone to speak..."
+                            rows={15}
+                            className={styles.noteTextarea}
+                          />
+                        </>
+                      ) : (
+                        <>
+                          {console.log('Rendering textarea for new note')}
+                          <textarea
+                            value={newNote}
+                            onChange={(e) => setNewNote(e.target.value)}
+                            placeholder="Start writing a new note for this lead..."
+                            rows={15}
+                            className={styles.noteTextarea}
+                          />
+                        </>
+                      )}
                       <div className={styles.editActions}>
                         <Button
                           variant="primary"
