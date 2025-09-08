@@ -48,6 +48,8 @@ function LeadDetailClient() {
   const [consentFormsLoading, setConsentFormsLoading] = useState(false);
   const [consentSearchQuery, setConsentSearchQuery] = useState("");
   const [consentFormsPage, setConsentFormsPage] = useState(1);
+  const [searchTimeout, setSearchTimeout] = useState(null);
+  const [isSearching, setIsSearching] = useState(false);
   const [consentFormsTotalPages, setConsentFormsTotalPages] = useState(1);
   const [consentFormsPageSize] = useState(5);
   const [loadingMoreConsentForms, setLoadingMoreConsentForms] = useState(false);
@@ -330,73 +332,30 @@ function LeadDetailClient() {
     window.location.replace("/login");
   };
 
-  // Search and filter notes
+  // Search and filter notes with backend API and debouncing
   const handleSearchNotes = (query = searchQuery, dateFilterValue = dateFilter) => {
     setSearchQuery(query);
-    if (!query.trim() && !dateFilterValue) {
-      const sortedNotes = [...notes].sort((a, b) => {
-        const aDate = new Date(a.created_at || a.date_created);
-        const bDate = new Date(b.created_at || b.date_created);
-        return bDate - aDate;
-      });
-      setFilteredNotes(sortedNotes);
+    setDateFilter(dateFilterValue);
+    
+    // Clear existing timeout
+    if (searchTimeout) {
+      clearTimeout(searchTimeout);
+    }
+    
+    // Prevent duplicate calls if already searching
+    if (isSearching) {
       return;
     }
-
-    let filtered = [...notes];
-    if (query.trim()) {
-      const searchTerms = query.toLowerCase().trim().split(/\s+/);
-      filtered = filtered.filter((note) =>
-        searchTerms.every((term) => note.notes.toLowerCase().includes(term))
-      );
-    }
-
-    if (dateFilterValue) {
-      const today = new Date();
-      const todayStart = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-      filtered = filtered.filter((note) => {
-        const noteDate = new Date(note.created_at || note.date_created);
-        switch (dateFilterValue) {
-          case "today":
-            return noteDate >= todayStart;
-          case "yesterday":
-            const yesterdayStart = new Date(todayStart);
-            yesterdayStart.setDate(yesterdayStart.getDate() - 1);
-            const yesterdayEnd = new Date(todayStart);
-            return noteDate >= yesterdayStart && noteDate < yesterdayEnd;
-          case "this_week":
-            const weekStart = new Date(todayStart);
-            weekStart.setDate(weekStart.getDate() - weekStart.getDay());
-            return noteDate >= weekStart;
-          case "last_week":
-            const lastWeekEnd = new Date(todayStart);
-            lastWeekEnd.setDate(lastWeekEnd.getDate() - lastWeekEnd.getDay());
-            const lastWeekStart = new Date(lastWeekEnd);
-            lastWeekStart.setDate(lastWeekStart.getDate() - 7);
-            return noteDate >= lastWeekStart && noteDate < lastWeekEnd;
-          case "this_month":
-            const monthStart = new Date(today.getFullYear(), today.getMonth(), 1);
-            return noteDate >= monthStart;
-          case "last_month":
-            const lastMonthStart = new Date(today.getFullYear(), today.getMonth() - 1, 1);
-            const lastMonthEnd = new Date(today.getFullYear(), today.getMonth(), 1);
-            return noteDate >= lastMonthStart && noteDate < lastMonthEnd;
-          case "this_year":
-            const yearStart = new Date(today.getFullYear(), 0, 1);
-            return noteDate >= yearStart;
-          default:
-            return true;
-        }
+    
+    // Set new timeout for debounced search
+    const timeout = setTimeout(() => {
+      setIsSearching(true);
+      fetchNotes(1, false, query, dateFilterValue).finally(() => {
+        setIsSearching(false);
       });
-    }
-
-    filtered.sort((a, b) => {
-      const aDate = new Date(a.created_at || a.date_created);
-      const bDate = new Date(b.created_at || b.date_created);
-      return bDate - aDate;
-    });
-
-    setFilteredNotes(filtered);
+    }, 500); // 500ms delay
+    
+    setSearchTimeout(timeout);
   };
 
   const handleDateFilterChange = (newDateFilter) => {
@@ -406,10 +365,16 @@ function LeadDetailClient() {
   };
 
   const clearAllFilters = () => {
+    // Clear timeout if exists
+    if (searchTimeout) {
+      clearTimeout(searchTimeout);
+    }
+    
     setSearchQuery("");
     setDateFilter("");
     setShowDateFilter(false);
-    handleSearchNotes("", "");
+    setIsSearching(false);
+    fetchNotes(1, false, "", ""); // Fetch all notes without filters
   };
 
   // Search consent forms by name
@@ -483,9 +448,15 @@ function LeadDetailClient() {
     return () => clearTimeout(timer);
   }, []);
 
+  // Cleanup search timeout on unmount
   useEffect(() => {
-    handleSearchNotes(searchQuery, dateFilter);
-  }, [notes]);
+    return () => {
+      if (searchTimeout) {
+        clearTimeout(searchTimeout);
+      }
+    };
+  }, [searchTimeout]);
+
 
   useEffect(() => {
     if (activeTab === "consent" && consentForms.length === 0) {
@@ -577,7 +548,7 @@ function LeadDetailClient() {
     }
   };
 
-  const fetchNotes = async (page = 1, loadMore = false) => {
+  const fetchNotes = async (page = 1, loadMore = false, searchQueryParam = searchQuery, dateFilterParam = dateFilter) => {
     try {
       if (loadMore) {
         setLoadingMoreNotes(true);
@@ -586,8 +557,22 @@ function LeadDetailClient() {
       }
 
       const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+      const params = new URLSearchParams({
+        lead_id: leadId.toString(),
+        page: page.toString(),
+        page_size: notesPageSize.toString(),
+      });
+
+      if (searchQueryParam.trim()) {
+        params.append('q', searchQueryParam.trim());
+      }
+
+      if (dateFilterParam) {
+        params.append('created_at_range', dateFilterParam);
+      }
+
       const response = await fetch(
-        `${baseUrl}/leads/notes/?lead_id=${leadId}&page=${page}&page_size=${notesPageSize}`,
+        `${baseUrl}/leads/notes/?${params.toString()}`,
         { headers: getAuthHeaders() }
       );
 
@@ -610,6 +595,7 @@ function LeadDetailClient() {
         setNotes([...notes, ...notesArray]);
       } else {
         setNotes(notesArray);
+        setFilteredNotes(notesArray); // Set filtered notes to the same as notes since backend is filtering
       }
 
       setNotesPage(page);
@@ -626,7 +612,7 @@ function LeadDetailClient() {
 
   const loadMoreNotes = () => {
     if (hasMoreNotes && !loadingMoreNotes) {
-      fetchNotes(notesPage + 1, true);
+      fetchNotes(notesPage + 1, true, searchQuery, dateFilter);
     }
   };
 
@@ -1036,13 +1022,14 @@ function LeadDetailClient() {
               <>
                 <div className={styles.searchSection}>
                   <div className={styles.searchInputWrapper}>
-                    <i className="fas fa-search"></i>
+                    <i className={`fas ${isSearching ? 'fa-spinner fa-spin' : 'fa-search'}`}></i>
                     <input
                       type="text"
                       placeholder="Search notes..."
                       value={searchQuery}
                       onChange={(e) => handleSearchNotes(e.target.value, dateFilter)}
                       className={styles.searchInput}
+                      disabled={isSearching}
                     />
                     {(searchQuery || dateFilter) && (
                       <button

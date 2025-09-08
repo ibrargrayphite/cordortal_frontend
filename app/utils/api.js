@@ -146,12 +146,20 @@ export const templatesAPI = {
 };
 
 export const notesAPI = {
-  getNotes: async (leadId, page = 1, pageSize = 5) => {
+  getNotes: async (leadId, page = 1, pageSize = 5, searchQuery = '', dateRange = '') => {
     const params = new URLSearchParams({
       lead_id: leadId.toString(),
       page: page.toString(),
       page_size: pageSize.toString(),
     });
+
+    if (searchQuery.trim()) {
+      params.append('q', searchQuery.trim());
+    }
+
+    if (dateRange) {
+      params.append('created_at_range', dateRange);
+    }
 
     const response = await api.get(`/leads/notes/?${params.toString()}`);
     return response.data;
