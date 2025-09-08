@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback, Suspense } from "react";
+import React, { useState, useEffect, useCallback, useRef, Suspense } from "react";
 import { Button } from '../../components/ui/button';
 import { Input } from '../../components/ui/input';
 import { Label } from '../../components/ui/label';
@@ -27,7 +27,6 @@ function LeadDetailClient() {
   const [loading, setLoading] = useState(true);
   const [fadeIn, setFadeIn] = useState(false);
   const [notes, setNotes] = useState([]);
-  const [filteredNotes, setFilteredNotes] = useState([]);
   const [notesLoading, setNotesLoading] = useState(false);
   const [selectedNote, setSelectedNote] = useState(null);
   const [editingNote, setEditingNote] = useState(null);
@@ -38,6 +37,7 @@ function LeadDetailClient() {
   const [dateFilter, setDateFilter] = useState("");
   const [showDateFilter, setShowDateFilter] = useState(false);
   const [navigatingBack, setNavigatingBack] = useState(false);
+  const searchTimeoutRef = useRef(null);
   const [notesPage, setNotesPage] = useState(1);
   const [notesTotalPages, setNotesTotalPages] = useState(1);
   const [notesPageSize] = useState(5);
@@ -48,7 +48,6 @@ function LeadDetailClient() {
   const [consentFormsLoading, setConsentFormsLoading] = useState(false);
   const [consentSearchQuery, setConsentSearchQuery] = useState("");
   const [consentFormsPage, setConsentFormsPage] = useState(1);
-  const [searchTimeout, setSearchTimeout] = useState(null);
   const [isSearching, setIsSearching] = useState(false);
   const [consentFormsTotalPages, setConsentFormsTotalPages] = useState(1);
   const [consentFormsPageSize] = useState(5);
@@ -332,31 +331,39 @@ function LeadDetailClient() {
     window.location.replace("/login");
   };
 
-  // Search and filter notes with backend API and debouncing
+  // Search and filter notes with backend API
   const handleSearchNotes = (query = searchQuery, dateFilterValue = dateFilter) => {
     setSearchQuery(query);
     setDateFilter(dateFilterValue);
-    
-    // Clear existing timeout
-    if (searchTimeout) {
-      clearTimeout(searchTimeout);
-    }
     
     // Prevent duplicate calls if already searching
     if (isSearching) {
       return;
     }
     
-    // Set new timeout for debounced search
-    const timeout = setTimeout(() => {
-      setIsSearching(true);
-      fetchNotes(1, false, query, dateFilterValue).finally(() => {
-        setIsSearching(false);
-      });
-    }, 500); // 500ms delay
-    
-    setSearchTimeout(timeout);
+    setIsSearching(true);
+    fetchNotes(1, false, query, dateFilterValue).finally(() => {
+      setIsSearching(false);
+    });
   };
+
+  // Handle notes search input change
+  const handleNotesSearchChange = useCallback((e) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+    
+    // If input is cleared, immediately search for all data
+    if (query === '') {
+      handleSearchNotes('', dateFilter);
+    }
+  }, [dateFilter, handleSearchNotes]);
+
+  // Handle notes search on Enter key press
+  const handleNotesSearchKeyPress = useCallback((e) => {
+    if (e.key === 'Enter') {
+      handleSearchNotes(searchQuery, dateFilter);
+    }
+  }, [searchQuery, dateFilter, handleSearchNotes]);
 
   const handleDateFilterChange = (newDateFilter) => {
     setDateFilter(newDateFilter);
@@ -365,11 +372,6 @@ function LeadDetailClient() {
   };
 
   const clearAllFilters = () => {
-    // Clear timeout if exists
-    if (searchTimeout) {
-      clearTimeout(searchTimeout);
-    }
-    
     setSearchQuery("");
     setDateFilter("");
     setShowDateFilter(false);
@@ -398,6 +400,24 @@ function LeadDetailClient() {
       setConsentFormsLoading(false);
     }
   };
+
+  // Handle consent search input change
+  const handleConsentSearchChange = useCallback((e) => {
+    const query = e.target.value;
+    setConsentSearchQuery(query);
+    
+    // If input is cleared, immediately search for all data
+    if (query === '') {
+      handleSearchConsentForms('');
+    }
+  }, [handleSearchConsentForms]);
+
+  // Handle consent search on Enter key press
+  const handleConsentSearchKeyPress = useCallback((e) => {
+    if (e.key === 'Enter') {
+      handleSearchConsentForms(consentSearchQuery);
+    }
+  }, [consentSearchQuery, handleSearchConsentForms]);
 
   const clearConsentSearch = async () => {
     setConsentSearchQuery("");
@@ -456,11 +476,11 @@ function LeadDetailClient() {
   // Cleanup search timeout on unmount
   useEffect(() => {
     return () => {
-      if (searchTimeout) {
-        clearTimeout(searchTimeout);
+      if (searchTimeoutRef.current) {
+        clearTimeout(searchTimeoutRef.current);
       }
     };
-  }, [searchTimeout]);
+  }, []);
 
 
   useEffect(() => {
@@ -600,7 +620,6 @@ function LeadDetailClient() {
         setNotes([...notes, ...notesArray]);
       } else {
         setNotes(notesArray);
-        setFilteredNotes(notesArray); // Set filtered notes to the same as notes since backend is filtering
       }
 
       setNotesPage(page);
@@ -998,7 +1017,7 @@ function LeadDetailClient() {
             <span>Notes</span>
             {notes.length > 0 && (
               <span className={styles.tabBadge}>
-                {searchQuery ? `${filteredNotes.length}/${notes.length}` : notes.length}
+                {searchQuery ? `${notes.length}/${notes.length}` : notes.length}
               </span>
             )}
           </button>
@@ -1032,7 +1051,8 @@ function LeadDetailClient() {
                       type="text"
                       placeholder="Search notes..."
                       value={searchQuery}
-                      onChange={(e) => handleSearchNotes(e.target.value, dateFilter)}
+                      onChange={handleNotesSearchChange}
+                      onKeyPress={handleNotesSearchKeyPress}
                       className={styles.searchInput}
                       disabled={isSearching}
                     />
@@ -1105,24 +1125,6 @@ function LeadDetailClient() {
                     </div>
                   )}
 
-                  {(searchQuery || dateFilter) && (
-                    <div className={styles.searchResults}>
-                      <span className={styles.resultCount}>
-                        {filteredNotes.length} of {notes.length} notes
-                      </span>
-                      {filteredNotes.length > 0 && (
-                        <span className={styles.resultInfo}>
-                          {searchQuery && dateFilter
-                            ? "• text & date filtered"
-                            : searchQuery
-                              ? "• text filtered"
-                              : dateFilter
-                                ? "• date filtered"
-                                : ""}
-                        </span>
-                      )}
-                    </div>
-                  )}
                 </div>
 
                 <div className={styles.notesList} onScroll={handleNotesScroll}>
@@ -1130,9 +1132,9 @@ function LeadDetailClient() {
                     <div className={styles.notesLoading}>
                       <DataLoader message="Loading notes..." />
                     </div>
-                  ) : filteredNotes.length > 0 ? (
+                  ) : notes.length > 0 ? (
                     <>
-                      {filteredNotes.map((note) => {
+                      {notes.map((note) => {
                         const dateTime = formatDateTime(note.created_at || note.date_created);
                         const previewText = note.notes.length > 50 ? `${note.notes.substring(0, 50)}...` : note.notes;
 
@@ -1191,7 +1193,8 @@ function LeadDetailClient() {
                       type="text"
                       placeholder="Search consent forms..."
                       value={consentSearchQuery}
-                      onChange={(e) => handleSearchConsentForms(e.target.value)}
+                      onChange={handleConsentSearchChange}
+                      onKeyPress={handleConsentSearchKeyPress}
                       className={styles.searchInput}
                     />
                     {consentSearchQuery && (
@@ -1205,14 +1208,6 @@ function LeadDetailClient() {
                     )}
                   </div>
 
-                  {consentSearchQuery && (
-                    <div className={styles.searchResults}>
-                      <span className={styles.resultCount}>
-                        {filteredConsentForms.length} of {consentForms.length} consent forms
-                      </span>
-                      <span className={styles.resultInfo}>• name filtered</span>
-                    </div>
-                  )}
                 </div>
 
                 <div className={styles.consentList} onScroll={handleConsentFormsScroll}>

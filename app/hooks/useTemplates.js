@@ -6,20 +6,37 @@ export const useTemplates = () => {
   const [templates, setTemplates] = useState([]);
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchLoading, setSearchLoading] = useState(false);
   
   const { showError, showSuccess } = useToast();
 
   // Fetch templates
-  const fetchTemplates = useCallback(async () => {
+  const fetchTemplates = useCallback(async (search = '') => {
     try {
       setLoading(true);
-      const data = await templatesAPI.getTemplates();
+      const data = await templatesAPI.getTemplates(search);
       setTemplates(Array.isArray(data?.results) ? data?.results : []);
     } catch (error) {
       console.error('Templates fetch error:', error);
       showError('Failed to load templates. Please try again.');
     } finally {
       setLoading(false);
+    }
+  }, [showError]);
+
+  // Search templates
+  const searchTemplates = useCallback(async (query) => {
+    try {
+      setSearchLoading(true);
+      setSearchQuery(query);
+      const data = await templatesAPI.getTemplates(query);
+      setTemplates(Array.isArray(data?.results) ? data?.results : []);
+    } catch (error) {
+      console.error('Templates search error:', error);
+      showError('Failed to search templates. Please try again.');
+    } finally {
+      setSearchLoading(false);
     }
   }, [showError]);
 
@@ -91,9 +108,12 @@ export const useTemplates = () => {
     templates,
     loading,
     saving,
+    searchQuery,
+    searchLoading,
     
     // Actions
     fetchTemplates,
+    searchTemplates,
     createTemplate,
     updateTemplate,
     deleteTemplate,

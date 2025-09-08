@@ -141,6 +141,9 @@ const TemplatesListPage = () => {
             data={templatesHook.templates}
             columns={templateColumns}
             searchPlaceholder="Search templates by name..."
+            searchValue={templatesHook.searchQuery}
+            onSearchChange={templatesHook.searchTemplates}
+            searchLoading={templatesHook.searchLoading}
             emptyState={
               <EmptyState
                 icon="📄"

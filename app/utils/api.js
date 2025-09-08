@@ -119,8 +119,18 @@ export const leadsAPI = {
 };
 
 export const templatesAPI = {
-  getTemplates: async () => {
-    const response = await api.get('/leads/organization-templates/');
+  getTemplates: async (searchQuery = '') => {
+    const params = new URLSearchParams();
+    
+    if (searchQuery.trim()) {
+      params.append('q', searchQuery.trim());
+    }
+
+    const url = params.toString() 
+      ? `/leads/organization-templates/?${params.toString()}`
+      : '/leads/organization-templates/';
+    
+    const response = await api.get(url);
     return response.data;
   },
 

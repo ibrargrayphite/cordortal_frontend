@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import {
   useReactTable,
   getCoreRowModel,
@@ -36,6 +36,25 @@ const DataTable = ({
     setGlobalFilter(searchValue);
   }, [searchValue]);
 
+  // Handle search input change
+  const handleSearchChange = useCallback((e) => {
+    const value = e.target.value;
+    setGlobalFilter(value);
+    
+    // If input is cleared, immediately search for all data
+    if (value === '') {
+      onSearchChange('');
+    }
+  }, [onSearchChange]);
+
+  // Handle search on Enter key press
+  const handleSearchKeyPress = useCallback((e) => {
+    if (e.key === 'Enter') {
+      onSearchChange(globalFilter);
+    }
+  }, [globalFilter, onSearchChange]);
+
+
   const table = useReactTable({
     data,
     columns,
@@ -47,11 +66,7 @@ const DataTable = ({
     // Removed getFilteredRowModel to disable frontend filtering
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
-    onGlobalFilterChange: (value) => {
-      setGlobalFilter(value);
-      onSearchChange(value);
-    },
-    // Removed globalFilter to disable frontend filtering
+    // Removed onGlobalFilterChange to prevent double calls
     state: {
       sorting,
       columnFilters,
@@ -111,7 +126,8 @@ const DataTable = ({
               type="text"
               placeholder={searchPlaceholder}
               value={globalFilter ?? ''}
-              onChange={(e) => table.setGlobalFilter(e.target.value)}
+              onChange={handleSearchChange}
+              onKeyPress={handleSearchKeyPress}
               className="admin-input"
               style={{ paddingLeft: '2.5rem' }}
               disabled={searchLoading}
