@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { leadsAPI } from '../utils/api';
 import { useToast } from '../components/Toast';
 
@@ -15,6 +15,7 @@ export const useLeads = () => {
   const [fadeOut, setFadeOut] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearching, setIsSearching] = useState(false);
+  const searchTimeoutRef = useRef(null);
   
   const { showError, showSuccess } = useToast();
 
@@ -65,22 +66,37 @@ export const useLeads = () => {
     }
   }, [pageSize, showError]);
 
-  // Search functionality
+  // Debounced search functionality
   const handleSearch = useCallback(async (query) => {
     const trimmedQuery = query.trim();
-    setSearchQuery(trimmedQuery);
-    setIsSearching(true);
-    setCurrentPage(1);
     
-    try {
-      await fetchLeads(1, true, trimmedQuery);
-    } finally {
-      setIsSearching(false);
+    // Clear existing timeout
+    if (searchTimeoutRef.current) {
+      clearTimeout(searchTimeoutRef.current);
     }
+    
+    // Set new timeout for debounced search
+    searchTimeoutRef.current = setTimeout(async () => {
+      setSearchQuery(trimmedQuery);
+      setIsSearching(true);
+      setCurrentPage(1);
+      
+      try {
+        await fetchLeads(1, true, trimmedQuery);
+      } finally {
+        setIsSearching(false);
+      }
+    }, 500); // 500ms delay
   }, [fetchLeads]);
+
 
   // Clear search
   const clearSearch = useCallback(async () => {
+    // Clear timeout if exists
+    if (searchTimeoutRef.current) {
+      clearTimeout(searchTimeoutRef.current);
+    }
+    
     setSearchQuery('');
     setCurrentPage(1);
     setIsSearching(true);

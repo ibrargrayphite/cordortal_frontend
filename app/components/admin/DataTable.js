@@ -22,7 +22,8 @@ const DataTable = ({
   searchPlaceholder = 'Search...',
   emptyState = null,
   className = '',
-  density = 'normal' // 'compact' | 'normal' | 'comfortable'
+  density = 'normal', // 'compact' | 'normal' | 'comfortable'
+  searchLoading = false // New prop for search loading state
 }) => {
   const [sorting, setSorting] = useState([]);
   const [columnFilters, setColumnFilters] = useState([]);
@@ -43,20 +44,20 @@ const DataTable = ({
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
+    // Removed getFilteredRowModel to disable frontend filtering
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
     onGlobalFilterChange: (value) => {
       setGlobalFilter(value);
       onSearchChange(value);
     },
-    globalFilter,
+    // Removed globalFilter to disable frontend filtering
     state: {
       sorting,
       columnFilters,
       columnVisibility,
       rowSelection,
-      globalFilter,
+      // Removed globalFilter from state
       pagination: {
         pageIndex: 0,
         pageSize,
@@ -104,7 +105,7 @@ const DataTable = ({
                 fontSize: '0.875rem'
               }}
             >
-              🔍
+              {searchLoading ? '⏳' : '🔍'}
             </span>
             <input
               type="text"
@@ -113,6 +114,7 @@ const DataTable = ({
               onChange={(e) => table.setGlobalFilter(e.target.value)}
               className="admin-input"
               style={{ paddingLeft: '2.5rem' }}
+              disabled={searchLoading}
             />
           </div>
 
@@ -121,7 +123,7 @@ const DataTable = ({
             fontSize: '0.875rem',
             color: 'var(--admin-muted-foreground)'
           }}>
-            {table.getFilteredRowModel().rows.length} items
+            {table.getRowModel().rows.length} items
           </div>
         </div>
       )}
@@ -194,7 +196,7 @@ const DataTable = ({
       </div>
 
       {/* Pagination - Only show if there are items */}
-      {showPagination && table.getFilteredRowModel().rows.length > 0 && (
+      {showPagination && table.getRowModel().rows.length > 0 && (
         <div style={{
           display: 'flex',
           alignItems: 'center',

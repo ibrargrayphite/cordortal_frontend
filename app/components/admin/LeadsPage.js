@@ -225,7 +225,9 @@ const LeadsPage = () => {
 
 
   const handleSearchChange = useCallback((value) => {
+    // Update local state immediately for UI responsiveness
     setSearchInput(value);
+    // Trigger debounced search
     leadsHook.handleSearch(value);
   }, [leadsHook]);
 
@@ -282,17 +284,20 @@ const LeadsPage = () => {
             searchPlaceholder="Search leads by name, email, or phone..."
             showPagination={false}
             pageSize={leadsHook.pageSize || 10}
+            searchLoading={leadsHook.isSearching}
             emptyState={
               <EmptyState
                 icon="👥"
                 title="No leads found"
                 description={
-                  leadsHook.searchQuery
-                    ? "No leads match your search criteria."
+                  leadsHook.searchQuery || leadsHook.isSearching
+                    ? leadsHook.isSearching 
+                      ? "Searching..."
+                      : "No leads match your search criteria."
                     : "Start by adding your first lead using the 'Add Lead' button above."
                 }
                 action={
-                  !leadsHook.searchQuery
+                  !leadsHook.searchQuery && !leadsHook.isSearching
                     ? {
                         label: 'Add Lead',
                         onClick: handleAddLead,
