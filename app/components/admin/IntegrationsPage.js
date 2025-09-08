@@ -13,20 +13,25 @@ const IntegrationsPage = () => {
   const [integrations, setIntegrations] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
   const [showGmailModal, setShowGmailModal] = useState(false);
   const [gmailFilters, setGmailFilters] = useState({
-    subjectKeywords: '',
-    fromEmails: '',
-    dateRange: '30',
-    labelFilters: ''
+    emails: [],
+    subjects: []
   });
   const [gmailConnected, setGmailConnected] = useState(false);
   const [gmailData, setGmailData] = useState(null);
+  const [emailInput, setEmailInput] = useState('');
+  const [subjectInput, setSubjectInput] = useState('');
+  const [filtersLoading, setFiltersLoading] = useState(false);
 
   useEffect(() => {
     fetchIntegrations();
     checkGmailConnection();
-  }, []);
+    if (gmailConnected) {
+      fetchGmailFilters();
+    }
+  }, [gmailConnected]);
 
   const fetchIntegrations = async () => {
     try {
@@ -89,6 +94,7 @@ const IntegrationsPage = () => {
       // The disconnect API returns a success message, so we can assume it worked
       setGmailConnected(false);
       setGmailData(null);
+      setGmailFilters({ emails: [], subjects: [] });
       fetchIntegrations();
     } catch (err) {
       setError('Failed to disconnect Gmail');
@@ -96,29 +102,92 @@ const IntegrationsPage = () => {
     }
   };
 
-  const handleSaveFilters = async () => {
-    // TODO: Implement when filter API is available
-    setShowGmailModal(false);
-    setError('Filter configuration not yet implemented');
+  const fetchGmailFilters = async () => {
+    try {
+      setFiltersLoading(true);
+      const response = await api.get('user/gmail/filters/');
+      if (response.data) {
+        setGmailFilters({
+          emails: response.data.emails || [],
+          subjects: response.data.subjects || []
+        });
+      }
+    } catch (err) {
+      console.error('Error fetching Gmail filters:', err);
+      // Don't show error for filters, just use empty state
+    } finally {
+      setFiltersLoading(false);
+    }
   };
 
-  const handleSyncGmail = async () => {
-    // TODO: Implement when sync API is available
-    setError('Gmail sync not yet implemented');
+  const saveGmailFilters = async () => {
+    try {
+      setFiltersLoading(true);
+      const payload = {
+        emails: gmailFilters.emails,
+        subjects: gmailFilters.subjects
+      };
+      
+      const response = await api.post('user/gmail/filters/', payload);
+      if (response.data) {
+        setError(null);
+        setSuccessMessage('Gmail filters saved successfully!');
+        setShowGmailModal(false);
+        // Clear success message after 3 seconds
+        setTimeout(() => setSuccessMessage(null), 3000);
+      }
+    } catch (err) {
+      setError('Failed to save Gmail filters');
+      console.error('Gmail filters save error:', err);
+    } finally {
+      setFiltersLoading(false);
+    }
   };
+
+  const addEmail = () => {
+    if (emailInput.trim()) {
+      setGmailFilters(prev => ({
+        ...prev,
+        emails: [...prev.emails, emailInput.trim()]
+      }));
+      setEmailInput('');
+    }
+  };
+
+  const removeEmail = (index) => {
+    setGmailFilters(prev => ({
+      ...prev,
+      emails: prev.emails.filter((_, i) => i !== index)
+    }));
+  };
+
+  const addSubject = () => {
+    if (subjectInput.trim()) {
+      setGmailFilters(prev => ({
+        ...prev,
+        subjects: [...prev.subjects, subjectInput.trim()]
+      }));
+      setSubjectInput('');
+    }
+  };
+
+  const removeSubject = (index) => {
+    setGmailFilters(prev => ({
+      ...prev,
+      subjects: prev.subjects.filter((_, i) => i !== index)
+    }));
+  };
+
+  const handleSaveFilters = async () => {
+    await saveGmailFilters();
+  };
+
 
   const breadcrumbItems = [
     { name: 'Integrations', href: '/integrations' }
   ];
 
-  const pageActions = gmailConnected ? [
-    {
-      label: 'Sync Gmail (Coming Soon)',
-      icon: '🔄',
-      onClick: handleSyncGmail,
-      disabled: true
-    }
-  ] : [];
+  const pageActions = [];
 
   if (loading) {
     return (
@@ -156,6 +225,19 @@ const IntegrationsPage = () => {
           </div>
         )}
 
+        {successMessage && (
+          <div className="admin-alert" style={{ 
+            marginBottom: '1rem', 
+            backgroundColor: '#d1fae5', 
+            color: '#065f46', 
+            border: '1px solid #a7f3d0',
+            padding: '0.75rem 1rem',
+            borderRadius: '0.375rem'
+          }}>
+            {successMessage}
+          </div>
+        )}
+
         <div className="admin-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1rem' }}>
           {integrations.map((integration) => (
             <div key={integration.id} className="admin-card admin-integration-card">
@@ -186,6 +268,11 @@ const IntegrationsPage = () => {
                   <span className="admin-status-badge connected">
                     Connected
                   </span>
+                  {gmailData?.email && (
+                    <div style={{ fontSize: '0.875rem', color: 'var(--admin-muted-foreground)', marginTop: '0.5rem' }}>
+                      Email: {gmailData.email}
+                    </div>
+                  )}
                   {integration.lastSync && (
                     <div style={{ fontSize: '0.875rem', color: 'var(--admin-muted-foreground)', marginTop: '0.5rem' }}>
                       Last sync: {new Date(integration.lastSync).toLocaleString()}
@@ -200,18 +287,9 @@ const IntegrationsPage = () => {
                     <button
                       onClick={() => setShowGmailModal(true)}
                       className="admin-button admin-button-secondary"
-                      style={{ fontSize: '0.875rem', opacity: 0.6, cursor: 'not-allowed' }}
-                      disabled
+                      style={{ fontSize: '0.875rem' }}
                     >
-                      ⚙️ Configure (Coming Soon)
-                    </button>
-                    <button
-                      onClick={handleSyncGmail}
-                      className="admin-button admin-button-secondary"
-                      style={{ fontSize: '0.875rem', opacity: 0.6, cursor: 'not-allowed' }}
-                      disabled
-                    >
-                      🔄 Sync Now (Coming Soon)
+                      ⚙️ Configure Filters
                     </button>
                     <button
                       onClick={handleGmailDisconnect}
@@ -252,59 +330,115 @@ const IntegrationsPage = () => {
               
               <div className="admin-modal-body">
                 <div style={{ marginBottom: '1.5rem' }}>
+                  <label className="admin-label">Email Addresses</label>
+                  <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.5rem' }}>
+                    <input
+                      type="email"
+                      className="admin-input"
+                      placeholder="e.g., billing@stripe.com"
+                      value={emailInput}
+                      onChange={(e) => setEmailInput(e.target.value)}
+                      onKeyPress={(e) => e.key === 'Enter' && addEmail()}
+                    />
+                    <button
+                      onClick={addEmail}
+                      className="admin-button admin-button-primary"
+                      style={{ fontSize: '0.875rem', padding: '0.5rem 1rem' }}
+                    >
+                      Add
+                    </button>
+                  </div>
+                  <div className="admin-input-help">
+                    Add email addresses to filter by sender
+                  </div>
+                  
+                  {/* Display added emails */}
+                  {gmailFilters.emails.length > 0 && (
+                    <div style={{ marginTop: '0.5rem' }}>
+                      {gmailFilters.emails.map((email, index) => (
+                        <div key={index} style={{ 
+                          display: 'flex', 
+                          alignItems: 'center', 
+                          justifyContent: 'space-between',
+                          padding: '0.25rem 0.5rem',
+                          margin: '0.25rem 0',
+                          backgroundColor: 'var(--admin-muted)',
+                          borderRadius: '0.25rem',
+                          fontSize: '0.875rem'
+                        }}>
+                          <span>{email}</span>
+                          <button
+                            onClick={() => removeEmail(index)}
+                            style={{ 
+                              background: 'none', 
+                              border: 'none', 
+                              color: '#dc2626', 
+                              cursor: 'pointer',
+                              padding: '0.25rem'
+                            }}
+                          >
+                            ✕
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                <div style={{ marginBottom: '1.5rem' }}>
                   <label className="admin-label">Subject Keywords</label>
-                  <input
-                    type="text"
-                    className="admin-input"
-                    placeholder="e.g., appointment, consultation, inquiry"
-                    value={gmailFilters.subjectKeywords}
-                    onChange={(e) => setGmailFilters(prev => ({ ...prev, subjectKeywords: e.target.value }))}
-                  />
-                  <div className="admin-input-help">
-                    Comma-separated keywords to search for in email subjects
+                  <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.5rem' }}>
+                    <input
+                      type="text"
+                      className="admin-input"
+                      placeholder="e.g., invoice, payment failed"
+                      value={subjectInput}
+                      onChange={(e) => setSubjectInput(e.target.value)}
+                      onKeyPress={(e) => e.key === 'Enter' && addSubject()}
+                    />
+                    <button
+                      onClick={addSubject}
+                      className="admin-button admin-button-primary"
+                      style={{ fontSize: '0.875rem', padding: '0.5rem 1rem' }}
+                    >
+                      Add
+                    </button>
                   </div>
-                </div>
-
-                <div style={{ marginBottom: '1.5rem' }}>
-                  <label className="admin-label">From Email Addresses</label>
-                  <input
-                    type="text"
-                    className="admin-input"
-                    placeholder="e.g., info@clinic.com, contact@clinic.com"
-                    value={gmailFilters.fromEmails}
-                    onChange={(e) => setGmailFilters(prev => ({ ...prev, fromEmails: e.target.value }))}
-                  />
                   <div className="admin-input-help">
-                    Comma-separated email addresses to filter by sender
+                    Add subject keywords to filter emails
                   </div>
-                </div>
-
-                <div style={{ marginBottom: '1.5rem' }}>
-                  <label className="admin-label">Date Range (days)</label>
-                  <select
-                    className="admin-input"
-                    value={gmailFilters.dateRange}
-                    onChange={(e) => setGmailFilters(prev => ({ ...prev, dateRange: e.target.value }))}
-                  >
-                    <option value="7">Last 7 days</option>
-                    <option value="30">Last 30 days</option>
-                    <option value="90">Last 90 days</option>
-                    <option value="365">Last year</option>
-                  </select>
-                </div>
-
-                <div style={{ marginBottom: '1.5rem' }}>
-                  <label className="admin-label">Gmail Labels</label>
-                  <input
-                    type="text"
-                    className="admin-input"
-                    placeholder="e.g., INBOX, Important, Leads"
-                    value={gmailFilters.labelFilters}
-                    onChange={(e) => setGmailFilters(prev => ({ ...prev, labelFilters: e.target.value }))}
-                  />
-                  <div className="admin-input-help">
-                    Comma-separated Gmail labels to filter by
-                  </div>
+                  
+                  {/* Display added subjects */}
+                  {gmailFilters.subjects.length > 0 && (
+                    <div style={{ marginTop: '0.5rem' }}>
+                      {gmailFilters.subjects.map((subject, index) => (
+                        <div key={index} style={{ 
+                          display: 'flex', 
+                          alignItems: 'center', 
+                          justifyContent: 'space-between',
+                          padding: '0.25rem 0.5rem',
+                          margin: '0.25rem 0',
+                          backgroundColor: 'var(--admin-muted)',
+                          borderRadius: '0.25rem',
+                          fontSize: '0.875rem'
+                        }}>
+                          <span>{subject}</span>
+                          <button
+                            onClick={() => removeSubject(index)}
+                            style={{ 
+                              background: 'none', 
+                              border: 'none', 
+                              color: '#dc2626', 
+                              cursor: 'pointer',
+                              padding: '0.25rem'
+                            }}
+                          >
+                            ✕
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -312,14 +446,16 @@ const IntegrationsPage = () => {
                 <button
                   onClick={() => setShowGmailModal(false)}
                   className="admin-button admin-button-secondary"
+                  disabled={filtersLoading}
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleSaveFilters}
                   className="admin-button admin-button-primary"
+                  disabled={filtersLoading}
                 >
-                  Save Configuration
+                  {filtersLoading ? 'Saving...' : 'Save Configuration'}
                 </button>
               </div>
             </div>
