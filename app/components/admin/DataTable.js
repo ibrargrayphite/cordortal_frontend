@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import {
   useReactTable,
   getCoreRowModel,
@@ -16,7 +16,7 @@ const DataTable = ({
   loading = false,
   pageSize = 10,
   searchValue = '',
-  onSearchChange = () => {},
+  onSearchChange = () => { },
   showPagination = true,
   showSearch = true,
   searchPlaceholder = 'Search...',
@@ -31,7 +31,7 @@ const DataTable = ({
   const [globalFilter, setGlobalFilter] = useState(searchValue);
 
   // Update global filter when searchValue prop changes
-  React.useEffect(() => {
+  useEffect(() => {
     setGlobalFilter(searchValue);
   }, [searchValue]);
 
@@ -83,35 +83,19 @@ const DataTable = ({
     );
   }
 
-  if (!loading && data.length === 0) {
-    return (
-      <div className="admin-card">
-        {emptyState || (
-          <div className="admin-empty-state">
-            <div className="admin-empty-state-icon">📄</div>
-            <h3 className="admin-empty-state-title">No data found</h3>
-            <p className="admin-empty-state-description">
-              There are no items to display.
-            </p>
-          </div>
-        )}
-      </div>
-    );
-  }
-
   return (
     <div className={`admin-card ${className}`}>
       {/* Search and Controls */}
       {showSearch && (
-        <div style={{ 
-          display: 'flex', 
-          alignItems: 'center', 
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
           justifyContent: 'space-between',
           marginBottom: '1rem',
           gap: '1rem'
         }}>
           <div style={{ position: 'relative', flex: 1, maxWidth: '300px' }}>
-            <span 
+            <span
               style={{
                 position: 'absolute',
                 left: '0.75rem',
@@ -133,9 +117,9 @@ const DataTable = ({
           </div>
 
           {/* Row count */}
-          <div style={{ 
-            fontSize: '0.875rem', 
-            color: 'var(--admin-muted-foreground)' 
+          <div style={{
+            fontSize: '0.875rem',
+            color: 'var(--admin-muted-foreground)'
           }}>
             {table.getFilteredRowModel().rows.length} items
           </div>
@@ -149,7 +133,7 @@ const DataTable = ({
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <th 
+                  <th
                     key={header.id}
                     style={{
                       ...cellStyle,
@@ -159,61 +143,86 @@ const DataTable = ({
                     {header.isPlaceholder
                       ? null
                       : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
                   </th>
                 ))}
               </tr>
             ))}
           </thead>
           <tbody>
-            {table.getRowModel().rows.map((row) => (
-              <tr key={row.id}>
-                {row.getVisibleCells().map((cell) => (
-                  <td key={cell.id} style={cellStyle}>
-                    {flexRender(
-                      cell.column.columnDef.cell,
-                      cell.getContext()
-                    )}
-                  </td>
-                ))}
+            {table.getRowModel().rows.length > 0 ? (
+              table.getRowModel().rows.map((row) => (
+                <tr key={row.id}>
+                  {row.getVisibleCells().map((cell) => (
+                    <td key={cell.id} style={cellStyle}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              ))
+            ) : (
+              // Show empty state in a single row spanning all columns
+              <tr>
+                <td
+                  colSpan={columns.length}
+                  style={{
+                    ...cellStyle,
+                    textAlign: 'center',
+                    height: '200px',
+                    verticalAlign: 'middle'
+                  }}
+                >
+                  {emptyState || (
+                    <div className="admin-empty-state">
+                      <div className="admin-empty-state-icon">📄</div>
+                      <h3 className="admin-empty-state-title">No data found</h3>
+                      <p className="admin-empty-state-description">
+                        There are no items to display.
+                      </p>
+                    </div>
+                  )}
+                </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>
 
-      {/* Pagination */}
-      {showPagination && (
-        <div style={{ 
-          display: 'flex', 
-          alignItems: 'center', 
+      {/* Pagination - Only show if there are items */}
+      {showPagination && table.getFilteredRowModel().rows.length > 0 && (
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
           justifyContent: 'space-between',
           marginTop: '1rem',
           gap: '1rem',
           flexWrap: 'wrap'
         }}>
           {/* Page Info and Page Size */}
-          <div style={{ 
-            display: 'flex', 
-            alignItems: 'center', 
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
             gap: '1rem',
             flexWrap: 'wrap'
           }}>
-            <div style={{ 
-              fontSize: '0.875rem', 
-              color: 'var(--admin-muted-foreground)' 
+            <div style={{
+              fontSize: '0.875rem',
+              color: 'var(--admin-muted-foreground)'
             }}>
               Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
               {table.getPageCount() === 1 && ` (${data.length} items)`}
             </div>
-            
+
             {/* Page Size Dropdown */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <label style={{ 
-                fontSize: '0.875rem', 
-                color: 'var(--admin-muted-foreground)' 
+              <label style={{
+                fontSize: '0.875rem',
+                color: 'var(--admin-muted-foreground)'
               }}>
                 Show:
               </label>
@@ -221,7 +230,7 @@ const DataTable = ({
                 value={table.getState().pagination.pageSize}
                 onChange={(e) => table.setPageSize(Number(e.target.value))}
                 className="admin-input"
-                style={{ 
+                style={{
                   padding: '0.25rem 0.5rem',
                   fontSize: '0.875rem',
                   minWidth: '60px'
@@ -235,7 +244,6 @@ const DataTable = ({
               </select>
             </div>
           </div>
-          
           {/* Pagination Controls */}
           <div style={{ display: 'flex', gap: '0.25rem', alignItems: 'center' }}>
             {/* To Start Button */}
@@ -248,7 +256,6 @@ const DataTable = ({
             >
               ⏮
             </button>
-            
             {/* Previous Page Button */}
             <button
               onClick={() => table.previousPage()}
@@ -259,14 +266,12 @@ const DataTable = ({
             >
               ←
             </button>
-            
             {/* Page Numbers */}
             <div style={{ display: 'flex', gap: '0.25rem', margin: '0 0.5rem' }}>
               {(() => {
                 const currentPage = table.getState().pagination.pageIndex;
                 const totalPages = table.getPageCount();
                 const pages = [];
-                
                 // Show first page
                 if (currentPage > 2) {
                   pages.push(
@@ -287,11 +292,9 @@ const DataTable = ({
                     );
                   }
                 }
-                
                 // Show pages around current page
                 const startPage = Math.max(0, currentPage - 1);
                 const endPage = Math.min(totalPages - 1, currentPage + 1);
-                
                 for (let i = startPage; i <= endPage; i++) {
                   pages.push(
                     <button
@@ -304,7 +307,6 @@ const DataTable = ({
                     </button>
                   );
                 }
-                
                 // Show last page
                 if (currentPage < totalPages - 3) {
                   if (currentPage < totalPages - 4) {
@@ -325,11 +327,9 @@ const DataTable = ({
                     </button>
                   );
                 }
-                
                 return pages;
               })()}
             </div>
-            
             {/* Next Page Button */}
             <button
               onClick={() => table.nextPage()}
@@ -340,7 +340,6 @@ const DataTable = ({
             >
               →
             </button>
-            
             {/* To End Button */}
             <button
               onClick={() => table.setPageIndex(table.getPageCount() - 1)}
