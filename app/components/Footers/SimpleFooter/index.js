@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import React from "react";
 import { useTheme } from "../../../context/ThemeContext";
 import { useRouter } from "next/navigation";
 import { isAuthenticated } from '../../../utils/auth';
