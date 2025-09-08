@@ -36,7 +36,7 @@ const ThemeToggle = () => {
 
 const Sidebar = ({ isOpen, onClose, currentPath, orgData, isCollapsed, onToggleCollapse }) => {
   const router = useRouter();
-  
+
   const navigation = [
     {
       name: 'Leads',
@@ -84,7 +84,7 @@ const Sidebar = ({ isOpen, onClose, currentPath, orgData, isCollapsed, onToggleC
           {isCollapsed ? '▶' : '◀'}
         </button>
       </div>
-      
+
       <nav className="admin-sidebar-nav">
         {navigation.map((item) => (
           <button
@@ -129,7 +129,7 @@ const Breadcrumb = ({ items }) => {
 const TopBar = ({ onMenuClick, breadcrumbItems, pageTitle, actions, pageActions, orgData, leadData }) => {
   const router = useRouter();
   const [showUserMenu, setShowUserMenu] = useState(false);
-  
+
   const handleLogout = () => {
     logout();
     window.location.replace('/login');
@@ -148,18 +148,18 @@ const TopBar = ({ onMenuClick, breadcrumbItems, pageTitle, actions, pageActions,
   return (
     <header className="admin-topbar">
       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-        <button
+        {/* <button
           onClick={onMenuClick}
           className="admin-button admin-button-ghost md:hidden"
           style={{ padding: '0.5rem' }}
         >
           ☰
-        </button>
-        
+        </button> */}
+
         <div className="hidden md:block">
           <Breadcrumb items={breadcrumbItems} />
         </div>
-        
+
         <div className="md:hidden">
           <h1 style={{ fontSize: '1.125rem', fontWeight: 600 }}>
             {leadData ? `${leadData.full_name || leadData.email}` : pageTitle}
@@ -168,17 +168,17 @@ const TopBar = ({ onMenuClick, breadcrumbItems, pageTitle, actions, pageActions,
 
         {/* Lead Data Display for Desktop */}
         {leadData && (
-          <div className="hidden md:flex admin-lead-info" style={{ 
-            marginLeft: '1rem', 
-            padding: '0.5rem 1rem', 
-            backgroundColor: 'var(--admin-muted)', 
+          <div className="hidden md:flex admin-lead-info" style={{
+            marginLeft: '1rem',
+            padding: '0.5rem 1rem',
+            backgroundColor: 'var(--admin-muted)',
             borderRadius: '0.5rem',
             alignItems: 'center',
             gap: '1rem'
           }}>
             <div>
               <div style={{ fontWeight: 600, fontSize: '0.875rem' }}>
-                {leadData.first_name+''+leadData.last_name || 'Unknown Lead'}
+                {leadData.first_name + '' + leadData.last_name || 'Unknown Lead'}
               </div>
             </div>
             {leadData.phone && (
@@ -224,7 +224,7 @@ const TopBar = ({ onMenuClick, breadcrumbItems, pageTitle, actions, pageActions,
               {orgData?.name?.[0] || 'U'}
             </div>
           </button>
-          
+
           {showUserMenu && (
             <div
               style={{
@@ -252,8 +252,8 @@ const TopBar = ({ onMenuClick, breadcrumbItems, pageTitle, actions, pageActions,
               <button
                 onClick={handleLogout}
                 className="admin-button admin-button-ghost"
-                style={{ 
-                  width: '100%', 
+                style={{
+                  width: '100%',
                   justifyContent: 'flex-start',
                   color: '#dc2626',
                   padding: '0.75rem'
@@ -266,7 +266,7 @@ const TopBar = ({ onMenuClick, breadcrumbItems, pageTitle, actions, pageActions,
           )}
         </div>
       </div>
-      
+
       {/* Backdrop for user menu */}
       {showUserMenu && (
         <div
@@ -285,10 +285,10 @@ const TopBar = ({ onMenuClick, breadcrumbItems, pageTitle, actions, pageActions,
   );
 };
 
-const AppShell = ({ 
-  children, 
-  pageTitle, 
-  breadcrumbItems = [], 
+const AppShell = ({
+  children,
+  pageTitle,
+  breadcrumbItems = [],
   actions,
   pageActions,
   showSidebar = true,
@@ -368,8 +368,8 @@ const AppShell = ({
       )}
 
       {/* Sidebar */}
-      <Sidebar 
-        isOpen={sidebarOpen} 
+      <Sidebar
+        isOpen={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
         currentPath={pathname}
         orgData={orgData}
@@ -387,7 +387,7 @@ const AppShell = ({
         orgData={orgData}
         leadData={leadData}
       />
-      
+
       {/* Main content */}
       <main className="admin-main-content">
         {children}
