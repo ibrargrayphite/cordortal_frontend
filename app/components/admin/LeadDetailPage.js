@@ -377,26 +377,31 @@ function LeadDetailClient() {
     fetchNotes(1, false, "", ""); // Fetch all notes without filters
   };
 
-  // Search consent forms by name
-  const handleSearchConsentForms = (query) => {
+  // Search consent forms using backend API
+  const handleSearchConsentForms = async (query) => {
     setConsentSearchQuery(query);
-    if (!query.trim()) {
-      setFilteredConsentForms(consentForms);
-      return;
+    setConsentFormsLoading(true);
+    
+    try {
+      const data = await consentFormsAPI.getConsentForms(leadId, 1, consentFormsPageSize, query);
+      let formsArray = data.results || [];
+      
+      setConsentForms(formsArray);
+      setFilteredConsentForms(formsArray);
+      setConsentFormsPage(1);
+      setConsentFormsTotalPages(Math.ceil((data.count || 0) / consentFormsPageSize));
+      setHasMoreConsentForms(!!data.next);
+    } catch (error) {
+      console.error("Error searching consent forms:", error);
+      showError("Failed to search consent forms. Please try again.");
+    } finally {
+      setConsentFormsLoading(false);
     }
-
-    const searchTerms = query.toLowerCase().trim().split(/\s+/);
-    const filtered = consentForms.filter((form) =>
-      searchTerms.every((term) => 
-        (form.name || `Consent Form ${form.id}`).toLowerCase().includes(term)
-      )
-    );
-    setFilteredConsentForms(filtered);
   };
 
-  const clearConsentSearch = () => {
+  const clearConsentSearch = async () => {
     setConsentSearchQuery("");
-    setFilteredConsentForms(consentForms);
+    await fetchConsentForms(1, false);
   };
 
   const getDateFilterLabel = (filter) => {
@@ -473,7 +478,7 @@ function LeadDetailClient() {
         setConsentFormsLoading(true);
       }
 
-      const data = await consentFormsAPI.getConsentForms(leadId, page, consentFormsPageSize);
+      const data = await consentFormsAPI.getConsentForms(leadId, page, consentFormsPageSize, consentSearchQuery);
       let formsArray = data.results || [];
       let totalCount = data.count || 0;
       let hasNext = !!data.next;
