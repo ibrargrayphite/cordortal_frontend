@@ -38,7 +38,7 @@ function LeadDetailClient() {
   const [showDateFilter, setShowDateFilter] = useState(false);
   const [navigatingBack, setNavigatingBack] = useState(false);
   const [isSpeechEnabled, setIsSpeechEnabled] = useState(false);
-  
+
   // Debug speech enabled state
   useEffect(() => {
     console.log('isSpeechEnabled state changed:', isSpeechEnabled);
@@ -79,37 +79,37 @@ function LeadDetailClient() {
   // Progressive loading messages for consent form generation
   const startProgressiveLoading = () => {
     setLoadingMessage('Preparing...');
-    
+
     // Clear any existing timeout
     if (loadingTimeout) {
       clearTimeout(loadingTimeout);
     }
-    
+
     // After 3 seconds, show "Analyzing notes..."
     const timeout1 = setTimeout(() => {
       setLoadingMessage('Analyzing notes...');
     }, 3000);
-    
+
     // After 6 seconds, show "Analyzing template..."
     const timeout2 = setTimeout(() => {
       setLoadingMessage('Analyzing template...');
     }, 6000);
-    
+
     // After 9 seconds, show "Processing with AI..."
     const timeout3 = setTimeout(() => {
       setLoadingMessage('Processing with AI...');
     }, 9000);
-    
+
     // After 12 seconds, show "Generating consent form..."
     const timeout4 = setTimeout(() => {
       setLoadingMessage('Generating consent form...');
     }, 12000);
-    
+
     // After 15 seconds, show "Almost done..."
     const timeout5 = setTimeout(() => {
       setLoadingMessage('Almost done...');
     }, 15000);
-    
+
     // Store all timeouts for cleanup
     setLoadingTimeout({ timeout1, timeout2, timeout3, timeout4, timeout5 });
   };
@@ -186,7 +186,7 @@ function LeadDetailClient() {
       setSavingTemplate(true);
       setSelectedConsentForm(null); // Clear selected consent form
       setShowCancelView(false); // Reset cancel view
-      
+
       // Start progressive loading messages
       startProgressiveLoading();
 
@@ -286,11 +286,11 @@ function LeadDetailClient() {
     try {
       // Refresh the consent forms list to show the new/updated record
       await fetchConsentForms();
-      
+
       // If we have the saved consent form data, update the selected consent form
       if (savedConsentForm && savedConsentForm.id) {
         setSelectedConsentForm(savedConsentForm);
-        
+
         // If the consent form is signed, clear the editing state to show preview
         if (savedConsentForm.is_signed) {
           setEditingTemplate(null);
@@ -305,7 +305,7 @@ function LeadDetailClient() {
           });
         }
       }
-      
+
       // Success message is already shown in TemplateForm component
     } catch (error) {
       console.error("Error in handleTemplateSave:", error);
@@ -341,12 +341,12 @@ function LeadDetailClient() {
   const handleSearchNotes = (query = searchQuery, dateFilterValue = dateFilter) => {
     setSearchQuery(query);
     setDateFilter(dateFilterValue);
-    
+
     // Prevent duplicate calls if already searching
     if (isSearching) {
       return;
     }
-    
+
     setIsSearching(true);
     fetchNotes(1, false, query, dateFilterValue).finally(() => {
       setIsSearching(false);
@@ -357,7 +357,7 @@ function LeadDetailClient() {
   const handleNotesSearchChange = useCallback((e) => {
     const query = e.target.value;
     setSearchQuery(query);
-    
+
     // If input is cleared, immediately search for all data
     if (query === '') {
       handleSearchNotes('', dateFilter);
@@ -389,11 +389,11 @@ function LeadDetailClient() {
   const handleSearchConsentForms = async (query) => {
     setConsentSearchQuery(query);
     setConsentFormsLoading(true);
-    
+
     try {
       const data = await consentFormsAPI.getConsentForms(leadId, 1, consentFormsPageSize, query);
       let formsArray = data.results || [];
-      
+
       setConsentForms(formsArray);
       setFilteredConsentForms(formsArray);
       setConsentFormsPage(1);
@@ -411,7 +411,7 @@ function LeadDetailClient() {
   const handleConsentSearchChange = useCallback((e) => {
     const query = e.target.value;
     setConsentSearchQuery(query);
-    
+
     // If input is cleared, immediately search for all data
     if (query === '') {
       handleSearchConsentForms('');
@@ -833,12 +833,12 @@ function LeadDetailClient() {
       // Remove from consent forms list
       setConsentForms(consentForms.filter((form) => form.id !== consentFormId));
       setFilteredConsentForms(filteredConsentForms.filter((form) => form.id !== consentFormId));
-      
+
       // Reset selected form and editing state
       setSelectedConsentForm(null);
       setEditingTemplate(null);
       setShowCancelView(false);
-      
+
       showSuccess("Consent form deleted successfully!");
     } catch (err) {
       console.error("Delete consent form error:", err);
@@ -849,7 +849,7 @@ function LeadDetailClient() {
   const handlePrintConsentForm = (consentForm) => {
     // Create a new window/tab for printing
     const printWindow = window.open('', '_blank');
-    
+
     if (!printWindow) {
       showError("Please allow popups to enable printing.");
       return;
@@ -1044,707 +1044,709 @@ function LeadDetailClient() {
     >
       <div className={`${styles.modernLeadContainer} ${fadeIn ? styles.fadeIn : ""}`}>
 
-      {/* Top Navigation Tabs */}
-      <div className={styles.topNavTabs}>
-        <div className={styles.tabsContainer}>
-          <button
-            className={`${styles.topTab} ${activeTab === "notes" ? styles.active : ""}`}
-            onClick={() => setActiveTab("notes")}
-          >
-            <i className="fas fa-sticky-note me-2"></i> 
-            <span>Notes</span>
-            {notes.length > 0 && (
-              <span className={styles.tabBadge}>
-                {searchQuery ? `${notes.length}/${notes.length}` : notes.length}
-              </span>
-            )}
-          </button>
-          <button
-            className={`${styles.topTab} ${activeTab === "consent" ? styles.active : ""}`}
-            onClick={() => setActiveTab("consent")}
-          >
-            <i className="fas fa-file-signature me-2"></i> 
-            <span>Consent Forms</span>
-            {consentForms.length > 0 && (
-              <span className={styles.tabBadge}>
-                {consentSearchQuery ? `${filteredConsentForms.length}/${consentForms.length}` : consentForms.length}
-              </span>
-            )}
-          </button>
+        {/* Top Navigation Tabs */}
+        <div className={styles.topNavTabs}>
+          <div className={styles.tabsContainer}>
+            <button
+              className={`${styles.topTab} ${activeTab === "notes" ? styles.active : ""}`}
+              onClick={() => setActiveTab("notes")}
+            >
+              <i className="fas fa-sticky-note me-2"></i>
+              <span>Notes</span>
+              {notes.length > 0 && (
+                <span className={styles.tabBadge}>
+                  {searchQuery ? `${notes.length}/${notes.length}` : notes.length}
+                </span>
+              )}
+            </button>
+            <button
+              className={`${styles.topTab} ${activeTab === "consent" ? styles.active : ""}`}
+              onClick={() => setActiveTab("consent")}
+            >
+              <i className="fas fa-file-signature me-2"></i>
+              <span>Consent Forms</span>
+              {consentForms.length > 0 && (
+                <span className={styles.tabBadge}>
+                  {consentSearchQuery ? `${filteredConsentForms.length}/${consentForms.length}` : consentForms.length}
+                </span>
+              )}
+            </button>
+          </div>
         </div>
-      </div>
 
-      {/* Main Content Area */}
-      <div className={styles.contentWrapper}>
-        <div className={styles.mainLayout}>
-          {/* Left Sidebar for Data */}
-          <div className={styles.dataSidebar}>
+        {/* Main Content Area */}
+        <div className={styles.contentWrapper}>
+          <div className={styles.mainLayout}>
+            {/* Left Sidebar for Data */}
+            <div className={styles.dataSidebar}>
 
-            {activeTab === "notes" && (
-              <>
-                <div className={styles.searchSection}>
-                  <div className={styles.searchInputWrapper}>
-                    <i className={`fas ${isSearching ? 'fa-spinner fa-spin' : 'fa-search'}`}></i>
-                    <input
-                      type="text"
-                      placeholder="Search notes..."
-                      value={searchQuery}
-                      onChange={handleNotesSearchChange}
-                      onKeyPress={handleNotesSearchKeyPress}
-                      className={styles.searchInput}
-                      disabled={isSearching}
-                    />
-                    {(searchQuery || dateFilter) && (
+              {activeTab === "notes" && (
+                <>
+                  <div className={styles.searchSection}>
+                    <div className={styles.searchInputWrapper}>
+                      <i className={`fas ${isSearching ? 'fa-spinner fa-spin' : 'fa-search'}`}></i>
+                      <input
+                        type="text"
+                        placeholder="Search notes..."
+                        value={searchQuery}
+                        onChange={handleNotesSearchChange}
+                        onKeyPress={handleNotesSearchKeyPress}
+                        className={styles.searchInput}
+                        disabled={isSearching}
+                      />
+                      {(searchQuery || dateFilter) && (
+                        <button
+                          onClick={clearAllFilters}
+                          className={styles.clearSearch}
+                          title="Clear all filters"
+                        >
+                          <i className="fas fa-times"></i>
+                        </button>
+                      )}
+                    </div>
+
+                    <div className={styles.filterControls}>
                       <button
-                        onClick={clearAllFilters}
-                        className={styles.clearSearch}
-                        title="Clear all filters"
+                        onClick={() => setShowDateFilter(!showDateFilter)}
+                        className={`${styles.dateFilterToggle} ${dateFilter ? styles.active : ""} ${dateFilter ? styles.withClear : ""}`}
                       >
-                        <i className="fas fa-times"></i>
-                      </button>
-                    )}
-                  </div>
-
-                  <div className={styles.filterControls}>
-                    <button
-                      onClick={() => setShowDateFilter(!showDateFilter)}
-                      className={`${styles.dateFilterToggle} ${dateFilter ? styles.active : ""} ${dateFilter ? styles.withClear : ""}`}
-                    >
-                      <div className={styles.dateFilterContent}>
-                        <i className="fas fa-calendar-alt me-1"></i>
-                        <span className={styles.dateFilterText}>
-                          {dateFilter ? getDateFilterLabel(dateFilter) : "Filter by date"}
-                        </span>
-                      </div>
-                      <div className={styles.dateFilterActions}>
-                        {dateFilter && (
-                          <span
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handleDateFilterChange("");
-                              setShowDateFilter(false);
-                            }}
-                            className={styles.clearDateFilter}
-                            title="Clear date filter"
-                            role="button"
-                            tabIndex={0}
-                            onKeyDown={(e) => {
-                              if (e.key === "Enter" || e.key === " ") {
-                                e.preventDefault();
+                        <div className={styles.dateFilterContent}>
+                          <i className="fas fa-calendar-alt me-1"></i>
+                          <span className={styles.dateFilterText}>
+                            {dateFilter ? getDateFilterLabel(dateFilter) : "Filter by date"}
+                          </span>
+                        </div>
+                        <div className={styles.dateFilterActions}>
+                          {dateFilter && (
+                            <span
+                              onClick={(e) => {
                                 e.stopPropagation();
                                 handleDateFilterChange("");
                                 setShowDateFilter(false);
-                              }
-                            }}
-                          >
-                            <i className="fas fa-times"></i>
-                          </span>
+                              }}
+                              className={styles.clearDateFilter}
+                              title="Clear date filter"
+                              role="button"
+                              tabIndex={0}
+                              onKeyDown={(e) => {
+                                if (e.key === "Enter" || e.key === " ") {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  handleDateFilterChange("");
+                                  setShowDateFilter(false);
+                                }
+                              }}
+                            >
+                              <i className="fas fa-times"></i>
+                            </span>
+                          )}
+                          <i
+                            className={`fas fa-chevron-${showDateFilter ? "up" : "down"} ${styles.chevronIcon}`}
+                          ></i>
+                        </div>
+                      </button>
+                    </div>
+
+                    {showDateFilter && (
+                      <div className={styles.dateFilterOptions}>
+                        {["", "today", "yesterday", "this_week", "last_week", "this_month", "last_month", "this_year"].map(
+                          (filter) => (
+                            <button
+                              key={filter}
+                              onClick={() => handleDateFilterChange(filter)}
+                              className={`${styles.dateOption} ${dateFilter === filter ? styles.selected : ""}`}
+                            >
+                              {getDateFilterLabel(filter)}
+                            </button>
+                          )
                         )}
-                        <i
-                          className={`fas fa-chevron-${showDateFilter ? "up" : "down"} ${styles.chevronIcon}`}
-                        ></i>
                       </div>
-                    </button>
+                    )}
+
                   </div>
 
-                  {showDateFilter && (
-                    <div className={styles.dateFilterOptions}>
-                      {["", "today", "yesterday", "this_week", "last_week", "this_month", "last_month", "this_year"].map(
-                        (filter) => (
-                          <button
-                            key={filter}
-                            onClick={() => handleDateFilterChange(filter)}
-                            className={`${styles.dateOption} ${dateFilter === filter ? styles.selected : ""}`}
-                          >
-                            {getDateFilterLabel(filter)}
-                          </button>
-                        )
+                  <div className={styles.notesList} onScroll={handleNotesScroll}>
+                    {notesLoading ? (
+                      <div className={styles.notesLoading}>
+                        <DataLoader message="Loading notes..." />
+                      </div>
+                    ) : notes.length > 0 ? (
+                      <>
+                        {notes.map((note) => {
+                          const dateTime = formatDateTime(note.created_at || note.date_created);
+                          const previewText = note.notes.length > 50 ? `${note.notes.substring(0, 50)}...` : note.notes;
+
+                          return (
+                            <div
+                              key={note.id}
+                              className={`${styles.noteItem} ${selectedNote?.id === note.id ? styles.active : ""}`}
+                              onClick={() => setSelectedNote(note)}
+                            >
+                              <div className={styles.notePreview}>{previewText}</div>
+                              <div className={styles.noteDate}>
+                                <span className={styles.dateText}>{dateTime.date}</span>
+                                <span className={styles.timeText}>{dateTime.time}</span>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </>
+                    ) : searchQuery || dateFilter ? (
+                      <div className={styles.emptyNotes}>
+                        <i className="fas fa-search"></i>
+                        <p>No notes found</p>
+                        <small>Try a different search term</small>
+                      </div>
+                    ) : (
+                      <div className={styles.emptyNotes}>
+                        <i className="fas fa-sticky-note"></i>
+                        <p>No notes yet</p>
+                        <small>Start writing your first note</small>
+                      </div>
+                    )}
+                  </div>
+
+                  {hasMoreNotes && !searchQuery && !dateFilter && (
+                    <div className={styles.loadMoreNotes}>
+                      {loadingMoreNotes ? (
+                        <div className={styles.loadingMore}>
+                          <i className="fas fa-spinner fa-spin"></i>
+                          <span>Loading more notes...</span>
+                        </div>
+                      ) : (
+                        <button onClick={loadMoreNotes} className={styles.loadMoreButton}>
+                          <i className="fas fa-chevron-down"></i> Load more notes
+                        </button>
                       )}
                     </div>
                   )}
-
-                </div>
-
-                <div className={styles.notesList} onScroll={handleNotesScroll}>
-                  {notesLoading ? (
-                    <div className={styles.notesLoading}>
-                      <DataLoader message="Loading notes..." />
+                </>
+              )}
+              {activeTab === "consent" && (
+                <>
+                  <div className={styles.searchSection}>
+                    <div className={styles.searchInputWrapper}>
+                      <i className="fas fa-search"></i>
+                      <input
+                        type="text"
+                        placeholder="Search consent forms..."
+                        value={consentSearchQuery}
+                        onChange={handleConsentSearchChange}
+                        onKeyPress={handleConsentSearchKeyPress}
+                        className={styles.searchInput}
+                      />
+                      {consentSearchQuery && (
+                        <button
+                          onClick={clearConsentSearch}
+                          className={styles.clearSearch}
+                          title="Clear search"
+                        >
+                          <i className="fas fa-times"></i>
+                        </button>
+                      )}
                     </div>
-                  ) : notes.length > 0 ? (
-                    <>
-                      {notes.map((note) => {
-                        const dateTime = formatDateTime(note.created_at || note.date_created);
-                        const previewText = note.notes.length > 50 ? `${note.notes.substring(0, 50)}...` : note.notes;
 
-                        return (
+                  </div>
+
+                  <div className={styles.consentList} onScroll={handleConsentFormsScroll}>
+                    {consentFormsLoading ? (
+                      <div className={styles.loadingState}>
+                        <i className="fas fa-spinner fa-spin"></i>
+                        <p>Loading consent forms...</p>
+                      </div>
+                    ) : filteredConsentForms.length > 0 ? (
+                      <>
+                        {filteredConsentForms?.map((consentForm) => (
                           <div
-                            key={note.id}
-                            className={`${styles.noteItem} ${selectedNote?.id === note.id ? styles.active : ""}`}
-                            onClick={() => setSelectedNote(note)}
+                            key={consentForm.id}
+                            className={`${styles.consentFormItem} ${selectedConsentForm?.id === consentForm.id ? styles.selected : ""}`}
+                            onClick={() => handleTemplateEdit(consentForm)}
                           >
-                            <div className={styles.notePreview}>{previewText}</div>
-                            <div className={styles.noteDate}>
-                              <span className={styles.dateText}>{dateTime.date}</span>
-                              <span className={styles.timeText}>{dateTime.time}</span>
+                            <div className={styles.consentFormInfo}>
+                              <div className={styles.consentFormTitle}>
+                                <i className="fas fa-file-signature"></i>
+                                {consentForm.name || `Consent Form ${consentForm.id}`}
+                              </div>
+                              <div className={styles.consentFormStatus}>
+                                <span
+                                  className={`${styles.statusBadge} ${consentForm.is_signed ? styles.signed : styles.unsigned}`}
+                                >
+                                  {consentForm.is_signed ? "Signed" : "Unsigned"}
+                                </span>
+                              </div>
+                            </div>
+                            <div className={styles.consentFormActions}>
+                              <button
+                                className={styles.editButton}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleTemplateEdit(consentForm);
+                                }}
+                                title={consentForm.is_signed ? "View Consent Form" : "Edit Consent Form"}
+                              >
+                                <i className={`fas ${consentForm.is_signed ? "fa-eye" : "fa-edit"}`}></i>
+                              </button>
                             </div>
                           </div>
-                        );
-                      })}
-                    </>
-                  ) : searchQuery || dateFilter ? (
-                    <div className={styles.emptyNotes}>
-                      <i className="fas fa-search"></i>
-                      <p>No notes found</p>
-                      <small>Try a different search term</small>
-                    </div>
-                  ) : (
-                    <div className={styles.emptyNotes}>
-                      <i className="fas fa-sticky-note"></i>
-                      <p>No notes yet</p>
-                      <small>Start writing your first note</small>
+                        ))}
+                      </>
+                    ) : consentSearchQuery ? (
+                      <div className={styles.emptyNotes}>
+                        <i className="fas fa-search"></i>
+                        <p>No consent forms found</p>
+                        <small>Try a different search term</small>
+                      </div>
+                    ) : (
+                      <div className={styles.emptyNotes}>
+                        <i className="fas fa-file-signature"></i>
+                        <p>No consent forms yet</p>
+                        <small>Generate your first consent form</small>
+                      </div>
+                    )}
+                  </div>
+
+                  {hasMoreConsentForms && !consentSearchQuery && (
+                    <div className={styles.loadMoreConsentForms}>
+                      {loadingMoreConsentForms ? (
+                        <div className={styles.loadingMore}>
+                          <i className="fas fa-spinner fa-spin"></i>
+                          <span>Loading more consent forms...</span>
+                        </div>
+                      ) : (
+                        <button onClick={loadMoreConsentForms} className={styles.loadMoreButton}>
+                          <i className="fas fa-chevron-down"></i> Load more consent forms
+                        </button>
+                      )}
                     </div>
                   )}
-                </div>
-                
-                {hasMoreNotes && !searchQuery && !dateFilter && (
-                  <div className={styles.loadMoreNotes}>
-                    {loadingMoreNotes ? (
-                      <div className={styles.loadingMore}>
-                        <i className="fas fa-spinner fa-spin"></i>
-                        <span>Loading more notes...</span>
-                      </div>
-                    ) : (
-                      <button onClick={loadMoreNotes} className={styles.loadMoreButton}>
-                        <i className="fas fa-chevron-down"></i> Load more notes
-                      </button>
-                    )}
-                  </div>
-                )}
-              </>
-            )}
-            {activeTab === "consent" && (
-              <>
-                <div className={styles.searchSection}>
-                  <div className={styles.searchInputWrapper}>
-                    <i className="fas fa-search"></i>
-                    <input
-                      type="text"
-                      placeholder="Search consent forms..."
-                      value={consentSearchQuery}
-                      onChange={handleConsentSearchChange}
-                      onKeyPress={handleConsentSearchKeyPress}
-                      className={styles.searchInput}
-                    />
-                    {consentSearchQuery && (
-                      <button
-                        onClick={clearConsentSearch}
-                        className={styles.clearSearch}
-                        title="Clear search"
-                      >
-                        <i className="fas fa-times"></i>
-                      </button>
-                    )}
-                  </div>
-
-                </div>
-
-                <div className={styles.consentList} onScroll={handleConsentFormsScroll}>
-                  {consentFormsLoading ? (
-                  <div className={styles.loadingState}>
-                    <i className="fas fa-spinner fa-spin"></i>
-                    <p>Loading consent forms...</p>
-                  </div>
-                ) : filteredConsentForms.length > 0 ? (
-                  <>
-                    {filteredConsentForms?.map((consentForm) => (
-                      <div
-                        key={consentForm.id}
-                        className={`${styles.consentFormItem} ${selectedConsentForm?.id === consentForm.id ? styles.selected : ""}`}
-                        onClick={() => handleTemplateEdit(consentForm)}
-                      >
-                        <div className={styles.consentFormInfo}>
-                          <div className={styles.consentFormTitle}>
-                            <i className="fas fa-file-signature"></i>
-                            {consentForm.name || `Consent Form ${consentForm.id}`}
-                          </div>
-                          <div className={styles.consentFormStatus}>
-                            <span
-                              className={`${styles.statusBadge} ${consentForm.is_signed ? styles.signed : styles.unsigned}`}
-                            >
-                              {consentForm.is_signed ? "Signed" : "Unsigned"}
-                            </span>
-                          </div>
-                        </div>
-                        <div className={styles.consentFormActions}>
-                          <button
-                            className={styles.editButton}
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handleTemplateEdit(consentForm);
-                            }}
-                            title={consentForm.is_signed ? "View Consent Form" : "Edit Consent Form"}
-                          >
-                            <i className={`fas ${consentForm.is_signed ? "fa-eye" : "fa-edit"}`}></i>
-                          </button>
-                        </div>
-                      </div>
-                    ))}
-                  </>
-                ) : consentSearchQuery ? (
-                  <div className={styles.emptyNotes}>
-                    <i className="fas fa-search"></i>
-                    <p>No consent forms found</p>
-                    <small>Try a different search term</small>
-                  </div>
-                ) : (
-                  <div className={styles.emptyNotes}>
-                    <i className="fas fa-file-signature"></i>
-                    <p>No consent forms yet</p>
-                    <small>Generate your first consent form</small>
-                  </div>
-                )}
-                </div>
-                
-                {hasMoreConsentForms && !consentSearchQuery && (
-                  <div className={styles.loadMoreConsentForms}>
-                    {loadingMoreConsentForms ? (
-                      <div className={styles.loadingMore}>
-                        <i className="fas fa-spinner fa-spin"></i>
-                        <span>Loading more consent forms...</span>
-                      </div>
-                    ) : (
-                      <button onClick={loadMoreConsentForms} className={styles.loadMoreButton}>
-                        <i className="fas fa-chevron-down"></i> Load more consent forms
-                      </button>
-                    )}
-                  </div>
-                )}
-              </>
-            )}
-          </div>
-          
-          {/* Right Panel for Actions/Editing */}
-          <div className={styles.actionPanel}>
-            <div className={styles.actionPanelHeader}>
-              <h3 className={styles.panelTitle}>
-                {activeTab === "notes" && (selectedNote ? "Edit Note" : "Create Note")}
-                {activeTab === "consent" && (
-                  selectedConsentForm?.is_signed 
-                    ? "Signed Consent Form Preview" 
-                    : editingTemplate 
-                      ? "Consent Form Editor" 
-                      : "Consent Actions"
-                )}
-              </h3>
-              {activeTab === "consent" && !selectedConsentForm?.is_signed && (
-                <div className={styles.actionButtons}>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={handleCreateBlankTemplate}
-                    disabled={savingTemplate}
-                    className={styles.actionButton}
-                  >
-                    <i className="fas fa-plus me-2"></i> New Blank Form
-                  </Button>
-                  <DropdownMenu onOpenChange={(isOpen) => isOpen && fetchTemplates()}>
-                    <DropdownMenuTrigger asChild>
-                      <Button
-                        variant="default"
-                        size="sm"
-                        disabled={savingTemplate}
-                        className={styles.primaryActionButton}
-                      >
-                        {savingTemplate ? (
-                          <>
-                            <i className="fas fa-spinner fa-spin me-2"></i> 
-                            {loadingMessage || 'Loading...'}
-                          </>
-                        ) : (
-                          <>
-                            <i className="fas fa-file-alt me-2"></i> Generate Form
-                          </>
-                        )}
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent>
-                      {templatesLoading ? (
-                        <DropdownMenuItem disabled>
-                          <i className="fas fa-spinner fa-spin me-2"></i> Loading templates...
-                        </DropdownMenuItem>
-                      ) : templates.length > 0 ? (
-                        templates.map((template) => (
-                          <DropdownMenuItem
-                            key={template.id}
-                            onClick={() => handleGenerateConsentForm(template.id)}
-                          >
-                            {template.name}
-                          </DropdownMenuItem>
-                        ))
-                      ) : (
-                        <DropdownMenuItem disabled>No templates available</DropdownMenuItem>
-                      )}
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
+                </>
               )}
             </div>
 
-            {activeTab === "notes" && (
-              <div className={styles.notesActionContent}>
-                {selectedNote ? (
-                  <div className={styles.editNoteInterface}>
-                    <div className={styles.noteMetaInfo}>
-                      <small className={styles.noteTimestamp}>
-                        Created: {formatDateTime(selectedNote.created_at || selectedNote.date_created).full}
-                      </small>
-                      <div className={styles.noteActions}>
-                        <Button
-                          variant="destructive"
-                          size="sm"
-                          onClick={() => handleDeleteNote(selectedNote.id)}
-                          disabled={deletingNote === selectedNote.id}
-                          className={styles.dangerButton}
-                        >
-                          {deletingNote === selectedNote.id ? (
-                            <>
-                              <div className={styles.spinner}></div> Deleting...
-                            </>
-                          ) : (
-                            <>
-                              <i className="fas fa-trash me-1"></i> Delete
-                            </>
-                          )}
-                        </Button>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => setSelectedNote(null)}
-                          className={styles.secondaryButton}
-                        >
-                          <i className="fas fa-times me-1"></i> Cancel
-                        </Button>
-                      </div>
-                    </div>
-                    <div className={styles.editArea}>
-                      {isSpeechEnabled ? (
-                        <>
-                          {console.log('Rendering SpeechToTextDictation for edit note')}
-                          <SpeechToTextDictation
-                            value={selectedNote.notes}
-                            onChange={(value) => setSelectedNote({ ...selectedNote, notes: value })}
-                            placeholder="Write your note here or click the microphone to speak..."
-                            rows={15}
-                            className={styles.noteTextarea}
-                          />
-                        </>
-                      ) : (
-                        <>
-                          {console.log('Rendering textarea for edit note')}
-                          <textarea
-                            value={selectedNote.notes}
-                            onChange={(e) => setSelectedNote({ ...selectedNote, notes: e.target.value })}
-                            placeholder="Write your note here..."
-                            rows={15}
-                            className={styles.noteTextarea}
-                          />
-                        </>
-                      )}
-                      <div className={styles.editActions}>
+            {/* Right Panel for Actions/Editing */}
+            <div className={styles.actionPanel}>
+              <div className={styles.actionPanelHeader}>
+                <h3 className={styles.panelTitle}>
+                  {activeTab === "notes" && (selectedNote ? "Edit Note" : "Create Note")}
+                  {activeTab === "consent" && (
+                    selectedConsentForm?.is_signed
+                      ? "Signed Consent Form Preview"
+                      : editingTemplate
+                        ? "Consent Form Editor"
+                        : "Consent Actions"
+                  )}
+                </h3>
+                {activeTab === "consent" && !selectedConsentForm?.is_signed && (
+                  <div className={styles.actionButtons}>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={handleCreateBlankTemplate}
+                      disabled={savingTemplate}
+                      className={styles.actionButton}
+                    >
+                      <i className="fas fa-plus me-2"></i> New Blank Form
+                    </Button>
+                    <DropdownMenu onOpenChange={(isOpen) => isOpen && fetchTemplates()}>
+                      <DropdownMenuTrigger asChild>
                         <Button
                           variant="default"
-                          onClick={() => handleUpdateNote(selectedNote.id, selectedNote.notes)}
-                          disabled={editingNote === selectedNote.id || !selectedNote.notes.trim()}
-                          className={theme.successButton}
+                          size="sm"
+                          disabled={savingTemplate}
+                          className={styles.primaryActionButton}
                         >
-                          {editingNote === selectedNote.id ? (
+                          {savingTemplate ? (
                             <>
-                              <div className={styles.spinner}></div> Saving...
+                              <i className="fas fa-spinner fa-spin me-2"></i>
+                              {loadingMessage || 'Loading...'}
                             </>
                           ) : (
                             <>
-                              <i className="fas fa-save me-2"></i> Save Changes
+                              <i className="fas fa-file-alt me-2"></i> Generate Form
                             </>
                           )}
                         </Button>
-                        <DropdownMenu onOpenChange={(isOpen) => isOpen && fetchTemplates()} className="ms-2">
-                          <DropdownMenuTrigger asChild>
-                            <Button
-                              variant="outline"
-                              disabled={savingTemplate}
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent>
+                        {templatesLoading ? (
+                          <DropdownMenuItem disabled>
+                            <i className="fas fa-spinner fa-spin me-2"></i> Loading templates...
+                          </DropdownMenuItem>
+                        ) : templates.length > 0 ? (
+                          templates.map((template) => (
+                            <DropdownMenuItem
+                              key={template.id}
+                              onClick={() => handleGenerateConsentForm(template.id)}
                             >
-                              {savingTemplate ? (
-                                <>
-                                  <i className="fas fa-spinner fa-spin me-2"></i> 
-                                  {loadingMessage || 'Loading...'}
-                                </>
-                              ) : (
-                                <>
-                                  <i className="fas fa-file-alt me-2"></i> Generate Consent Form
-                                </>
-                              )}
-                            </Button>
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent>
-                            {templatesLoading ? (
-                              <DropdownMenuItem disabled>
-                                <i className="fas fa-spinner fa-spin me-2"></i> Loading templates...
-                              </DropdownMenuItem>
-                            ) : templates.length > 0 ? (
-                              templates.map((template) => (
-                                <DropdownMenuItem
-                                  key={template.id}
-                                  onClick={() => handleGenerateConsentForm(template.id)}
-                                >
-                                  {template.name}
-                                </DropdownMenuItem>
-                              ))
-                            ) : (
-                              <DropdownMenuItem disabled>No templates available</DropdownMenuItem>
-                            )}
-                          </DropdownMenuContent>
-                        </DropdownMenu>
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <div className={styles.newNoteInterface}>
-                    <div className={styles.editArea}>
-                      {isSpeechEnabled ? (
-                        <>
-                          {console.log('Rendering SpeechToTextDictation for new note')}
-                          <SpeechToTextDictation
-                            value={newNote}
-                            onChange={setNewNote}
-                            placeholder="Start writing a new note for this lead or click the microphone to speak..."
-                            rows={15}
-                            className={styles.noteTextarea}
-                          />
-                        </>
-                      ) : (
-                        <>
-                          {console.log('Rendering textarea for new note')}
-                          <textarea
-                            value={newNote}
-                            onChange={(e) => setNewNote(e.target.value)}
-                            placeholder="Start writing a new note for this lead..."
-                            rows={15}
-                            className={styles.noteTextarea}
-                          />
-                        </>
-                      )}
-                      <div className={styles.editActions}>
-                        <Button
-                          variant="primary"
-                          onClick={handleCreateNote}
-                          disabled={saving || !newNote.trim()}
-                          className={theme.successButton}
-                        >
-                          {saving ? (
-                            <>
-                              <div className={styles.spinner}></div> Saving...
-                            </>
-                          ) : (
-                            <>
-                              <i className="fas fa-save me-2"></i> Save Note
-                            </>
-                          )}
-                        </Button>
-                        <DropdownMenu onOpenChange={(isOpen) => isOpen && fetchTemplates()} className="ms-2">
-                          <DropdownMenuTrigger asChild>
-                            <Button
-                              variant="outline"
-                              disabled={savingTemplate}
-                            >
-                              {savingTemplate ? (
-                                <>
-                                  <i className="fas fa-spinner fa-spin me-2"></i> 
-                                  {loadingMessage || 'Loading...'}
-                                </>
-                              ) : (
-                                <>
-                                  <i className="fas fa-file-alt me-2"></i> Generate Consent Form
-                                </>
-                              )}
-                            </Button>
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent>
-                            {templatesLoading ? (
-                              <DropdownMenuItem disabled>
-                                <i className="fas fa-spinner fa-spin me-2"></i> Loading templates...
-                              </DropdownMenuItem>
-                            ) : templates.length > 0 ? (
-                              templates.map((template) => (
-                                <DropdownMenuItem
-                                  key={template.id}
-                                  onClick={() => handleGenerateConsentForm(template.id)}
-                                >
-                                  {template.name}
-                                </DropdownMenuItem>
-                              ))
-                            ) : (
-                              <DropdownMenuItem disabled>No templates available</DropdownMenuItem>
-                            )}
-                          </DropdownMenuContent>
-                        </DropdownMenu>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
-
-            {activeTab === "consent" && (
-              <div className={styles.consentActionContent}>
-                {showCancelView ? (
-                  <div className={styles.defaultConsentInterface}>
-                    <div className={styles.consentPlaceholder}>
-                      <i className="fas fa-file-signature"></i>
-                      <h5>No Consent Form Selected</h5>
-                      <p>Choose a consent form from the sidebar or select a template to create a new one</p>
-                    </div>
-                  </div>
-                ) : selectedConsentForm?.is_signed ? (
-                  <div className={styles.signedConsentPreviewPage}>
-                    <div className={styles.previewPageHeader}>
-                      <div className={styles.previewPageInfo}>
-                        <h2 className={styles.previewPageTitle}>
-                          {selectedConsentForm.name || `Consent Form ${selectedConsentForm.id}`}
-                        </h2>
-                        <div className={styles.previewPageMeta}>
-                          <span className={`${styles.statusBadge} ${styles.signed}`}>
-                            <i className="fas fa-check-circle me-2"></i>
-                            Signed
-                          </span>
-                          <span className={styles.previewPageSubtitle}>
-                            Lead: {selectedConsentForm.lead_email}
-                          </span>
-                          {selectedConsentForm.signed_at && (
-                            <span className={styles.previewPageSubtitle}>
-                              Signed: {formatDateTime(selectedConsentForm.signed_at).full}
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                      <div className={styles.previewPageActions}>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => handlePrintConsentForm(selectedConsentForm)}
-                          className={styles.secondaryButton}
-                        >
-                          <i className="fas fa-print me-2"></i> Print
-                        </Button>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => {
-                            setSelectedConsentForm(null);
-                            setEditingTemplate(null);
-                            setShowCancelView(false);
-                          }}
-                          className={styles.secondaryButton}
-                        >
-                          <i className="fas fa-arrow-left me-2"></i> Back to List
-                        </Button>
-                        <Button
-                          variant="destructive"
-                          size="sm"
-                          onClick={() => handleDeleteConsentForm(selectedConsentForm.id)}
-                          className={styles.dangerButton}
-                        >
-                          <i className="fas fa-trash me-2"></i> Delete
-                        </Button>
-                      </div>
-                    </div>
-                    <div className={styles.previewPageContent}>
-                      <div
-                        className={styles.signedConsentDocument}
-                        dangerouslySetInnerHTML={{
-                          __html: selectedConsentForm.consent_data || "<p>No content available</p>",
-                        }}
-                      />
-                    </div>
-                  </div>
-                ) : editingTemplate ? (
-                  <TemplateForm
-                    mode="consent"
-                    handleFormChange={handleFormChange}
-                    handleSave={handleTemplateSave}
-                    saving={savingTemplate}
-                    setIsEditing={setEditingTemplate}
-                    setFormData={setEditingTemplate}
-                    formData={editingTemplate}
-                    template={editingTemplate}
-                    handleCancel={handleTemplateCancel}
-                    lead={lead}
-                    fetchConsentForms={fetchConsentForms}
-                    isSigned={selectedConsentForm?.is_signed || false}
-                    fromNotesFlow={fromNotesFlow}
-                    setFromNotesFlow={setFromNotesFlow}
-                    handleCancelConsentForm={handleCancelConsentForm} // New prop
-                  />
-                ) : selectedConsentForm ? (
-                  <div className={styles.viewConsentInterface}>
-                    <div className={styles.consentMetaInfo}>
-                      <div className={styles.consentInfo}>
-                        <h4 className={styles.selectedConsentTitle}>
-                          {selectedConsentForm.name || `Consent Form ${selectedConsentForm.id}`}
-                        </h4>
-                        <div className={styles.consentMeta}>
-                          <span
-                            className={`${styles.statusBadge} ${selectedConsentForm.is_signed ? styles.signed : styles.unsigned}`}
-                          >
-                            {selectedConsentForm.is_signed ? "Signed" : "Unsigned"}
-                          </span>
-                          <small className={styles.consentSubtitle}>Lead: {selectedConsentForm.lead_email}</small>
-                        </div>
-                      </div>
-                      <div className={styles.consentActions}>
-                        {!selectedConsentForm.is_signed && (
-                          <Button
-                            variant="outline-primary"
-                            size="sm"
-                            onClick={() => handleTemplateEdit(selectedConsentForm)}
-                            className={styles.primaryButton}
-                          >
-                            <i className="fas fa-edit me-2"></i> Edit Form
-                          </Button>
+                              {template.name}
+                            </DropdownMenuItem>
+                          ))
+                        ) : (
+                          <DropdownMenuItem disabled>No templates available</DropdownMenuItem>
                         )}
-                        <Button
-                          variant="outline-secondary"
-                          size="sm"
-                          onClick={() => setSelectedConsentForm(null)}
-                          className={styles.secondaryButton}
-                        >
-                          <i className="fas fa-times me-2"></i> Close
-                        </Button>
-                      </div>
-                    </div>
-                    <div className={styles.fullWidthConsentPreview}>
-                      <div
-                        className={styles.fullWidthTemplatePreview}
-                        dangerouslySetInnerHTML={{
-                          __html: selectedConsentForm.consent_data || "<p>No content available</p>",
-                        }}
-                      />
-                    </div>
-                  </div>
-                ) : (
-                  <div className={styles.defaultConsentInterface}>
-                    <div className={styles.consentPlaceholder}>
-                      <i className="fas fa-file-signature"></i>
-                      <h5>No Consent Form Selected</h5>
-                      <p>Choose a consent form from the sidebar or select a template to create a new one</p>
-                    </div>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
                   </div>
                 )}
               </div>
-            )}
+
+              {activeTab === "notes" && (
+                <div className={styles.notesActionContent}>
+                  {selectedNote ? (
+                    <div className={styles.editNoteInterface}>
+                      <div className={styles.noteMetaInfo}>
+                        <small className={styles.noteTimestamp}>
+                          Created: {formatDateTime(selectedNote.created_at || selectedNote.date_created).full}
+                        </small>
+                        <div className={styles.noteActions}>
+                          <Button
+                            variant="destructive"
+                            size="sm"
+                            onClick={() => handleDeleteNote(selectedNote.id)}
+                            disabled={deletingNote === selectedNote.id}
+                            className={styles.dangerButton}
+                          >
+                            {deletingNote === selectedNote.id ? (
+                              <>
+                                <div className={styles.spinner}></div> Deleting...
+                              </>
+                            ) : (
+                              <>
+                                <i className="fas fa-trash me-1"></i> Delete
+                              </>
+                            )}
+                          </Button>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => setSelectedNote(null)}
+                            className={styles.secondaryButton}
+                          >
+                            <i className="fas fa-times me-1"></i> Cancel
+                          </Button>
+                        </div>
+                      </div>
+                      <div className={styles.editArea}>
+                        {isSpeechEnabled ? (
+                          <>
+                            {console.log('Rendering SpeechToTextDictation for edit note')}
+                            <SpeechToTextDictation
+                              value={selectedNote.notes}
+                              onChange={(value) => setSelectedNote({ ...selectedNote, notes: value })}
+                              placeholder="Write your note here or click the microphone to speak..."
+                              rows={15}
+                              className={styles.noteTextarea}
+                            />
+                          </>
+                        ) : (
+                          <>
+                            {console.log('Rendering textarea for edit note')}
+                            <textarea
+                              value={selectedNote.notes}
+                              onChange={(e) => setSelectedNote({ ...selectedNote, notes: e.target.value })}
+                              placeholder="Write your note here..."
+                              rows={15}
+                              className={styles.noteTextarea}
+                            />
+                          </>
+                        )}
+                        <div className={styles.editActions}>
+                          <Button
+                            variant="default"
+                            onClick={() => handleUpdateNote(selectedNote.id, selectedNote.notes)}
+                            disabled={editingNote === selectedNote.id || !selectedNote.notes.trim()}
+                            className={styles.primaryActionButton}
+                          >
+                            {editingNote === selectedNote.id ? (
+                              <>
+                                <div className={styles.spinner}></div> Saving...
+                              </>
+                            ) : (
+                              <>
+                                <i className="fas fa-save me-2"></i> Save Changes
+                              </>
+                            )}
+                          </Button>
+                          <DropdownMenu onOpenChange={(isOpen) => isOpen && fetchTemplates()} className="ms-2">
+                            <DropdownMenuTrigger asChild>
+                              <Button
+                                variant="outline"
+                                disabled={savingTemplate}
+                                className={styles.primaryActionButton}
+                              >
+                                {savingTemplate ? (
+                                  <>
+                                    <i className="fas fa-spinner fa-spin me-2"></i>
+                                    {loadingMessage || 'Loading...'}
+                                  </>
+                                ) : (
+                                  <>
+                                    <i className="fas fa-file-alt me-2"></i> Generate Consent Form
+                                  </>
+                                )}
+                              </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent>
+                              {templatesLoading ? (
+                                <DropdownMenuItem disabled>
+                                  <i className="fas fa-spinner fa-spin me-2"></i> Loading templates...
+                                </DropdownMenuItem>
+                              ) : templates.length > 0 ? (
+                                templates.map((template) => (
+                                  <DropdownMenuItem
+                                    key={template.id}
+                                    onClick={() => handleGenerateConsentForm(template.id)}
+                                  >
+                                    {template.name}
+                                  </DropdownMenuItem>
+                                ))
+                              ) : (
+                                <DropdownMenuItem disabled>No templates available</DropdownMenuItem>
+                              )}
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className={styles.newNoteInterface}>
+                      <div className={styles.editArea}>
+                        {isSpeechEnabled ? (
+                          <>
+                            {console.log('Rendering SpeechToTextDictation for new note')}
+                            <SpeechToTextDictation
+                              value={newNote}
+                              onChange={setNewNote}
+                              placeholder="Start writing a new note for this lead or click the microphone to speak..."
+                              rows={15}
+                              className={styles.noteTextarea}
+                            />
+                          </>
+                        ) : (
+                          <>
+                            {console.log('Rendering textarea for new note')}
+                            <textarea
+                              value={newNote}
+                              onChange={(e) => setNewNote(e.target.value)}
+                              placeholder="Start writing a new note for this lead..."
+                              rows={15}
+                              className={styles.noteTextarea}
+                            />
+                          </>
+                        )}
+                        <div className={styles.editActions}>
+                          <Button
+                            variant="primary"
+                            onClick={handleCreateNote}
+                            disabled={saving || !newNote.trim()}
+                            className={theme.successButton}
+                          >
+                            {saving ? (
+                              <>
+                                <div className={styles.spinner}></div> Saving...
+                              </>
+                            ) : (
+                              <>
+                                <i className="fas fa-save me-2"></i> Save Note
+                              </>
+                            )}
+                          </Button>
+                          <DropdownMenu onOpenChange={(isOpen) => isOpen && fetchTemplates()} className="ms-2">
+                            <DropdownMenuTrigger asChild>
+                              <Button
+                                variant="outline"
+                                disabled={savingTemplate}
+                                className={styles.primaryActionButton}
+                              >
+                                {savingTemplate ? (
+                                  <>
+                                    <i className="fas fa-spinner fa-spin me-2"></i>
+                                    {loadingMessage || 'Loading...'}
+                                  </>
+                                ) : (
+                                  <>
+                                    <i className="fas fa-file-alt me-2"></i> Generate Consent Form
+                                  </>
+                                )}
+                              </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent>
+                              {templatesLoading ? (
+                                <DropdownMenuItem disabled>
+                                  <i className="fas fa-spinner fa-spin me-2"></i> Loading templates...
+                                </DropdownMenuItem>
+                              ) : templates.length > 0 ? (
+                                templates.map((template) => (
+                                  <DropdownMenuItem
+                                    key={template.id}
+                                    onClick={() => handleGenerateConsentForm(template.id)}
+                                  >
+                                    {template.name}
+                                  </DropdownMenuItem>
+                                ))
+                              ) : (
+                                <DropdownMenuItem disabled>No templates available</DropdownMenuItem>
+                              )}
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {activeTab === "consent" && (
+                <div className={styles.consentActionContent}>
+                  {showCancelView ? (
+                    <div className={styles.defaultConsentInterface}>
+                      <div className={styles.consentPlaceholder}>
+                        <i className="fas fa-file-signature"></i>
+                        <h5>No Consent Form Selected</h5>
+                        <p>Choose a consent form from the sidebar or select a template to create a new one</p>
+                      </div>
+                    </div>
+                  ) : selectedConsentForm?.is_signed ? (
+                    <div className={styles.signedConsentPreviewPage}>
+                      <div className={styles.previewPageHeader}>
+                        <div className={styles.previewPageInfo}>
+                          <h2 className={styles.previewPageTitle}>
+                            {selectedConsentForm.name || `Consent Form ${selectedConsentForm.id}`}
+                          </h2>
+                          <div className={styles.previewPageMeta}>
+                            <span className={`${styles.statusBadge} ${styles.signed}`}>
+                              <i className="fas fa-check-circle me-2"></i>
+                              Signed
+                            </span>
+                            <span className={styles.previewPageSubtitle}>
+                              Lead: {selectedConsentForm.lead_email}
+                            </span>
+                            {selectedConsentForm.signed_at && (
+                              <span className={styles.previewPageSubtitle}>
+                                Signed: {formatDateTime(selectedConsentForm.signed_at).full}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                        <div className={styles.previewPageActions}>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => handlePrintConsentForm(selectedConsentForm)}
+                            className={styles.secondaryButton}
+                          >
+                            <i className="fas fa-print me-2"></i> Print
+                          </Button>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => {
+                              setSelectedConsentForm(null);
+                              setEditingTemplate(null);
+                              setShowCancelView(false);
+                            }}
+                            className={styles.secondaryButton}
+                          >
+                            <i className="fas fa-arrow-left me-2"></i> Back to List
+                          </Button>
+                          <Button
+                            variant="destructive"
+                            size="sm"
+                            onClick={() => handleDeleteConsentForm(selectedConsentForm.id)}
+                            className={styles.dangerButton}
+                          >
+                            <i className="fas fa-trash me-2"></i> Delete
+                          </Button>
+                        </div>
+                      </div>
+                      <div className={styles.previewPageContent}>
+                        <div
+                          className={styles.signedConsentDocument}
+                          dangerouslySetInnerHTML={{
+                            __html: selectedConsentForm.consent_data || "<p>No content available</p>",
+                          }}
+                        />
+                      </div>
+                    </div>
+                  ) : editingTemplate ? (
+                    <TemplateForm
+                      mode="consent"
+                      handleFormChange={handleFormChange}
+                      handleSave={handleTemplateSave}
+                      saving={savingTemplate}
+                      setIsEditing={setEditingTemplate}
+                      setFormData={setEditingTemplate}
+                      formData={editingTemplate}
+                      template={editingTemplate}
+                      handleCancel={handleTemplateCancel}
+                      lead={lead}
+                      fetchConsentForms={fetchConsentForms}
+                      isSigned={selectedConsentForm?.is_signed || false}
+                      fromNotesFlow={fromNotesFlow}
+                      setFromNotesFlow={setFromNotesFlow}
+                      handleCancelConsentForm={handleCancelConsentForm} // New prop
+                    />
+                  ) : selectedConsentForm ? (
+                    <div className={styles.viewConsentInterface}>
+                      <div className={styles.consentMetaInfo}>
+                        <div className={styles.consentInfo}>
+                          <h4 className={styles.selectedConsentTitle}>
+                            {selectedConsentForm.name || `Consent Form ${selectedConsentForm.id}`}
+                          </h4>
+                          <div className={styles.consentMeta}>
+                            <span
+                              className={`${styles.statusBadge} ${selectedConsentForm.is_signed ? styles.signed : styles.unsigned}`}
+                            >
+                              {selectedConsentForm.is_signed ? "Signed" : "Unsigned"}
+                            </span>
+                            <small className={styles.consentSubtitle}>Lead: {selectedConsentForm.lead_email}</small>
+                          </div>
+                        </div>
+                        <div className={styles.consentActions}>
+                          {!selectedConsentForm.is_signed && (
+                            <Button
+                              variant="outline-primary"
+                              size="sm"
+                              onClick={() => handleTemplateEdit(selectedConsentForm)}
+                              className={styles.primaryButton}
+                            >
+                              <i className="fas fa-edit me-2"></i> Edit Form
+                            </Button>
+                          )}
+                          <Button
+                            variant="outline-secondary"
+                            size="sm"
+                            onClick={() => setSelectedConsentForm(null)}
+                            className={styles.secondaryButton}
+                          >
+                            <i className="fas fa-times me-2"></i> Close
+                          </Button>
+                        </div>
+                      </div>
+                      <div className={styles.fullWidthConsentPreview}>
+                        <div
+                          className={styles.fullWidthTemplatePreview}
+                          dangerouslySetInnerHTML={{
+                            __html: selectedConsentForm.consent_data || "<p>No content available</p>",
+                          }}
+                        />
+                      </div>
+                    </div>
+                  ) : (
+                    <div className={styles.defaultConsentInterface}>
+                      <div className={styles.consentPlaceholder}>
+                        <i className="fas fa-file-signature"></i>
+                        <h5>No Consent Form Selected</h5>
+                        <p>Choose a consent form from the sidebar or select a template to create a new one</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
-    </div>
     </AppShell>
   );
 }

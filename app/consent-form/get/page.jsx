@@ -149,7 +149,7 @@ function ConsentFormPage() {
         const minWidth = 300; // Min width for mobile
         const availableWidth = typeof window !== 'undefined' ? window.innerWidth - 120 : 480; // Account for modal padding
         const canvasWidth = Math.max(minWidth, Math.min(maxWidth, availableWidth));
-        
+
         return {
             className: styles.signatureCanvas,
             width: canvasWidth,
@@ -215,7 +215,7 @@ function ConsentFormPage() {
                             variant="default"
                             onClick={handleOpenSignatureModal}
                             disabled={isSubmitting}
-                            className={theme.successButton}
+                            className={styles.primaryActionButton}
                         >
                             {isSubmitting ? (
                                 <ButtonLoader message="Signing..." />
@@ -273,8 +273,8 @@ function ConsentFormPage() {
 
 export default function Page() {
     return (
-      <Suspense fallback={<DataLoader message="Loading consent form..." />}>
-        <ConsentFormPage />
-      </Suspense>
+        <Suspense fallback={<DataLoader message="Loading consent form..." />}>
+            <ConsentFormPage />
+        </Suspense>
     );
-  }
+}
