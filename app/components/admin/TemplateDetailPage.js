@@ -10,9 +10,9 @@ import { useToast } from '../Toast';
 // Dynamically import the TemplateForm to avoid SSR issues
 const TemplateForm = dynamic(
   () => import('../TemplateForm/TemplateForm'),
-  { 
-    ssr: false, 
-    loading: () => <PageSpinner message="Loading editor..." /> 
+  {
+    ssr: false,
+    loading: () => <PageSpinner message="Loading editor..." />
   }
 );
 
@@ -194,13 +194,13 @@ const TemplateDetailPage = () => {
     <AppShell
       pageTitle={template.name || `Template ${templateId}`}
       breadcrumbItems={breadcrumbItems}
-      // pageActions={pageActions}
+    // pageActions={pageActions}
     >
       <div className="admin-container">
         <div className="admin-card">
-          <div style={{ 
-            display: 'flex', 
-            alignItems: 'center', 
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
             justifyContent: 'space-between',
             marginBottom: '1.5rem'
           }}>
@@ -212,7 +212,7 @@ const TemplateDetailPage = () => {
                 {isEditing ? 'Edit template content and settings.' : 'View template details and content.'}
               </p>
             </div>
-            
+
             <div style={{ display: 'flex', gap: '0.75rem' }}>
               {pageActions.map((action, index) => (
                 <button
@@ -246,8 +246,8 @@ const TemplateDetailPage = () => {
             <div>
               {/* Template Info */}
               <div style={{ marginBottom: '2rem' }}>
-                <div style={{ 
-                  display: 'grid', 
+                <div style={{
+                  display: 'grid',
                   gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
                   gap: '1rem',
                   padding: '1rem',
@@ -262,19 +262,19 @@ const TemplateDetailPage = () => {
                       {template.name || 'Unnamed Template'}
                     </div>
                   </div>
-                  
+
                   <div>
                     <strong style={{ fontSize: '0.875rem', color: 'var(--admin-muted-foreground)' }}>
                       Last Updated
                     </strong>
                     <div style={{ marginTop: '0.25rem' }}>
-                      {template.updated_at 
+                      {template.updated_at
                         ? new Date(template.updated_at).toLocaleString()
                         : 'Unknown'
                       }
                     </div>
                   </div>
-                  
+
                   <div>
                     <strong style={{ fontSize: '0.875rem', color: 'var(--admin-muted-foreground)' }}>
                       Template ID
@@ -291,14 +291,15 @@ const TemplateDetailPage = () => {
                 <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem' }}>
                   Template Preview
                 </h3>
-                <div 
+                <div
                   style={{
                     border: '1px solid var(--admin-border)',
                     borderRadius: 'var(--admin-radius)',
                     padding: '2rem',
                     backgroundColor: 'white',
                     minHeight: '400px',
-                    fontFamily: 'serif'
+                    fontFamily: 'serif',
+                    color: 'var(--admin-muted-foreground)',
                   }}
                 >
                   {template.template ? (
@@ -312,8 +313,8 @@ const TemplateDetailPage = () => {
                       }}
                     />
                   ) : (
-                    <div style={{ 
-                      textAlign: 'center', 
+                    <div style={{
+                      textAlign: 'center',
                       color: 'var(--admin-muted-foreground)',
                       fontStyle: 'italic'
                     }}>
