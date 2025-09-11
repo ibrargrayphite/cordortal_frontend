@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { 
-  AppShell, 
-  PageHeader, 
-  PageSpinner 
+import {
+  AppShell,
+  PageHeader,
+  PageSpinner
 } from './index';
 import { fetchPagesData } from '../../utils/fetchPagesData';
 import api from '../../utils/api';
@@ -127,7 +127,7 @@ const IntegrationsPage = () => {
         emails: gmailFilters.emails,
         subjects: gmailFilters.subjects
       };
-      
+
       const response = await api.post('user/gmail/filters/', payload);
       if (response.data) {
         setError(null);
@@ -217,6 +217,7 @@ const IntegrationsPage = () => {
             { label: 'Connected', value: integrations.filter(i => i.connected).length },
             { label: 'Available', value: integrations.filter(i => i.status === 'available').length }
           ]}
+          hideSearch={true}
         />
 
         {error && (
@@ -226,10 +227,10 @@ const IntegrationsPage = () => {
         )}
 
         {successMessage && (
-          <div className="admin-alert" style={{ 
-            marginBottom: '1rem', 
-            backgroundColor: '#d1fae5', 
-            color: '#065f46', 
+          <div className="admin-alert" style={{
+            marginBottom: '1rem',
+            backgroundColor: '#d1fae5',
+            color: '#065f46',
             border: '1px solid #a7f3d0',
             padding: '0.75rem 1rem',
             borderRadius: '0.375rem'
@@ -244,8 +245,8 @@ const IntegrationsPage = () => {
               <div style={{ display: 'flex', alignItems: 'center', marginBottom: '1rem' }}>
                 <div style={{ width: '48px', height: '48px', marginRight: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   {integration.icon.endsWith('.svg') ? (
-                    <img 
-                      src={integration.icon} 
+                    <img
+                      src={integration.icon}
                       alt={integration.name}
                       style={{ width: '32px', height: '32px' }}
                     />
@@ -327,7 +328,7 @@ const IntegrationsPage = () => {
                   ✕
                 </button>
               </div>
-              
+
               <div className="admin-modal-body">
                 <div style={{ marginBottom: '1.5rem' }}>
                   <label className="admin-label">Email Addresses</label>
@@ -351,14 +352,14 @@ const IntegrationsPage = () => {
                   <div className="admin-input-help">
                     Add email addresses to filter by sender
                   </div>
-                  
+
                   {/* Display added emails */}
                   {gmailFilters.emails.length > 0 && (
                     <div style={{ marginTop: '0.5rem' }}>
                       {gmailFilters.emails.map((email, index) => (
-                        <div key={index} style={{ 
-                          display: 'flex', 
-                          alignItems: 'center', 
+                        <div key={index} style={{
+                          display: 'flex',
+                          alignItems: 'center',
                           justifyContent: 'space-between',
                           padding: '0.25rem 0.5rem',
                           margin: '0.25rem 0',
@@ -369,10 +370,10 @@ const IntegrationsPage = () => {
                           <span>{email}</span>
                           <button
                             onClick={() => removeEmail(index)}
-                            style={{ 
-                              background: 'none', 
-                              border: 'none', 
-                              color: '#dc2626', 
+                            style={{
+                              background: 'none',
+                              border: 'none',
+                              color: '#dc2626',
                               cursor: 'pointer',
                               padding: '0.25rem'
                             }}
@@ -407,14 +408,14 @@ const IntegrationsPage = () => {
                   <div className="admin-input-help">
                     Add subject keywords to filter emails
                   </div>
-                  
+
                   {/* Display added subjects */}
                   {gmailFilters.subjects.length > 0 && (
                     <div style={{ marginTop: '0.5rem' }}>
                       {gmailFilters.subjects.map((subject, index) => (
-                        <div key={index} style={{ 
-                          display: 'flex', 
-                          alignItems: 'center', 
+                        <div key={index} style={{
+                          display: 'flex',
+                          alignItems: 'center',
                           justifyContent: 'space-between',
                           padding: '0.25rem 0.5rem',
                           margin: '0.25rem 0',
@@ -425,10 +426,10 @@ const IntegrationsPage = () => {
                           <span>{subject}</span>
                           <button
                             onClick={() => removeSubject(index)}
-                            style={{ 
-                              background: 'none', 
-                              border: 'none', 
-                              color: '#dc2626', 
+                            style={{
+                              background: 'none',
+                              border: 'none',
+                              color: '#dc2626',
                               cursor: 'pointer',
                               padding: '0.25rem'
                             }}
