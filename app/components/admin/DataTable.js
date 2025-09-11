@@ -9,51 +9,22 @@ import {
   getSortedRowModel,
   flexRender,
 } from '@tanstack/react-table';
+import { ArrowUp, ArrowDown, ArrowUpDown, ChevronsLeft, ChevronLeft, ChevronRight, ChevronsRight } from "lucide-react";
 
 const DataTable = ({
   data = [],
   columns = [],
   loading = false,
   pageSize = 10,
-  searchValue = '',
-  onSearchChange = () => { },
   showPagination = true,
-  showSearch = true,
-  searchPlaceholder = 'Search...',
   emptyState = null,
   className = '',
   density = 'normal', // 'compact' | 'normal' | 'comfortable'
-  searchLoading = false // New prop for search loading state
 }) => {
   const [sorting, setSorting] = useState([]);
   const [columnFilters, setColumnFilters] = useState([]);
   const [columnVisibility, setColumnVisibility] = useState({});
   const [rowSelection, setRowSelection] = useState({});
-  const [globalFilter, setGlobalFilter] = useState(searchValue);
-
-  // Update global filter when searchValue prop changes
-  useEffect(() => {
-    setGlobalFilter(searchValue);
-  }, [searchValue]);
-
-  // Handle search input change
-  const handleSearchChange = useCallback((e) => {
-    const value = e.target.value;
-    setGlobalFilter(value);
-    
-    // If input is cleared, immediately search for all data
-    if (value === '') {
-      onSearchChange('');
-    }
-  }, [onSearchChange]);
-
-  // Handle search on Enter key press
-  const handleSearchKeyPress = useCallback((e) => {
-    if (e.key === 'Enter') {
-      onSearchChange(globalFilter);
-    }
-  }, [globalFilter, onSearchChange]);
-
 
   const table = useReactTable({
     data,
@@ -63,16 +34,13 @@ const DataTable = ({
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
-    // Removed getFilteredRowModel to disable frontend filtering
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
-    // Removed onGlobalFilterChange to prevent double calls
     state: {
       sorting,
       columnFilters,
       columnVisibility,
       rowSelection,
-      // Removed globalFilter from state
       pagination: {
         pageIndex: 0,
         pageSize,
@@ -101,49 +69,6 @@ const DataTable = ({
 
   return (
     <div className={`admin-card ${className}`}>
-      {/* Search and Controls */}
-      {showSearch && (
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          marginBottom: '1rem',
-          gap: '1rem'
-        }}>
-          <div style={{ position: 'relative', flex: 1, maxWidth: '300px' }}>
-            <span
-              style={{
-                position: 'absolute',
-                left: '0.75rem',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                fontSize: '0.875rem'
-              }}
-            >
-              {searchLoading ? '⏳' : '🔍'}
-            </span>
-            <input
-              type="text"
-              placeholder={searchPlaceholder}
-              value={globalFilter ?? ''}
-              onChange={handleSearchChange}
-              onKeyPress={handleSearchKeyPress}
-              className="admin-input"
-              style={{ paddingLeft: '2.5rem' }}
-              disabled={searchLoading}
-            />
-          </div>
-
-          {/* Row count */}
-          <div style={{
-            fontSize: '0.875rem',
-            color: 'var(--admin-muted-foreground)'
-          }}>
-            {table.getRowModel().rows.length} items
-          </div>
-        </div>
-      )}
-
       {/* Table */}
       <div style={{ overflowX: 'auto' }}>
         <table className="admin-table" style={{ minWidth: '100%' }}>
@@ -155,16 +80,26 @@ const DataTable = ({
                     key={header.id}
                     style={{
                       ...cellStyle,
-                      userSelect: 'none'
+                      userSelect: 'none',
+                      cursor: header.column.getCanSort() ? 'pointer' : 'default'
                     }}
+                    onClick={header.column.getToggleSortingHandler()}
                   >
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
+                    {header.isPlaceholder ? null : (
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                        {flexRender(header.column.columnDef.header, header.getContext())}
+                        {header.column.getCanSort() && (
+                          <span style={{ display: 'flex', alignItems: 'center' }}>
+                            {header.column.getIsSorted() === 'asc' && <ArrowUp size={16} />}
+                            {header.column.getIsSorted() === 'desc' && <ArrowDown size={16} />}
+                            {!header.column.getIsSorted() && <ArrowUpDown size={16} style={{ opacity: 0.4 }} />}
+                          </span>
+                        )}
+                      </div>
+                    )}
                   </th>
+
+
                 ))}
               </tr>
             ))}
