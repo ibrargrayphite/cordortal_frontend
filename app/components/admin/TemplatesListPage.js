@@ -3,22 +3,24 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { createColumnHelper } from '@tanstack/react-table';
-import { 
-  AppShell, 
-  PageHeader, 
-  DataTable, 
+import {
+  AppShell,
+  PageHeader,
+  DataTable,
   ActionMenu,
   EmptyState,
   TableSkeleton
 } from './index';
 import { useTemplates } from '../../hooks/useTemplates';
 import { useToast } from '../Toast';
+import { Plus } from "lucide-react";
 
 const columnHelper = createColumnHelper();
 
 const TemplatesListPage = () => {
   const router = useRouter();
-  
+  const [searchInput, setSearchInput] = useState('');
+
   const { showError, showSuccess } = useToast();
   const templatesHook = useTemplates();
 
@@ -27,29 +29,24 @@ const TemplatesListPage = () => {
     templatesHook.fetchTemplates();
   }, []);
 
+  // Update local search input when searchQuery changes
+  useEffect(() => {
+    setSearchInput(templatesHook.searchQuery || '');
+  }, [templatesHook.searchQuery]);
+
   // Template columns definition
   const templateColumns = useMemo(
     () => [
       columnHelper.accessor('name', {
-        header: 'Template Name',
-        enableSorting: false,
-        cell: ({ getValue }) => {
-          return (
-            <div style={{ fontWeight: '500' }}>{getValue()}</div>
-          );
-        },
-      }),
-      columnHelper.accessor('updated_at', {
-        header: 'Last Updated',
-        enableSorting: false,
-        cell: ({ getValue }) => {
-          if (!getValue()) return '—';
-          return new Date(getValue()).toLocaleDateString();
-        },
+        header: () => <span style={{ fontWeight: 'bold' }}>Template Name</span>,
+        cell: ({ getValue }) => (
+          <div style={{ fontWeight: '500' }}>{getValue()}</div>
+        ),
       }),
       columnHelper.display({
         id: 'actions',
-        header: 'Actions',
+        header: () => <span style={{ fontWeight: 'bold' }}>Actions</span>,
+        enableSorting: false,
         cell: ({ row }) => {
           const template = row.original;
           return (
@@ -91,12 +88,20 @@ const TemplatesListPage = () => {
     }
   }, [templatesHook]);
 
+  // Handle search input change
+  const handleSearchChange = useCallback((value) => {
+    // Update local state immediately for UI responsiveness
+    setSearchInput(value);
+    // Trigger search
+    templatesHook.searchTemplates(value);
+  }, [templatesHook]);
+
   // Page header actions
   const pageActions = useMemo(() => {
     return [
       {
         label: 'Add Template',
-        icon: '+',
+        icon: <Plus size={18} />,
         onClick: handleAddTemplate,
       },
     ];
@@ -122,7 +127,6 @@ const TemplatesListPage = () => {
     <AppShell
       pageTitle="Template Management"
       breadcrumbItems={breadcrumbItems}
-      // pageActions={pageActions}
     >
       <div className="admin-container">
         {/* Page Header */}
@@ -131,6 +135,10 @@ const TemplatesListPage = () => {
           description="Create and manage consent form templates."
           actions={pageActions}
           stats={pageStats}
+          searchValue={searchInput}
+          onSearchChange={handleSearchChange}
+          searchPlaceholder="Search templates ..."
+          searchLoading={templatesHook.searchLoading}
         />
 
         {/* Content */}
@@ -141,18 +149,28 @@ const TemplatesListPage = () => {
             data={templatesHook.templates}
             columns={templateColumns}
             searchPlaceholder="Search templates by name..."
-            searchValue={templatesHook.searchQuery}
-            onSearchChange={templatesHook.searchTemplates}
+            searchValue={searchInput}
+            onSearchChange={handleSearchChange}
             searchLoading={templatesHook.searchLoading}
             emptyState={
               <EmptyState
                 icon="📄"
                 title="No templates found"
-                description="Start by adding your first template using the 'Add Template' button above."
-                action={{
-                  label: 'Add Template',
-                  onClick: handleAddTemplate,
-                }}
+                description={
+                  templatesHook.searchQuery || templatesHook.searchLoading
+                    ? templatesHook.searchLoading
+                      ? "Searching..."
+                      : "No templates match your search criteria."
+                    : "Start by adding your first template using the 'Add Template' button above."
+                }
+                action={
+                  !templatesHook.searchQuery && !templatesHook.searchLoading
+                    ? {
+                      label: 'Add Template',
+                      onClick: handleAddTemplate,
+                    }
+                    : null
+                }
               />
             }
           />
