@@ -290,274 +290,278 @@ function TemplateForm({
   if (!formData) return null;
 
   return (
-      <div>
-        <div className="mb-3 space-y-2">
-          <Label htmlFor="template-name">{mode === "template" ? "Template Name" : "Consent Form Name"} </Label>
-          <Input
-            id="template-name"
-            type="text"
-            value={formData.name || ""}
-            onChange={(e) => handleFormChange("name", e.target.value)}
-            placeholder={mode === "template" ? "Enter template name" : "Enter consent form name"}
-            maxLength={255}
-            disabled={isSigned}
-          />
+    <div>
+      <div className="mb-3 space-y-2">
+        <Label htmlFor="template-name">
+          {mode === "template" || mode === "create" ? "Template Name" : "Consent Form Name"}
+        </Label>
+        <Input
+          id="template-name"
+          type="text"
+          value={formData.name || ""}
+          onChange={(e) => handleFormChange("name", e.target.value)}
+          placeholder={(mode === "template" || mode === "create")
+            ? "Enter template name"
+            : "Enter consent form name"}
+          maxLength={255}
+          disabled={isSigned}
+        />
+      </div>
+
+      <div className={styles.fullPageEditorContainer}>
+        <div className={styles.editorHeader}>
+          {!isSigned && (
+            <h5 className={styles.editorTitle}>
+              <i className="fas fa-edit me-2"></i> Content Editor
+            </h5>
+          )}
+          <h5 className={styles.previewTitle}>
+            <i className="fas fa-eye me-2"></i> Live Preview
+          </h5>
         </div>
 
-        <div className={styles.fullPageEditorContainer}>
-          <div className={styles.editorHeader}>
-            {!isSigned && (
-              <h5 className={styles.editorTitle}>
-                <i className="fas fa-edit me-2"></i> Content Editor
-              </h5>
-            )}
-            <h5 className={styles.previewTitle}>
-              <i className="fas fa-eye me-2"></i> Live Preview
-            </h5>
-          </div>
+        <div className={`${styles.editorContainer} ${isSigned ? styles.fullPreview : ""}`}>
+          {isSigned ? (
+            <div className={`${styles.previewSection} ${styles.fullWidthPreview}`}>
+              <div className={styles.previewContainer}>
+                <div
+                  className={styles.htmlPreview}
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      formData.template ||
+                      '<p class="text-muted">No content available.</p>',
+                  }}
+                />
+              </div>
+            </div>
+          ) : (
+            <>
+              <div className={styles.editorSection}>
+                <BundledEditor
+                  value={formData.template || ""}
+                  onEditorChange={(newValue) => handleFormChange("template", newValue)}
+                  key={`template-editor-${template?.id || "new"}`}
+                  init={{
+                    height: "100%", // Use flexible height instead of fixed
+                    menubar: false,
+                    plugins: ["lists", "autolink", "link", "pagebreak", "image"],
+                    toolbar:
+                      "styles | bold italic underline forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+                    images_upload_handler: async (blobInfo) => {
+                      try {
+                        const csrftoken = getCookie("csrftoken");
+                        const sessionId = getCookie("sessionid");
+                        let fd = new FormData();
+                        fd.append("upload", blobInfo.blob(), blobInfo.filename());
+                        const res = await fetch(
+                          `${process.env.NEXT_PUBLIC_BASE_URL}/leads/image/upload/`,
+                          {
+                            method: "POST",
+                            credentials: "include",
+                            body: fd,
+                            headers: {
+                              Cookie: `csrftoken=${csrftoken}; sessionid=${sessionId}`,
+                              "X-CSRFToken": csrftoken || "",
+                            },
+                          }
+                        );
+                        if (!res.ok) throw new Error("Upload failed");
+                        const json = await res.json();
+                        return json.url;
+                      } catch (err) {
+                        console.error(err);
+                        throw new Error("Image upload failed.");
+                      }
+                    },
+                  }}
+                />
+              </div>
 
-          <div className={`${styles.editorContainer} ${isSigned ? styles.fullPreview : ""}`}>
-            {isSigned ? (
-              <div className={`${styles.previewSection} ${styles.fullWidthPreview}`}>
+              <div className={styles.previewSection}>
                 <div className={styles.previewContainer}>
                   <div
                     className={styles.htmlPreview}
                     dangerouslySetInnerHTML={{
                       __html:
                         formData.template ||
-                        '<p class="text-muted">No content available.</p>',
+                        '<p class="text-muted">Start typing to see the preview...</p>',
                     }}
                   />
                 </div>
               </div>
-            ) : (
-              <>
-                <div className={styles.editorSection}>
-                  <BundledEditor
-                    value={formData.template || ""}
-                    onEditorChange={(newValue) => handleFormChange("template", newValue)}
-                    key={`template-editor-${template?.id || "new"}`}
-                    init={{
-                      height: "100%", // Use flexible height instead of fixed
-                      menubar: false,
-                      plugins: ["lists", "autolink", "link", "pagebreak", "image"],
-                      toolbar:
-                        "styles | bold italic underline forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
-                      images_upload_handler: async (blobInfo) => {
-                        try {
-                          const csrftoken = getCookie("csrftoken");
-                          const sessionId = getCookie("sessionid");
-                          let fd = new FormData();
-                          fd.append("upload", blobInfo.blob(), blobInfo.filename());
-                          const res = await fetch(
-                            `${process.env.NEXT_PUBLIC_BASE_URL}/leads/image/upload/`,
-                            {
-                              method: "POST",
-                              credentials: "include",
-                              body: fd,
-                              headers: {
-                                Cookie: `csrftoken=${csrftoken}; sessionid=${sessionId}`,
-                                "X-CSRFToken": csrftoken || "",
-                              },
-                            }
-                          );
-                          if (!res.ok) throw new Error("Upload failed");
-                          const json = await res.json();
-                          return json.url;
-                        } catch (err) {
-                          console.error(err);
-                          throw new Error("Image upload failed.");
-                        }
-                      },
-                    }}
-                  />
-                </div>
-
-                <div className={styles.previewSection}>
-                  <div className={styles.previewContainer}>
-                    <div
-                      className={styles.htmlPreview}
-                      dangerouslySetInnerHTML={{
-                        __html:
-                          formData.template ||
-                          '<p class="text-muted">Start typing to see the preview...</p>',
-                      }}
-                    />
-                  </div>
-                </div>
-              </>
-            )}
-          </div>
-        </div>
-
-        <div className={styles.editActions}>
-          {mode === "consent" ? (
-            <>
-              {isSigned ? (
-                <>
-                  <Button
-                    variant="outline-danger"
-                    onClick={handleDeleteConsentForm}
-                    disabled={saving || isDeleting || isSendingLink || !formData.id}
-                    className={theme.dangerButton}
-                  >
-                    {isDeleting ? (
-                      <>
-                        <i className="fas fa-spinner fa-spin me-2"></i> Deleting...
-                      </>
-                    ) : (
-                      <>
-                        <i className="fas fa-trash me-2"></i> Delete
-                      </>
-                    )}
-                  </Button>
-                  <Button
-                    variant="outline-secondary"
-                    onClick={handleCancel}
-                    disabled={saving || isDeleting || isSendingLink}
-                    className={theme.secondaryButton}
-                  >
-                    <i className="fas fa-times me-2"></i> Cancel
-                  </Button>
-                </>
-              ) : (
-                <>
-                  <Button
-                    onClick={handleOpenSignatureModal}
-                    disabled={saving || isDeleting || isSendingLink}
-                    className={styles.primaryActionButton}
-                  >
-                    <i className="fas fa-signature me-2"></i> Get Signed
-                  </Button>
-                  <Button
-                    onClick={handleGetLink}
-                    disabled={saving || isDeleting || isSendingLink}
-                    className={styles.primaryActionButton}
-                  >
-                    {isSendingLink ? (
-                      <ButtonLoader message="Sending..." />
-                    ) : (
-                      <>
-                        <i className="fas fa-link me-2"></i> Send Link
-                      </>
-                    )}
-                  </Button>
-                  <Button
-                    onClick={handleSaveConsentForm}
-                    disabled={saving || isDeleting || isSendingLink}
-                    className={styles.primaryActionButton}
-                  >
-                    {saving ? (
-                      <ButtonLoader message="Saving..." />
-                    ) : (
-                      <>
-                        <i className="fas fa-save me-2"></i> Save Changes
-                      </>
-                    )}
-                  </Button>
-                  <Button
-                    variant="outline-danger"
-                    onClick={handleDeleteConsentForm}
-                    disabled={saving || isDeleting || isSendingLink || !formData.id}
-                    className={theme.dangerButton}
-                  >
-                    {isDeleting ? (
-                      <>
-                        <i className="fas fa-spinner fa-spin me-2"></i> Deleting...
-                      </>
-                    ) : (
-                      <>
-                        <i className="fas fa-trash me-2"></i> Delete
-                      </>
-                    )}
-                  </Button>
-                  <Button
-                    variant="secondary"
-                    onClick={() => {
-                      setIsEditing(false);
-                      setFormData(null);
-                      handleCancel();
-                    }}
-                    disabled={saving || isDeleting || isSendingLink}
-                    className={theme.secondaryButton}
-                  >
-                    <i className="fas fa-times me-2"></i> Cancel
-                  </Button>
-                </>
-              )}
-            </>
-          ) : (
-            <>
-              <Button
-                onClick={handleSave}
-                disabled={saving || !formData.name?.trim() || !formData.template?.trim()}
-                className={styles.primaryActionButton}
-              >
-                {saving ? <ButtonLoader message="Saving..." /> : <><i className="fas fa-save me-2"></i> Save Changes</>}
-              </Button>
-              <Button
-                variant="secondary"
-                onClick={() => {
-                  handleCancel();
-                  setIsEditing(false);
-                  setFormData({ name: "", template: "" });
-                }}
-                disabled={saving}
-                className={theme.secondaryButton}
-              >
-                <i className="fas fa-times me-2"></i> Cancel
-              </Button>
             </>
           )}
         </div>
-
-        {mode === "consent" && (
-          <Dialog
-            open={showSignatureModal}
-            onOpenChange={handleCloseSignatureModal}
-          >
-            <DialogContent className={styles.signatureModal}>
-              <DialogHeader>
-                <DialogTitle>Add Your Signature</DialogTitle>
-              </DialogHeader>
-              <div className={styles.signatureCanvasWrapper}>
-                <SignatureCanvas
-                  ref={signatureCanvasRef}
-                  penColor="black"
-                  canvasProps={{ className: styles.signatureCanvas, width: 500, height: 200 }}
-                />
-                {signatureError && <div className={styles.signatureError}>{signatureError}</div>}
-              </div>
-              <DialogFooter>
-                <Button
-                  variant="outline"
-                  onClick={handleCloseSignatureModal}
-                  className={`${theme.secondaryButton} min-w-[100px]`}
-                >
-                  Cancel
-                </Button>
-                <Button
-                  variant="default"
-                  onClick={handleSaveSignature}
-                  className={`${theme.successButton} min-w-[120px]`}
-                >
-                  Save Signature
-                </Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
-        )}
-
-        {/* Send Link Modal */}
-        <SendLinkModal
-          show={showSendLinkModal}
-          onHide={() => setShowSendLinkModal(false)}
-          onSendLink={handleSendLinkWithEmail}
-          leadData={lead}
-          formData={formData}
-          isSending={isSendingLink}
-        />
       </div>
+
+      <div className={styles.editActions}>
+        {mode === "consent" ? (
+          <>
+            {isSigned ? (
+              <>
+                <Button
+                  variant="outline-danger"
+                  onClick={handleDeleteConsentForm}
+                  disabled={saving || isDeleting || isSendingLink || !formData.id}
+                  className={theme.dangerButton}
+                >
+                  {isDeleting ? (
+                    <>
+                      <i className="fas fa-spinner fa-spin me-2"></i> Deleting...
+                    </>
+                  ) : (
+                    <>
+                      <i className="fas fa-trash me-2"></i> Delete
+                    </>
+                  )}
+                </Button>
+                <Button
+                  variant="outline-secondary"
+                  onClick={handleCancel}
+                  disabled={saving || isDeleting || isSendingLink}
+                  className={styles.cancelButton}
+                >
+                  <i className="fas fa-times me-2"></i> Cancel
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button
+                  onClick={handleOpenSignatureModal}
+                  disabled={saving || isDeleting || isSendingLink}
+                  className={styles.primaryActionButton}
+                >
+                  <i className="fas fa-signature me-2"></i> Get Signed
+                </Button>
+                <Button
+                  onClick={handleGetLink}
+                  disabled={saving || isDeleting || isSendingLink}
+                  className={styles.primaryActionButton}
+                >
+                  {isSendingLink ? (
+                    <ButtonLoader message="Sending..." />
+                  ) : (
+                    <>
+                      <i className="fas fa-link me-2"></i> Send Link
+                    </>
+                  )}
+                </Button>
+                <Button
+                  onClick={handleSaveConsentForm}
+                  disabled={saving || isDeleting || isSendingLink}
+                  className={styles.primaryActionButton}
+                >
+                  {saving ? (
+                    <ButtonLoader message="Saving..." />
+                  ) : (
+                    <>
+                      <i className="fas fa-save me-2"></i> Save Changes
+                    </>
+                  )}
+                </Button>
+                <Button
+                  variant="outline-danger"
+                  onClick={handleDeleteConsentForm}
+                  disabled={saving || isDeleting || isSendingLink || !formData.id}
+                  className={theme.dangerButton}
+                >
+                  {isDeleting ? (
+                    <>
+                      <i className="fas fa-spinner fa-spin me-2"></i> Deleting...
+                    </>
+                  ) : (
+                    <>
+                      <i className="fas fa-trash me-2"></i> Delete
+                    </>
+                  )}
+                </Button>
+                <Button
+                  variant="secondary"
+                  onClick={() => {
+                    setIsEditing(false);
+                    setFormData(null);
+                    handleCancel();
+                  }}
+                  disabled={saving || isDeleting || isSendingLink}
+                  className={styles.cancelButton}
+                >
+                  <i className="fas fa-times me-2"></i> Cancel
+                </Button>
+              </>
+            )}
+          </>
+        ) : (
+          <>
+            <Button
+              onClick={handleSave}
+              disabled={saving || !formData.name?.trim() || !formData.template?.trim()}
+              className={styles.primaryActionButton}
+            >
+              {saving ? <ButtonLoader message="Saving..." /> : <><i className="fas fa-save me-2"></i> Save Changes</>}
+            </Button>
+            <Button
+              variant="secondary"
+              onClick={() => {
+                handleCancel();
+                setIsEditing(false);
+                setFormData({ name: "", template: "" });
+              }}
+              disabled={saving}
+              className={styles.cancelButton}
+            >
+              <i className="fas fa-times me-2"></i> Cancel
+            </Button>
+          </>
+        )}
+      </div>
+
+      {mode === "consent" && (
+        <Dialog
+          open={showSignatureModal}
+          onOpenChange={handleCloseSignatureModal}
+        >
+          <DialogContent className={styles.signatureModal}>
+            <DialogHeader>
+              <DialogTitle>Add Your Signature</DialogTitle>
+            </DialogHeader>
+            <div className={styles.signatureCanvasWrapper}>
+              <SignatureCanvas
+                ref={signatureCanvasRef}
+                penColor="black"
+                canvasProps={{ className: styles.signatureCanvas, width: 500, height: 200 }}
+              />
+              {signatureError && <div className={styles.signatureError}>{signatureError}</div>}
+            </div>
+            <DialogFooter>
+              <Button
+                variant="outline"
+                onClick={handleCloseSignatureModal}
+                className={`${styles.cancelButton} min-w-[100px]`}
+              >
+                Cancel
+              </Button>
+              <Button
+                variant="default"
+                onClick={handleSaveSignature}
+                className={`${theme.successButton} min-w-[120px]`}
+              >
+                Save Signature
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      )}
+
+      {/* Send Link Modal */}
+      <SendLinkModal
+        show={showSendLinkModal}
+        onHide={() => setShowSendLinkModal(false)}
+        onSendLink={handleSendLinkWithEmail}
+        leadData={lead}
+        formData={formData}
+        isSending={isSendingLink}
+      />
+    </div>
   );
 }
 
