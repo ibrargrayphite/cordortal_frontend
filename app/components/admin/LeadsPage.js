@@ -3,11 +3,11 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { createColumnHelper } from '@tanstack/react-table';
-import { 
-  AppShell, 
-  PageHeader, 
-  DataTable, 
-  StatusBadge, 
+import {
+  AppShell,
+  PageHeader,
+  DataTable,
+  StatusBadge,
   ConfirmDialog,
   ActionMenu,
   EmptyState,
@@ -18,6 +18,7 @@ import LeadModal from './LeadModal';
 import { useLeads } from '../../hooks/useLeads';
 import { useTemplates } from '../../hooks/useTemplates';
 import { useToast } from '../Toast';
+import { Plus } from "lucide-react";
 
 const columnHelper = createColumnHelper();
 
@@ -28,6 +29,7 @@ const LeadsPage = () => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedLead, setSelectedLead] = useState(null);
+  const [sorting, setSorting] = useState([]);
   const [formData, setFormData] = useState({
     first_name: '',
     last_name: '',
@@ -49,55 +51,60 @@ const LeadsPage = () => {
   // Lead columns definition
   const leadColumns = useMemo(
     () => [
-      columnHelper.accessor('full_name', {
-        header: 'Name',
-        enableSorting: false,
-        cell: ({ row }) => {
-          const lead = row.original;
-          const fullName = `${lead.first_name || ''} ${lead.last_name || ''}`.trim() || lead.email;
-          
-          return (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-              <div 
-                style={{
-                  width: '40px',
-                  height: '40px',
-                  borderRadius: '50%',
-                  backgroundColor: 'var(--admin-primary)',
-                  color: 'var(--admin-primary-foreground)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '0.875rem',
-                  fontWeight: '600'
-                }}
-              >
-                {fullName[0]?.toUpperCase() || '?'}
+      columnHelper.accessor(
+        row => `${row.first_name || ''} ${row.last_name || ''}`.trim() || row.email,
+        {
+          id: 'full_name',
+          header: () => <span style={{ fontWeight: 'bold' }}>Name</span>,
+          enableSorting: true,
+          cell: ({ row }) => {
+            const lead = row.original;
+            const fullName = `${lead.first_name || ''} ${lead.last_name || ''}`.trim() || lead.email;
+
+            return (
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                <div
+                  style={{
+                    width: '40px',
+                    height: '40px',
+                    borderRadius: '50%',
+                    backgroundColor: 'var(--admin-primary)',
+                    color: 'var(--admin-primary-foreground)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '0.875rem',
+                    fontWeight: '600'
+                  }}
+                >
+                  {fullName[0]?.toUpperCase() || '?'}
+                </div>
+                <div>
+                  <div style={{ fontWeight: '500' }}>{fullName}</div>
+                </div>
               </div>
-              <div>
-                <div style={{ fontWeight: '500' }}>{fullName}</div>
-              </div>
-            </div>
-          );
-        },
-      }),
+            );
+          },
+        }
+      )
+      ,
       columnHelper.accessor('email', {
-        header: 'Email',
-        enableSorting: false,
+        header: () => <span style={{ fontWeight: 'bold' }}>Email</span>,
+        enableSorting: true,
         cell: ({ getValue }) => (
           <CopyableText text={getValue()} type="email" showIcon={false} />
         ),
       }),
       columnHelper.accessor('phone', {
-        header: 'Phone',
-        enableSorting: false,
+        header: () => <span style={{ fontWeight: 'bold' }}>Phone</span>,
+        enableSorting: true,
         cell: ({ getValue }) => (
           <CopyableText text={getValue()} type="phone" showIcon={false} />
         ),
       }),
       columnHelper.accessor('source', {
-        header: 'Source',
-        enableSorting: false,
+        header: () => <span style={{ fontWeight: 'bold' }}>Source</span>,
+        enableSorting: true,
         cell: ({ getValue }) => (
           <StatusBadge variant="source">
             {getValue() || 'Unknown'}
@@ -105,22 +112,23 @@ const LeadsPage = () => {
         ),
       }),
       columnHelper.accessor('notes_count', {
-        header: 'Notes',
-        enableSorting: false,
+        header: () => <span style={{ fontWeight: 'bold' }}>Notes</span>,
+        enableSorting: true,
         cell: ({ getValue }) => (
           <StatusBadge variant="notes" count={getValue() || 0} />
         ),
       }),
       columnHelper.accessor('consent_count', {
-        header: 'Consent Forms',
-        enableSorting: false,
+        header: () => <span style={{ fontWeight: 'bold' }}>Consent Forms</span>,
+        enableSorting: true,
         cell: ({ getValue }) => (
           <StatusBadge variant="consent" count={getValue() || 0} />
         ),
       }),
       columnHelper.display({
         id: 'actions',
-        header: 'Actions',
+        header: () => <span style={{ fontWeight: 'bold' }}>Actions</span>,
+        enableSorting: false,
         cell: ({ row }) => {
           const lead = row.original;
           return (
@@ -147,7 +155,6 @@ const LeadsPage = () => {
     ],
     []
   );
-
 
   // Event handlers
   const handleViewLead = useCallback((leadId) => {
@@ -223,7 +230,6 @@ const LeadsPage = () => {
     }
   }, [selectedLead, leadsHook]);
 
-
   const handleSearchChange = useCallback((value) => {
     // Update local state immediately for UI responsiveness
     setSearchInput(value);
@@ -236,7 +242,7 @@ const LeadsPage = () => {
     return [
       {
         label: 'Add Lead',
-        icon: '+',
+        icon: <Plus size={18} />,
         onClick: handleAddLead,
       },
     ];
@@ -271,6 +277,10 @@ const LeadsPage = () => {
           description="Capture, track, and manage leads."
           actions={pageActions}
           stats={pageStats}
+          searchValue={searchInput}
+          onSearchChange={handleSearchChange}
+          searchPlaceholder="Search leads ..."
+          searchLoading={leadsHook.isSearching}
         />
 
         {leadsHook.loading ? (
@@ -280,6 +290,7 @@ const LeadsPage = () => {
             data={leadsHook.leads}
             columns={leadColumns}
             searchValue={searchInput}
+            sorting={sorting}
             onSearchChange={handleSearchChange}
             searchPlaceholder="Search leads by name, email, or phone..."
             showPagination={false}
@@ -291,7 +302,7 @@ const LeadsPage = () => {
                 title="No leads found"
                 description={
                   leadsHook.searchQuery || leadsHook.isSearching
-                    ? leadsHook.isSearching 
+                    ? leadsHook.isSearching
                       ? "Searching..."
                       : "No leads match your search criteria."
                     : "Start by adding your first lead using the 'Add Lead' button above."
@@ -299,9 +310,9 @@ const LeadsPage = () => {
                 action={
                   !leadsHook.searchQuery && !leadsHook.isSearching
                     ? {
-                        label: 'Add Lead',
-                        onClick: handleAddLead,
-                      }
+                      label: 'Add Lead',
+                      onClick: handleAddLead,
+                    }
                     : null
                 }
               />
@@ -311,34 +322,34 @@ const LeadsPage = () => {
 
         {/* Custom Pagination Controls */}
         {!leadsHook.loading && leadsHook.totalPages > 1 && (
-          <div style={{ 
-            display: 'flex', 
-            alignItems: 'center', 
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
             justifyContent: 'space-between',
             marginTop: '1rem',
             gap: '1rem',
             flexWrap: 'wrap'
           }}>
             {/* Page Info and Page Size */}
-            <div style={{ 
-              display: 'flex', 
-              alignItems: 'center', 
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
               gap: '1rem',
               flexWrap: 'wrap'
             }}>
-              <div style={{ 
-                fontSize: '0.875rem', 
-                color: 'var(--admin-muted-foreground)' 
+              <div style={{
+                fontSize: '0.875rem',
+                color: 'var(--admin-muted-foreground)'
               }}>
                 Page {leadsHook.currentPage} of {leadsHook.totalPages}
                 {leadsHook.totalPages === 1 && ` (${leadsHook.leadsCount} items)`}
               </div>
-              
+
               {/* Page Size Dropdown */}
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <label style={{ 
-                  fontSize: '0.875rem', 
-                  color: 'var(--admin-muted-foreground)' 
+                <label style={{
+                  fontSize: '0.875rem',
+                  color: 'var(--admin-muted-foreground)'
                 }}>
                   Show:
                 </label>
@@ -346,7 +357,7 @@ const LeadsPage = () => {
                   value={leadsHook.pageSize}
                   onChange={(e) => leadsHook.handlePageSizeChange(Number(e.target.value))}
                   className="admin-input"
-                  style={{ 
+                  style={{
                     padding: '0.25rem 0.5rem',
                     fontSize: '0.875rem',
                     minWidth: '60px'
@@ -360,7 +371,7 @@ const LeadsPage = () => {
                 </select>
               </div>
             </div>
-            
+
             {/* Pagination Controls */}
             <div style={{ display: 'flex', gap: '0.25rem', alignItems: 'center' }}>
               {/* To Start Button */}
@@ -373,7 +384,7 @@ const LeadsPage = () => {
               >
                 ⏮
               </button>
-              
+
               {/* Previous Page Button */}
               <button
                 onClick={leadsHook.handlePreviousPage}
@@ -384,14 +395,14 @@ const LeadsPage = () => {
               >
                 ←
               </button>
-              
+
               {/* Page Numbers */}
               <div style={{ display: 'flex', gap: '0.25rem', margin: '0 0.5rem' }}>
                 {(() => {
                   const currentPage = leadsHook.currentPage;
                   const totalPages = leadsHook.totalPages;
                   const pages = [];
-                  
+
                   // Show first page
                   if (currentPage > 2) {
                     pages.push(
@@ -412,11 +423,11 @@ const LeadsPage = () => {
                       );
                     }
                   }
-                  
+
                   // Show pages around current page
                   const startPage = Math.max(1, currentPage - 1);
                   const endPage = Math.min(totalPages, currentPage + 1);
-                  
+
                   for (let i = startPage; i <= endPage; i++) {
                     pages.push(
                       <button
@@ -429,7 +440,7 @@ const LeadsPage = () => {
                       </button>
                     );
                   }
-                  
+
                   // Show last page
                   if (currentPage < totalPages - 2) {
                     if (currentPage < totalPages - 3) {
@@ -450,11 +461,11 @@ const LeadsPage = () => {
                       </button>
                     );
                   }
-                  
+
                   return pages;
                 })()}
               </div>
-              
+
               {/* Next Page Button */}
               <button
                 onClick={leadsHook.handleNextPage}
@@ -465,7 +476,7 @@ const LeadsPage = () => {
               >
                 →
               </button>
-              
+
               {/* To End Button */}
               <button
                 onClick={() => leadsHook.handlePageChange(leadsHook.totalPages)}
