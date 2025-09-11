@@ -6,6 +6,10 @@ import { ThemeProvider, useTheme } from 'next-themes';
 import { logout, isAuthenticated } from '../../utils/auth';
 import { fetchPagesData } from '../../utils/fetchPagesData';
 import '../../styles/admin.css';
+import Image from "next/image";
+import { FaUser } from 'react-icons/fa';
+import { FaSun, FaMoon } from "react-icons/fa";
+import { LogOut, ChevronRight, ChevronLeft } from "lucide-react";
 
 const ThemeToggle = () => {
   const { theme, setTheme } = useTheme();
@@ -15,22 +19,21 @@ const ThemeToggle = () => {
     setMounted(true);
   }, []);
 
-  if (!mounted) {
-    return (
-      <button className="admin-button admin-button-ghost" style={{ width: '36px', height: '36px', padding: 0 }}>
-        ☀️
-      </button>
-    );
-  }
+  if (!mounted) return null;
 
   return (
-    <button
-      onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-      className="admin-button admin-button-ghost"
-      style={{ width: '36px', height: '36px', padding: 0 }}
-    >
-      {theme === 'light' ? '🌙' : '☀️'}
-    </button>
+    <label className="theme-toggle">
+      <input
+        type="checkbox"
+        checked={theme === "dark"}
+        onChange={() => setTheme(theme === "light" ? "dark" : "light")}
+      />
+      <span className="slider">
+        <FaSun className="icon sun" />
+        <FaMoon className="icon moon" />
+      </span>
+      <span className="knob"></span>
+    </label>
   );
 };
 
@@ -41,19 +44,42 @@ const Sidebar = ({ isOpen, onClose, currentPath, orgData, isCollapsed, onToggleC
     {
       name: 'Leads',
       href: '/leads',
-      icon: '👥',
+      icon: <span className="admin-nav-icon">
+        <Image
+          src="/assets/images/icons/leads-icon.svg"
+          alt="Leads"
+          width={isCollapsed ? 24 : 20}  
+          height={isCollapsed ? 24 : 20}
+        />
+      </span>,
       current: currentPath === '/leads' || currentPath.startsWith('/leads/detail'),
     },
     {
       name: 'Templates',
       href: '/templates',
-      icon: '📄',
+      icon: <span className="admin-nav-icon">
+        <Image
+          src="/assets/images/icons/templates-icon.svg"
+          alt="Templates"
+          width={isCollapsed ? 24 : 20} 
+          height={isCollapsed ? 24 : 20}
+        />
+      </span>
+      ,
       current: currentPath.startsWith('/templates'),
     },
     {
       name: 'Integrations',
       href: '/integrations',
-      icon: '🔗',
+      icon: <span className="admin-nav-icon">
+        <Image
+          src="/assets/images/icons/integrations-icon.svg"
+          alt="Integrations"
+          width={isCollapsed ? 24 : 20}   
+          height={isCollapsed ? 24 : 20}
+        />
+      </span>
+      ,
       current: currentPath.startsWith('/integrations'),
     },
   ];
@@ -81,7 +107,7 @@ const Sidebar = ({ isOpen, onClose, currentPath, orgData, isCollapsed, onToggleC
           className="admin-sidebar-toggle"
           title={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
         >
-          {isCollapsed ? '▶' : '◀'}
+          {isCollapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
         </button>
       </div>
 
@@ -95,7 +121,12 @@ const Sidebar = ({ isOpen, onClose, currentPath, orgData, isCollapsed, onToggleC
           >
             <span className="admin-nav-icon">{item.icon}</span>
             {!isCollapsed && item.name}
-            {item.current && <span className="admin-nav-arrow">▶</span>}
+            {item.current && (
+              <span className="admin-nav-arrow">
+                <ChevronRight size={16} />
+              </span>
+            )}
+
           </button>
         ))}
       </nav>
@@ -109,7 +140,11 @@ const Breadcrumb = ({ items }) => {
       {items.map((item, index) => (
         <span key={item.name} style={{ display: 'flex', alignItems: 'center' }}>
           {index > 0 && (
-            <span className="admin-breadcrumb-separator" style={{ margin: '0 0.5rem' }}>›</span>
+            <ChevronRight
+              size={14}
+              className="admin-breadcrumb-separator"
+              style={{ margin: '0 0.5rem', color: 'var(--admin-muted-foreground)' }}
+            />
           )}
           {item.href ? (
             <a href={item.href} className="admin-breadcrumb-item">
@@ -220,8 +255,19 @@ const TopBar = ({ onMenuClick, breadcrumbItems, pageTitle, actions, pageActions,
             className="admin-button admin-button-ghost"
             style={{ width: '36px', height: '36px', padding: 0, borderRadius: '50%' }}
           >
-            <div className="admin-sidebar-avatar" style={{ width: '32px', height: '32px' }}>
-              {orgData?.name?.[0] || 'U'}
+            <div
+              className="admin-sidebar-avatar"
+              style={{
+                width: '32px',
+                height: '32px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: 'var(--admin-muted-foreground)',
+                borderRadius: '50%',
+              }}
+            >
+              <FaUser style={{ width: '20px', height: '20px', color: 'white' }} />
             </div>
           </button>
 
@@ -259,7 +305,7 @@ const TopBar = ({ onMenuClick, breadcrumbItems, pageTitle, actions, pageActions,
                   padding: '0.75rem'
                 }}
               >
-                <span style={{ marginRight: '0.5rem' }}>🚪</span>
+                <LogOut size={18} style={{ marginRight: '0.5rem' }} />
                 Log out
               </button>
             </div>

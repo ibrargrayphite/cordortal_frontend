@@ -86,14 +86,15 @@
   display: none;
 }
 
-/* Added this t0 center icons in collapsed mode */
+/* Added this to center icons in collapsed mode */
 .admin-sidebar.collapsed .admin-nav-icon {
   margin-right: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 28px;
+  height: 28px;
 }
-
 
 .admin-sidebar-toggle {
   position: absolute;
@@ -360,11 +361,13 @@
 .admin-container {
   max-width: 90rem;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0;
 }
 
 .admin-page-header {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .admin-page-title {
@@ -372,6 +375,7 @@
   font-weight: 600;
   color: var(--admin-foreground);
   margin-bottom: 0.5rem;
+  margin: 0;
 }
 
 .admin-page-description {
@@ -799,4 +803,119 @@
 .dark .admin-status-badge.disconnected {
   background-color: #1f2937;
   color: #fbbf24;
+}
+
+.theme-toggle {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 32px;
+  cursor: pointer;
+}
+
+.theme-toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #e5e7eb;
+  border-radius: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.icon {
+  font-size: 14px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: scale(1);
+}
+
+.icon.sun {
+  color: #fbbf24;
+  opacity: 1;
+  transform: rotate(0deg);
+}
+
+.icon.moon {
+  color: #64748b;
+  opacity: 0.7;
+  transform: rotate(0deg);
+}
+
+.knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 26px;
+  height: 26px;
+  background: linear-gradient(145deg, #ffffff, #f3f4f6);
+  border-radius: 50%;
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.15),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 2;
+}
+
+/* Hover effects */
+.theme-toggle:hover .slider {
+  background-color: #d1d5db;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.theme-toggle:hover .knob {
+  transform: translateX(0) scale(1.05);
+  box-shadow:
+    0 3px 8px rgba(0, 0, 0, 0.2),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Checked state animations */
+.theme-toggle input:checked+.slider {
+  background-color: #4b5563;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.theme-toggle input:checked~.knob {
+  transform: translateX(28px) scale(1);
+  background: linear-gradient(145deg, #e5e7eb, #ffffff);
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.2),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.theme-toggle input:checked+.slider .icon.sun {
+  opacity: 0.5;
+  transform: rotate(45deg) scale(0.9);
+}
+
+.theme-toggle input:checked+.slider .icon.moon {
+  opacity: 1;
+  color: #e5e5e5;
+  transform: rotate(-15deg) scale(1.1);
+}
+
+/* Active/pressed state */
+.theme-toggle:active .knob {
+  transform: translateX(0) scale(0.95);
+}
+
+.theme-toggle input:checked:active~.knob {
+  transform: translateX(28px) scale(0.95);
+}
+
+/* Smooth icon transitions */
+.slider .icon {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
