@@ -262,27 +262,6 @@ const TemplateDetailPage = () => {
                       {template.name || 'Unnamed Template'}
                     </div>
                   </div>
-
-                  <div>
-                    <strong style={{ fontSize: '0.875rem', color: 'var(--admin-muted-foreground)' }}>
-                      Last Updated
-                    </strong>
-                    <div style={{ marginTop: '0.25rem' }}>
-                      {template.updated_at
-                        ? new Date(template.updated_at).toLocaleString()
-                        : 'Unknown'
-                      }
-                    </div>
-                  </div>
-
-                  <div>
-                    <strong style={{ fontSize: '0.875rem', color: 'var(--admin-muted-foreground)' }}>
-                      Template ID
-                    </strong>
-                    <div style={{ marginTop: '0.25rem' }}>
-                      {template.id}
-                    </div>
-                  </div>
                 </div>
               </div>
 
