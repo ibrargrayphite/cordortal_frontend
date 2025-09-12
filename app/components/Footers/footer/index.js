@@ -10,12 +10,26 @@ import HoursOfOperation from "../../HoursOfOperations";
 import CustomButton from "../../CustomButton";
 import { useTheme } from "../../../context/ThemeContext";
 import { usePages } from '../../../context/PagesContext';
+import { isAuthenticated } from '../../../utils/auth';
+import { useState, useEffect } from 'react';
 
-const Footer = ({ src, refersrc, title,data,media,noBgColor }) => {
+const Footer = ({ src, refersrc, title,data,media,noBgColor,footerLogin }) => {
   const { pages } = usePages();
   const ContactCardData = pages.data || {};
   const theme = useTheme();
   const router = useRouter();
+  const [authenticated, setAuthenticated] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    // Delay mounting to ensure hydration is complete
+    const timer = setTimeout(() => {
+      setMounted(true);
+      setAuthenticated(isAuthenticated());
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleNavigation = (path, external = false) => {
     if (external) {
@@ -43,6 +57,10 @@ const Footer = ({ src, refersrc, title,data,media,noBgColor }) => {
 
   const handleHome = () => {
     router.push("/");
+  };
+
+  const handleLogin = () => {
+    router.push('/login');
   };
 
   return (
@@ -167,6 +185,24 @@ const Footer = ({ src, refersrc, title,data,media,noBgColor }) => {
                           </li>
                         </div>
                       ))}
+                      {/* Login button - show if footerLogin is true and component is mounted */}
+                      {mounted && footerLogin && (
+                        <div className="w-1/2 lg:w-1/3">
+                          <li>
+                            <a
+                              style={{ 
+                                cursor: "pointer",
+                                fontSize: "0.9rem",
+                                opacity: 0.8,
+                                fontStyle: "italic"
+                              }}
+                              onClick={handleLogin}
+                            >
+                              Login
+                            </a>
+                          </li>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </ul>

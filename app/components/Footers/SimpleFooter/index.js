@@ -1,13 +1,32 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useTheme } from "../../../context/ThemeContext";
+import { useRouter } from "next/navigation";
+import { isAuthenticated } from '../../../utils/auth';
 import styles from "./SimpleFooter.module.css";
 import Image from "next/image";
 import defaultMedia from "../../../../public/assets/images/solutions/implants.png";
 
-const SimpleFooter = ({ footerRights, data }) => {
+const SimpleFooter = ({ footerRights, data, footerLogin }) => {
   const theme = useTheme();
+  const router = useRouter();
+  const [authenticated, setAuthenticated] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    // Delay mounting to ensure hydration is complete
+    const timer = setTimeout(() => {
+      setMounted(true);
+      setAuthenticated(isAuthenticated());
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleLogin = () => {
+    router.push('/login');
+  };
 
   return (
     <>
@@ -33,6 +52,22 @@ const SimpleFooter = ({ footerRights, data }) => {
                     {info}
                   </li>
                 ))}
+                {/* Login button - always show if footerLogin is true and component is mounted */}
+                {mounted && footerLogin && (
+                  <li className={styles.listItem}>
+                    <a
+                      style={{ 
+                        cursor: "pointer",
+                        fontSize: "0.85rem",
+                        opacity: 0.8,
+                        fontStyle: "italic"
+                      }}
+                      onClick={handleLogin}
+                    >
+                      Login
+                    </a>
+                  </li>
+                )}
               </ul>
             </div>
 

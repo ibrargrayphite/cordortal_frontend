@@ -7,6 +7,9 @@ import { PagesProvider } from './context/PagesContext';
 import { fetchPagesData } from './utils/fetchPagesData';
 import localFont from 'next/font/local';
 import ChatWidget from './components/ChatWidget';
+import LayoutWrapper from './components/LayoutWrapper';
+import ToastWrapper from './components/ToastWrapper';
+
 
 const balgin = localFont({
   src: [{ path: '../public/assets/fonts/balgin-regular.otf', weight: '400', style: 'normal' }],
@@ -39,7 +42,7 @@ export default async function RootLayout({ children }) {
   console.log("PAGES DATA IN LAYOUT:", pagesData);
   const location = pagesData || {};
   const shared = location.shared || {};
-  const chatBot = pagesData.data.chatBot;
+  const chatBot = pagesData?.data?.chatBot || false;
   // need to add in organization data as for oaklands "chatBot": false,
 
   // Determine the active font based on the location's fontFamily
@@ -54,58 +57,39 @@ export default async function RootLayout({ children }) {
       : activeFont;
   return (
     <html lang="en">
-      <PagesProvider pagesData={pagesData}> {/* Pass data to PagesProvider */}
+      <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+      </head>
+      <PagesProvider pagesData={pagesData}>
         <ThemeProvider>
           <body
-          
             style={{
-              '--dynamic-font': activeFont.style.fontFamily, // Set dynamic font variable
-              fontFamily: 'var(--dynamic-font, sans-serif)', // Apply the variable directly
-              
+              '--dynamic-font': activeFont.style.fontFamily,
+              fontFamily: 'var(--dynamic-font, sans-serif)',
             }}
-            className={activeFont.className} // Use the Google Fonts class
+            className={activeFont.className}
           >
-          <style>
-            {/* for content tags */}
-            {`
-              ul,li, p, span, div {
-                font-family: ${activeFont.style.fontFamily}, sans-serif !important;
-              }
-            `}
-            {/* for heading tags */}
-            {`
-              h1, h2, h3, h4, h5 {
-                font-family: ${secondaryFont.style.fontFamily}, sans-serif !important;
-              }
-            `}
-          </style>
-            {shared &&
-              renderComponent({
-                component: shared.header?.name,
-                media: location.media,
-                src: shared.header.src,
-                name: location.name,
-                locations: location.data.locations,
-                menuItems: shared.header.menuItems,
-                button: shared.header.button,
-              })
-            }
-            <main>{children}</main>
-            <div className={styles.footerContaner}>
-              {shared &&
-                renderComponent({
-                  component: shared.footer.name,
-                  src: shared.footer.src,
-                  refersrc: shared.footer.refersrc,
-                  title: location.title,
-                  footerRights: shared.footer.footerRights,
-                  data: shared.footer.data,
-                  media: shared.footer.media,
-                  noBgColor: shared.footer?.noBgColor,
-                })
-              }
-            </div>
-            {chatBot && <ChatWidget />}
+            <style>
+              {`
+                ul,li, p, span, div {
+                  font-family: ${activeFont.style.fontFamily}, sans-serif !important;
+                }
+              `}
+              {`
+                h1, h2, h3, h4, h5 {
+                  font-family: ${secondaryFont.style.fontFamily}, sans-serif !important;
+                }
+              `}
+            </style>
+            <ToastWrapper>
+              <LayoutWrapper 
+                shared={shared}
+                location={location}
+                chatBot={chatBot}
+              >
+                {children}
+              </LayoutWrapper>
+            </ToastWrapper>
           </body>
         </ThemeProvider>
       </PagesProvider>

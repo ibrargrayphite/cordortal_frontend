@@ -1,0 +1,310 @@
+.adminContainer {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
+}
+
+.consentInterface {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.consentMeta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.statusBadge {
+    display: inline-block;
+    padding: 0.35rem 0.75rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.statusBadge.signed {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.statusBadge.unsigned {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+}
+
+.consentSubtitle {
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.consentPreview {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    overflow: visible;
+    width: 100%;
+    flex: 1;
+}
+
+.consentPreview.fullWidth {
+    max-width: none;
+    width: 100%;
+}
+
+.previewHeader {
+    background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+    color: white;
+    padding: 1rem 1.5rem;
+}
+
+.fullWidth .previewHeader {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+}
+
+.previewHeader h5 {
+    margin: 0;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.previewHeader h5::before {
+    font-size: 1.2rem;
+}
+
+.templatePreview {
+    padding: 2rem;
+    line-height: 1.6;
+    width: 100%;
+    min-height: auto;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+}
+
+.templatePreview h1,
+.templatePreview h2,
+.templatePreview h3,
+.templatePreview h4,
+.templatePreview h5 {
+    color: #343a40;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.templatePreview p {
+    margin-bottom: 1rem;
+}
+
+.templatePreview ul,
+.templatePreview ol {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+}
+
+.templatePreview table {
+    width: 100%;
+    max-width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+    table-layout: fixed;
+    word-wrap: break-word;
+}
+
+.templatePreview table,
+.templatePreview th,
+.templatePreview td {
+    border: 1px solid #dee2e6;
+}
+
+.templatePreview th,
+.templatePreview td {
+    padding: 0.75rem;
+    text-align: left;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.templatePreview th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+}
+
+.templatePreview img,
+.templatePreview video,
+.templatePreview iframe {
+    max-width: 100%;
+    height: auto;
+}
+
+.templatePreview pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+}
+
+.editActions {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.consentPlaceholder {
+    text-align: center;
+    padding: 3rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    margin-top: 2rem;
+}
+
+.consentPlaceholder i {
+    font-size: 4rem;
+    color: #6c757d;
+    margin-bottom: 1.5rem;
+    display: block;
+}
+
+.consentPlaceholder h5 {
+    color: #495057;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.consentPlaceholder p {
+    color: #6c757d;
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Signature Modal Styling */
+.signatureModal :global(.modal-content) {
+    border-radius: 12px;
+    overflow: hidden;
+    border: none;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+.signatureModal :global(.modal-header) {
+    background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+    color: white;
+    border-bottom: none;
+    padding: 1rem 1.5rem;
+}
+
+.signatureModal :global(.modal-title) {
+    font-weight: 600;
+}
+
+.signatureModal :global(.modal-header .btn-close) {
+    filter: invert(1);
+    opacity: 0.8;
+}
+
+.signatureModal :global(.modal-body) {
+    padding: 1.5rem;
+    overflow: hidden;
+}
+
+/* Additional styling for shadcn/ui Dialog */
+.signatureModal {
+    max-width: 90vw;
+    width: auto;
+    overflow-x: hidden;
+}
+
+.signatureCanvasWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    padding: 0 1rem;
+}
+
+.signatureCanvas {
+    border: 2px dashed #dee2e6;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    cursor: crosshair;
+    transition: border-color 0.2s;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+}
+
+.signatureCanvas:hover {
+    border-color: #6c5ce7;
+}
+
+.signatureError {
+    color: #dc3545;
+    font-size: 0.9rem;
+    text-align: center;
+    margin-top: 0.5rem;
+}
+
+.signatureModal :global(.modal-footer) {
+    border-top: 1px solid #e9ecef;
+    padding: 1rem 1.5rem;
+    gap: 0.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .adminContainer {
+        padding: 1rem;
+        overflow-x: hidden;
+    }
+
+    .consentInterface {
+        gap: 1.5rem;
+    }
+
+    .templatePreview {
+        padding: 1.5rem;
+        overflow-x: hidden;
+    }
+
+    .signatureCanvas {
+        width: 100% !important;
+        max-width: 100%;
+    }
+}
+
+/* Animation for loading states */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.adminContainer {
+    animation: fadeIn 0.4s ease-out;
+}
