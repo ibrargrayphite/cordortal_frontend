@@ -193,10 +193,9 @@ const LeadModal = ({
                 disabled={saving}
               >
                 <option value="">Select source</option>
-                <option value="Website">Website</option>
-                <option value="Gmail">Gmail</option>
-                <option value="Referral">Referral</option>
-                <option value="Other">Other</option>
+                <option value="WEBSITE">Website</option>
+                <option value="GMAIL">Gmail</option>
+
               </select>
             </div>
 

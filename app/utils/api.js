@@ -49,21 +49,42 @@ api.interceptors.response.use(
     const status = error.response.status;
     let message = 'An unexpected error occurred';
 
-    switch (status) {
-      case 400:
-        message = 'Bad request. Please check your input.';
-        break;
-      case 403:
-        message = 'Access denied. You don\'t have permission for this action.';
-        break;
-      case 404:
-        message = 'Resource not found.';
-        break;
-      case 500:
-        message = 'Server error. Please try again later.';
-        break;
-      default:
-        message = `HTTP error! status: ${status}`;
+    // Try to extract specific error message from backend response
+    if (error.response.data) {
+      if (error.response.data.detail) {
+        // Handle array of error messages
+        if (Array.isArray(error.response.data.detail)) {
+          message = error.response.data.detail.join(', ');
+        } else {
+          message = error.response.data.detail;
+        }
+      } else if (error.response.data.message) {
+        message = error.response.data.message;
+      } else if (error.response.data.error) {
+        message = error.response.data.error;
+      } else if (typeof error.response.data === 'string') {
+        message = error.response.data;
+      }
+    }
+
+    // Fallback to generic messages only if no specific message was found
+    if (message === 'An unexpected error occurred') {
+      switch (status) {
+        case 400:
+          message = 'Bad request. Please check your input.';
+          break;
+        case 403:
+          message = 'Access denied. You don\'t have permission for this action.';
+          break;
+        case 404:
+          message = 'Resource not found.';
+          break;
+        case 500:
+          message = 'Server error. Please try again later.';
+          break;
+        default:
+          message = `HTTP error! status: ${status}`;
+      }
     }
 
     return Promise.reject(new Error(message));

@@ -35,7 +35,13 @@ export const useAuth = () => {
     try {
       setLoading(true);
       
-      const data = await authAPI.login(credentials);
+      // Add domain to the login payload
+      const loginPayload = {
+        ...credentials,
+        domain: process.env.NEXT_PUBLIC_DOMAIN
+      };
+      
+      const data = await authAPI.login(loginPayload);
       
       if (data.access && data.refresh) {
         setTokens(data.access, data.refresh);
