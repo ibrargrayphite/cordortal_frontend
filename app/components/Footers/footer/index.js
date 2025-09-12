@@ -185,6 +185,24 @@ const Footer = ({ src, refersrc, title,data,media,noBgColor,footerLogin }) => {
                           </li>
                         </div>
                       ))}
+                      {/* Login button - show if footerLogin is true and component is mounted */}
+                      {mounted && footerLogin && (
+                        <div className="w-1/2 lg:w-1/3">
+                          <li>
+                            <a
+                              style={{ 
+                                cursor: "pointer",
+                                fontSize: "0.9rem",
+                                opacity: 0.8,
+                                fontStyle: "italic"
+                              }}
+                              onClick={handleLogin}
+                            >
+                              Login
+                            </a>
+                          </li>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </ul>
