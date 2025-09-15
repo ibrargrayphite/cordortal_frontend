@@ -9,37 +9,46 @@ import '../../styles/admin.css';
 import Image from "next/image";
 import { FaUser } from 'react-icons/fa';
 import { FaSun, FaMoon } from "react-icons/fa";
-import { LogOut, ChevronRight, ChevronLeft } from "lucide-react";
+import { LogOut, ChevronRight, Menu, Phone } from "lucide-react";
 
-const ThemeToggle = () => {
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+// const ThemeToggle = () => {
+//   const { theme, setTheme } = useTheme();
+//   const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+//   useEffect(() => {
+//     setMounted(true);
+//   }, []);
 
-  if (!mounted) return null;
+//   if (!mounted) {
+//     return (
+//       <label className="theme-toggle disabled">
+//         <span className="slider">
+//           <FaSun className="icon sun" />
+//           <FaMoon className="icon moon" />
+//         </span>
+//         <span className="knob"></span>
+//       </label>
+//     );
+//   }
 
-  return (
-    <label className="theme-toggle">
-      <input
-        type="checkbox"
-        checked={theme === "dark"}
-        onChange={() => setTheme(theme === "light" ? "dark" : "light")}
-      />
-      <span className="slider">
-        <FaSun className="icon sun" />
-        <FaMoon className="icon moon" />
-      </span>
-      <span className="knob"></span>
-    </label>
-  );
-};
+//   return (
+//     <label className="theme-toggle">
+//       <input
+//         type="checkbox"
+//         checked={theme === "dark"}
+//         onChange={() => setTheme(theme === "light" ? "dark" : "light")}
+//       />
+//       <span className="slider">
+//         <FaSun className="icon sun" />
+//         <FaMoon className="icon moon" />
+//       </span>
+//       <span className="knob"></span>
+//     </label>
+//   );
+// };
 
-const Sidebar = ({ isOpen, onClose, currentPath, orgData, isCollapsed, onToggleCollapse }) => {
+const Sidebar = ({ isOpen, onClose, currentPath, orgData, isCollapsed }) => {
   const router = useRouter();
-
   const navigation = [
     {
       name: 'Leads',
@@ -48,7 +57,7 @@ const Sidebar = ({ isOpen, onClose, currentPath, orgData, isCollapsed, onToggleC
         <Image
           src="/assets/images/icons/leads-icon.svg"
           alt="Leads"
-          width={isCollapsed ? 24 : 20}  
+          width={isCollapsed ? 24 : 20}
           height={isCollapsed ? 24 : 20}
         />
       </span>,
@@ -61,7 +70,7 @@ const Sidebar = ({ isOpen, onClose, currentPath, orgData, isCollapsed, onToggleC
         <Image
           src="/assets/images/icons/templates-icon.svg"
           alt="Templates"
-          width={isCollapsed ? 24 : 20} 
+          width={isCollapsed ? 24 : 20}
           height={isCollapsed ? 24 : 20}
         />
       </span>
@@ -75,7 +84,7 @@ const Sidebar = ({ isOpen, onClose, currentPath, orgData, isCollapsed, onToggleC
         <Image
           src="/assets/images/icons/integrations-icon.svg"
           alt="Integrations"
-          width={isCollapsed ? 24 : 20}   
+          width={isCollapsed ? 24 : 20}
           height={isCollapsed ? 24 : 20}
         />
       </span>
@@ -102,15 +111,8 @@ const Sidebar = ({ isOpen, onClose, currentPath, orgData, isCollapsed, onToggleC
             </span>
           )}
         </div>
-        <button
-          onClick={onToggleCollapse}
-          className="admin-sidebar-toggle"
-          title={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-        >
-          {isCollapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
-        </button>
-      </div>
 
+      </div>
       <nav className="admin-sidebar-nav">
         {navigation.map((item) => (
           <button
@@ -183,13 +185,13 @@ const TopBar = ({ onMenuClick, breadcrumbItems, pageTitle, actions, pageActions,
   return (
     <header className="admin-topbar">
       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-        {/* <button
+        <button
           onClick={onMenuClick}
-          className="admin-button admin-button-ghost md:hidden"
+          className="admin-button admin-button-ghost"
           style={{ padding: '0.5rem' }}
         >
-          ☰
-        </button> */}
+          <Menu size={20} />
+        </button>
 
         <div className="hidden md:block">
           <Breadcrumb items={breadcrumbItems} />
@@ -217,8 +219,9 @@ const TopBar = ({ onMenuClick, breadcrumbItems, pageTitle, actions, pageActions,
               </div>
             </div>
             {leadData.phone && (
-              <div style={{ fontSize: '0.75rem', color: 'var(--admin-muted-foreground)' }}>
-                📞 {leadData.phone}
+              <div style={{ fontSize: '0.75rem', color: 'var(--admin-muted-foreground)', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                <Phone size={14} />
+                {leadData.phone}
               </div>
             )}
           </div>
@@ -246,7 +249,7 @@ const TopBar = ({ onMenuClick, breadcrumbItems, pageTitle, actions, pageActions,
         )}
 
         {/* Theme Toggle */}
-        <ThemeToggle />
+        {/* <ThemeToggle /> */}
 
         {/* User Menu */}
         <div style={{ position: 'relative' }}>
@@ -341,9 +344,10 @@ const AppShell = ({
   leadData = null
 }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [orgData, setOrgData] = useState(null);
   const pathname = usePathname();
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
     // Check authentication
@@ -364,6 +368,16 @@ const AppShell = ({
 
     fetchOrgData();
   }, []);
+
+  const handleMenuClick = () => {
+    if (window.innerWidth < 768) {
+      // mobile
+      setIsSidebarOpen((prev) => !prev);
+    } else {
+      // md & lg
+      setIsSidebarCollapsed((prev) => !prev);
+    }
+  };
 
   // Default breadcrumb items based on current path
   const defaultBreadcrumbs = [
@@ -413,19 +427,26 @@ const AppShell = ({
         />
       )}
 
+      {isSidebarOpen && (
+        <div
+          onClick={() => setIsSidebarOpen(false)}
+          className="fixed inset-0 bg-black bg-opacity-50 z-30"
+        />
+      )}
+
       {/* Sidebar */}
       <Sidebar
-        isOpen={sidebarOpen}
-        onClose={() => setSidebarOpen(false)}
+        isOpen={isSidebarOpen}
+        onClose={() => setIsSidebarOpen(false)}
         currentPath={pathname}
         orgData={orgData}
-        isCollapsed={sidebarCollapsed}
-        onToggleCollapse={() => setSidebarCollapsed(!sidebarCollapsed)}
+        isCollapsed={isSidebarCollapsed}
+        onMenuClick={handleMenuClick}
       />
 
       {/* Top Bar */}
       <TopBar
-        onMenuClick={() => setSidebarOpen(true)}
+        onMenuClick={handleMenuClick}
         breadcrumbItems={breadcrumbWithLeadData}
         pageTitle={pageTitle}
         actions={actions}
