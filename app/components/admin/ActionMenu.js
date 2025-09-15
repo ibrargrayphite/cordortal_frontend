@@ -1,10 +1,17 @@
-import React, { useState, useRef } from "react";
+"use client";
+
+import React, { useState, useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
 
-const ActionMenu = ({ actions = [], trigger = "⋯", align = "right" }) => {
+const ActionMenu = ({
+  actions = [],
+  trigger = "⋯",
+  align = "right",
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [coords, setCoords] = useState(null);
   const triggerRef = useRef(null);
+  const menuRef = useRef(null);
 
   const handleTriggerClick = (e) => {
     e.stopPropagation();
@@ -21,6 +28,26 @@ const ActionMenu = ({ actions = [], trigger = "⋯", align = "right" }) => {
     }
     setIsOpen(false);
   };
+
+  // Close menu on outside click
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      const clickedInsideMenu = menuRef.current?.contains(e.target);
+      const clickedTrigger = triggerRef.current?.contains(e.target);
+
+      if (!clickedInsideMenu && !clickedTrigger) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
 
   return (
     <div style={{ position: "relative" }}>
@@ -42,6 +69,7 @@ const ActionMenu = ({ actions = [], trigger = "⋯", align = "right" }) => {
         coords &&
         createPortal(
           <div
+            ref={menuRef}
             style={{
               position: "fixed",
               top:
@@ -58,6 +86,7 @@ const ActionMenu = ({ actions = [], trigger = "⋯", align = "right" }) => {
               boxShadow: "var(--admin-shadow-lg)",
               zIndex: 9999,
               padding: "0.25rem",
+              color: "var(--admin-menu-text)",
             }}
             role="menu"
           >
@@ -73,15 +102,26 @@ const ActionMenu = ({ actions = [], trigger = "⋯", align = "right" }) => {
                   padding: "0.5rem 0.75rem",
                   fontSize: "0.875rem",
                   color:
-                    action.variant === "destructive" ? "#dc2626" : "inherit",
+                    action.variant === "destructive"
+                      ? "#dc2626"
+                      : "var(--admin-menu-text)",
                   opacity: action.disabled ? 0.5 : 1,
                 }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.backgroundColor = "var(--admin-menu-hover)")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.backgroundColor = "transparent")
+                }
               >
-                {action.icon && <span style={{ marginRight: "0.5rem" }}>{action.icon}</span>}
+                {action.icon && (
+                  <span style={{ marginRight: "0.5rem" }}>{action.icon}</span>
+                )}
                 {action.loading ? action.loadingText || action.label : action.label}
               </button>
             ))}
-          </div>,
+          </div>
+          ,
           document.body
         )}
     </div>
