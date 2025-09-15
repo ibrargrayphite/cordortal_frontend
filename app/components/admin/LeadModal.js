@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect } from 'react';
+import { X } from "lucide-react";
 
 const LeadModal = ({
   isOpen,
@@ -73,9 +74,9 @@ const LeadModal = ({
         }}
       >
         {/* Header */}
-        <div style={{ 
-          display: 'flex', 
-          alignItems: 'center', 
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
           justifyContent: 'space-between',
           marginBottom: '1.5rem'
         }}>
@@ -88,7 +89,7 @@ const LeadModal = ({
             style={{ width: '32px', height: '32px', padding: 0 }}
             disabled={saving}
           >
-            ✕
+            <X size={20} />
           </button>
         </div>
 
@@ -98,9 +99,9 @@ const LeadModal = ({
             {/* Top Row: Name Fields */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
               <div>
-                <label style={{ 
-                  display: 'block', 
-                  fontSize: '0.875rem', 
+                <label style={{
+                  display: 'block',
+                  fontSize: '0.875rem',
                   fontWeight: 500,
                   marginBottom: '0.5rem'
                 }}>
@@ -116,9 +117,9 @@ const LeadModal = ({
                 />
               </div>
               <div>
-                <label style={{ 
-                  display: 'block', 
-                  fontSize: '0.875rem', 
+                <label style={{
+                  display: 'block',
+                  fontSize: '0.875rem',
                   fontWeight: 500,
                   marginBottom: '0.5rem'
                 }}>
@@ -138,9 +139,9 @@ const LeadModal = ({
             {/* Second Row: Email and Phone */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
               <div>
-                <label style={{ 
-                  display: 'block', 
-                  fontSize: '0.875rem', 
+                <label style={{
+                  display: 'block',
+                  fontSize: '0.875rem',
                   fontWeight: 500,
                   marginBottom: '0.5rem'
                 }}>
@@ -157,9 +158,9 @@ const LeadModal = ({
                 />
               </div>
               <div>
-                <label style={{ 
-                  display: 'block', 
-                  fontSize: '0.875rem', 
+                <label style={{
+                  display: 'block',
+                  fontSize: '0.875rem',
                   fontWeight: 500,
                   marginBottom: '0.5rem'
                 }}>
@@ -178,9 +179,9 @@ const LeadModal = ({
 
             {/* Third Row: Source */}
             <div>
-              <label style={{ 
-                display: 'block', 
-                fontSize: '0.875rem', 
+              <label style={{
+                display: 'block',
+                fontSize: '0.875rem',
                 fontWeight: 500,
                 marginBottom: '0.5rem'
               }}>
@@ -201,9 +202,9 @@ const LeadModal = ({
 
             {/* Fourth Row: Message */}
             <div>
-              <label style={{ 
-                display: 'block', 
-                fontSize: '0.875rem', 
+              <label style={{
+                display: 'block',
+                fontSize: '0.875rem',
                 fontWeight: 500,
                 marginBottom: '0.5rem'
               }}>
@@ -222,9 +223,9 @@ const LeadModal = ({
           </div>
 
           {/* Actions */}
-          <div style={{ 
-            display: 'flex', 
-            gap: '0.75rem', 
+          <div style={{
+            display: 'flex',
+            gap: '0.75rem',
             justifyContent: 'flex-end',
             marginTop: '2rem'
           }}>
