@@ -292,7 +292,7 @@ function TemplateForm({
   return (
     <div>
       <div className="mb-3 space-y-2">
-        <Label htmlFor="template-name">
+        <Label htmlFor="template-name" className="text-black dark:text-black">
           {mode === "template" || mode === "create" ? "Template Name" : "Consent Form Name"}
         </Label>
         <Input
@@ -305,6 +305,7 @@ function TemplateForm({
             : "Enter consent form name"}
           maxLength={255}
           disabled={isSigned}
+          className="bg-white text-black"
         />
       </div>
 
@@ -384,7 +385,7 @@ function TemplateForm({
                     dangerouslySetInnerHTML={{
                       __html:
                         formData.template ||
-                        '<p class="text-muted">Start typing to see the preview...</p>',
+                        '<p className="text-black">Start typing to see the preview...</p>',
                     }}
                   />
                 </div>

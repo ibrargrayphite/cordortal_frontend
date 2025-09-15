@@ -6,6 +6,7 @@ import dynamic from 'next/dynamic';
 import { AppShell, PageSpinner, EmptyState } from './index';
 import { getAuthHeaders, isAuthenticated, logout } from '../../utils/auth';
 import { useToast } from '../Toast';
+import { X, Pencil } from "lucide-react";
 
 // Dynamically import the TemplateForm to avoid SSR issues
 const TemplateForm = dynamic(
@@ -183,9 +184,9 @@ const TemplateDetailPage = () => {
 
   const pageActions = [
     {
-      label: isEditing ? 'Cancel' : 'Edit Template',
-      icon: isEditing ? '✕' : '✏️',
-      variant: isEditing ? 'secondary' : 'primary',
+      label: isEditing ? "Cancel" : "Edit Template",
+      icon: isEditing ? X : Pencil,
+      variant: isEditing ? "secondary" : "primary",
       onClick: isEditing ? handleCancel : () => setIsEditing(true),
     },
   ];
@@ -197,7 +198,7 @@ const TemplateDetailPage = () => {
     // pageActions={pageActions}
     >
       <div className="admin-container">
-        <div className="admin-card">
+        <div className="admin-card !bg-white !text-black">
           <div style={{
             display: 'flex',
             alignItems: 'center',
@@ -206,7 +207,7 @@ const TemplateDetailPage = () => {
           }}>
             <div>
               <h1 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '0.5rem' }}>
-                📄 {template.name || `Template ${templateId}`}
+                {template.name || `Template ${templateId}`}
               </h1>
               <p style={{ color: 'var(--admin-muted-foreground)', fontSize: '0.875rem' }}>
                 {isEditing ? 'Edit template content and settings.' : 'View template details and content.'}
@@ -214,20 +215,24 @@ const TemplateDetailPage = () => {
             </div>
 
             <div style={{ display: 'flex', gap: '0.75rem' }}>
-              {pageActions.map((action, index) => (
-                <button
-                  key={index}
-                  onClick={action.onClick}
-                  className={`admin-button ${action.variant === 'secondary' ? 'admin-button-secondary' : 'admin-button-primary'}`}
-                  disabled={saving}
-                >
-                  {action.icon && (
-                    <span style={{ marginRight: '0.5rem' }}>{action.icon}</span>
-                  )}
-                  {action.label}
-                </button>
-              ))}
+              {pageActions.map((action, index) => {
+                const Icon = action.icon;
+                return (
+                  <button
+                    key={index}
+                    onClick={action.onClick}
+                    className={`admin-button ${action.variant === 'secondary'
+                      ? 'admin-button-secondary'
+                      : 'admin-button-primary'
+                      }`}
+                    disabled={saving}
+                  >
+                    <Icon size={16} className="mr-2" /> {action.label}
+                  </button>
+                );
+              })}
             </div>
+
           </div>
 
           {isEditing ? (
@@ -258,7 +263,7 @@ const TemplateDetailPage = () => {
                     <strong style={{ fontSize: '0.875rem', color: 'var(--admin-muted-foreground)' }}>
                       Template Name
                     </strong>
-                    <div style={{ marginTop: '0.25rem' }}>
+                    <div className="text-black dark:text-white" style={{ marginTop: '0.25rem' }}>
                       {template.name || 'Unnamed Template'}
                     </div>
                   </div>

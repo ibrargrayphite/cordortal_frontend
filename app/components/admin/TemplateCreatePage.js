@@ -10,9 +10,9 @@ import { useToast } from '../Toast';
 // Dynamically import the TemplateForm to avoid SSR issues
 const TemplateForm = dynamic(
   () => import('../TemplateForm/TemplateForm'),
-  { 
-    ssr: false, 
-    loading: () => <PageSpinner message="Loading editor..." /> 
+  {
+    ssr: false,
+    loading: () => <PageSpinner message="Loading editor..." />
   }
 );
 
@@ -66,7 +66,7 @@ const TemplateCreatePage = () => {
 
       showSuccess('Template created successfully!');
       setFormData({ name: '', template: '' });
-      
+
       // Navigate back to appropriate page
       if (leadId) {
         router.push(`/leads/detail?id=${leadId}`);
@@ -112,13 +112,13 @@ const TemplateCreatePage = () => {
       breadcrumbItems={breadcrumbItems}
     >
       <div className="admin-container">
-        <div className="admin-card">
+        <div className="admin-card !bg-white !text-black">
           <div style={{ marginBottom: '1.5rem' }}>
             <h1 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '0.5rem' }}>
-              📄 Create New Template
+              Create New Template
             </h1>
-            <p style={{ color: 'var(--admin-muted-foreground)', fontSize: '0.875rem' }}>
-              {leadId 
+            <p style={{ color: '#6b7280', fontSize: '0.875rem' }}>
+              {leadId
                 ? 'Create a consent form template for this lead.'
                 : 'Create a reusable template for consent forms.'
               }
@@ -129,7 +129,7 @@ const TemplateCreatePage = () => {
             handleFormChange={handleFormChange}
             handleSave={handleSaveTemplate}
             saving={saving}
-            setIsEditing={() => {}}
+            setIsEditing={() => { }}
             setFormData={setFormData}
             formData={formData}
             handleCancel={handleCancel}

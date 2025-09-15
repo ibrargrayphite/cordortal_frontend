@@ -14,6 +14,7 @@ import {
 import { useTemplates } from '../../hooks/useTemplates';
 import { useToast } from '../Toast';
 import { Plus } from "lucide-react";
+import Image from 'next/image';
 
 const columnHelper = createColumnHelper();
 
@@ -154,7 +155,14 @@ const TemplatesListPage = () => {
             searchLoading={templatesHook.searchLoading}
             emptyState={
               <EmptyState
-                icon="📄"
+                icon={
+                  <Image
+                    src="/assets/images/icons/templates-icon.svg"
+                    alt="Templates"
+                    width={48}
+                    height={48}
+                  />
+                }
                 title="No templates found"
                 description={
                   templatesHook.searchQuery || templatesHook.searchLoading
