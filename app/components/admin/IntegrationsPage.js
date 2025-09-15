@@ -8,6 +8,7 @@ import {
 } from './index';
 import { fetchPagesData } from '../../utils/fetchPagesData';
 import api from '../../utils/api';
+import { X, Settings, Plus } from "lucide-react";
 
 const IntegrationsPage = () => {
   const [integrations, setIntegrations] = useState([]);
@@ -189,6 +190,26 @@ const IntegrationsPage = () => {
 
   const pageActions = [];
 
+  const handleOverlayMouseDown = (e) => {
+    if (e.target === e.currentTarget) {
+      e.currentTarget.dataset.closable = "true";
+    } else {
+      e.currentTarget.dataset.closable = "false";
+    }
+  };
+
+  const handleOverlayMouseUp = (e) => {
+    if (e.target === e.currentTarget && e.currentTarget.dataset.closable === "true") {
+      setShowGmailModal(false);
+    }
+  };
+
+  const handleCancel = () => {
+    setEmailInput("");
+    setSubjectInput("");
+    setShowGmailModal(false);
+  };
+
   if (loading) {
     return (
       <AppShell
@@ -288,9 +309,9 @@ const IntegrationsPage = () => {
                     <button
                       onClick={() => setShowGmailModal(true)}
                       className="admin-button admin-button-secondary"
-                      style={{ fontSize: '0.875rem' }}
+                      style={{ fontSize: '0.875rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
                     >
-                      ⚙️ Configure Filters
+                      <Settings size={16} /> Configure Filters
                     </button>
                     <button
                       onClick={handleGmailDisconnect}
@@ -316,7 +337,9 @@ const IntegrationsPage = () => {
 
         {/* Gmail Configuration Modal */}
         {showGmailModal && (
-          <div className="admin-modal-overlay" onClick={() => setShowGmailModal(false)}>
+          <div className="admin-modal-overlay"
+            onMouseDown={handleOverlayMouseDown}
+            onMouseUp={handleOverlayMouseUp}>
             <div className="admin-modal" onClick={(e) => e.stopPropagation()}>
               <div className="admin-modal-header">
                 <h2>Gmail Configuration</h2>
@@ -325,7 +348,7 @@ const IntegrationsPage = () => {
                   className="admin-button admin-button-ghost"
                   style={{ padding: '0.5rem' }}
                 >
-                  ✕
+                  <X size={18} />
                 </button>
               </div>
 
@@ -344,9 +367,9 @@ const IntegrationsPage = () => {
                     <button
                       onClick={addEmail}
                       className="admin-button admin-button-primary"
-                      style={{ fontSize: '0.875rem', padding: '0.5rem 1rem' }}
+                      style={{ fontSize: '0.875rem', padding: '0.5rem 1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
                     >
-                      Add
+                      <Plus size={16} /> Add
                     </button>
                   </div>
                   <div className="admin-input-help">
@@ -378,7 +401,7 @@ const IntegrationsPage = () => {
                               padding: '0.25rem'
                             }}
                           >
-                            ✕
+                            <X size={14} />
                           </button>
                         </div>
                       ))}
@@ -400,9 +423,9 @@ const IntegrationsPage = () => {
                     <button
                       onClick={addSubject}
                       className="admin-button admin-button-primary"
-                      style={{ fontSize: '0.875rem', padding: '0.5rem 1rem' }}
+                      style={{ fontSize: '0.875rem', padding: '0.5rem 1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
                     >
-                      Add
+                      <Plus size={16} /> Add
                     </button>
                   </div>
                   <div className="admin-input-help">
@@ -434,7 +457,7 @@ const IntegrationsPage = () => {
                               padding: '0.25rem'
                             }}
                           >
-                            ✕
+                            <X size={14} />
                           </button>
                         </div>
                       ))}
@@ -445,7 +468,7 @@ const IntegrationsPage = () => {
 
               <div className="admin-modal-footer">
                 <button
-                  onClick={() => setShowGmailModal(false)}
+                  onClick={handleCancel}
                   className="admin-button admin-button-secondary"
                   disabled={filtersLoading}
                 >
