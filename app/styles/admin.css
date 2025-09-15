@@ -16,6 +16,9 @@
   --admin-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --admin-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --admin-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --admin-table-hover: #F8FAFC;
+  --admin-menu-text: #111827;
+  --admin-menu-hover: #f3f4f6;
 }
 
 .dark {
@@ -29,6 +32,9 @@
   --admin-background: #020617;
   --admin-card: #0f172a;
   --admin-foreground: #f8fafc;
+  --admin-table-hover: #2a2d33;
+  --admin-menu-text: #f9fafb;
+  --admin-menu-hover: #374151;
 }
 
 /* Admin Layout Components */
@@ -483,7 +489,7 @@
 }
 
 .admin-table tbody tr:hover {
-  background-color: var(--admin-muted);
+  background-color: var(--admin-table-hover);
 }
 
 .admin-badge {
@@ -807,115 +813,81 @@
 
 .theme-toggle {
   position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 32px;
+  display: inline-flex;
+  align-items: center;
   cursor: pointer;
+  width: 56px;
+  height: 30px;
 }
 
 .theme-toggle input {
   opacity: 0;
   width: 0;
   height: 0;
+  position: absolute;
 }
 
-.slider {
+.theme-toggle .slider {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #e5e7eb;
-  border-radius: 34px;
+  inset: 0;
+  background: var(--admin-muted);
+  border-radius: 9999px;
+  border: 1px solid var(--admin-border, #d1d5db);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 8px;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 0 6px;
 }
 
-.icon {
+.theme-toggle .icon {
   font-size: 14px;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.6s ease-in-out;
+}
+
+.theme-toggle .sun {
+  color: #facc15;
+  /* yellow */
+  opacity: 1;
   transform: scale(1);
 }
 
-.icon.sun {
-  color: #fbbf24;
+.theme-toggle .moon {
+  color: #3b82f6;
+  /* blue */
+  opacity: 0.4;
+  transform: scale(0.8);
+}
+
+.theme-toggle input:checked+.slider .sun {
+  opacity: 0.4;
+  transform: scale(0.8) rotate(-10deg);
+}
+
+.theme-toggle input:checked+.slider .moon {
   opacity: 1;
-  transform: rotate(0deg);
+  transform: scale(1) rotate(0deg);
 }
 
-.icon.moon {
-  color: #64748b;
-  opacity: 0.7;
-  transform: rotate(0deg);
-}
-
-.knob {
+.theme-toggle .knob {
   position: absolute;
   top: 3px;
   left: 3px;
-  width: 26px;
-  height: 26px;
-  background: linear-gradient(145deg, #ffffff, #f3f4f6);
+  width: 24px;
+  height: 24px;
+  background: var(--admin-primary);
   border-radius: 50%;
-  box-shadow:
-    0 2px 6px rgba(0, 0, 0, 0.15),
-    inset 0 -1px 2px rgba(0, 0, 0, 0.1);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 2;
-}
-
-/* Hover effects */
-.theme-toggle:hover .slider {
-  background-color: #d1d5db;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.theme-toggle:hover .knob {
-  transform: translateX(0) scale(1.05);
-  box-shadow:
-    0 3px 8px rgba(0, 0, 0, 0.2),
-    inset 0 -1px 2px rgba(0, 0, 0, 0.1);
-}
-
-/* Checked state animations */
-.theme-toggle input:checked+.slider {
-  background-color: #4b5563;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 0.6s ease-in-out;
 }
 
 .theme-toggle input:checked~.knob {
-  transform: translateX(28px) scale(1);
-  background: linear-gradient(145deg, #e5e7eb, #ffffff);
-  box-shadow:
-    0 2px 6px rgba(0, 0, 0, 0.2),
-    inset 0 -1px 2px rgba(0, 0, 0, 0.1);
-}
-
-.theme-toggle input:checked+.slider .icon.sun {
-  opacity: 0.5;
-  transform: rotate(45deg) scale(0.9);
-}
-
-.theme-toggle input:checked+.slider .icon.moon {
-  opacity: 1;
-  color: #e5e5e5;
-  transform: rotate(-15deg) scale(1.1);
-}
-
-/* Active/pressed state */
-.theme-toggle:active .knob {
-  transform: translateX(0) scale(0.95);
-}
-
-.theme-toggle input:checked:active~.knob {
-  transform: translateX(28px) scale(0.95);
-}
-
-/* Smooth icon transitions */
-.slider .icon {
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateX(26px);
+  background: var(--admin-foreground);
 }
