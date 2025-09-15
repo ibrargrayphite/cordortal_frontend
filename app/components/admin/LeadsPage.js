@@ -19,6 +19,7 @@ import { useLeads } from '../../hooks/useLeads';
 import { useTemplates } from '../../hooks/useTemplates';
 import { useToast } from '../Toast';
 import { Plus } from "lucide-react";
+import Image from 'next/image';
 
 const columnHelper = createColumnHelper();
 
@@ -296,9 +297,17 @@ const LeadsPage = () => {
             showPagination={false}
             pageSize={leadsHook.pageSize || 10}
             searchLoading={leadsHook.isSearching}
+            onRowClick={(lead) => handleViewLead(lead.id)}
             emptyState={
               <EmptyState
-                icon="👥"
+                icon={
+                  <Image
+                    src="/assets/images/icons/leads-icon.svg"
+                    alt="Leads"
+                    width={48}
+                    height={48}
+                  />
+                }
                 title="No leads found"
                 description={
                   leadsHook.searchQuery || leadsHook.isSearching
