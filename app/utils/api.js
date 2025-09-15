@@ -239,4 +239,16 @@ export const consentFormsAPI = {
   },
 };
 
+export const userAPI = {
+  getCurrentUser: async () => {
+    const response = await api.get('/user/');
+    return response.data;
+  },
+
+  updateUser: async (userId, userData) => {
+    const response = await api.patch(`/user/${userId}/`, userData);
+    return response.data;
+  },
+};
+
 export default api; 
