@@ -12,13 +12,14 @@ const LayoutWrapper = ({ children, shared, location, chatBot }) => {
   const isConsentPage = pathname === '/consent-form/get' || pathname === '/consent-form/get/';
   const isIntegrationsPage = pathname === '/integrations' || pathname === '/integrations/';
   const isConsentFormPage = pathname === '/consent-form' || pathname === '/consent-form/';
+  const isConsentFormsPage = pathname === '/consent-forms' || pathname === '/consent-forms/';
 
   const isLeadDetailPage = pathname.startsWith('/leads/detail');
   const isTemplatesPage = pathname === '/templates' || pathname === '/templates/';
   const isTemplateDetailPage = pathname.startsWith('/templates/detail');
   const isTemplateCreatePage = pathname.startsWith('/templates/create');
 
-  const isAdminPage = isLoginPage || isLeadsPage || isLeadDetailPage || isTemplatesPage || isTemplateDetailPage || isTemplateCreatePage || isConsentPage || isIntegrationsPage ||isConsentFormPage;
+  const isAdminPage = isLoginPage || isLeadsPage || isLeadDetailPage || isTemplatesPage || isTemplateDetailPage || isTemplateCreatePage || isConsentPage || isIntegrationsPage || isConsentFormPage || isConsentFormsPage;
 
   return (
     <>
