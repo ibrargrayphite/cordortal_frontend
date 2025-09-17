@@ -30,6 +30,7 @@ function TemplateForm({
   isSigned = false,
   fromNotesFlow = false,
   setFromNotesFlow = () => { },
+  hideLeadSpecificActions = false, // New prop to hide "Get Signed" and "Send Link" buttons
 }) {
   const { showError: originalShowError, showSuccess: originalShowSuccess } = useToast();
   const showError = useCallback(
@@ -480,26 +481,30 @@ function TemplateForm({
               </>
             ) : (
               <>
-                <Button
-                  onClick={handleOpenSignatureModal}
-                  disabled={saving || isDeleting || isSendingLink}
-                  className={styles.primaryActionButton}
-                >
-                  <i className="fas fa-signature me-2"></i> Get Signed
-                </Button>
-                <Button
-                  onClick={handleGetLink}
-                  disabled={saving || isDeleting || isSendingLink}
-                  className={styles.primaryActionButton}
-                >
-                  {isSendingLink ? (
-                    <ButtonLoader message="Sending..." />
-                  ) : (
-                    <>
-                      <i className="fas fa-link me-2"></i> Send Link
-                    </>
-                  )}
-                </Button>
+                {!hideLeadSpecificActions && (
+                  <>
+                    <Button
+                      onClick={handleOpenSignatureModal}
+                      disabled={saving || isDeleting || isSendingLink}
+                      className={styles.primaryActionButton}
+                    >
+                      <i className="fas fa-signature me-2"></i> Get Signed
+                    </Button>
+                    <Button
+                      onClick={handleGetLink}
+                      disabled={saving || isDeleting || isSendingLink}
+                      className={styles.primaryActionButton}
+                    >
+                      {isSendingLink ? (
+                        <ButtonLoader message="Sending..." />
+                      ) : (
+                        <>
+                          <i className="fas fa-link me-2"></i> Send Link
+                        </>
+                      )}
+                    </Button>
+                  </>
+                )}
                 <Button
                   onClick={handleSaveConsentForm}
                   disabled={saving || isDeleting || isSendingLink}

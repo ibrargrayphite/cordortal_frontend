@@ -318,6 +318,7 @@
   transition: margin-left 0.3s ease;
 }
 
+
 /* Responsive adjustments for collapsed sidebar */
 .admin-shell:has(.admin-sidebar.collapsed) .admin-main-content {
   margin-left: 64px;
@@ -955,4 +956,209 @@
 
 .admin-page-header .admin-button-skeleton {
   min-width: 120px;
+}
+
+/* Consent Forms Dropdown in Sidebar */
+.consent-forms-dropdown {
+  background: white;
+  border: 1px solid var(--admin-border);
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  box-shadow: var(--admin-shadow-md);
+  margin-bottom: 0.5rem;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 400px;
+  }
+}
+
+.consent-forms-dropdown .dropdown-header {
+  padding: 1rem;
+  border-bottom: 1px solid var(--admin-border);
+  background: var(--admin-muted);
+}
+
+.consent-forms-dropdown .dropdown-header h3 {
+  margin: 0 0 0.75rem 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--admin-foreground);
+}
+
+.consent-forms-dropdown .action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.consent-forms-dropdown .new-form-button {
+  width: 100%;
+  background: var(--admin-primary);
+  color: var(--admin-primary-foreground);
+  border: none;
+  padding: 0.5rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.consent-forms-dropdown .new-form-button:hover {
+  background: #2563eb;
+  transform: translateY(-1px);
+}
+
+.consent-forms-dropdown .generate-form-button {
+  width: 100%;
+  background: transparent;
+  color: var(--admin-muted-foreground);
+  border: 1px solid var(--admin-border);
+  padding: 0.5rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.consent-forms-dropdown .generate-form-button:hover:not(:disabled) {
+  background: var(--admin-muted);
+  color: var(--admin-foreground);
+  border-color: var(--admin-primary);
+}
+
+.consent-forms-dropdown .generate-form-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.consent-forms-dropdown .dropdown-content {
+  padding: 0.5rem;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.consent-forms-dropdown .empty-state {
+  padding: 1rem;
+  text-align: center;
+  color: var(--admin-muted-foreground);
+}
+
+.consent-forms-dropdown .empty-state i {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: #d1d5db;
+  display: block;
+}
+
+.consent-forms-dropdown .empty-state p {
+  margin: 0 0 0.25rem 0;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.consent-forms-dropdown .empty-state small {
+  font-size: 0.625rem;
+  color: #9ca3af;
+}
+
+.consent-forms-dropdown .consent-forms-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.consent-forms-dropdown .consent-form-item {
+  padding: 0.75rem;
+  background: white;
+  border: 1px solid var(--admin-border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.consent-forms-dropdown .consent-form-item:hover {
+  border-color: var(--admin-primary);
+  box-shadow: 0 1px 3px rgba(59, 130, 246, 0.1);
+}
+
+.consent-forms-dropdown .consent-form-info {
+  flex: 1;
+}
+
+.consent-forms-dropdown .consent-form-name {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--admin-foreground);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.consent-forms-dropdown .consent-form-actions {
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+}
+
+.consent-forms-dropdown .print-button {
+  background: none;
+  border: none;
+  color: var(--admin-muted-foreground);
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+.consent-forms-dropdown .print-button:hover {
+  background: var(--admin-muted);
+  color: var(--admin-primary);
+}
+
+.consent-forms-dropdown .loading-state {
+  padding: 1rem;
+  text-align: center;
+  color: var(--admin-muted-foreground);
+}
+
+.consent-forms-dropdown .loading-state i {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: #d1d5db;
+  display: block;
+}
+
+.consent-forms-dropdown .loading-state p {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 500;
 }

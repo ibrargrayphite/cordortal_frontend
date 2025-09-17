@@ -212,6 +212,18 @@ export const notesAPI = {
   },
 };
 
+export const userAPI = {
+  getCurrentUser: async () => {
+    const response = await api.get('/user/me/');
+    return response.data;
+  },
+
+  updateUser: async (userId, userData) => {
+    const response = await api.put(`/user/${userId}/`, userData);
+    return response.data;
+  },
+};
+
 export const consentFormsAPI = {
   getConsentForms: async (leadId, page = 1, pageSize = 5, searchQuery = '') => {
     const params = new URLSearchParams({
@@ -250,8 +262,16 @@ export const consentFormsAPI = {
       lead: false
     };
 
-    const response = await api.post('/leads/consent-forms/', data);
-    return response.data;
+    console.log("API: Creating consent form with data:", data);
+    
+    try {
+      const response = await api.post('/leads/consent-forms/', data);
+      console.log("API: Consent form created successfully:", response.data);
+      return response.data;
+    } catch (error) {
+      console.error("API: Error creating consent form:", error);
+      throw error;
+    }
   },
 
   getConsentForm: async (id) => {

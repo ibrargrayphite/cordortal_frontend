@@ -3,13 +3,15 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { ThemeProvider, useTheme } from 'next-themes';
-import { logout, isAuthenticated } from '../../utils/auth';
+import { logout, isAuthenticated, getAuthHeaders } from '../../utils/auth';
 import { fetchPagesData } from '../../utils/fetchPagesData';
+import { consentFormsAPI } from '../../utils/api';
 import '../../styles/admin.css';
 import Image from "next/image";
 import { FaUser } from 'react-icons/fa';
 import { FaSun, FaMoon } from "react-icons/fa";
 import { LogOut, ChevronRight, Menu, Phone, User } from "lucide-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../ui/dropdown-menu';
 import UserProfileModal from './UserProfileModal';
 
 // const ThemeToggle = () => {
@@ -50,6 +52,14 @@ import UserProfileModal from './UserProfileModal';
 
 const Sidebar = ({ isOpen, onClose, currentPath, orgData, isCollapsed }) => {
   const router = useRouter();
+  const [isConsentDropdownOpen, setIsConsentDropdownOpen] = useState(false);
+  const [consentForms, setConsentForms] = useState([]);
+  const [consentFormsLoading, setConsentFormsLoading] = useState(false);
+  const [templates, setTemplates] = useState([]);
+  const [templatesLoading, setTemplatesLoading] = useState(false);
+  const [generatingConsentForm, setGeneratingConsentForm] = useState(false);
+  const [loadingMessage, setLoadingMessage] = useState('');
+  
   const navigation = [
     {
       name: 'Leads',
@@ -80,7 +90,7 @@ const Sidebar = ({ isOpen, onClose, currentPath, orgData, isCollapsed }) => {
     },
     {
       name: 'Consent Forms',
-      href: '/consent-forms',
+      href: null, // No direct navigation
       icon: (
         <span className="admin-nav-icon">
           <Image
@@ -91,7 +101,8 @@ const Sidebar = ({ isOpen, onClose, currentPath, orgData, isCollapsed }) => {
           />
         </span>
       ),
-      current: currentPath.startsWith('/consent-forms'),
+      current: currentPath.startsWith('/admin/consent-forms'),
+      hasDropdown: true,
     },
     {
       name: 'Integrations',
@@ -110,8 +121,193 @@ const Sidebar = ({ isOpen, onClose, currentPath, orgData, isCollapsed }) => {
   ];
 
   const handleNavigation = (href) => {
-    router.push(href);
+    if (href) {
+      router.push(href);
+      onClose?.();
+    }
+  };
+
+  const fetchConsentForms = async () => {
+    try {
+      setConsentFormsLoading(true);
+      const data = await consentFormsAPI.getConsentFormsWithoutLead(1, 100, '');
+      const formsArray = data.results || [];
+      setConsentForms(formsArray);
+    } catch (error) {
+      console.error("Error fetching consent forms:", error);
+    } finally {
+      setConsentFormsLoading(false);
+    }
+  };
+
+  const fetchTemplates = async () => {
+    try {
+      setTemplatesLoading(true);
+      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+      const response = await fetch(`${baseUrl}/leads/organization-templates/`, {
+        method: "GET",
+        headers: getAuthHeaders(),
+      });
+
+      if (response.status === 401) {
+        logout();
+        window.location.replace("/login");
+        return;
+      }
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setTemplates(data.results || []);
+    } catch (err) {
+      console.error("Templates fetch error:", err);
+    } finally {
+      setTemplatesLoading(false);
+    }
+  };
+
+  const handleGenerateConsentForm = async (templateId) => {
+    try {
+      setGeneratingConsentForm(true);
+      setLoadingMessage('Generating form...');
+
+      if (!templateId) {
+        throw new Error("No template selected");
+      }
+
+      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
+      const templateResponse = await fetch(`${baseUrl}/leads/organization-templates/${templateId}/`, {
+        method: "GET",
+        headers: getAuthHeaders(),
+      });
+
+      if (templateResponse.status === 401) {
+        logout();
+        window.location.replace("/login");
+        return;
+      }
+
+      if (!templateResponse.ok) {
+        throw new Error(`Failed to fetch template: ${templateResponse.status}`);
+      }
+
+      const templateData = await templateResponse.json();
+      if (!templateData?.template?.trim()) {
+        throw new Error("Template HTML is missing or empty");
+      }
+
+      // Navigate to consent forms page with template data
+      router.push('/admin/consent-forms?template=' + encodeURIComponent(JSON.stringify({
+        name: templateData.name || "Generated Consent Form",
+        template: templateData.template,
+      })));
+      setIsConsentDropdownOpen(false);
+      onClose?.();
+    } catch (err) {
+      console.error("Error in handleGenerateConsentForm:", err);
+      alert(err.message || "Could not generate consent form. Please try again.");
+    } finally {
+      setGeneratingConsentForm(false);
+      setLoadingMessage('');
+    }
+  };
+
+  const handleConsentFormClick = () => {
+    if (!isConsentDropdownOpen) {
+      fetchConsentForms();
+    }
+    setIsConsentDropdownOpen(!isConsentDropdownOpen);
+  };
+
+  const handleNewFormClick = () => {
+    router.push('/admin/consent-forms?new=true');
+    setIsConsentDropdownOpen(false);
     onClose?.();
+  };
+
+  const handleConsentFormSelect = (consentForm) => {
+    router.push('/admin/consent-forms');
+    setIsConsentDropdownOpen(false);
+    onClose?.();
+  };
+
+  const handlePrintConsentForm = (consentForm, e) => {
+    e.stopPropagation();
+    const printWindow = window.open('', '_blank');
+    if (!printWindow) {
+      alert("Please allow popups to enable printing.");
+      return;
+    }
+    const printContent = `
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Consent Form - ${consentForm.name || `Form ${consentForm.id}`}</title>
+        <style>
+          * { margin: 0; padding: 0; box-sizing: border-box; }
+          body { font-family: 'Times New Roman', Times, serif; font-size: 12pt; line-height: 1.6; color: #000; background: white; padding: 1in; max-width: 8.5in; margin: 0 auto; }
+          .header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid #000; padding-bottom: 20px; }
+          .header h1 { font-size: 18pt; font-weight: bold; margin-bottom: 10px; }
+          .header .meta { font-size: 10pt; color: #666; }
+          .content { margin-bottom: 30px; }
+          .content h1, .content h2, .content h3, .content h4, .content h5, .content h6 { margin-top: 20px; margin-bottom: 10px; font-weight: bold; }
+          .content h1 { font-size: 16pt; } .content h2 { font-size: 14pt; } .content h3 { font-size: 13pt; } .content h4 { font-size: 12pt; }
+          .content p { margin-bottom: 10px; text-align: justify; }
+          .content table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+          .content table, .content th, .content td { border: 1px solid #000; }
+          .content th, .content td { padding: 8px; text-align: left; }
+          .content th { background-color: #f5f5f5; font-weight: bold; }
+          .signature-section { margin-top: 30px; padding-top: 20px; border-top: 1px solid #ccc; }
+          .signature-section h4 { margin-bottom: 15px; }
+          .signature-section img { max-width: 300px; max-height: 100px; border: 1px solid #ccc; padding: 5px; margin-bottom: 10px; }
+          .footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid #ccc; font-size: 10pt; color: #666; text-align: center; }
+          @media print { body { padding: 0.5in; } .no-print { display: none; } .page-break { page-break-before: always; } }
+        </style>
+      </head>
+      <body>
+        <div class="header">
+          <h1>${`Consent Form - ${consentForm.name}`}</h1>
+          <div class="meta">
+            <p><strong>Status:</strong> ${consentForm.is_signed ? 'Signed' : 'Unsigned'}</p>
+            <p><strong>Lead:</strong> ${consentForm.lead_email || 'N/A'}</p>
+            ${consentForm.signed_at ? `<p><strong>Signed Date:</strong> ${new Date(consentForm.signed_at).toLocaleDateString()}</p>` : ''}
+            <p><strong>Generated:</strong> ${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}</p>
+          </div>
+        </div>
+        <div class="content">
+          ${consentForm.consent_data || '<p>No content available</p>'}
+        </div>
+        <div class="footer">
+          <p>This document was generated from the clinic management system.</p>
+        </div>
+        <script>
+          window.onload = function() { window.focus(); window.print(); };
+          window.onafterprint = function() {};
+        </script>
+      </body>
+      </html>
+    `;
+    printWindow.document.write(printContent);
+    printWindow.document.close();
+  };
+
+  const formatDateTime = (dateString) => {
+    if (!dateString) return { date: "Unknown date", time: "", full: "Unknown date" };
+    try {
+      const date = new Date(dateString);
+      return {
+        date: date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }),
+        time: date.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" }),
+        full: date.toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" }),
+      };
+    } catch (error) {
+      return { date: "Invalid date", time: "", full: "Invalid date" };
+    }
   };
 
   return (
@@ -141,20 +337,114 @@ const Sidebar = ({ isOpen, onClose, currentPath, orgData, isCollapsed }) => {
       </div>
       <nav className="admin-sidebar-nav">
         {navigation.map((item) => (
-          <button
-            key={item.name}
-            onClick={() => handleNavigation(item.href)}
-            className={`admin-nav-item ${item.current ? 'active' : ''}`}
-            title={isCollapsed ? item.name : ''}
-          >
-            <span className="admin-nav-icon">{item.icon}</span>
-            {!isCollapsed && item.name}
-            {item.current && (
-              <span className="admin-nav-arrow">
-                <ChevronRight size={16} />
-              </span>
+          <div key={item.name}>
+            <button
+              onClick={item.hasDropdown ? handleConsentFormClick : () => handleNavigation(item.href)}
+              className={`admin-nav-item ${item.current ? 'active' : ''}`}
+              title={isCollapsed ? item.name : ''}
+            >
+              <span className="admin-nav-icon">{item.icon}</span>
+              {!isCollapsed && item.name}
+              {item.current && (
+                <span className="admin-nav-arrow">
+                  <ChevronRight size={16} />
+                </span>
+              )}
+            </button>
+            
+            {/* Consent Forms Dropdown */}
+            {item.hasDropdown && isConsentDropdownOpen && (
+              <div className="consent-forms-dropdown">
+                <div className="dropdown-header">
+                  <h3>Available Consent Forms</h3>
+                  <div className="action-buttons">
+                    <button
+                      onClick={handleNewFormClick}
+                      className="new-form-button"
+                    >
+                      <i className="fas fa-plus"></i> New Form
+                    </button>
+                    <DropdownMenu onOpenChange={(isOpen) => isOpen && fetchTemplates()}>
+                      <DropdownMenuTrigger asChild>
+                        <button
+                          className="generate-form-button"
+                          disabled={generatingConsentForm}
+                        >
+                          {generatingConsentForm ? (
+                            <>
+                              <i className="fas fa-spinner fa-spin"></i>
+                              {loadingMessage || 'Loading...'}
+                            </>
+                          ) : (
+                            <>
+                              <i className="fas fa-file-alt"></i> Generate Form
+                            </>
+                          )}
+                        </button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent>
+                        {templatesLoading ? (
+                          <DropdownMenuItem disabled>
+                            <i className="fas fa-spinner fa-spin me-2"></i> Loading templates...
+                          </DropdownMenuItem>
+                        ) : templates.length > 0 ? (
+                          templates.map((template) => (
+                            <DropdownMenuItem
+                              key={template.id}
+                              onClick={() => handleGenerateConsentForm(template.id)}
+                            >
+                              {template.name}
+                            </DropdownMenuItem>
+                          ))
+                        ) : (
+                          <DropdownMenuItem disabled>No templates available</DropdownMenuItem>
+                        )}
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
+                </div>
+                <div className="dropdown-content">
+                  {consentFormsLoading ? (
+                    <div className="loading-state">
+                      <i className="fas fa-spinner fa-spin"></i>
+                      <p>Loading consent forms...</p>
+                    </div>
+                  ) : consentForms.length > 0 ? (
+                    <div className="consent-forms-list">
+                      {consentForms.map((consentForm) => (
+                        <div
+                          key={consentForm.id}
+                          className="consent-form-item"
+                          onClick={() => handleConsentFormSelect(consentForm)}
+                        >
+                          <div className="consent-form-info">
+                            <h4 className="consent-form-name">
+                              {consentForm.name || `Consent Form ${consentForm.id}`}
+                            </h4>
+                          </div>
+                          <div className="consent-form-actions">
+                            <button
+                              onClick={(e) => handlePrintConsentForm(consentForm, e)}
+                              className="print-button"
+                              title="Print form"
+                            >
+                              <i className="fas fa-print"></i>
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="empty-state">
+                      <i className="fas fa-file-signature"></i>
+                      <p>No consent forms found</p>
+                      <small>Create your first consent form</small>
+                    </div>
+                  )}
+                </div>
+              </div>
             )}
-          </button>
+          </div>
         ))}
       </nav>
     </div>
