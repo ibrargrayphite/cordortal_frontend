@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, useCallback, useRef, Suspense } from "react";
 import { Button } from '../../components/ui/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/tabs';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../../components/ui/dropdown-menu';
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import dynamic from "next/dynamic";
@@ -65,7 +64,7 @@ function ConsentFormsPageClient() {
     useEffect(() => {
         return () => clearProgressiveLoading();
     }, []);
-
+    
     // Fetch consent forms
     const fetchConsentForms = useCallback(async (page = 1, loadMore = false) => {
         try {
@@ -74,23 +73,28 @@ function ConsentFormsPageClient() {
             } else {
                 setConsentFormsLoading(true);
             }
-            const isFromSidebar = pathname === "/consent-forms" && !searchParams.get("lead_id");
-            const leadId = isFromSidebar ? "false" : searchParams.get("lead_id");
 
-            const data = await consentFormsAPI.getConsentForms(leadId, page, consentFormsPageSize, '');
+            const isFromSidebar = pathname === "/consent-forms" && !searchParams.get("lead");
+            const lead = isFromSidebar ? "false" : searchParams.get("lead");
+
+            let data;
+            if (isFromSidebar || lead === "false") {
+                data = await consentFormsAPI.getConsentFormsWithoutLead(page, consentFormsPageSize, '');
+            } else {
+                data = await consentFormsAPI.getConsentForms(lead, page, consentFormsPageSize, '');
+            }
+
             let formsArray = data.results || [];
             let totalCount = data.count || 0;
             let hasNext = !!data.next;
 
             if (loadMore) {
-                const newForms = [...consentForms, ...formsArray];
-                setConsentForms(newForms);
-                setFilteredConsentForms(newForms);
+                setConsentForms((prev) => [...prev, ...formsArray]);
+                setFilteredConsentForms((prev) => [...prev, ...formsArray]);
             } else {
                 setConsentForms(formsArray);
                 setFilteredConsentForms(formsArray);
             }
-
             setConsentFormsPage(page);
             setConsentFormsTotalPages(Math.ceil(totalCount / consentFormsPageSize));
             setHasMoreConsentForms(hasNext);
@@ -101,7 +105,46 @@ function ConsentFormsPageClient() {
             setConsentFormsLoading(false);
             setLoadingMoreConsentForms(false);
         }
-    }, [consentForms, showError, consentFormsPageSize, pathname, searchParams]);
+    }, [showError, consentFormsPageSize, pathname, searchParams]);
+
+    useEffect(() => {
+        if (!isAuthenticated()) {
+            window.location.replace("/login");
+            return;
+        }
+        fetchConsentForms(1, false);
+        const timer = setTimeout(() => setFadeIn(true), 100);
+        return () => clearTimeout(timer);
+    }, [pathname, searchParams]);
+
+    const fetchTemplates = async () => {
+        try {
+            setTemplatesLoading(true);
+            const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+            const response = await fetch(`${baseUrl}/leads/organization-templates/`, {
+                method: "GET",
+                headers: getAuthHeaders(),
+            });
+
+            if (response.status === 401) {
+                logout();
+                window.location.replace("/login");
+                return;
+            }
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            setTemplates(data.results || []);
+        } catch (err) {
+            console.error("Templates fetch error:", err);
+            showError("Failed to load templates. Please try again.");
+        } finally {
+            setTemplatesLoading(false);
+        }
+    };
 
     // Handle generating consent form from template
     const handleGenerateConsentForm = async (templateId) => {
@@ -137,7 +180,6 @@ function ConsentFormsPageClient() {
                 name: templateData.name || "Generated Consent Form",
                 template: templateData.template,
             });
-            showSuccess("Consent form template loaded successfully!");
         } catch (err) {
             console.error("Error in handleGenerateConsentForm:", err);
             showError(err.message || "Could not generate consent form. Please try again.");
@@ -166,14 +208,12 @@ function ConsentFormsPageClient() {
             template: "",
             name: "",
         });
-        showSuccess("Blank template ready for editing!");
     };
 
     const handleCancelConsentForm = () => {
         setSelectedConsentForm(null);
         setEditingTemplate(null);
         setShowCancelView(true);
-        showSuccess("Consent form canceled.");
     };
 
     const handleFormChange = (field, value) => {
@@ -183,29 +223,70 @@ function ConsentFormsPageClient() {
         }));
     };
 
-    const handleTemplateSave = async (savedConsentForm) => {
+    // const handleTemplateSave = async (savedConsentForm) => {
+    //     try {
+    //         await fetchConsentForms();
+    //         if (savedConsentForm && savedConsentForm.id) {
+    //             setSelectedConsentForm(savedConsentForm);
+    //             if (savedConsentForm.is_signed) {
+    //                 setEditingTemplate(null);
+    //                 setShowCancelView(false);
+    //             } else {
+    //                 setEditingTemplate({
+    //                     id: savedConsentForm.id,
+    //                     template: savedConsentForm.consent_data || "",
+    //                     name: savedConsentForm.name || "",
+    //                     is_signed: savedConsentForm.is_signed,
+    //                 });
+    //             }
+    //         }
+    //     } catch (error) {
+    //         console.error("Error in handleTemplateSave:", error);
+    //         showError("Failed to refresh consent forms list");
+    //     }
+    // };
+
+    const handleSaveConsentFormWithoutLead = async (formData) => {
         try {
-            await fetchConsentForms();
-            if (savedConsentForm && savedConsentForm.id) {
-                setSelectedConsentForm(savedConsentForm);
-                if (savedConsentForm.is_signed) {
-                    setEditingTemplate(null);
-                    setShowCancelView(false);
-                } else {
-                    setEditingTemplate({
-                        id: savedConsentForm.id,
-                        template: savedConsentForm.consent_data || "",
-                        name: savedConsentForm.name || "",
-                        is_signed: savedConsentForm.is_signed,
-                    });
+            setSavingTemplate(true);
+
+            const consentFormData = {
+                name: formData.name,
+                consent_data: formData.template,
+                lead: false
+            };
+
+            let savedConsentForm;
+
+            if (formData.id) {
+                const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+                const response = await fetch(`${baseUrl}/leads/consent-forms/${formData.id}/`, {
+                    method: "PUT",
+                    headers: getAuthHeaders(),
+                    body: JSON.stringify(consentFormData),
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Failed to update consent form: ${response.status}`);
                 }
+
+                savedConsentForm = await response.json();
+            } else {
+                // Create new consent form without lead
+                savedConsentForm = await consentFormsAPI.createConsentFormWithoutLead(consentFormData);
             }
+
+            showSuccess(formData.id ? "Consent form updated successfully!" : "Consent form created successfully!");
+            handleSaveConsentFormWithoutLead(savedConsentForm);
+            return savedConsentForm;
         } catch (error) {
-            console.error("Error in handleTemplateSave:", error);
-            showError("Failed to refresh consent forms list");
+            console.error("Error saving consent form:", error);
+            showError(error.message || "Failed to save consent form. Please try again.");
+            throw error;
+        } finally {
+            setSavingTemplate(false);
         }
     };
-
     const handleTemplateEdit = (consentForm) => {
         setSelectedConsentForm(consentForm);
         setShowCancelView(false);
@@ -239,7 +320,6 @@ function ConsentFormsPageClient() {
             setSelectedConsentForm(null);
             setEditingTemplate(null);
             setShowCancelView(false);
-            showSuccess("Consent form deleted successfully!");
         } catch (err) {
             console.error("Delete consent form error:", err);
             showError("Failed to delete consent form. Please try again.");
@@ -345,84 +425,10 @@ function ConsentFormsPageClient() {
         >
             <div className={`${styles.modernLeadContainer} ${fadeIn ? styles.fadeIn : ""}`}>
                 <div className={styles.topNavTabs}>
-                    <div className={styles.tabsContainer}>
-                        <button className={`${styles.topTab} ${styles.active}`}>
-                            <i className="fas fa-file-signature me-2"></i>
-                            <span>Consent Forms</span>
-                            {consentForms.length > 0 && (
-                                <span className={styles.tabBadge}>{consentForms.length}</span>
-                            )}
-                        </button>
-                    </div>
+
                 </div>
                 <div className={styles.contentWrapper}>
                     <div className={styles.mainLayout}>
-                        <div className={styles.dataSidebar}>
-                            <div className={styles.consentList} onScroll={handleConsentFormsScroll}>
-                                {consentFormsLoading ? (
-                                    <div className={styles.loadingState}>
-                                        <i className="fas fa-spinner fa-spin"></i>
-                                        <p>Loading consent forms...</p>
-                                    </div>
-                                ) : filteredConsentForms.length > 0 ? (
-                                    <>
-                                        {filteredConsentForms.map((consentForm) => (
-                                            <div
-                                                key={consentForm.id}
-                                                className={`${styles.consentFormItem} ${selectedConsentForm?.id === consentForm.id ? styles.selected : ""}`}
-                                                onClick={() => handleTemplateEdit(consentForm)}
-                                            >
-                                                <div className={styles.consentFormInfo}>
-                                                    <div className={styles.consentFormTitle}>
-                                                        <i className="fas fa-file-signature"></i>
-                                                        {consentForm.name || `Consent Form ${consentForm.id}`}
-                                                    </div>
-                                                    <div className={styles.consentFormStatus}>
-                                                        <span
-                                                            className={`${styles.statusBadge} ${consentForm.is_signed ? styles.signed : styles.unsigned}`}
-                                                        >
-                                                            {consentForm.is_signed ? "Signed" : "Unsigned"}
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div className={styles.consentFormActions}>
-                                                    <button
-                                                        className={styles.editButton}
-                                                        onClick={(e) => {
-                                                            e.stopPropagation();
-                                                            handleTemplateEdit(consentForm);
-                                                        }}
-                                                        title={consentForm.is_signed ? "View Consent Form" : "Edit Consent Form"}
-                                                    >
-                                                        <i className={`fas ${consentForm.is_signed ? "fa-eye" : "fa-edit"}`}></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </>
-                                ) : (
-                                    <div className={styles.emptyNotes}>
-                                        <i className="fas fa-file-signature"></i>
-                                        <p>No consent forms yet</p>
-                                        <small>Generate your first consent form</small>
-                                    </div>
-                                )}
-                            </div>
-                            {hasMoreConsentForms && (
-                                <div className={styles.loadMoreConsentForms}>
-                                    {loadingMoreConsentForms ? (
-                                        <div className={styles.loadingMore}>
-                                            <i className="fas fa-spinner fa-spin"></i>
-                                            <span>Loading more consent forms...</span>
-                                        </div>
-                                    ) : (
-                                        <button onClick={() => fetchConsentForms(consentFormsPage + 1, true)} className={styles.loadMoreButton}>
-                                            <i className="fas fa-chevron-down"></i> Load more consent forms
-                                        </button>
-                                    )}
-                                </div>
-                            )}
-                        </div>
                         <div className={styles.actionPanel}>
                             <div className={styles.actionPanelHeader}>
                                 <h3 className={styles.panelTitle}>
@@ -560,7 +566,7 @@ function ConsentFormsPageClient() {
                                     <TemplateForm
                                         mode="consent"
                                         handleFormChange={handleFormChange}
-                                        handleSave={handleTemplateSave}
+                                        handleSave={handleSaveConsentFormWithoutLead}
                                         saving={savingTemplate}
                                         setIsEditing={setEditingTemplate}
                                         setFormData={setEditingTemplate}

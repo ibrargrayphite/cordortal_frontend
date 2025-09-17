@@ -13,6 +13,7 @@ import { ButtonLoader } from "../LoadingSpinner";
 import { getAuthHeaders, logout } from "../../utils/auth";
 import BundledEditor from "@/app/components/BundledEditor/BundledEditor";
 import { Skeleton } from '../Skeleton'; // Import Skeleton component
+import { consentFormsAPI } from "@/app/utils/api";
 
 function TemplateForm({
   mode = "template",
@@ -54,10 +55,8 @@ function TemplateForm({
   const [previewMode, setPreviewMode] = useState(false);
   const [hasLoaded, setHasLoaded] = useState(false); // New state for skeleton
 
-  // Simulate initial load completion
+  // Initial load completion
   useEffect(() => {
-    // Assuming formData is available immediately or after a short async check
-    // If formData comes from an async source, adjust this logic
     setHasLoaded(true);
   }, []);
 
@@ -168,10 +167,10 @@ function TemplateForm({
       showError("This form is already signed.");
       return;
     }
-    if (!lead?.id) {
-      showError("Lead ID is missing.");
-      return;
-    }
+    // if (formData.lead !== false && !lead?.id) {
+    //   showError("Lead ID is missing.");
+    //   return;
+    // }
     if (!formData?.template) {
       showError("Consent data is missing.");
       return;
@@ -191,9 +190,13 @@ function TemplateForm({
         consent_data: consentData,
         name: formData.name,
         is_signed: hasSignature,
-        lead: lead.id,
+        ...(formData.lead !== false && { lead: lead.id }),
         ...(fromNotesFlow && { notes_text: formData.notes_text || "" }),
       };
+
+      if (formData.lead === false) {
+        payload.lead = false;
+      }
 
       const response = await fetch(
         formData.id
@@ -235,13 +238,12 @@ function TemplateForm({
       // Update formData with the ID from the saved consent form
       setFormData((prev) => ({
         ...prev,
-        id: savedConsentForm.id, // Set the ID from the response
+        id: savedConsentForm.id,
         is_signed: hasSignature,
       }));
       setPreviewMode(true);
       setFromNotesFlow(false);
 
-      // Call parent's handleSave to update the parent component's state
       if (handleSave) {
         await handleSave(savedConsentForm);
       }
@@ -298,40 +300,40 @@ function TemplateForm({
 
   if (!formData) return null;
 
-  // Skeleton loader for initial render
+  // Skeleton loader
   if (!hasLoaded) {
     return (
       <div>
         {/* Skeleton for name input section */}
         <div className="mb-3 space-y-2">
-          <Skeleton width="150px" height="1rem" /> {/* Label */}
-          <Skeleton width="100%" height="2.5rem" /> {/* Input */}
+          <Skeleton width="150px" height="1rem" />
+          <Skeleton width="100%" height="2.5rem" />
         </div>
 
         {/* Skeleton for editor and preview */}
         <div className={styles.fullPageEditorContainer}>
           <div className={styles.editorHeader}>
-            <Skeleton width="200px" height="1.5rem" /> {/* Content Editor title */}
-            <Skeleton width="200px" height="1.5rem" /> {/* Live Preview title */}
+            <Skeleton width="200px" height="1.5rem" />
+            <Skeleton width="200px" height="1.5rem" />
           </div>
           <div className={styles.editorContainer}>
             <div className={styles.editorSection}>
-              <Skeleton width="100%" height="400px" /> {/* Editor */}
+              <Skeleton width="100%" height="400px" />
             </div>
             <div className={styles.previewSection}>
-              <Skeleton width="100%" height="400px" /> {/* Preview */}
+              <Skeleton width="100%" height="400px" />
             </div>
           </div>
         </div>
 
         {/* Skeleton for action buttons */}
         <div className={styles.editActions}>
-          <Skeleton width="120px" height="2.5rem" style={{ marginRight: '1rem' }} /> {/* Save/Signature */}
+          <Skeleton width="120px" height="2.5rem" style={{ marginRight: '1rem' }} />
           {mode === "consent" && (
             <>
-              <Skeleton width="120px" height="2.5rem" style={{ marginRight: '1rem' }} /> {/* Send Link */}
-              <Skeleton width="120px" height="2.5rem" style={{ marginRight: '1rem' }} /> {/* Save Changes */}
-              <Skeleton width="120px" height="2.5rem" style={{ marginRight: '1rem' }} /> {/* Delete */}
+              <Skeleton width="120px" height="2.5rem" style={{ marginRight: '1rem' }} />
+              <Skeleton width="120px" height="2.5rem" style={{ marginRight: '1rem' }} />
+              <Skeleton width="120px" height="2.5rem" style={{ marginRight: '1rem' }} />
             </>
           )}
           <Skeleton width="120px" height="2.5rem" /> {/* Cancel */}

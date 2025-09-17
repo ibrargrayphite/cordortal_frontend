@@ -213,23 +213,44 @@ export const notesAPI = {
 };
 
 export const consentFormsAPI = {
-  getConsentForms: async (leadId = false, page = 1, pageSize = 5, searchQuery = '') => {
+  getConsentForms: async (leadId, page = 1, pageSize = 5, searchQuery = '') => {
     const params = new URLSearchParams({
+      lead_id: leadId.toString(),
       page: page.toString(),
       page_size: pageSize.toString(),
     });
-
-    if (leadId !== false) {
-      params.append('lead_id', leadId.toString());
-    } else {
-      params.append('lead_id', 'false');
-    }
 
     if (searchQuery.trim()) {
       params.append('q', searchQuery.trim());
     }
 
     const response = await api.get(`/leads/consent-forms/?${params.toString()}`);
+    return response.data;
+  },
+
+  getConsentFormsWithoutLead: async (page = 1, pageSize = 5, searchQuery = '') => {
+    const params = new URLSearchParams({
+      lead: 'false',
+      page: page.toString(),
+      page_size: pageSize.toString(),
+    });
+
+
+    if (searchQuery.trim()) {
+      params.append('q', searchQuery.trim());
+    }
+
+    const response = await api.get(`/leads/consent-forms/?${params.toString()}`);
+    return response.data;
+  },
+
+  createConsentFormWithoutLead: async (consentFormData) => {
+    const data = {
+      ...consentFormData,
+      lead: false
+    };
+
+    const response = await api.post('/leads/consent-forms/', data);
     return response.data;
   },
 
@@ -244,16 +265,4 @@ export const consentFormsAPI = {
   },
 };
 
-export const userAPI = {
-  getCurrentUser: async () => {
-    const response = await api.get('/user/');
-    return response.data;
-  },
-
-  updateUser: async (userId, userData) => {
-    const response = await api.patch(`/user/${userId}/`, userData);
-    return response.data;
-  },
-};
-
-export default api; 
+export default api;
