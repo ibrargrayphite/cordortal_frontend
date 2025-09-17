@@ -142,15 +142,15 @@ export const leadsAPI = {
 export const templatesAPI = {
   getTemplates: async (searchQuery = '') => {
     const params = new URLSearchParams();
-    
+
     if (searchQuery.trim()) {
       params.append('q', searchQuery.trim());
     }
 
-    const url = params.toString() 
+    const url = params.toString()
       ? `/leads/organization-templates/?${params.toString()}`
       : '/leads/organization-templates/';
-    
+
     const response = await api.get(url);
     return response.data;
   },
@@ -213,12 +213,17 @@ export const notesAPI = {
 };
 
 export const consentFormsAPI = {
-  getConsentForms: async (leadId, page = 1, pageSize = 5, searchQuery = '') => {
+  getConsentForms: async (leadId = false, page = 1, pageSize = 5, searchQuery = '') => {
     const params = new URLSearchParams({
-      lead_id: leadId.toString(),
       page: page.toString(),
       page_size: pageSize.toString(),
     });
+
+    if (leadId !== false) {
+      params.append('lead_id', leadId.toString());
+    } else {
+      params.append('lead_id', 'false');
+    }
 
     if (searchQuery.trim()) {
       params.append('q', searchQuery.trim());
@@ -238,5 +243,6 @@ export const consentFormsAPI = {
     return response.data;
   },
 };
+
 
 export default api; 

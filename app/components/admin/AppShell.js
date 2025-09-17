@@ -78,6 +78,21 @@ const Sidebar = ({ isOpen, onClose, currentPath, orgData, isCollapsed }) => {
       current: currentPath.startsWith('/templates'),
     },
     {
+      name: 'Consent Forms',
+      href: '/consent-forms',
+      icon: (
+        <span className="admin-nav-icon">
+          <Image
+            src="/assets/images/icons/consent-form-icon.svg"
+            alt="Consent Forms"
+            width={isCollapsed ? 24 : 20}
+            height={isCollapsed ? 24 : 20}
+          />
+        </span>
+      ),
+      current: currentPath.startsWith('/consent-forms'),
+    },
+    {
       name: 'Integrations',
       href: '/integrations',
       icon: <span className="admin-nav-icon">
@@ -102,16 +117,26 @@ const Sidebar = ({ isOpen, onClose, currentPath, orgData, isCollapsed }) => {
     <div className={`admin-sidebar ${isOpen ? 'open' : ''} ${isCollapsed ? 'collapsed' : ''}`}>
       <div className="admin-sidebar-header">
         <div className="admin-sidebar-logo">
-          <div className="admin-sidebar-avatar">
-            {orgData?.name?.[0] || 'C'}
-          </div>
-          {!isCollapsed && (
+          {orgData?.media ? (
+            <Image
+              src={orgData.media}
+              alt={orgData?.name || "Clinic Logo"}
+              width={isCollapsed ? 32 : 120}
+              height={32}
+              style={{ objectFit: "contain" }}
+            />
+          ) : (
+            <div className="admin-sidebar-avatar">
+              {orgData?.name?.[0] || 'C'}
+            </div>
+          )}
+
+          {!isCollapsed && !orgData?.media && (
             <span className="admin-sidebar-title">
               {orgData?.name || 'Clinic Admin'}
             </span>
           )}
         </div>
-
       </div>
       <nav className="admin-sidebar-nav">
         {navigation.map((item) => (
@@ -128,7 +153,6 @@ const Sidebar = ({ isOpen, onClose, currentPath, orgData, isCollapsed }) => {
                 <ChevronRight size={16} />
               </span>
             )}
-
           </button>
         ))}
       </nav>
@@ -215,7 +239,9 @@ const TopBar = ({ onMenuClick, breadcrumbItems, pageTitle, actions, pageActions,
           }}>
             <div>
               <div style={{ fontWeight: 600, fontSize: '0.875rem' }}>
-                {leadData.first_name + '' + leadData.last_name || 'Unknown Lead'}
+                {leadData.first_name && leadData.last_name
+                  ? `${leadData.first_name} ${leadData.last_name}`
+                  : 'Unknown Lead'}
               </div>
             </div>
             {leadData.phone && (

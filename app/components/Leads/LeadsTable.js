@@ -2,24 +2,25 @@ import React from 'react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table';
 import styles from '../../leads/leads.module.css';
 import LeadRow from './LeadRow';
+import { TableSkeleton } from './index';
 
-const LeadsTable = ({ 
-  leads, 
-  loading, 
-  fadeOut, 
-  pageLoading, 
-  onEdit, 
-  onDelete, 
-  onView, 
-  editingId, 
-  viewingId 
+const LeadsTable = ({
+  leads,
+  loading,
+  fadeOut,
+  pageLoading,
+  onEdit,
+  onDelete,
+  onView,
+  editingId,
+  viewingId
 }) => {
-  if (loading) {
+  // Show skeleton loader when loading or pageLoading is true
+  if (loading || pageLoading) {
     return (
       <div className={styles.tableContainer}>
         <div className={styles.loadingState}>
-          <i className="fas fa-spinner fa-spin"></i>
-          <span>Loading leads...</span>
+          <TableSkeleton rows={5} columns={7} /> {/* Adjust columns to match table headers */}
         </div>
       </div>
     );
@@ -27,14 +28,8 @@ const LeadsTable = ({
 
   return (
     <div className={styles.tableContainer}>
-      {/* <div className={styles.modernContentHeader}>
-        <div className={styles.contentHeaderLeft}>
-         
-        </div>
-      </div> */}
-
       <div
-        className={`${styles.tableContainer} ${fadeOut ? styles.fadeOut : styles.fadeIn} ${pageLoading ? styles.loading : ""}`}
+        className={`${styles.tableContainer} ${fadeOut ? styles.fadeOut : styles.fadeIn}`}
       >
         <Table className={styles.table}>
           <TableHeader>
@@ -81,4 +76,4 @@ const LeadsTable = ({
   );
 };
 
-export default LeadsTable; 
+export default LeadsTable;

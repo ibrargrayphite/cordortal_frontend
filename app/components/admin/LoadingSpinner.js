@@ -11,8 +11,8 @@ const InlineSpinner = ({ size = 'sm' }) => {
   };
 
   return (
-    <div 
-      className="admin-spinner" 
+    <div
+      className="admin-spinner"
       style={sizes[size]}
     />
   );
@@ -20,10 +20,10 @@ const InlineSpinner = ({ size = 'sm' }) => {
 
 const PageSpinner = ({ message = 'Loading...' }) => {
   return (
-    <div className="admin-loading" style={{ minHeight: '200px' }}>
-      <div style={{ textAlign: 'center' }}>
+    <div className="admin-loading" style={{ minHeight: '200px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <div className="admin-spinner" style={{ marginBottom: '1rem' }} />
-        <p style={{ color: 'var(--admin-muted-foreground)' }}>
+        <p style={{ color: 'var(--admin-muted-foreground)', textAlign: 'center' }}>
           {message}
         </p>
       </div>
@@ -35,7 +35,7 @@ const InlineSkeleton = ({ rows = 5 }) => {
   return (
     <div style={{ padding: '1rem' }}>
       {Array.from({ length: rows }).map((_, index) => (
-        <div 
+        <div
           key={index}
           style={{
             height: '1rem',
@@ -70,7 +70,7 @@ const TableSkeleton = ({ rows = 5, columns = 4 }) => {
           <tr>
             {Array.from({ length: columns }).map((_, index) => (
               <th key={index} style={{ padding: '0.75rem' }}>
-                <div 
+                <div
                   style={{
                     height: '1rem',
                     backgroundColor: 'var(--admin-muted)',
@@ -88,7 +88,7 @@ const TableSkeleton = ({ rows = 5, columns = 4 }) => {
             <tr key={rowIndex}>
               {Array.from({ length: columns }).map((_, colIndex) => (
                 <td key={colIndex} style={{ padding: '0.75rem' }}>
-                  <div 
+                  <div
                     style={{
                       height: '1rem',
                       backgroundColor: 'var(--admin-muted)',

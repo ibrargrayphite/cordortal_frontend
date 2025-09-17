@@ -323,13 +323,15 @@
 .previewContainer {
   flex: 1;
   padding: 1rem;
-  /* Reduced padding for more editor space */
   overflow-y: auto;
-  /* Allow vertical scrolling for large content */
   overflow-x: hidden;
-  /* Prevent horizontal scroll */
   background: #ffffff;
   border: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  pointer-events: none;
 }
 
 .htmlPreview {
@@ -338,6 +340,10 @@
   line-height: 1.6;
   color: #374151;
   word-wrap: break-word;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 .htmlPreview h1,

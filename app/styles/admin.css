@@ -576,6 +576,46 @@
   }
 }
 
+/* Add to app/styles/admin.css */
+.loading-container {
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.pagination-skeleton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.pagination-controls-skeleton {
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+}
+
+/* Skeleton animation */
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 4px;
+}
+
 /* Empty states */
 .admin-empty-state {
   display: flex;
@@ -890,4 +930,29 @@
 .theme-toggle input:checked~.knob {
   transform: translateX(26px);
   background: var(--admin-foreground);
+}
+
+.admin-page-header .skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 4px;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.admin-page-header .skeleton:first-child {
+  margin-bottom: 0.5rem;
+}
+
+.admin-page-header .admin-button-skeleton {
+  min-width: 120px;
 }

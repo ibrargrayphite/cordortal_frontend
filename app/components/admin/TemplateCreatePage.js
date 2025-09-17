@@ -3,16 +3,52 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
-import { AppShell, PageSpinner } from './index';
+import { AppShell } from './index';
 import { getAuthHeaders, isAuthenticated, logout } from '../../utils/auth';
 import { useToast } from '../Toast';
-
+import { Skeleton } from '../Skeleton';
+import styles from "../../templates/detail/templateDetail.module.css";
 // Dynamically import the TemplateForm to avoid SSR issues
 const TemplateForm = dynamic(
   () => import('../TemplateForm/TemplateForm'),
   {
     ssr: false,
-    loading: () => <PageSpinner message="Loading editor..." />
+    loading: () => (
+      <div className="admin-container">
+        <div className="admin-card !bg-white !text-black">
+          {/* Skeleton for header */}
+          <div style={{ marginBottom: '1.5rem' }}>
+            <Skeleton width="300px" height="1.5rem" />
+            <Skeleton width="400px" height="1rem" style={{ marginTop: '0.5rem' }} />
+          </div>
+          {/* Skeleton for TemplateForm */}
+          <div>
+            <div className="mb-3 space-y-2">
+              <Skeleton width="150px" height="1rem" /> 
+              <Skeleton width="100%" height="2.5rem" />
+            </div>
+            <div className={styles.fullPageEditorContainer}>
+              <div className={styles.editorHeader}>
+                <Skeleton width="200px" height="1.5rem" /> 
+                <Skeleton width="200px" height="1.5rem" />
+              </div>
+              <div className={styles.editorContainer}>
+                <div className={styles.editorSection}>
+                  <Skeleton width="100%" height="400px" />
+                </div>
+                <div className={styles.previewSection}>
+                  <Skeleton width="100%" height="400px" />
+                </div>
+              </div>
+            </div>
+            <div className={styles.editActions}>
+              <Skeleton width="120px" height="2.5rem" style={{ marginRight: '1rem' }} />
+              <Skeleton width="120px" height="2.5rem" />
+            </div>
+          </div>
+        </div>
+      </div>
+    )
   }
 );
 
@@ -22,6 +58,7 @@ const TemplateCreatePage = () => {
     name: '',
     template: '',
   });
+  const [hasLoaded, setHasLoaded] = useState(false);
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -29,10 +66,14 @@ const TemplateCreatePage = () => {
   const { showError, showSuccess } = useToast();
 
   useEffect(() => {
-    if (!isAuthenticated()) {
-      window.location.replace('/login');
-      return;
-    }
+    const checkAuth = async () => {
+      if (!(await isAuthenticated())) {
+        window.location.replace('/login');
+        return;
+      }
+      setHasLoaded(true);
+    };
+    checkAuth();
   }, []);
 
   const handleSaveTemplate = async () => {
@@ -104,6 +145,50 @@ const TemplateCreatePage = () => {
   if (leadId) {
     breadcrumbItems.unshift({ name: 'Leads', href: '/leads' });
     breadcrumbItems.unshift({ name: `Lead ${leadId}`, href: `/leads/detail?id=${leadId}` });
+  }
+
+  if (!hasLoaded) {
+    return (
+      <AppShell
+        pageTitle="Create Template"
+        breadcrumbItems={breadcrumbItems}
+      >
+        <div className="admin-container">
+          <div className="admin-card !bg-white !text-black">
+            {/* Skeleton for header */}
+            <div style={{ marginBottom: '1.5rem' }}>
+              <Skeleton width="300px" height="1.5rem" />
+              <Skeleton width="400px" height="1rem" style={{ marginTop: '0.5rem' }} />
+            </div>
+            {/* Skeleton for TemplateForm */}
+            <div>
+              <div className="mb-3 space-y-2">
+                <Skeleton width="150px" height="1rem" />
+                <Skeleton width="100%" height="2.5rem" />
+              </div>
+              <div className={styles.fullPageEditorContainer}>
+                <div className={styles.editorHeader}>
+                  <Skeleton width="200px" height="1.5rem" />
+                  <Skeleton width="200px" height="1.5rem" />
+                </div>
+                <div className={styles.editorContainer}>
+                  <div className={styles.editorSection}>
+                    <Skeleton width="100%" height="400px" />
+                  </div>
+                  <div className={styles.previewSection}>
+                    <Skeleton width="100%" height="400px" />
+                  </div>
+                </div>
+              </div>
+              <div className={styles.editActions}>
+                <Skeleton width="120px" height="2.5rem" style={{ marginRight: '1rem' }} />
+                <Skeleton width="120px" height="2.5rem" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </AppShell>
+    );
   }
 
   return (

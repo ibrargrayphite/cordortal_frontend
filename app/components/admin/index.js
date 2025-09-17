@@ -22,6 +22,7 @@ export { default as TemplatesListPage } from './TemplatesListPage';
 export { default as TemplateCreatePage } from './TemplateCreatePage';
 export { default as TemplateDetailPage } from './TemplateDetailPage';
 export { default as IntegrationsPage } from './IntegrationsPage';
+export {default as ConsentFormPage} from './ConsentFormPage';
 
 // Modal Components
 export { default as LeadModal } from './LeadModal';

@@ -983,7 +983,7 @@ function LeadDetailClient() {
       </head>
       <body>
         <div class="header">
-          <h1>${consentForm.name || `Consent Form ${consentForm.id}`}</h1>
+          <h1>${`Consent Form for ${consentForm.name}`}</h1>
           <div class="meta">
             <p><strong>Status:</strong> ${consentForm.is_signed ? 'Signed' : 'Unsigned'}</p>
             <p><strong>Lead:</strong> ${consentForm.lead_email || 'N/A'}</p>

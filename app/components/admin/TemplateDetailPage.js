@@ -156,7 +156,7 @@ const TemplateDetailPage = () => {
   };
 
   if (loading) {
-    return <PageSpinner message="Loading template..." />;
+    return <PageSpinner message="Loading Template..." />;
   }
 
   if (!template) {

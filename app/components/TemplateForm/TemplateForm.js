@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
@@ -12,6 +12,7 @@ import { getCookie } from "../../utils/cookiesHanlder";
 import { ButtonLoader } from "../LoadingSpinner";
 import { getAuthHeaders, logout } from "../../utils/auth";
 import BundledEditor from "@/app/components/BundledEditor/BundledEditor";
+import { Skeleton } from '../Skeleton'; // Import Skeleton component
 
 function TemplateForm({
   mode = "template",
@@ -51,6 +52,14 @@ function TemplateForm({
   const [showSendLinkModal, setShowSendLinkModal] = useState(false);
   const signatureCanvasRef = useRef(null);
   const [previewMode, setPreviewMode] = useState(false);
+  const [hasLoaded, setHasLoaded] = useState(false); // New state for skeleton
+
+  // Simulate initial load completion
+  useEffect(() => {
+    // Assuming formData is available immediately or after a short async check
+    // If formData comes from an async source, adjust this logic
+    setHasLoaded(true);
+  }, []);
 
   function base64ToBlob(base64, mime) {
     const byteChars = atob(base64.split(",")[1]);
@@ -288,6 +297,48 @@ function TemplateForm({
   };
 
   if (!formData) return null;
+
+  // Skeleton loader for initial render
+  if (!hasLoaded) {
+    return (
+      <div>
+        {/* Skeleton for name input section */}
+        <div className="mb-3 space-y-2">
+          <Skeleton width="150px" height="1rem" /> {/* Label */}
+          <Skeleton width="100%" height="2.5rem" /> {/* Input */}
+        </div>
+
+        {/* Skeleton for editor and preview */}
+        <div className={styles.fullPageEditorContainer}>
+          <div className={styles.editorHeader}>
+            <Skeleton width="200px" height="1.5rem" /> {/* Content Editor title */}
+            <Skeleton width="200px" height="1.5rem" /> {/* Live Preview title */}
+          </div>
+          <div className={styles.editorContainer}>
+            <div className={styles.editorSection}>
+              <Skeleton width="100%" height="400px" /> {/* Editor */}
+            </div>
+            <div className={styles.previewSection}>
+              <Skeleton width="100%" height="400px" /> {/* Preview */}
+            </div>
+          </div>
+        </div>
+
+        {/* Skeleton for action buttons */}
+        <div className={styles.editActions}>
+          <Skeleton width="120px" height="2.5rem" style={{ marginRight: '1rem' }} /> {/* Save/Signature */}
+          {mode === "consent" && (
+            <>
+              <Skeleton width="120px" height="2.5rem" style={{ marginRight: '1rem' }} /> {/* Send Link */}
+              <Skeleton width="120px" height="2.5rem" style={{ marginRight: '1rem' }} /> {/* Save Changes */}
+              <Skeleton width="120px" height="2.5rem" style={{ marginRight: '1rem' }} /> {/* Delete */}
+            </>
+          )}
+          <Skeleton width="120px" height="2.5rem" /> {/* Cancel */}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>

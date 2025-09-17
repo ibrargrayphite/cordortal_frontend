@@ -9,6 +9,7 @@ import {
 import { fetchPagesData } from '../../utils/fetchPagesData';
 import api from '../../utils/api';
 import { X, Settings, Plus } from "lucide-react";
+import { Skeleton } from '../Skeleton';
 
 const IntegrationsPage = () => {
   const [integrations, setIntegrations] = useState([]);
@@ -25,18 +26,30 @@ const IntegrationsPage = () => {
   const [emailInput, setEmailInput] = useState('');
   const [subjectInput, setSubjectInput] = useState('');
   const [filtersLoading, setFiltersLoading] = useState(false);
+  const [initialLoadComplete, setInitialLoadComplete] = useState(false);
 
   useEffect(() => {
-    fetchIntegrations();
-    checkGmailConnection();
-    if (gmailConnected) {
+    // Reset loading state when component mounts
+    setLoading(true);
+    setInitialLoadComplete(false);
+
+    const fetchData = async () => {
+      await checkGmailConnection();
+      await fetchIntegrations();
+      setInitialLoadComplete(true);
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (gmailConnected && initialLoadComplete) {
       fetchGmailFilters();
     }
-  }, [gmailConnected]);
+  }, [gmailConnected, initialLoadComplete]);
 
   const fetchIntegrations = async () => {
     try {
-      setLoading(true);
       // Gmail integration card
       const gmailIntegration = {
         id: 'gmail',
@@ -91,15 +104,18 @@ const IntegrationsPage = () => {
 
   const handleGmailDisconnect = async () => {
     try {
+      setLoading(true);
       const response = await api.post('/user/gmail/disconnect/');
       // The disconnect API returns a success message, so we can assume it worked
       setGmailConnected(false);
       setGmailData(null);
       setGmailFilters({ emails: [], subjects: [] });
-      fetchIntegrations();
+      await fetchIntegrations();
     } catch (err) {
       setError('Failed to disconnect Gmail');
       console.error('Gmail disconnect error:', err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -183,7 +199,6 @@ const IntegrationsPage = () => {
     await saveGmailFilters();
   };
 
-
   const breadcrumbItems = [
     { name: 'Integrations', href: '/integrations' }
   ];
@@ -210,6 +225,28 @@ const IntegrationsPage = () => {
     setShowGmailModal(false);
   };
 
+  // Integration Card Skeleton Component
+  const IntegrationCardSkeleton = () => (
+    <div className="admin-card admin-integration-card">
+      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '1rem' }}>
+        <Skeleton width="48px" height="48px" borderRadius="8px" style={{ marginRight: '1rem' }} />
+        <div style={{ flex: 1 }}>
+          <Skeleton width="150px" height="1.5rem" style={{ marginBottom: '0.5rem' }} />
+          <Skeleton width="200px" height="1rem" />
+        </div>
+      </div>
+
+      <div style={{ marginBottom: '1rem' }}>
+        <Skeleton width="80px" height="1.5rem" borderRadius="16px" />
+      </div>
+
+      <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+        <Skeleton width="120px" height="2.5rem" borderRadius="4px" />
+        <Skeleton width="80px" height="2.5rem" borderRadius="4px" />
+      </div>
+    </div>
+  );
+
   if (loading) {
     return (
       <AppShell
@@ -217,8 +254,42 @@ const IntegrationsPage = () => {
         breadcrumbItems={breadcrumbItems}
         pageActions={pageActions}
       >
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '400px' }}>
-          <PageSpinner message="Loading integrations..." />
+        <div className="admin-page">
+          {/* Page Header Skeleton */}
+          <div style={{ marginBottom: '2rem' }}>
+            {/* Heading skeleton */}
+            <Skeleton
+              width="200px"
+              height="2rem"
+              style={{ marginBottom: '1rem' }}
+            />
+
+            {/* Description skeleton */}
+            <Skeleton
+              width="300px"
+              height="1rem"
+              style={{ marginBottom: '1.25rem' }}
+            />
+
+            {/* Buttons skeleton */}
+            <div style={{
+              display: 'flex',
+              flexWrap: 'nowrap',
+              gap: '1rem',
+              marginTop: '1.25rem',
+              width: 'fit-content'
+            }}>
+              <Skeleton width="100px" height="2rem" borderRadius="16px" />
+              <Skeleton width="100px" height="2rem" borderRadius="16px" />
+            </div>
+          </div>
+
+          {/* Integration Cards Skeleton */}
+          <div className="admin-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1rem' }}>
+            {[1].map((item) => (
+              <IntegrationCardSkeleton key={item} />
+            ))}
+          </div>
         </div>
       </AppShell>
     );
@@ -239,6 +310,7 @@ const IntegrationsPage = () => {
             { label: 'Available', value: integrations.filter(i => i.status === 'available').length }
           ]}
           hideSearch={true}
+          loading={loading}
         />
 
         {error && (

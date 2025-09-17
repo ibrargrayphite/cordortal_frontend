@@ -7,6 +7,7 @@ import { Label } from '../components/ui/label';
 import { useAuth } from '../hooks/useAuth';
 import { PageLoader, ButtonLoader } from '../components/LoadingSpinner';
 import styles from './login.module.css';
+import { usePages } from '../context/PagesContext';
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({
@@ -16,6 +17,8 @@ const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const { loading, authenticated, initialLoading, login, logout } = useAuth();
+  const { pages } = usePages();
+  const logo = pages?.media || pages?.data?.media || "";
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -39,32 +42,18 @@ const LoginPage = () => {
     <div className={styles.loginContainer}>
       <div className={styles.loginCardWrapper}>
         <div className={`${styles.loginCard} ${styles.fadeIn}`}>
-
-          {/* Modern Login Header */}
+          {/* Login Header with dynamic logo */}
           <div className={styles.loginHeader}>
-            <div className={styles.logoContainer}>
-              <div className={styles.logoIcon}>
-                <i className="fas fa-user-md"></i>
+            {logo && (
+              <div className={styles.logoContainer}>
+                <img
+                  src={logo}
+                  alt="Clinic Logo"
+                  className={styles.logoImage}
+                />
               </div>
-            </div>
-            <h1 className={styles.loginTitle}>Welcome Back</h1>
-            <p className={styles.loginSubtitle}>Sign in to your clinic dashboard</p>
+            )}
           </div>
-
-          {/* Logout Button - Show only when authenticated */}
-          {/* {authenticated && (
-                <div className={styles.logoutSection}>
-                  <Button
-                    variant="destructive"
-                    size="sm"
-                    onClick={logout}
-                    className={styles.logoutButton}
-                  >
-                    <i className="fas fa-sign-out-alt me-2"></i>
-                    Logout
-                  </Button>
-                </div>
-              )} */}
 
           {/* Login Form */}
           <form onSubmit={handleSubmit} className={styles.loginForm}>
@@ -108,7 +97,10 @@ const LoginPage = () => {
                   className={styles.passwordToggle}
                   onClick={() => setShowPassword(!showPassword)}
                 >
-                  <i className={`fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
+                  <i
+                    className={`fas ${showPassword ? "fa-eye-slash" : "fa-eye"
+                      }`}
+                  ></i>
                 </button>
               </div>
             </div>
@@ -118,14 +110,7 @@ const LoginPage = () => {
               className={styles.submitButton}
               disabled={loading}
             >
-              {loading ? (
-                <ButtonLoader />
-              ) : (
-                <>
-                  <i className="fas fa-sign-in-alt me-2"></i>
-                  Sign In
-                </>
-              )}
+              {loading ? <ButtonLoader /> : <><i className="fas fa-sign-in-alt me-2"></i>Sign In</>}
             </Button>
           </form>
         </div>
@@ -134,4 +119,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage; 
+export default LoginPage;
