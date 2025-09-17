@@ -9,7 +9,8 @@ import '../../styles/admin.css';
 import Image from "next/image";
 import { FaUser } from 'react-icons/fa';
 import { FaSun, FaMoon } from "react-icons/fa";
-import { LogOut, ChevronRight, Menu, Phone } from "lucide-react";
+import { LogOut, ChevronRight, Menu, Phone, User } from "lucide-react";
+import UserProfileModal from './UserProfileModal';
 
 // const ThemeToggle = () => {
 //   const { theme, setTheme } = useTheme();
@@ -187,9 +188,10 @@ const Breadcrumb = ({ items }) => {
   );
 };
 
-const TopBar = ({ onMenuClick, breadcrumbItems, pageTitle, actions, pageActions, orgData, leadData }) => {
+const TopBar = ({ onMenuClick, breadcrumbItems, pageTitle, actions, pageActions, orgData, leadData, currentUserId }) => {
   const router = useRouter();
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const [showProfileModal, setShowProfileModal] = useState(false);
 
   const handleLogout = () => {
     logout();
@@ -204,6 +206,16 @@ const TopBar = ({ onMenuClick, breadcrumbItems, pageTitle, actions, pageActions,
 
   const handleAddTemplate = () => {
     router.push('/templates/create');
+  };
+
+  const handleEditProfile = () => {
+    console.log('Edit profile clicked, currentUserId:', currentUserId);
+    setShowProfileModal(true);
+    setShowUserMenu(false);
+  };
+
+  const handleCloseProfileModal = () => {
+    setShowProfileModal(false);
   };
 
   return (
@@ -325,6 +337,18 @@ const TopBar = ({ onMenuClick, breadcrumbItems, pageTitle, actions, pageActions,
               </div>
               <hr style={{ border: 'none', borderTop: '1px solid var(--admin-border)' }} />
               <button
+                onClick={handleEditProfile}
+                className="admin-button admin-button-ghost"
+                style={{
+                  width: '100%',
+                  justifyContent: 'flex-start',
+                  padding: '0.75rem'
+                }}
+              >
+                <User size={18} style={{ marginRight: '0.5rem' }} />
+                Edit Profile
+              </button>
+              <button
                 onClick={handleLogout}
                 className="admin-button admin-button-ghost"
                 style={{
@@ -356,6 +380,13 @@ const TopBar = ({ onMenuClick, breadcrumbItems, pageTitle, actions, pageActions,
           }}
         />
       )}
+
+      {/* User Profile Modal */}
+      <UserProfileModal
+        isOpen={showProfileModal}
+        onClose={handleCloseProfileModal}
+        userId={currentUserId}
+      />
     </header>
   );
 };
@@ -371,6 +402,7 @@ const AppShell = ({
 }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [orgData, setOrgData] = useState(null);
+  const [currentUserId, setCurrentUserId] = useState(null);
   const pathname = usePathname();
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -382,17 +414,33 @@ const AppShell = ({
       return;
     }
 
-    // Fetch organization data
-    const fetchOrgData = async () => {
+    // Fetch organization data and user ID
+    const fetchData = async () => {
       try {
         const data = await fetchPagesData();
         setOrgData(data);
+        
+        // Fetch current user to get user ID
+        const { userAPI } = await import('../../utils/api');
+        const userData = await userAPI.getCurrentUser();
+        console.log('Fetched user data in AppShell:', userData);
+        
+        // Handle case where API returns array or single object
+        const user = Array.isArray(userData) ? userData[0] : userData;
+        console.log('Processed user data in AppShell:', user);
+        
+        // Set user ID from the response
+        if (user && user.id) {
+          setCurrentUserId(user.id);
+        } else {
+          console.error('No user ID found in response:', user);
+        }
       } catch (err) {
-        console.error('Failed to fetch org data:', err);
+        console.error('Failed to fetch data:', err);
       }
     };
 
-    fetchOrgData();
+    fetchData();
   }, []);
 
   const handleMenuClick = () => {
@@ -427,6 +475,7 @@ const AppShell = ({
           actions={actions}
           pageActions={pageActions}
           orgData={orgData}
+          currentUserId={currentUserId}
         />
         <main className="admin-main-content" style={{ marginLeft: 0, marginTop: '64px' }}>
           {children}
@@ -479,6 +528,7 @@ const AppShell = ({
         pageActions={pageActions}
         orgData={orgData}
         leadData={leadData}
+        currentUserId={currentUserId}
       />
 
       {/* Main content */}
