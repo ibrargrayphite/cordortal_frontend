@@ -115,7 +115,7 @@ const TemplateCreatePage = () => {
       if (leadId) {
         router.push(`/leads/detail?id=${leadId}`);
       } else {
-        router.push('/leads?tab=templates');
+        router.push('/templates');
       }
     } catch (err) {
       console.error('Template save error:', err);
@@ -136,12 +136,12 @@ const TemplateCreatePage = () => {
     if (leadId) {
       router.push(`/leads/detail?id=${leadId}`);
     } else {
-      router.push('/leads?tab=templates');
+      router.push('/templates');
     }
   };
 
   const breadcrumbItems = [
-    { name: 'Templates', href: '/leads?tab=templates' },
+    { name: 'Templates', href: '/templates' },
     { name: 'Create Template' },
   ];
 

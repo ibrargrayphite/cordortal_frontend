@@ -6,6 +6,7 @@ export const useTemplates = () => {
   const [templates, setTemplates] = useState([]);
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [deletingTemplateId, setDeletingTemplateId] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchLoading, setSearchLoading] = useState(false);
   
@@ -78,18 +79,32 @@ export const useTemplates = () => {
   // Delete template
   const deleteTemplate = useCallback(async (id) => {
     try {
-      setSaving(true);
+      setDeletingTemplateId(id);
+      console.log('Deleting template with ID:', id);
       await templatesAPI.deleteTemplate(id);
-      setTemplates(templates.filter(template => template.id !== id));
+      
+      // Use functional update to avoid stale closure
+      setTemplates(prevTemplates => {
+        console.log('Templates before deletion:', prevTemplates);
+        const updatedTemplates = prevTemplates.filter(template => template.id !== id);
+        console.log('Templates after deletion:', updatedTemplates);
+        return updatedTemplates;
+      });
+      
       showSuccess('Template deleted successfully!');
+      
+      // Refresh templates list to ensure consistency
+      setTimeout(() => {
+        fetchTemplates(searchQuery);
+      }, 100);
     } catch (error) {
       console.error('Template delete error:', error);
       showError('Failed to delete template. Please try again.');
       throw error;
     } finally {
-      setSaving(false);
+      setDeletingTemplateId(null);
     }
-  }, [templates, showSuccess, showError]);
+  }, [showSuccess, showError, fetchTemplates, searchQuery]);
 
   // Get template by ID
   const getTemplate = useCallback(async (id) => {
@@ -108,6 +123,7 @@ export const useTemplates = () => {
     templates,
     loading,
     saving,
+    deletingTemplateId,
     searchQuery,
     searchLoading,
     

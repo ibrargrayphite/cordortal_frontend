@@ -32,6 +32,12 @@ const TemplatesListPage = () => {
     templatesHook.fetchTemplates().finally(() => setHasLoaded(true));
   }, []);
 
+  // Debug templates state changes
+  useEffect(() => {
+    console.log('TemplatesListPage - templates updated:', templatesHook.templates);
+    console.log('TemplatesListPage - templates length:', templatesHook.templates.length);
+  }, [templatesHook.templates]);
+
   // Update local search input when searchQuery changes
   useEffect(() => {
     setSearchInput(templatesHook.searchQuery || '');

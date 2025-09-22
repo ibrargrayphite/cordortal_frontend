@@ -155,7 +155,7 @@ const TemplateDetailPage = () => {
   };
 
   const handleBackToTemplates = () => {
-    router.push('/leads?tab=templates');
+    router.push('/templates');
   };
 
   if (loading) {
@@ -181,7 +181,7 @@ const TemplateDetailPage = () => {
   }
 
   const breadcrumbItems = [
-    { name: 'Templates', href: '/leads?tab=templates' },
+    { name: 'Templates', href: '/templates' },
     { name: template.name || `Template ${templateId}` },
   ];
 
