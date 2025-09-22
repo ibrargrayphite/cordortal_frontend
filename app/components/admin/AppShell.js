@@ -446,7 +446,7 @@ const Breadcrumb = ({ items }) => {
   return (
     <nav className="admin-breadcrumb" aria-label="Breadcrumb">
       {items.map((item, index) => (
-        <span key={item.name} style={{ display: 'flex', alignItems: 'center' }}>
+        <span key={`${item.name}-${index}`} style={{ display: 'flex', alignItems: 'center' }}>
           {index > 0 && (
             <ChevronRight
               size={14}

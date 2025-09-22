@@ -10,7 +10,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import { getAuthHeaders, isAuthenticated, logout } from "../../utils/auth";
 import { useToast } from "../../components/Toast";
-import { PageLoader, DataLoader } from "../../components/LoadingSpinner";
+import { FullPageSkeleton } from "./SkeletonComponents";
 import { consentFormsAPI } from "../../utils/api";
 import { AppShell } from './index';
 import styles from "../../leads/detail/leadDetail.module.css";
@@ -411,9 +411,9 @@ function AdminConsentFormPageClient({ isNewForm = false, templateData = null }) 
 
 export default function AdminConsentFormPage({ isNewForm = false, templateData = null }) {
     return (
-        <Suspense fallback={<DataLoader />}>
-            <AdminConsentFormPageClient isNewForm={isNewForm} templateData={templateData} />
-        </Suspense>
+    <Suspense fallback={<FullPageSkeleton showHeader={true} showStats={false} contentType="default" showSidebar={false} />}>
+      <AdminConsentFormPageClient isNewForm={isNewForm} templateData={templateData} />
+    </Suspense>
     );
 }
 

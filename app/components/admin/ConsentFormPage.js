@@ -7,7 +7,7 @@ import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import dynamic from "next/dynamic";
 import { getAuthHeaders, isAuthenticated, logout } from "../../utils/auth";
 import { useToast } from "../../components/Toast";
-import { PageLoader, DataLoader } from "../../components/LoadingSpinner";
+import { FullPageSkeleton } from "./SkeletonComponents";
 import { consentFormsAPI } from "../../utils/api";
 import { AppShell } from './index';
 import styles from "../../leads/detail/leadDetail.module.css";
@@ -647,7 +647,7 @@ function ConsentFormsPageClient() {
 
 export default function ConsentFormsPage() {
     return (
-        <Suspense fallback={<DataLoader />}>
+        <Suspense fallback={<FullPageSkeleton showHeader={true} showStats={false} contentType="default" showSidebar={false} />}>
             <ConsentFormsPageClient />
         </Suspense>
     );

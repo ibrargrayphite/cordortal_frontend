@@ -11,7 +11,7 @@ import dynamic from "next/dynamic";
 import { getAuthHeaders, isAuthenticated, logout } from "../../utils/auth";
 import { fetchPagesData } from "../../utils/fetchPagesData";
 import { useToast } from "../../components/Toast";
-import { PageLoader, DataLoader, ButtonLoader } from "../../components/LoadingSpinner";
+import { FullPageSkeleton } from "./SkeletonComponents";
 import { consentFormsAPI } from "../../utils/api";
 import { AppShell } from './index';
 import SpeechToTextDictation from '../SpeechToTextDictation';
@@ -26,6 +26,7 @@ function LeadDetailClient() {
   const [orgData, setOrgData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [fadeIn, setFadeIn] = useState(false);
+  const [minLoadingTimePassed, setMinLoadingTimePassed] = useState(false);
   const [notes, setNotes] = useState([]);
   const [notesLoading, setNotesLoading] = useState(false);
   const [selectedNote, setSelectedNote] = useState(null);
@@ -380,11 +381,11 @@ function LeadDetailClient() {
     if (consentForm.is_signed) {
       setEditingTemplate(null);
     } else {
-      setEditingTemplate({
-        id: consentForm.id,
-        template: consentForm.consent_data || "",
-        name: consentForm.name || "",
-      });
+    setEditingTemplate({
+      id: consentForm.id,
+      template: consentForm.consent_data || "",
+      name: consentForm.name || "",
+    });
     }
   };
 
@@ -533,10 +534,17 @@ function LeadDetailClient() {
       return;
     }
 
+    // Set minimum loading time to 1 second
+    const minLoadingTimer = setTimeout(() => {
+      setMinLoadingTimePassed(true);
+    }, 1000);
+
     fetchLeadData();
     fetchOrgData();
     fetchUserData();
     fetchNotes();
+
+    return () => clearTimeout(minLoadingTimer);
   }, [leadId]);
 
   useEffect(() => {
@@ -607,11 +615,13 @@ function LeadDetailClient() {
       if (response.status === 401) {
         logout();
         window.location.replace("/login");
+        setLoading(false);
         return;
       }
 
       if (response.status === 404) {
         showError("Lead not found");
+        setLoading(false);
         return;
       }
 
@@ -1086,12 +1096,153 @@ function LeadDetailClient() {
     printWindow.document.close();
   };
 
-  if (loading) {
-    return <PageLoader message="Loading lead details..." />;
+  // Debug logging
+  console.log('LeadDetailPage render - loading:', loading, 'minLoadingTimePassed:', minLoadingTimePassed, 'lead:', lead);
+  
+  if (loading || !minLoadingTimePassed) {
+    console.log('Showing skeleton loader');
+    return (
+      <AppShell
+        breadcrumbItems={[
+          { label: 'Leads', href: '/leads' },
+          { label: 'Loading...', href: '#' }
+        ]}
+        pageTitle="Lead Details"
+        orgData={orgData || {}}
+        leadData={null}
+      >
+        <div className={`${styles.modernLeadContainer} ${fadeIn ? styles.fadeIn : ""}`}>
+          <div className={styles.contentWrapper}>
+            <div className={styles.mainLayout}>
+              <div className={styles.dataSidebar}>
+                <div style={{ padding: '2rem' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                    {Array.from({ length: 5 }).map((_, index) => (
+                      <div key={index} style={{ 
+                        display: 'flex', 
+                        justifyContent: 'space-between', 
+                        alignItems: 'center',
+                        padding: '1rem',
+                        border: '1px solid #e5e7eb',
+                        borderRadius: '8px',
+                        backgroundColor: '#f9fafb'
+                      }}>
+                        <div style={{ flex: 1 }}>
+                          <div style={{ 
+                            width: '80%', 
+                            height: '1rem', 
+                            backgroundColor: '#e5e7eb', 
+                            borderRadius: '4px',
+                            marginBottom: '0.5rem'
+                          }}></div>
+                          <div style={{ 
+                            width: '60%', 
+                            height: '0.75rem', 
+                            backgroundColor: '#e5e7eb', 
+                            borderRadius: '4px'
+                          }}></div>
+                        </div>
+                        <div style={{ 
+                          width: '80px', 
+                          height: '1rem', 
+                          backgroundColor: '#e5e7eb', 
+                          borderRadius: '4px'
+                        }}></div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <div className={styles.actionPanel}>
+                <div className={styles.actionPanelHeader}>
+                  <h3 className={styles.panelTitle}>Loading...</h3>
+                </div>
+                <div className={styles.consentActionContent}>
+                  <div style={{ padding: '2rem' }}>
+                    <div style={{ 
+                      width: '100%', 
+                      height: '400px', 
+                      backgroundColor: '#f9fafb', 
+                      border: '1px solid #e5e7eb',
+                      borderRadius: '8px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}>
+                      <div style={{ textAlign: 'center' }}>
+                        <div style={{ 
+                          width: '40px', 
+                          height: '40px', 
+                          backgroundColor: '#e5e7eb', 
+                          borderRadius: '50%',
+                          margin: '0 auto 1rem'
+                        }}></div>
+                        <div style={{ 
+                          width: '200px', 
+                          height: '1rem', 
+                          backgroundColor: '#e5e7eb', 
+                          borderRadius: '4px',
+                          margin: '0 auto'
+                        }}></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </AppShell>
+    );
   }
 
   if (!lead) {
-    return <PageLoader message="Lead not found. Redirecting..." />;
+    return (
+      <AppShell
+        breadcrumbItems={[
+          { label: 'Leads', href: '/leads' },
+          { label: 'Not Found', href: '#' }
+        ]}
+        pageTitle="Lead Details"
+        orgData={orgData || {}}
+        leadData={null}
+      >
+        <div className={`${styles.modernLeadContainer} ${fadeIn ? styles.fadeIn : ""}`}>
+          <div className={styles.contentWrapper}>
+            <div className={styles.mainLayout}>
+              <div className={styles.dataSidebar}>
+                <div style={{ padding: '2rem', textAlign: 'center' }}>
+                  <div style={{ 
+                    width: '40px', 
+                    height: '40px', 
+                    backgroundColor: '#e5e7eb', 
+                    borderRadius: '50%',
+                    margin: '0 auto 1rem'
+                  }}></div>
+                  <div style={{ 
+                    width: '200px', 
+                    height: '1rem', 
+                    backgroundColor: '#e5e7eb', 
+                    borderRadius: '4px',
+                    margin: '0 auto'
+                  }}></div>
+                </div>
+              </div>
+              <div className={styles.actionPanel}>
+                <div className={styles.actionPanelHeader}>
+                  <h3 className={styles.panelTitle}>Lead Not Found</h3>
+                </div>
+                <div className={styles.consentActionContent}>
+                  <div style={{ padding: '2rem', textAlign: 'center' }}>
+                    <p>Lead not found. Redirecting...</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </AppShell>
+    );
   }
 
   // Page actions for AppShell
@@ -1232,7 +1383,43 @@ function LeadDetailClient() {
                   <div className={styles.notesList} onScroll={handleNotesScroll}>
                     {notesLoading ? (
                       <div className={styles.notesLoading}>
-                        <DataLoader message="Loading notes..." />
+                        <div style={{ padding: '2rem' }}>
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                            {Array.from({ length: 5 }).map((_, index) => (
+                              <div key={index} style={{ 
+                                display: 'flex', 
+                                justifyContent: 'space-between', 
+                                alignItems: 'center',
+                                padding: '1rem',
+                                border: '1px solid #e5e7eb',
+                                borderRadius: '8px',
+                                backgroundColor: '#f9fafb'
+                              }}>
+                                <div style={{ flex: 1 }}>
+                                  <div style={{ 
+                                    width: '80%', 
+                                    height: '1rem', 
+                                    backgroundColor: '#e5e7eb', 
+                                    borderRadius: '4px',
+                                    marginBottom: '0.5rem'
+                                  }}></div>
+                                  <div style={{ 
+                                    width: '60%', 
+                                    height: '0.75rem', 
+                                    backgroundColor: '#e5e7eb', 
+                                    borderRadius: '4px'
+                                  }}></div>
+                                </div>
+                                <div style={{ 
+                                  width: '80px', 
+                                  height: '1rem', 
+                                  backgroundColor: '#e5e7eb', 
+                                  borderRadius: '4px'
+                                }}></div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
                       </div>
                     ) : notes.length > 0 ? (
                       <>
@@ -1779,7 +1966,7 @@ function LeadDetailClient() {
 
 export default function LeadDetailPage() {
   return (
-    <Suspense fallback={<DataLoader />}>
+    <Suspense fallback={<FullPageSkeleton showHeader={true} showStats={false} contentType="default" showSidebar={false} />}>
       <LeadDetailClient />
     </Suspense>
   );
