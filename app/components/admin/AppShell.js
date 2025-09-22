@@ -75,20 +75,6 @@ const Sidebar = ({ isOpen, onClose, currentPath, orgData, isCollapsed }) => {
       current: currentPath === '/leads' || currentPath.startsWith('/leads/detail'),
     },
     {
-      name: 'Templates',
-      href: '/templates',
-      icon: <span className="admin-nav-icon">
-        <Image
-          src="/assets/images/icons/templates-icon.svg"
-          alt="Templates"
-          width={isCollapsed ? 24 : 20}
-          height={isCollapsed ? 24 : 20}
-        />
-      </span>
-      ,
-      current: currentPath.startsWith('/templates'),
-    },
-    {
       name: 'Consent Forms',
       href: null, // No direct navigation
       icon: (
@@ -103,6 +89,20 @@ const Sidebar = ({ isOpen, onClose, currentPath, orgData, isCollapsed }) => {
       ),
       current: currentPath.startsWith('/admin/consent-forms'),
       hasDropdown: true,
+    },
+    {
+      name: 'Templates',
+      href: '/templates',
+      icon: <span className="admin-nav-icon">
+        <Image
+          src="/assets/images/icons/templates-icon.svg"
+          alt="Templates"
+          width={isCollapsed ? 24 : 20}
+          height={isCollapsed ? 24 : 20}
+        />
+      </span>
+      ,
+      current: currentPath.startsWith('/templates'),
     },
     {
       name: 'Integrations',
