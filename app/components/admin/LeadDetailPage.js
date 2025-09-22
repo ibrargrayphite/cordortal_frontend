@@ -1411,45 +1411,6 @@ function LeadDetailClient() {
                     >
                       <i className="fas fa-plus me-2"></i> New Blank Form
                     </Button>
-                    <DropdownMenu onOpenChange={(isOpen) => isOpen && fetchTemplates()}>
-                      <DropdownMenuTrigger asChild>
-                        <Button
-                          variant="default"
-                          size="sm"
-                          disabled={savingTemplate}
-                          className={styles.primaryActionButton}
-                        >
-                          {savingTemplate ? (
-                            <>
-                              <i className="fas fa-spinner fa-spin me-2"></i>
-                              {loadingMessage || 'Loading...'}
-                            </>
-                          ) : (
-                            <>
-                              <i className="fas fa-file-alt me-2"></i> Add Form
-                            </>
-                          )}
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent>
-                        {templatesLoading ? (
-                          <DropdownMenuItem disabled>
-                            <i className="fas fa-spinner fa-spin me-2"></i> Loading templates...
-                          </DropdownMenuItem>
-                        ) : templates.length > 0 ? (
-                          templates.map((template) => (
-                            <DropdownMenuItem
-                              key={template.id}
-                              onClick={() => handleGenerateConsentForm(template.id)}
-                            >
-                              {template.name}
-                            </DropdownMenuItem>
-                          ))
-                        ) : (
-                          <DropdownMenuItem disabled>No templates available</DropdownMenuItem>
-                        )}
-                      </DropdownMenuContent>
-                    </DropdownMenu>
                   </div>
                 )}
               </div>

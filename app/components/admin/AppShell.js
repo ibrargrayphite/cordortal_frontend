@@ -372,23 +372,7 @@ const Sidebar = ({ isOpen, onClose, currentPath, orgData, isCollapsed }) => {
                       <i className="fas fa-plus"></i> New Form
                     </button>
                     <DropdownMenu onOpenChange={(isOpen) => isOpen && fetchTemplates()}>
-                      <DropdownMenuTrigger asChild>
-                        <button
-                          className="generate-form-button"
-                          disabled={generatingConsentForm}
-                        >
-                          {generatingConsentForm ? (
-                            <>
-                              <i className="fas fa-spinner fa-spin"></i>
-                              {loadingMessage || 'Loading...'}
-                            </>
-                          ) : (
-                            <>
-                              <i className="fas fa-file-alt"></i> Generate Form
-                            </>
-                          )}
-                        </button>
-                      </DropdownMenuTrigger>
+                    
                       <DropdownMenuContent>
                         {templatesLoading ? (
                           <DropdownMenuItem disabled>
