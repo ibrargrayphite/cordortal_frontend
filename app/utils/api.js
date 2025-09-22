@@ -257,19 +257,29 @@ export const consentFormsAPI = {
   },
 
   createConsentFormWithoutLead: async (consentFormData) => {
-    const data = {
-      ...consentFormData,
-      lead: false
-    };
-
-    console.log("API: Creating consent form with data:", data);
+    // Don't include lead field at all for sidebar operations
+    console.log("API: Creating consent form with data:", consentFormData);
     
     try {
-      const response = await api.post('/leads/consent-forms/', data);
+      const response = await api.post('/leads/consent-forms/', consentFormData);
       console.log("API: Consent form created successfully:", response.data);
       return response.data;
     } catch (error) {
       console.error("API: Error creating consent form:", error);
+      throw error;
+    }
+  },
+
+  updateConsentFormWithoutLead: async (id, consentFormData) => {
+    // Don't include lead field at all for sidebar operations
+    console.log("API: Updating consent form with data:", consentFormData);
+    
+    try {
+      const response = await api.put(`/leads/consent-forms/${id}/`, consentFormData);
+      console.log("API: Consent form updated successfully:", response.data);
+      return response.data;
+    } catch (error) {
+      console.error("API: Error updating consent form:", error);
       throw error;
     }
   },

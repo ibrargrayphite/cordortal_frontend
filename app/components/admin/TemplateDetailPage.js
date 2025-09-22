@@ -93,14 +93,17 @@ const TemplateDetailPage = () => {
     }
   };
 
-  const handleSaveTemplate = async () => {
+  const handleSaveTemplate = async (formDataParam) => {
     try {
       setSaving(true);
       const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
+      // Use the passed formData or fall back to state
+      const dataToUse = formDataParam || formData;
+
       const payload = {
-        name: formData.name,
-        template: formData.template,
+        name: dataToUse.name,
+        template: dataToUse.template,
       };
 
       const response = await fetch(`${baseUrl}/leads/organization-templates/${templateId}/`, {

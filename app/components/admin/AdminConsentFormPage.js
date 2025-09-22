@@ -109,47 +109,61 @@ function AdminConsentFormPageClient({ isNewForm = false, templateData = null }) 
 
     // Simple form change handler
     const handleFormChange = (field, value) => {
-        setEditingTemplate((prev) => ({
-            ...prev,
-            [field]: value,
-        }));
+        console.log("handleFormChange called with field:", field, "value:", value);
+        setEditingTemplate((prev) => {
+            const newState = {
+                ...prev,
+                [field]: value,
+            };
+            console.log("handleFormChange - prev state:", prev);
+            console.log("handleFormChange - new state:", newState);
+            return newState;
+        });
     };
 
     // Simple save function
     const handleSaveConsentForm = async (formData) => {
         try {
             setSavingTemplate(true);
-
+            console.log("=== SAVE FUNCTION CALLED ===");
+            console.log("formData ----->", formData);
+            console.log("editingTemplate ----->", editingTemplate);
+            console.log("selectedConsentForm ----->", selectedConsentForm);
+            
+            // Use editingTemplate state as the source of truth for ID
+            const currentId = editingTemplate?.id || formData?.id;
+            console.log("Using ID:", currentId);
+            console.log("ID type:", typeof currentId);
+            console.log("ID truthy:", !!currentId);
+            
+            // Validate name is required
+            if (!formData?.name?.trim()) {
+                showError("Please enter a consent form name.");
+                return;
+            }
+            
             const consentFormData = {
-                name: formData.name.trim(),
-                consent_data: formData.template.trim()
+                name: formData.name,
+                consent_data: formData.template
             };
 
             let savedConsentForm;
 
-            if (formData.id) {
-                // Update existing form
-                const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-                const response = await fetch(`${baseUrl}/leads/consent-forms/${formData.id}/`, {
-                    method: "PUT",
-                    headers: {
-                        ...getAuthHeaders(),
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(consentFormData),
-                });
-
-                if (!response.ok) {
-                    throw new Error(`Failed to update consent form: ${response.status}`);
-                }
-
-                savedConsentForm = await response.json();
+            if (currentId) {
+                console.log("🔵 UPDATING existing form with ID:", currentId);
+                console.log("🔵 Calling updateConsentFormWithoutLead with:", currentId, consentFormData);
+                // Update existing form - use API function without lead field
+                savedConsentForm = await consentFormsAPI.updateConsentFormWithoutLead(currentId, consentFormData);
+                console.log("🔵 Update successful:", savedConsentForm);
             } else {
-                // Create new form
+                console.log("🟢 CREATING new form");
+                console.log("🟢 Calling createConsentFormWithoutLead with:", consentFormData);
+                // Create new form - use API function without lead field
                 savedConsentForm = await consentFormsAPI.createConsentFormWithoutLead(consentFormData);
+                console.log("🟢 Create successful:", savedConsentForm);
             }
 
-            showSuccess(formData.id ? "Consent form updated successfully!" : "Consent form created successfully!");
+            showSuccess(currentId ? "Consent form updated successfully!" : "Consent form created successfully!");
             await fetchConsentForms();
             setSelectedConsentForm(savedConsentForm);
             setEditingTemplate(null);
@@ -165,13 +179,28 @@ function AdminConsentFormPageClient({ isNewForm = false, templateData = null }) 
 
     // Simple click handler for consent forms
     const handleConsentFormClick = (consentForm) => {
+        console.log("=== CONSENT FORM CLICKED ===");
         console.log("consentForm clicked ----->", consentForm);
+        console.log("consentForm.id ----->", consentForm.id);
+        console.log("typeof consentForm.id ----->", typeof consentForm.id);
+        console.log("consentForm.id truthy ----->", !!consentForm.id);
+        
         setSelectedConsentForm(consentForm);
-        setEditingTemplate({
+        const editingData = {
             id: consentForm.id,
             template: consentForm.consent_data || "",
             name: consentForm.name || "",
-        });
+        };
+        console.log("Setting editingTemplate to:", editingData);
+        console.log("editingData.id ----->", editingData.id);
+        console.log("editingData.id type ----->", typeof editingData.id);
+        setEditingTemplate(editingData);
+        
+        // Add a small delay to check the state after it's set
+        setTimeout(() => {
+            console.log("editingTemplate state after setting:", editingTemplate);
+        }, 100);
+        
         setIsDropdownOpen(false);
     };
 

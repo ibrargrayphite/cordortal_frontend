@@ -277,7 +277,9 @@ function ConsentFormsPageClient() {
             }
 
             showSuccess(formData.id ? "Consent form updated successfully!" : "Consent form created successfully!");
-            handleSaveConsentFormWithoutLead(savedConsentForm);
+            await fetchConsentForms();
+            setSelectedConsentForm(savedConsentForm);
+            setEditingTemplate(null);
             return savedConsentForm;
         } catch (error) {
             console.error("Error saving consent form:", error);

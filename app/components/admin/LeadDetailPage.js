@@ -281,37 +281,6 @@ function LeadDetailClient() {
     setShowCancelView(true); // Show cancel view after canceling
   };
 
-  // Handle saving
-  const handleTemplateSave = async (savedConsentForm) => {
-    try {
-      // Refresh the consent forms list to show the new/updated record
-      await fetchConsentForms();
-
-      // If we have the saved consent form data, update the selected consent form
-      if (savedConsentForm && savedConsentForm.id) {
-        setSelectedConsentForm(savedConsentForm);
-
-        // If the consent form is signed, clear the editing state to show preview
-        if (savedConsentForm.is_signed) {
-          setEditingTemplate(null);
-          setShowCancelView(false);
-        } else {
-          // Update the editing template with the saved data to ensure we're in edit mode
-          setEditingTemplate({
-            id: savedConsentForm.id,
-            template: savedConsentForm.consent_data || "",
-            name: savedConsentForm.name || "",
-            is_signed: savedConsentForm.is_signed,
-          });
-        }
-      }
-
-      // Success message is already shown in TemplateForm component
-    } catch (error) {
-      console.error("Error in handleTemplateSave:", error);
-      showError("Failed to refresh consent forms list");
-    }
-  };
 
   // Handle editing or previewing a consent form
   const handleTemplateEdit = (consentForm) => {
@@ -1672,7 +1641,6 @@ function LeadDetailClient() {
                     <TemplateForm
                       mode="consent"
                       handleFormChange={handleFormChange}
-                      handleSave={handleTemplateSave}
                       saving={savingTemplate}
                       setIsEditing={setEditingTemplate}
                       setFormData={setEditingTemplate}
@@ -1685,6 +1653,7 @@ function LeadDetailClient() {
                       fromNotesFlow={fromNotesFlow}
                       setFromNotesFlow={setFromNotesFlow}
                       handleCancelConsentForm={handleCancelConsentForm} // New prop
+                      hideLeadSpecificActions={false} // Explicitly show Get Signed and Send Link buttons
                     />
                   ) : selectedConsentForm ? (
                     <div className={styles.viewConsentInterface}>

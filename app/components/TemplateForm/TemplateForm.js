@@ -198,8 +198,11 @@ function TemplateForm({
         };
         console.log("TemplateForm: Calling handleSave with currentFormData:", currentFormData);
         console.log("TemplateForm: formData prop:", formData);
+        console.log("TemplateForm: formData.id:", formData?.id);
         console.log("TemplateForm: formData.name:", formData?.name);
         console.log("TemplateForm: formData.template:", formData?.template);
+        console.log("TemplateForm: currentFormData.id:", currentFormData?.id);
+        console.log("TemplateForm: typeof currentFormData.id:", typeof currentFormData?.id);
         await handleSave(currentFormData);
         showSuccess(hasSignature ? "Consent form signed!" : "Consent form saved!");
         setPreviewMode(true);
@@ -224,11 +227,16 @@ function TemplateForm({
         name: formData.name,
         is_signed: hasSignature,
         ...(fromNotesFlow && { notes_text: formData.notes_text || "" }),
+        // Include lead ID if lead prop is provided (for leads detail page)
+        ...(lead && lead.id && { lead: lead.id }),
       };
 
       // Debug logging
       console.log("TemplateForm: formData =", formData);
       console.log("TemplateForm: formData.id =", formData?.id);
+      console.log("TemplateForm: lead =", lead);
+      console.log("TemplateForm: lead.id =", lead?.id);
+      console.log("TemplateForm: payload =", payload);
       console.log("TemplateForm: Will use method =", formData?.id && formData.id !== null && formData.id !== undefined ? "PUT" : "POST");
       
       // Check if formData exists and has a valid ID
@@ -390,6 +398,7 @@ function TemplateForm({
             : "Enter consent form name"}
           maxLength={255}
           disabled={isSigned}
+          required
           className="bg-white text-black"
         />
       </div>
@@ -537,7 +546,13 @@ function TemplateForm({
                   </>
                 )}
                 <Button
-                  onClick={handleSave || handleSaveConsentForm}
+                  onClick={() => {
+                    if (handleSave) {
+                      handleSave(formData);
+                    } else {
+                      handleSaveConsentForm();
+                    }
+                  }}
                   disabled={saving || isDeleting || isSendingLink}
                   className={styles.primaryActionButton}
                 >
@@ -583,7 +598,13 @@ function TemplateForm({
         ) : (
           <>
             <Button
-              onClick={handleSave}
+              onClick={() => {
+                if (handleSave) {
+                  handleSave(formData);
+                } else {
+                  handleSaveConsentForm();
+                }
+              }}
               disabled={saving || !formData.name?.trim() || !formData.template?.trim()}
               className={styles.primaryActionButton}
             >
