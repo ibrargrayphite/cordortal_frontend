@@ -282,15 +282,110 @@ function LeadDetailClient() {
   };
 
 
+  // Handle saving consent forms
+  const handleSaveConsentForm = async (formData) => {
+    try {
+      setSavingTemplate(true);
+      
+      // Validate name is required
+      if (!formData?.name?.trim()) {
+        showError("Please enter a consent form name.");
+        return;
+      }
+      
+      const consentFormData = {
+        name: formData.name,
+        consent_data: formData.template,
+        is_signed: formData.is_signed || false,
+        lead: leadId
+      };
+
+      let savedConsentForm;
+
+      if (formData.id) {
+        // Update existing form
+        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+        const response = await fetch(`${baseUrl}/leads/consent-forms/${formData.id}/`, {
+          method: "PUT",
+          headers: { ...getAuthHeaders(), "Content-Type": "application/json" },
+          body: JSON.stringify(consentFormData),
+        });
+
+        if (response.status === 401) {
+          logout();
+          window.location.replace("/login");
+          return;
+        }
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        savedConsentForm = await response.json();
+      } else {
+        // Create new form
+        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+        const response = await fetch(`${baseUrl}/leads/consent-forms/`, {
+          method: "POST",
+          headers: { ...getAuthHeaders(), "Content-Type": "application/json" },
+          body: JSON.stringify(consentFormData),
+        });
+
+        if (response.status === 401) {
+          logout();
+          window.location.replace("/login");
+          return;
+        }
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        savedConsentForm = await response.json();
+      }
+
+      showSuccess(formData.is_signed ? "Consent form signed and saved!" : "Consent form saved successfully!");
+      await fetchConsentForms();
+      
+      // Update selectedConsentForm with the saved data
+      setSelectedConsentForm(savedConsentForm);
+      
+      // If the form is signed, clear editingTemplate to show read-only view
+      if (savedConsentForm.is_signed) {
+        setEditingTemplate(null);
+      } else {
+        setEditingTemplate({
+          id: savedConsentForm.id,
+          template: savedConsentForm.consent_data || "",
+          name: savedConsentForm.name || "",
+        });
+      }
+      
+      return savedConsentForm;
+    } catch (error) {
+      console.error("Error saving consent form:", error);
+      showError(error.message || "Failed to save consent form. Please try again.");
+      throw error;
+    } finally {
+      setSavingTemplate(false);
+    }
+  };
+
   // Handle editing or previewing a consent form
   const handleTemplateEdit = (consentForm) => {
     setSelectedConsentForm(consentForm);
     setShowCancelView(false); // Reset cancel view
-    setEditingTemplate({
-      id: consentForm.id,
-      template: consentForm.consent_data || "",
-      name: consentForm.name || "",
-    });
+    
+    // If the form is signed, don't set editingTemplate to show read-only view
+    if (consentForm.is_signed) {
+      setEditingTemplate(null);
+    } else {
+      setEditingTemplate({
+        id: consentForm.id,
+        template: consentForm.consent_data || "",
+        name: consentForm.name || "",
+      });
+    }
   };
 
   // Handle back navigation
@@ -1331,7 +1426,7 @@ function LeadDetailClient() {
                             </>
                           ) : (
                             <>
-                              <i className="fas fa-file-alt me-2"></i> Generate Form
+                              <i className="fas fa-file-alt me-2"></i> Add Form
                             </>
                           )}
                         </Button>
@@ -1641,6 +1736,7 @@ function LeadDetailClient() {
                     <TemplateForm
                       mode="consent"
                       handleFormChange={handleFormChange}
+                      handleSave={handleSaveConsentForm}
                       saving={savingTemplate}
                       setIsEditing={setEditingTemplate}
                       setFormData={setEditingTemplate}

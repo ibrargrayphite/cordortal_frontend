@@ -150,7 +150,7 @@ function TemplateForm({
     setSignatureError("");
   };
 
-  const handleSaveSignature = () => {
+  const handleSaveSignature = async () => {
     if (!signatureCanvasRef.current || signatureCanvasRef.current.isEmpty()) {
       setSignatureError("Please provide a signature.");
       return;
@@ -160,6 +160,36 @@ function TemplateForm({
     setSignatureData(signatureDataUrl);
     setHasSignature(true);
     handleCloseSignatureModal();
+    
+    // Auto-save the form when signed
+    if (mode === "consent") {
+      try {
+        // Create form data with signature embedded
+        const signatureHtml = `<div class="signature-section"><h4>Signature</h4><img src="${signatureDataUrl}" alt="Signature"/><p>Signed on ${new Date().toLocaleDateString()}</p></div>`;
+        const currentFormData = {
+          ...formData,
+          name: formData.name || "",
+          template: formData.template + signatureHtml,
+          is_signed: true
+        };
+        
+        if (handleSave) {
+          console.log("TemplateForm: Auto-saving signed form with handleSave");
+          const savedForm = await handleSave(currentFormData);
+          // Update formData with the saved form data to reflect signed state
+          if (savedForm) {
+            setFormData(savedForm);
+          }
+        } else {
+          console.log("TemplateForm: Auto-saving signed form with internal API");
+          await handleSaveConsentForm();
+        }
+        showSuccess("Consent form signed and saved!");
+      } catch (error) {
+        console.error("Error auto-saving signed form:", error);
+        showError("Form was signed but failed to save. Please save manually.");
+      }
+    }
   };
 
   // Consent form save
@@ -525,14 +555,14 @@ function TemplateForm({
                   <>
                     <Button
                       onClick={handleOpenSignatureModal}
-                      disabled={saving || isDeleting || isSendingLink}
+                      disabled={saving || isDeleting || isSendingLink || (!formData.id && mode === "consent")}
                       className={styles.primaryActionButton}
                     >
                       <i className="fas fa-signature me-2"></i> Get Signed
                     </Button>
                     <Button
                       onClick={handleGetLink}
-                      disabled={saving || isDeleting || isSendingLink}
+                      disabled={saving || isDeleting || isSendingLink || (!formData.id && mode === "consent")}
                       className={styles.primaryActionButton}
                     >
                       {isSendingLink ? (
