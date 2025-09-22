@@ -164,6 +164,12 @@ function TemplateForm({
 
   // Consent form save
   const handleSaveConsentForm = async () => {
+    // Check if formData exists
+    if (!formData) {
+      showError("Form data is not available. Please refresh the page and try again.");
+      return;
+    }
+
     if (isSigned) {
       showError("This form is already signed.");
       return;
@@ -181,6 +187,32 @@ function TemplateForm({
       return;
     }
 
+    // If handleSave prop is provided, use it instead of doing our own API call
+    if (handleSave) {
+      try {
+        // Use the current formData state, not the prop
+        const currentFormData = {
+          ...formData,
+          name: formData.name || "",
+          template: formData.template || "",
+        };
+        console.log("TemplateForm: Calling handleSave with currentFormData:", currentFormData);
+        console.log("TemplateForm: formData prop:", formData);
+        console.log("TemplateForm: formData.name:", formData?.name);
+        console.log("TemplateForm: formData.template:", formData?.template);
+        await handleSave(currentFormData);
+        showSuccess(hasSignature ? "Consent form signed!" : "Consent form saved!");
+        setPreviewMode(true);
+        setFromNotesFlow(false);
+        return;
+      } catch (error) {
+        console.error("Error in handleSave:", error);
+        showError(error.message || "Failed to save consent form.");
+        return;
+      }
+    }
+
+    // Fallback to internal API call if no handleSave prop
     try {
       const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
       const consentData = hasSignature
@@ -191,20 +223,23 @@ function TemplateForm({
         consent_data: consentData,
         name: formData.name,
         is_signed: hasSignature,
-        ...(formData.lead !== false && { lead: lead.id }),
         ...(fromNotesFlow && { notes_text: formData.notes_text || "" }),
       };
 
-      if (formData.lead === false) {
-        payload.lead = false;
-      }
-
+      // Debug logging
+      console.log("TemplateForm: formData =", formData);
+      console.log("TemplateForm: formData.id =", formData?.id);
+      console.log("TemplateForm: Will use method =", formData?.id && formData.id !== null && formData.id !== undefined ? "PUT" : "POST");
+      
+      // Check if formData exists and has a valid ID
+      const hasValidId = formData && formData.id && formData.id !== null && formData.id !== undefined;
+      
       const response = await fetch(
-        formData.id
+        hasValidId
           ? `${baseUrl}/leads/consent-forms/${formData.id}/`
           : `${baseUrl}/leads/consent-forms/`,
         {
-          method: formData.id ? "PUT" : "POST",
+          method: hasValidId ? "PUT" : "POST",
           headers: { ...getAuthHeaders(), "Content-Type": "application/json" },
           body: JSON.stringify(payload),
         }
@@ -244,10 +279,6 @@ function TemplateForm({
       }));
       setPreviewMode(true);
       setFromNotesFlow(false);
-
-      if (handleSave) {
-        await handleSave(savedConsentForm);
-      }
     } catch (error) {
       console.error(error);
       showError(error.message || "Failed to save consent form.");
@@ -364,7 +395,7 @@ function TemplateForm({
       </div>
 
       <div className={styles.fullPageEditorContainer}>
-        <div className={styles.editorHeader}>
+        <div className={`${styles.editorHeader} ${mode === "consent" ? styles.fullWidthEditorHeader : ""}`}>
           {!isSigned && (
             <h5 className={styles.editorTitle}>
               <i className="fas fa-edit me-2"></i> Content Editor
@@ -375,7 +406,7 @@ function TemplateForm({
           </h5>
         </div>
 
-        <div className={`${styles.editorContainer} ${isSigned ? styles.fullPreview : ""}`}>
+        <div className={`${styles.editorContainer} ${isSigned ? styles.fullPreview : ""} ${mode === "consent" ? styles.fullWidthEditor : ""}`}>
           {isSigned ? (
             <div className={`${styles.previewSection} ${styles.fullWidthPreview}`}>
               <div className={styles.previewContainer}>
@@ -506,7 +537,7 @@ function TemplateForm({
                   </>
                 )}
                 <Button
-                  onClick={handleSaveConsentForm}
+                  onClick={handleSave || handleSaveConsentForm}
                   disabled={saving || isDeleting || isSendingLink}
                   className={styles.primaryActionButton}
                 >

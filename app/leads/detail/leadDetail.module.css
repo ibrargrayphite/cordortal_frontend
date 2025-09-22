@@ -199,7 +199,7 @@
   transition: all 0.3s ease;
 }
 
-/* Action Panel (Right Panel) - 80% width */
+/* Action Panel (Right Panel) - 80% width, full width when no sidebar */
 .actionPanel {
   width: 80%;
   background: white;
@@ -210,6 +210,17 @@
   overflow: hidden;
   transition: all 0.3s ease;
   height: 100%; /* Ensure it takes full height */
+}
+
+/* When no sidebar content is visible, make action panel full width */
+.mainLayout:not(:has(.dataSidebar)) .actionPanel {
+  width: 100%;
+}
+
+/* Full width action panel for consent forms */
+.fullWidthActionPanel {
+  width: 100% !important;
+  max-width: 100% !important;
 }
 
 .actionPanelHeader {
@@ -389,6 +400,7 @@
   padding: 1rem; /* Reduced padding for more editor space */
   overflow-y: auto; /* Allow vertical scrolling for large content */
   overflow-x: hidden; /* Prevent horizontal scroll */
+  width: 100%; /* Ensure full width */
 }
 
 /* Signed Consent Preview Page */

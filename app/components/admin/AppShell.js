@@ -130,8 +130,8 @@ const Sidebar = ({ isOpen, onClose, currentPath, orgData, isCollapsed }) => {
   const fetchConsentForms = async () => {
     try {
       setConsentFormsLoading(true);
-      const data = await consentFormsAPI.getConsentFormsWithoutLead(1, 100, '');
-      const formsArray = data.results || [];
+      const data = await consentFormsAPI?.getConsentFormsWithoutLead(1, 100, '');
+      const formsArray = data.results ?? [];
       setConsentForms(formsArray);
     } catch (error) {
       console.error("Error fetching consent forms:", error);
@@ -229,7 +229,14 @@ const Sidebar = ({ isOpen, onClose, currentPath, orgData, isCollapsed }) => {
   };
 
   const handleConsentFormSelect = (consentForm) => {
-    router.push('/admin/consent-forms');
+    // Pass the selected consent form data via URL params
+    const consentFormData = {
+      id: consentForm.id,
+      name: consentForm.name,
+      template: consentForm.consent_data,
+      created_at: consentForm.created_at
+    };
+    router.push('/admin/consent-forms?consentForm=' + encodeURIComponent(JSON.stringify(consentFormData)));
     setIsConsentDropdownOpen(false);
     onClose?.();
   };

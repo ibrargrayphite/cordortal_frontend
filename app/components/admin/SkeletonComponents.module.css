@@ -1,0 +1,334 @@
+/* Skeleton Components Styles */
+
+/* Page Header Skeleton */
+.pageHeaderSkeleton {
+  background: white;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid var(--admin-border);
+  margin-bottom: 2rem;
+}
+
+.breadcrumbSkeleton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.headerContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.headerLeft {
+  flex: 1;
+}
+
+.headerActions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+/* Stats Cards Skeleton */
+.statsCardsSkeleton {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.statCardSkeleton {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--admin-border);
+  box-shadow: var(--admin-shadow-sm);
+}
+
+.statCardHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+/* Table Skeleton */
+.tableSkeletonContainer {
+  background: white;
+  border-radius: 8px;
+  border: 1px solid var(--admin-border);
+  overflow: hidden;
+  box-shadow: var(--admin-shadow-sm);
+}
+
+.tableSkeleton {
+  width: 100%;
+}
+
+.tableHeaderSkeleton {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  background: var(--admin-muted);
+  padding: 1rem;
+  border-bottom: 1px solid var(--admin-border);
+}
+
+.tableHeaderCell {
+  display: flex;
+  align-items: center;
+}
+
+.tableBodySkeleton {
+  padding: 0;
+}
+
+.tableRowSkeleton {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  padding: 1rem;
+  border-bottom: 1px solid var(--admin-border);
+  transition: background-color 0.2s ease;
+}
+
+.tableRowSkeleton:hover {
+  background: var(--admin-table-hover);
+}
+
+.tableRowSkeleton:last-child {
+  border-bottom: none;
+}
+
+.tableCellSkeleton {
+  display: flex;
+  align-items: center;
+}
+
+/* Card Grid Skeleton */
+.cardGridSkeleton {
+  display: grid;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.cardSkeleton {
+  background: white;
+  border-radius: 8px;
+  border: 1px solid var(--admin-border);
+  padding: 1.5rem;
+  box-shadow: var(--admin-shadow-sm);
+  transition: all 0.2s ease;
+}
+
+.cardSkeleton:hover {
+  box-shadow: var(--admin-shadow-md);
+  transform: translateY(-2px);
+}
+
+.cardContentSkeleton {
+  margin: 1rem 0;
+}
+
+.cardActionsSkeleton {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+/* Form Skeleton */
+.formSkeleton {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  border: 1px solid var(--admin-border);
+  box-shadow: var(--admin-shadow-sm);
+  max-width: 600px;
+}
+
+.formFieldSkeleton {
+  margin-bottom: 1.5rem;
+}
+
+.formActionsSkeleton {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--admin-border);
+}
+
+/* Sidebar Skeleton */
+.sidebarSkeleton {
+  width: 280px;
+  background: white;
+  border-right: 1px solid var(--admin-border);
+  padding: 1.5rem;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.sidebarHeaderSkeleton {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--admin-border);
+}
+
+.sidebarNavSkeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.navItemSkeleton {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border-radius: 6px;
+  background: var(--admin-muted);
+}
+
+/* List Skeleton */
+.listSkeleton {
+  background: white;
+  border-radius: 8px;
+  border: 1px solid var(--admin-border);
+  overflow: hidden;
+  box-shadow: var(--admin-shadow-sm);
+}
+
+.listItemSkeleton {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-bottom: 1px solid var(--admin-border);
+  transition: background-color 0.2s ease;
+}
+
+.listItemSkeleton:hover {
+  background: var(--admin-table-hover);
+}
+
+.listItemSkeleton:last-child {
+  border-bottom: none;
+}
+
+.listItemContent {
+  flex: 1;
+}
+
+/* Default Content Skeleton */
+.defaultContentSkeleton {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  border: 1px solid var(--admin-border);
+  box-shadow: var(--admin-shadow-sm);
+}
+
+.contentTextSkeleton {
+  margin-top: 1.5rem;
+}
+
+/* Full Page Skeleton */
+.fullPageSkeleton {
+  min-height: 100vh;
+  background: var(--admin-background);
+  display: flex;
+}
+
+.mainContentSkeleton {
+  flex: 1;
+  padding: 0;
+  overflow: hidden;
+}
+
+.contentSkeleton {
+  padding: 2rem;
+}
+
+/* Loading State Wrapper */
+.loadingStateWrapper {
+  position: relative;
+}
+
+/* Animation */
+@keyframes skeletonPulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+/* Apply animation to all skeleton elements */
+.pageHeaderSkeleton *,
+.statsCardsSkeleton *,
+.tableSkeletonContainer *,
+.cardGridSkeleton *,
+.formSkeleton *,
+.sidebarSkeleton *,
+.listSkeleton *,
+.defaultContentSkeleton * {
+  animation: skeletonPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .pageHeaderSkeleton {
+    padding: 1rem;
+  }
+  
+  .headerContent {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .headerActions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  
+  .statsCardsSkeleton {
+    grid-template-columns: 1fr;
+  }
+  
+  .cardGridSkeleton {
+    grid-template-columns: 1fr;
+  }
+  
+  .sidebarSkeleton {
+    width: 100%;
+    height: auto;
+  }
+  
+  .contentSkeleton {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .pageHeaderSkeleton {
+    padding: 0.75rem;
+  }
+  
+  .contentSkeleton {
+    padding: 0.75rem;
+  }
+  
+  .formSkeleton {
+    padding: 1rem;
+  }
+  
+  .cardSkeleton {
+    padding: 1rem;
+  }
+}

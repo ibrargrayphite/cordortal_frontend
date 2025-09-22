@@ -299,6 +299,7 @@
   height: 100%;
   /* Use full height instead of fixed vh */
   align-items: stretch;
+  width: 100%; /* Ensure full width */
 }
 
 .editorSection {
@@ -310,6 +311,24 @@
   /* Use full height instead of min-height */
   min-height: 500px;
   /* Ensure minimum editor height */
+  width: 100%; /* Ensure full width */
+}
+
+/* Full width editor for consent forms */
+.fullWidthEditor .editorContainer {
+  grid-template-columns: 1fr; /* Single column for full width */
+}
+
+.fullWidthEditor .editorSection {
+  border-right: none; /* Remove right border for single column */
+}
+
+.fullWidthEditorHeader {
+  grid-template-columns: 1fr; /* Single column header for full width */
+}
+
+.fullWidthEditorHeader .editorTitle {
+  border-right: none; /* Remove right border for single column header */
 }
 
 .previewSection {

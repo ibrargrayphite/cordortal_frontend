@@ -2,7 +2,7 @@
 
 import React, { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { PageSpinner } from "../../components/admin/LoadingSpinner";
+import { FullPageSkeleton } from "../../components/admin/SkeletonComponents";
 import AdminConsentFormPage from "../../components/admin/AdminConsentFormPage";
 
 const AdminConsentFormClient = () => {
@@ -24,7 +24,7 @@ const AdminConsentFormClient = () => {
 
 export default function AdminConsentFormPageWrapper() {
   return (
-    <Suspense fallback={<PageSpinner message="Loading consent forms..." />}>
+    <Suspense fallback={<FullPageSkeleton showHeader={true} contentType="form" />}>
       <AdminConsentFormClient />
     </Suspense>
   );

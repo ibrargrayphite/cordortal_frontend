@@ -1,7 +1,7 @@
 "use client";
 
 import React, { Suspense } from "react";
-import { PageSpinner } from "../components/admin/LoadingSpinner";
+import { FullPageSkeleton } from "../components/admin/SkeletonComponents";
 import IntegrationsPage from "../components/admin/IntegrationsPage";
 
 const InnerIntegrationsPage = () => {
@@ -10,7 +10,7 @@ const InnerIntegrationsPage = () => {
 
 export default function IntegrationsPageWrapper() {
   return (
-    <Suspense fallback={<PageSpinner message="Loading integrations..." />}>
+    <Suspense fallback={<FullPageSkeleton showHeader={true} contentType="cards" />}>
       <InnerIntegrationsPage />
     </Suspense>
   );
