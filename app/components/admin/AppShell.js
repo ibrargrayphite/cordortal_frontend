@@ -363,7 +363,6 @@ const Sidebar = ({ isOpen, onClose, currentPath, orgData, isCollapsed }) => {
             {item.hasDropdown && isConsentDropdownOpen && (
               <div className="consent-forms-dropdown">
                 <div className="dropdown-header">
-                  <h3>Available Consent Forms</h3>
                   <div className="action-buttons">
                     <button
                       onClick={handleNewFormClick}

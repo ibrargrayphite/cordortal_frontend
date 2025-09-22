@@ -324,11 +324,15 @@
 }
 
 .fullWidthEditorHeader {
-  grid-template-columns: 1fr; /* Single column header for full width */
+  grid-template-columns: 1fr 1fr; /* Two column header for consent forms */
+}
+
+.fullWidthEditorHeader .previewTitle {
+  border-right: 1px solid #e5e7eb; /* Add right border for two column header */
 }
 
 .fullWidthEditorHeader .editorTitle {
-  border-right: none; /* Remove right border for single column header */
+  border-right: none; /* Remove right border for last column */
 }
 
 .previewSection {

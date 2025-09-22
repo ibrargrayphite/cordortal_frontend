@@ -412,6 +412,9 @@ function TemplateForm({
     );
   }
 
+  // Debug logging
+  console.log('TemplateForm render - formData.template:', formData?.template);
+  
   return (
     <div>
       <div className="mb-3 space-y-2">
