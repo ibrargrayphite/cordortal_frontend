@@ -4,7 +4,7 @@ import { getAuthHeaders, logout } from './auth';
 // Create axios instance with default configuration
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,
-  timeout: 10000, // 10 second timeout
+  timeout: 50000, // 50 second timeout
   headers: {
     'Content-Type': 'application/json',
   },
@@ -95,6 +95,7 @@ api.interceptors.response.use(
 export const authAPI = {
   login: async (credentials) => {
     const response = await api.post('/login/', credentials);
+    console.log("API: Login response:", response)
     return response.data;
   },
 };

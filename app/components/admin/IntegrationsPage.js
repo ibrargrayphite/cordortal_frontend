@@ -34,13 +34,29 @@ const IntegrationsPage = () => {
     setInitialLoadComplete(false);
 
     const fetchData = async () => {
-      await checkGmailConnection();
-      await fetchIntegrations();
+      const gmailStatus = await checkGmailConnection();
+      await fetchIntegrations(gmailStatus);
       setInitialLoadComplete(true);
     };
 
     fetchData();
   }, []);
+
+  // Check for Gmail connection status when component becomes visible (e.g., after OAuth redirect)
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (!document.hidden && initialLoadComplete) {
+        checkGmailConnection().then(gmailStatus => {
+          if (gmailStatus !== gmailConnected) {
+            fetchIntegrations(gmailStatus);
+          }
+        });
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+  }, [gmailConnected, initialLoadComplete]);
 
   useEffect(() => {
     if (gmailConnected && initialLoadComplete) {
@@ -48,8 +64,11 @@ const IntegrationsPage = () => {
     }
   }, [gmailConnected, initialLoadComplete]);
 
-  const fetchIntegrations = async () => {
+  const fetchIntegrations = async (gmailStatus = null) => {
     try {
+      // Use the passed gmailStatus or current state
+      const isGmailConnected = gmailStatus !== null ? gmailStatus : gmailConnected;
+      
       // Gmail integration card
       const gmailIntegration = {
         id: 'gmail',
@@ -57,7 +76,7 @@ const IntegrationsPage = () => {
         description: 'Import leads from Gmail emails automatically',
         icon: '/assets/images/gmail-logo.svg',
         status: 'available',
-        connected: gmailConnected,
+        connected: isGmailConnected,
         lastSync: gmailData?.lastSync || null
       };
       setIntegrations([gmailIntegration]);
@@ -76,14 +95,17 @@ const IntegrationsPage = () => {
       if (response.data.connected) {
         setGmailConnected(true);
         setGmailData(response.data);
+        return true; // Return the connection status
       } else {
         setGmailConnected(false);
         setGmailData(null);
+        return false;
       }
     } catch (err) {
       console.log('Gmail not connected yet');
       setGmailConnected(false);
       setGmailData(null);
+      return false;
     }
   };
 
@@ -110,7 +132,7 @@ const IntegrationsPage = () => {
       setGmailConnected(false);
       setGmailData(null);
       setGmailFilters({ emails: [], subjects: [] });
-      await fetchIntegrations();
+      await fetchIntegrations(false); // Pass false to indicate disconnected
     } catch (err) {
       setError('Failed to disconnect Gmail');
       console.error('Gmail disconnect error:', err);

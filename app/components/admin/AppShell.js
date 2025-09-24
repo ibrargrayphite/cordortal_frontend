@@ -74,24 +74,24 @@ const Sidebar = ({ isOpen, onClose, currentPath, orgData, isCollapsed }) => {
       </span>,
       current: currentPath === '/leads' || currentPath.startsWith('/leads/detail'),
     },
+    // {
+    //   name: 'Consent Forms',
+    //   href: null, // No direct navigation
+    //   icon: (
+    //     <span className="admin-nav-icon">
+    //       <Image
+    //         src="/assets/images/icons/consent-form-icon.svg"
+    //         alt="Consent Forms"
+    //         width={isCollapsed ? 24 : 20}
+    //         height={isCollapsed ? 24 : 20}
+    //       />
+    //     </span>
+    //   ),
+    //   current: currentPath.startsWith('/admin/consent-forms'),
+    //   hasDropdown: true,
+    // },
     {
-      name: 'Consent Forms',
-      href: null, // No direct navigation
-      icon: (
-        <span className="admin-nav-icon">
-          <Image
-            src="/assets/images/icons/consent-form-icon.svg"
-            alt="Consent Forms"
-            width={isCollapsed ? 24 : 20}
-            height={isCollapsed ? 24 : 20}
-          />
-        </span>
-      ),
-      current: currentPath.startsWith('/admin/consent-forms'),
-      hasDropdown: true,
-    },
-    {
-      name: 'Templates',
+      name: 'Consent Form Templates',
       href: '/templates',
       icon: <span className="admin-nav-icon">
         <Image
