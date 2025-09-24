@@ -3,9 +3,10 @@
 import { usePathname } from 'next/navigation';
 import { renderComponent } from '../utils/renderComponent';
 import ChatWidget from './ChatWidget';
+import ThirdPartyChatWidget from './ThirdPartyChatWidget';
 import styles from '../Layout.module.css';
 
-const LayoutWrapper = ({ children, shared, location, chatBot }) => {
+const LayoutWrapper = ({ children, shared, location, chatBot, thirdPartyChatWidget }) => {
   const pathname = usePathname();
   const isLoginPage = pathname === '/login' || pathname === '/login/';
   const isLeadsPage = pathname === '/leads' || pathname === '/leads/';
@@ -56,6 +57,7 @@ const LayoutWrapper = ({ children, shared, location, chatBot }) => {
         </div>
       )}
       {chatBot && <ChatWidget />}
+      {thirdPartyChatWidget && <ThirdPartyChatWidget />}
     </>
   );
 };
