@@ -1,7 +1,7 @@
 "use client";
 
 import React, { Suspense } from "react";
-import { PageSpinner } from "../../components/admin/LoadingSpinner";
+import { FullPageSkeleton } from "../../components/admin/SkeletonComponents";
 import LeadDetailPage from "../../components/admin/LeadDetailPage";
 
 const LeadDetailClient = () => {
@@ -10,7 +10,7 @@ const LeadDetailClient = () => {
 
 export default function LeadDetailPageWrapper() {
   return (
-    <Suspense fallback={<PageSpinner message="Loading lead details..." />}>
+    <Suspense fallback={<FullPageSkeleton showHeader={true} contentType="default" />}>
       <LeadDetailClient />
     </Suspense>
   );

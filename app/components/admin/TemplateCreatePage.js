@@ -3,16 +3,52 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
-import { AppShell, PageSpinner } from './index';
+import { AppShell } from './index';
 import { getAuthHeaders, isAuthenticated, logout } from '../../utils/auth';
 import { useToast } from '../Toast';
-
+import { Skeleton } from '../Skeleton';
+import styles from "../../templates/detail/templateDetail.module.css";
 // Dynamically import the TemplateForm to avoid SSR issues
 const TemplateForm = dynamic(
   () => import('../TemplateForm/TemplateForm'),
-  { 
-    ssr: false, 
-    loading: () => <PageSpinner message="Loading editor..." /> 
+  {
+    ssr: false,
+    loading: () => (
+      <div className="admin-container">
+        <div className="admin-card !bg-white !text-black">
+          {/* Skeleton for header */}
+          <div style={{ marginBottom: '1.5rem' }}>
+            <Skeleton width="300px" height="1.5rem" />
+            <Skeleton width="400px" height="1rem" style={{ marginTop: '0.5rem' }} />
+          </div>
+          {/* Skeleton for TemplateForm */}
+          <div>
+            <div className="mb-3 space-y-2">
+              <Skeleton width="150px" height="1rem" /> 
+              <Skeleton width="100%" height="2.5rem" />
+            </div>
+            <div className={styles.fullPageEditorContainer}>
+              <div className={styles.editorHeader}>
+                <Skeleton width="200px" height="1.5rem" /> 
+                <Skeleton width="200px" height="1.5rem" />
+              </div>
+              <div className={styles.editorContainer}>
+                <div className={styles.editorSection}>
+                  <Skeleton width="100%" height="400px" />
+                </div>
+                <div className={styles.previewSection}>
+                  <Skeleton width="100%" height="400px" />
+                </div>
+              </div>
+            </div>
+            <div className={styles.editActions}>
+              <Skeleton width="120px" height="2.5rem" style={{ marginRight: '1rem' }} />
+              <Skeleton width="120px" height="2.5rem" />
+            </div>
+          </div>
+        </div>
+      </div>
+    )
   }
 );
 
@@ -22,6 +58,7 @@ const TemplateCreatePage = () => {
     name: '',
     template: '',
   });
+  const [hasLoaded, setHasLoaded] = useState(false);
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -29,20 +66,27 @@ const TemplateCreatePage = () => {
   const { showError, showSuccess } = useToast();
 
   useEffect(() => {
-    if (!isAuthenticated()) {
-      window.location.replace('/login');
-      return;
-    }
+    const checkAuth = async () => {
+      if (!(await isAuthenticated())) {
+        window.location.replace('/login');
+        return;
+      }
+      setHasLoaded(true);
+    };
+    checkAuth();
   }, []);
 
-  const handleSaveTemplate = async () => {
+  const handleSaveTemplate = async (formDataParam) => {
     try {
       setSaving(true);
       const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
+      // Use the passed formData or fall back to state
+      const dataToUse = formDataParam || formData;
+
       const payload = {
-        name: formData.name,
-        template: formData.template,
+        name: dataToUse.name,
+        template: dataToUse.template,
       };
 
       const response = await fetch(`${baseUrl}/leads/organization-templates/`, {
@@ -66,12 +110,12 @@ const TemplateCreatePage = () => {
 
       showSuccess('Template created successfully!');
       setFormData({ name: '', template: '' });
-      
+
       // Navigate back to appropriate page
       if (leadId) {
         router.push(`/leads/detail?id=${leadId}`);
       } else {
-        router.push('/leads?tab=templates');
+        router.push('/templates');
       }
     } catch (err) {
       console.error('Template save error:', err);
@@ -92,12 +136,12 @@ const TemplateCreatePage = () => {
     if (leadId) {
       router.push(`/leads/detail?id=${leadId}`);
     } else {
-      router.push('/leads?tab=templates');
+      router.push('/templates');
     }
   };
 
   const breadcrumbItems = [
-    { name: 'Templates', href: '/leads?tab=templates' },
+    { name: 'Templates', href: '/templates' },
     { name: 'Create Template' },
   ];
 
@@ -106,19 +150,63 @@ const TemplateCreatePage = () => {
     breadcrumbItems.unshift({ name: `Lead ${leadId}`, href: `/leads/detail?id=${leadId}` });
   }
 
+  if (!hasLoaded) {
+    return (
+      <AppShell
+        pageTitle="Create Template"
+        breadcrumbItems={breadcrumbItems}
+      >
+        <div className="admin-container">
+          <div className="admin-card !bg-white !text-black">
+            {/* Skeleton for header */}
+            <div style={{ marginBottom: '1.5rem' }}>
+              <Skeleton width="300px" height="1.5rem" />
+              <Skeleton width="400px" height="1rem" style={{ marginTop: '0.5rem' }} />
+            </div>
+            {/* Skeleton for TemplateForm */}
+            <div>
+              <div className="mb-3 space-y-2">
+                <Skeleton width="150px" height="1rem" />
+                <Skeleton width="100%" height="2.5rem" />
+              </div>
+              <div className={styles.fullPageEditorContainer}>
+                <div className={styles.editorHeader}>
+                  <Skeleton width="200px" height="1.5rem" />
+                  <Skeleton width="200px" height="1.5rem" />
+                </div>
+                <div className={styles.editorContainer}>
+                  <div className={styles.editorSection}>
+                    <Skeleton width="100%" height="400px" />
+                  </div>
+                  <div className={styles.previewSection}>
+                    <Skeleton width="100%" height="400px" />
+                  </div>
+                </div>
+              </div>
+              <div className={styles.editActions}>
+                <Skeleton width="120px" height="2.5rem" style={{ marginRight: '1rem' }} />
+                <Skeleton width="120px" height="2.5rem" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </AppShell>
+    );
+  }
+
   return (
     <AppShell
       pageTitle="Create Template"
       breadcrumbItems={breadcrumbItems}
     >
       <div className="admin-container">
-        <div className="admin-card">
+        <div className="admin-card !bg-white !text-black">
           <div style={{ marginBottom: '1.5rem' }}>
             <h1 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '0.5rem' }}>
-              📄 Create New Template
+              Create New Template
             </h1>
-            <p style={{ color: 'var(--admin-muted-foreground)', fontSize: '0.875rem' }}>
-              {leadId 
+            <p style={{ color: '#6b7280', fontSize: '0.875rem' }}>
+              {leadId
                 ? 'Create a consent form template for this lead.'
                 : 'Create a reusable template for consent forms.'
               }
@@ -129,7 +217,7 @@ const TemplateCreatePage = () => {
             handleFormChange={handleFormChange}
             handleSave={handleSaveTemplate}
             saving={saving}
-            setIsEditing={() => {}}
+            setIsEditing={() => { }}
             setFormData={setFormData}
             formData={formData}
             handleCancel={handleCancel}

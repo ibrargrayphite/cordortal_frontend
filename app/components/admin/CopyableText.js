@@ -1,18 +1,19 @@
 "use client";
 
 import React, { useState } from 'react';
+import { Copy, Check, Mail, Phone, FileText } from 'lucide-react';
 
-const CopyableText = ({ 
-  text, 
-  displayText = null, 
+const CopyableText = ({
+  text,
+  displayText = null,
   type = 'text', // 'email' or 'phone' or 'text'
-  showIcon = true 
+  showIcon = true
 }) => {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async (e) => {
     e.stopPropagation();
-    
+
     try {
       await navigator.clipboard.writeText(text);
       setCopied(true);
@@ -39,17 +40,18 @@ const CopyableText = ({
   const getIcon = () => {
     switch (type) {
       case 'email':
-        return '✉️';
+        return <Mail size={14} />;
       case 'phone':
-        return '📞';
+        return <Phone size={14} />;
       default:
-        return '📋';
+        return <FileText size={14} />;
     }
   };
 
+
   const formatText = () => {
     if (displayText) return displayText;
-    
+
     switch (type) {
       case 'phone':
         // Format phone number if it's a valid US number
@@ -68,17 +70,19 @@ const CopyableText = ({
   }
 
   return (
-    <div style={{ 
-      display: 'flex', 
-      alignItems: 'center', 
+    <div style={{
+      display: 'flex',
+      alignItems: 'center',
       gap: '0.5rem',
       maxWidth: '100%'
     }}>
       {showIcon && (
-        <span style={{ fontSize: '0.875rem' }}>{getIcon()}</span>
+        <span style={{ display: 'flex', alignItems: 'center' }}>
+          {getIcon()}
+        </span>
       )}
-      <span 
-        style={{ 
+      <span
+        style={{
           minWidth: 0,
           flex: 1,
           overflow: 'hidden',
@@ -92,7 +96,7 @@ const CopyableText = ({
       <button
         onClick={handleCopy}
         className="admin-button admin-button-ghost"
-        style={{ 
+        style={{
           padding: '0.25rem',
           width: '24px',
           height: '24px',
@@ -101,9 +105,9 @@ const CopyableText = ({
         title={copied ? 'Copied!' : 'Copy to clipboard'}
         aria-label={copied ? 'Copied!' : 'Copy to clipboard'}
       >
-        {copied ? '✅' : '📋'}
+        {copied ? <Check size={12} /> : <Copy size={12} />}
       </button>
-      
+
       {/* Tooltip */}
       {copied && (
         <div

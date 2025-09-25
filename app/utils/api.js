@@ -4,7 +4,7 @@ import { getAuthHeaders, logout } from './auth';
 // Create axios instance with default configuration
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,
-  timeout: 10000, // 10 second timeout
+  timeout: 50000, // 50 second timeout
   headers: {
     'Content-Type': 'application/json',
   },
@@ -95,6 +95,7 @@ api.interceptors.response.use(
 export const authAPI = {
   login: async (credentials) => {
     const response = await api.post('/login/', credentials);
+    console.log("API: Login response:", response)
     return response.data;
   },
 };
@@ -142,15 +143,15 @@ export const leadsAPI = {
 export const templatesAPI = {
   getTemplates: async (searchQuery = '') => {
     const params = new URLSearchParams();
-    
+
     if (searchQuery.trim()) {
       params.append('q', searchQuery.trim());
     }
 
-    const url = params.toString() 
+    const url = params.toString()
       ? `/leads/organization-templates/?${params.toString()}`
       : '/leads/organization-templates/';
-    
+
     const response = await api.get(url);
     return response.data;
   },
@@ -212,6 +213,18 @@ export const notesAPI = {
   },
 };
 
+export const userAPI = {
+  getCurrentUser: async () => {
+    const response = await api.get('/user/me/');
+    return response.data;
+  },
+
+  updateUser: async (userId, userData) => {
+    const response = await api.put(`/user/${userId}/`, userData);
+    return response.data;
+  },
+};
+
 export const consentFormsAPI = {
   getConsentForms: async (leadId, page = 1, pageSize = 5, searchQuery = '') => {
     const params = new URLSearchParams({
@@ -228,6 +241,50 @@ export const consentFormsAPI = {
     return response.data;
   },
 
+  getConsentFormsWithoutLead: async (page = 1, pageSize = 5, searchQuery = '') => {
+    const params = new URLSearchParams({
+      lead: 'false',
+      page: page.toString(),
+      page_size: pageSize.toString(),
+    });
+
+
+    if (searchQuery.trim()) {
+      params.append('q', searchQuery.trim());
+    }
+
+    const response = await api.get(`/leads/consent-forms/?${params.toString()}`);
+    return response.data;
+  },
+
+  createConsentFormWithoutLead: async (consentFormData) => {
+    // Don't include lead field at all for sidebar operations
+    console.log("API: Creating consent form with data:", consentFormData);
+    
+    try {
+      const response = await api.post('/leads/consent-forms/', consentFormData);
+      console.log("API: Consent form created successfully:", response.data);
+      return response.data;
+    } catch (error) {
+      console.error("API: Error creating consent form:", error);
+      throw error;
+    }
+  },
+
+  updateConsentFormWithoutLead: async (id, consentFormData) => {
+    // Don't include lead field at all for sidebar operations
+    console.log("API: Updating consent form with data:", consentFormData);
+    
+    try {
+      const response = await api.put(`/leads/consent-forms/${id}/`, consentFormData);
+      console.log("API: Consent form updated successfully:", response.data);
+      return response.data;
+    } catch (error) {
+      console.error("API: Error updating consent form:", error);
+      throw error;
+    }
+  },
+
   getConsentForm: async (id) => {
     const response = await api.get(`/leads/consent-forms/${id}/`);
     return response.data;
@@ -239,4 +296,4 @@ export const consentFormsAPI = {
   },
 };
 
-export default api; 
+export default api;

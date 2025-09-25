@@ -25,7 +25,7 @@ const SimpleFooter = ({ footerRights, data, footerLogin }) => {
   }, []);
 
   const handleLogin = () => {
-    router.push('/login');
+    window.open('/login', '_blank');
   };
 
   return (
@@ -59,8 +59,7 @@ const SimpleFooter = ({ footerRights, data, footerLogin }) => {
                       style={{ 
                         cursor: "pointer",
                         fontSize: "0.85rem",
-                        opacity: 0.8,
-                        fontStyle: "italic"
+                        opacity: 0.8
                       }}
                       onClick={handleLogin}
                     >

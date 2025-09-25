@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
@@ -12,6 +12,8 @@ import { getCookie } from "../../utils/cookiesHanlder";
 import { ButtonLoader } from "../LoadingSpinner";
 import { getAuthHeaders, logout } from "../../utils/auth";
 import BundledEditor from "@/app/components/BundledEditor/BundledEditor";
+import { Skeleton } from '../Skeleton'; // Import Skeleton component
+import { consentFormsAPI } from "@/app/utils/api";
 
 function TemplateForm({
   mode = "template",
@@ -28,6 +30,7 @@ function TemplateForm({
   isSigned = false,
   fromNotesFlow = false,
   setFromNotesFlow = () => { },
+  hideLeadSpecificActions = false, // New prop to hide "Get Signed" and "Send Link" buttons
 }) {
   const { showError: originalShowError, showSuccess: originalShowSuccess } = useToast();
   const showError = useCallback(
@@ -51,6 +54,12 @@ function TemplateForm({
   const [showSendLinkModal, setShowSendLinkModal] = useState(false);
   const signatureCanvasRef = useRef(null);
   const [previewMode, setPreviewMode] = useState(false);
+  const [hasLoaded, setHasLoaded] = useState(false); // New state for skeleton
+
+  // Initial load completion
+  useEffect(() => {
+    setHasLoaded(true);
+  }, []);
 
   function base64ToBlob(base64, mime) {
     const byteChars = atob(base64.split(",")[1]);
@@ -141,7 +150,7 @@ function TemplateForm({
     setSignatureError("");
   };
 
-  const handleSaveSignature = () => {
+  const handleSaveSignature = async () => {
     if (!signatureCanvasRef.current || signatureCanvasRef.current.isEmpty()) {
       setSignatureError("Please provide a signature.");
       return;
@@ -151,18 +160,54 @@ function TemplateForm({
     setSignatureData(signatureDataUrl);
     setHasSignature(true);
     handleCloseSignatureModal();
+    
+    // Auto-save the form when signed
+    if (mode === "consent") {
+      try {
+        // Create form data with signature embedded
+        const signatureHtml = `<div class="signature-section"><h4>Signature</h4><img src="${signatureDataUrl}" alt="Signature"/><p>Signed on ${new Date().toLocaleDateString()}</p></div>`;
+        const currentFormData = {
+          ...formData,
+          name: formData.name || "",
+          template: formData.template + signatureHtml,
+          is_signed: true
+        };
+        
+        if (handleSave) {
+          console.log("TemplateForm: Auto-saving signed form with handleSave");
+          const savedForm = await handleSave(currentFormData);
+          // Update formData with the saved form data to reflect signed state
+          if (savedForm) {
+            setFormData(savedForm);
+          }
+        } else {
+          console.log("TemplateForm: Auto-saving signed form with internal API");
+          await handleSaveConsentForm();
+        }
+        showSuccess("Consent form signed and saved!");
+      } catch (error) {
+        console.error("Error auto-saving signed form:", error);
+        showError("Form was signed but failed to save. Please save manually.");
+      }
+    }
   };
 
   // Consent form save
   const handleSaveConsentForm = async () => {
+    // Check if formData exists
+    if (!formData) {
+      showError("Form data is not available. Please refresh the page and try again.");
+      return;
+    }
+
     if (isSigned) {
       showError("This form is already signed.");
       return;
     }
-    if (!lead?.id) {
-      showError("Lead ID is missing.");
-      return;
-    }
+    // if (formData.lead !== false && !lead?.id) {
+    //   showError("Lead ID is missing.");
+    //   return;
+    // }
     if (!formData?.template) {
       showError("Consent data is missing.");
       return;
@@ -172,6 +217,35 @@ function TemplateForm({
       return;
     }
 
+    // If handleSave prop is provided, use it instead of doing our own API call
+    if (handleSave) {
+      try {
+        // Use the current formData state, not the prop
+        const currentFormData = {
+          ...formData,
+          name: formData.name || "",
+          template: formData.template || "",
+        };
+        console.log("TemplateForm: Calling handleSave with currentFormData:", currentFormData);
+        console.log("TemplateForm: formData prop:", formData);
+        console.log("TemplateForm: formData.id:", formData?.id);
+        console.log("TemplateForm: formData.name:", formData?.name);
+        console.log("TemplateForm: formData.template:", formData?.template);
+        console.log("TemplateForm: currentFormData.id:", currentFormData?.id);
+        console.log("TemplateForm: typeof currentFormData.id:", typeof currentFormData?.id);
+        await handleSave(currentFormData);
+        showSuccess(hasSignature ? "Consent form signed!" : "Consent form saved!");
+        setPreviewMode(true);
+        setFromNotesFlow(false);
+        return;
+      } catch (error) {
+        console.error("Error in handleSave:", error);
+        showError(error.message || "Failed to save consent form.");
+        return;
+      }
+    }
+
+    // Fallback to internal API call if no handleSave prop
     try {
       const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
       const consentData = hasSignature
@@ -182,16 +256,28 @@ function TemplateForm({
         consent_data: consentData,
         name: formData.name,
         is_signed: hasSignature,
-        lead: lead.id,
         ...(fromNotesFlow && { notes_text: formData.notes_text || "" }),
+        // Include lead ID if lead prop is provided (for leads detail page)
+        ...(lead && lead.id && { lead: lead.id }),
       };
 
+      // Debug logging
+      console.log("TemplateForm: formData =", formData);
+      console.log("TemplateForm: formData.id =", formData?.id);
+      console.log("TemplateForm: lead =", lead);
+      console.log("TemplateForm: lead.id =", lead?.id);
+      console.log("TemplateForm: payload =", payload);
+      console.log("TemplateForm: Will use method =", formData?.id && formData.id !== null && formData.id !== undefined ? "PUT" : "POST");
+      
+      // Check if formData exists and has a valid ID
+      const hasValidId = formData && formData.id && formData.id !== null && formData.id !== undefined;
+      
       const response = await fetch(
-        formData.id
+        hasValidId
           ? `${baseUrl}/leads/consent-forms/${formData.id}/`
           : `${baseUrl}/leads/consent-forms/`,
         {
-          method: formData.id ? "PUT" : "POST",
+          method: hasValidId ? "PUT" : "POST",
           headers: { ...getAuthHeaders(), "Content-Type": "application/json" },
           body: JSON.stringify(payload),
         }
@@ -226,16 +312,11 @@ function TemplateForm({
       // Update formData with the ID from the saved consent form
       setFormData((prev) => ({
         ...prev,
-        id: savedConsentForm.id, // Set the ID from the response
+        id: savedConsentForm.id,
         is_signed: hasSignature,
       }));
       setPreviewMode(true);
       setFromNotesFlow(false);
-
-      // Call parent's handleSave to update the parent component's state
-      if (handleSave) {
-        await handleSave(savedConsentForm);
-      }
     } catch (error) {
       console.error(error);
       showError(error.message || "Failed to save consent form.");
@@ -289,10 +370,55 @@ function TemplateForm({
 
   if (!formData) return null;
 
+  // Skeleton loader
+  if (!hasLoaded) {
+    return (
+      <div>
+        {/* Skeleton for name input section */}
+        <div className="mb-3 space-y-2">
+          <Skeleton width="150px" height="1rem" />
+          <Skeleton width="100%" height="2.5rem" />
+        </div>
+
+        {/* Skeleton for editor and preview */}
+        <div className={styles.fullPageEditorContainer}>
+          <div className={styles.editorHeader}>
+            <Skeleton width="200px" height="1.5rem" />
+            <Skeleton width="200px" height="1.5rem" />
+          </div>
+          <div className={styles.editorContainer}>
+            <div className={styles.editorSection}>
+              <Skeleton width="100%" height="400px" />
+            </div>
+            <div className={styles.previewSection}>
+              <Skeleton width="100%" height="400px" />
+            </div>
+          </div>
+        </div>
+
+        {/* Skeleton for action buttons */}
+        <div className={styles.editActions}>
+          <Skeleton width="120px" height="2.5rem" style={{ marginRight: '1rem' }} />
+          {mode === "consent" && (
+            <>
+              <Skeleton width="120px" height="2.5rem" style={{ marginRight: '1rem' }} />
+              <Skeleton width="120px" height="2.5rem" style={{ marginRight: '1rem' }} />
+              <Skeleton width="120px" height="2.5rem" style={{ marginRight: '1rem' }} />
+            </>
+          )}
+          <Skeleton width="120px" height="2.5rem" /> {/* Cancel */}
+        </div>
+      </div>
+    );
+  }
+
+  // Debug logging
+  console.log('TemplateForm render - formData.template:', formData?.template);
+  
   return (
     <div>
       <div className="mb-3 space-y-2">
-        <Label htmlFor="template-name">
+        <Label htmlFor="template-name" className="text-black dark:text-black">
           {mode === "template" || mode === "create" ? "Template Name" : "Consent Form Name"}
         </Label>
         <Input
@@ -305,11 +431,13 @@ function TemplateForm({
             : "Enter consent form name"}
           maxLength={255}
           disabled={isSigned}
+          required
+          className="bg-white text-black"
         />
       </div>
 
       <div className={styles.fullPageEditorContainer}>
-        <div className={styles.editorHeader}>
+        <div className={`${styles.editorHeader} ${mode === "consent" ? styles.fullWidthEditorHeader : ""}`}>
           {!isSigned && (
             <h5 className={styles.editorTitle}>
               <i className="fas fa-edit me-2"></i> Content Editor
@@ -320,7 +448,7 @@ function TemplateForm({
           </h5>
         </div>
 
-        <div className={`${styles.editorContainer} ${isSigned ? styles.fullPreview : ""}`}>
+        <div className={`${styles.editorContainer} ${isSigned ? styles.fullPreview : ""} ${mode === "consent" ? styles.fullWidthEditor : ""}`}>
           {isSigned ? (
             <div className={`${styles.previewSection} ${styles.fullWidthPreview}`}>
               <div className={styles.previewContainer}>
@@ -384,7 +512,7 @@ function TemplateForm({
                     dangerouslySetInnerHTML={{
                       __html:
                         formData.template ||
-                        '<p class="text-muted">Start typing to see the preview...</p>',
+                        '<p className="text-black">Start typing to see the preview...</p>',
                     }}
                   />
                 </div>
@@ -426,28 +554,38 @@ function TemplateForm({
               </>
             ) : (
               <>
+                {!hideLeadSpecificActions && (
+                  <>
+                    <Button
+                      onClick={handleOpenSignatureModal}
+                      disabled={saving || isDeleting || isSendingLink || (!formData.id && mode === "consent")}
+                      className={styles.primaryActionButton}
+                    >
+                      <i className="fas fa-signature me-2"></i> Get Signed
+                    </Button>
+                    <Button
+                      onClick={handleGetLink}
+                      disabled={saving || isDeleting || isSendingLink || (!formData.id && mode === "consent")}
+                      className={styles.primaryActionButton}
+                    >
+                      {isSendingLink ? (
+                        <ButtonLoader message="Sending..." />
+                      ) : (
+                        <>
+                          <i className="fas fa-link me-2"></i> Send Link
+                        </>
+                      )}
+                    </Button>
+                  </>
+                )}
                 <Button
-                  onClick={handleOpenSignatureModal}
-                  disabled={saving || isDeleting || isSendingLink}
-                  className={styles.primaryActionButton}
-                >
-                  <i className="fas fa-signature me-2"></i> Get Signed
-                </Button>
-                <Button
-                  onClick={handleGetLink}
-                  disabled={saving || isDeleting || isSendingLink}
-                  className={styles.primaryActionButton}
-                >
-                  {isSendingLink ? (
-                    <ButtonLoader message="Sending..." />
-                  ) : (
-                    <>
-                      <i className="fas fa-link me-2"></i> Send Link
-                    </>
-                  )}
-                </Button>
-                <Button
-                  onClick={handleSaveConsentForm}
+                  onClick={() => {
+                    if (handleSave) {
+                      handleSave(formData);
+                    } else {
+                      handleSaveConsentForm();
+                    }
+                  }}
                   disabled={saving || isDeleting || isSendingLink}
                   className={styles.primaryActionButton}
                 >
@@ -493,7 +631,13 @@ function TemplateForm({
         ) : (
           <>
             <Button
-              onClick={handleSave}
+              onClick={() => {
+                if (handleSave) {
+                  handleSave(formData);
+                } else {
+                  handleSaveConsentForm();
+                }
+              }}
               disabled={saving || !formData.name?.trim() || !formData.template?.trim()}
               className={styles.primaryActionButton}
             >

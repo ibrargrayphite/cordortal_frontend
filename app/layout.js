@@ -43,6 +43,7 @@ export default async function RootLayout({ children }) {
   const location = pagesData || {};
   const shared = location.shared || {};
   const chatBot = pagesData?.data?.chatBot || false;
+  const thirdPartyChatWidget = pagesData?.data?.thirdpartychatwidget || false;
   // need to add in organization data as for oaklands "chatBot": false,
 
   // Determine the active font based on the location's fontFamily
@@ -86,6 +87,7 @@ export default async function RootLayout({ children }) {
                 shared={shared}
                 location={location}
                 chatBot={chatBot}
+                thirdPartyChatWidget={thirdPartyChatWidget}
               >
                 {children}
               </LayoutWrapper>

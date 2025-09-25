@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { ThemeProvider } from 'next-themes';
-import '../../styles/admin.css';
+import '../styles/admin.css';
 
 export default function AdminLayout({ children }) {
   return (

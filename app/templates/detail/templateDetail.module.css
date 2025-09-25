@@ -202,11 +202,6 @@
 .editActions {
   display: flex;
   gap: 1rem;
-
-
-  position: sticky;
-  bottom: 0;
-
   z-index: 10;
 }
 
@@ -304,6 +299,7 @@
   height: 100%;
   /* Use full height instead of fixed vh */
   align-items: stretch;
+  width: 100%; /* Ensure full width */
 }
 
 .editorSection {
@@ -315,6 +311,28 @@
   /* Use full height instead of min-height */
   min-height: 500px;
   /* Ensure minimum editor height */
+  width: 100%; /* Ensure full width */
+}
+
+/* Full width editor for consent forms */
+.fullWidthEditor .editorContainer {
+  grid-template-columns: 1fr; /* Single column for full width */
+}
+
+.fullWidthEditor .editorSection {
+  border-right: none; /* Remove right border for single column */
+}
+
+.fullWidthEditorHeader {
+  grid-template-columns: 1fr 1fr; /* Two column header for consent forms */
+}
+
+.fullWidthEditorHeader .previewTitle {
+  border-right: 1px solid #e5e7eb; /* Add right border for two column header */
+}
+
+.fullWidthEditorHeader .editorTitle {
+  border-right: none; /* Remove right border for last column */
 }
 
 .previewSection {
@@ -328,13 +346,15 @@
 .previewContainer {
   flex: 1;
   padding: 1rem;
-  /* Reduced padding for more editor space */
   overflow-y: auto;
-  /* Allow vertical scrolling for large content */
   overflow-x: hidden;
-  /* Prevent horizontal scroll */
   background: #ffffff;
   border: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  pointer-events: none;
 }
 
 .htmlPreview {
@@ -343,6 +363,10 @@
   line-height: 1.6;
   color: #374151;
   word-wrap: break-word;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 .htmlPreview h1,

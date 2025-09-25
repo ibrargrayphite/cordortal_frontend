@@ -1,7 +1,7 @@
 "use client";
 
 import React, { Suspense } from "react";
-import { PageSpinner } from "../../components/admin/LoadingSpinner";
+import { FullPageSkeleton } from "../../components/admin/SkeletonComponents";
 import TemplateCreatePage from "../../components/admin/TemplateCreatePage";
 
 const TemplateDetailClient = () => {
@@ -10,7 +10,7 @@ const TemplateDetailClient = () => {
 
 export default function TemplateCreatePageWrapper() {
     return (
-        <Suspense fallback={<PageSpinner message="Loading template editor..." />}>
+        <Suspense fallback={<FullPageSkeleton showHeader={true} contentType="form" />}>
             <TemplateDetailClient />
         </Suspense>
     );

@@ -5,19 +5,22 @@ import { renderComponent } from '../utils/renderComponent';
 import ChatWidget from './ChatWidget';
 import styles from '../Layout.module.css';
 
-const LayoutWrapper = ({ children, shared, location, chatBot }) => {
+const LayoutWrapper = ({ children, shared, location, chatBot, thirdPartyChatWidget }) => {
   const pathname = usePathname();
   const isLoginPage = pathname === '/login' || pathname === '/login/';
   const isLeadsPage = pathname === '/leads' || pathname === '/leads/';
   const isConsentPage = pathname === '/consent-form/get' || pathname === '/consent-form/get/';
   const isIntegrationsPage = pathname === '/integrations' || pathname === '/integrations/';
+  const isConsentFormPage = pathname === '/consent-form' || pathname === '/consent-form/';
+  const isConsentFormsPage = pathname === '/consent-forms' || pathname === '/consent-forms/';
+  const isAdminConsentFormsPage = pathname === '/admin/consent-forms' || pathname === '/admin/consent-forms/';
 
   const isLeadDetailPage = pathname.startsWith('/leads/detail');
   const isTemplatesPage = pathname === '/templates' || pathname === '/templates/';
   const isTemplateDetailPage = pathname.startsWith('/templates/detail');
   const isTemplateCreatePage = pathname.startsWith('/templates/create');
 
-  const isAdminPage = isLoginPage || isLeadsPage || isLeadDetailPage || isTemplatesPage || isTemplateDetailPage || isTemplateCreatePage || isConsentPage || isIntegrationsPage;
+  const isAdminPage = isLoginPage || isLeadsPage || isLeadDetailPage || isTemplatesPage || isTemplateDetailPage || isTemplateCreatePage || isConsentPage || isIntegrationsPage || isConsentFormPage || isConsentFormsPage || isAdminConsentFormsPage;
 
   return (
     <>
@@ -53,6 +56,21 @@ const LayoutWrapper = ({ children, shared, location, chatBot }) => {
         </div>
       )}
       {chatBot && <ChatWidget />}
+      {thirdPartyChatWidget && (
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if (typeof window !== 'undefined' && !document.querySelector('script[src*="roboreception.co.uk"]')) {
+                var script = document.createElement('script');
+                script.type = 'text/javascript';
+                script.src = 'https://chat.roboreception.co.uk/widget/f774a99ae12d86a0c03ee1fcf5291718.js';
+                script.async = true;
+                document.head.appendChild(script);
+              }
+            `
+          }}
+        />
+      )}
     </>
   );
 };

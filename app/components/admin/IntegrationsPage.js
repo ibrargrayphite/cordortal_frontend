@@ -8,6 +8,8 @@ import {
 } from './index';
 import { fetchPagesData } from '../../utils/fetchPagesData';
 import api from '../../utils/api';
+import { X, Settings, Plus } from "lucide-react";
+import { Skeleton } from '../Skeleton';
 
 const IntegrationsPage = () => {
   const [integrations, setIntegrations] = useState([]);
@@ -24,18 +26,49 @@ const IntegrationsPage = () => {
   const [emailInput, setEmailInput] = useState('');
   const [subjectInput, setSubjectInput] = useState('');
   const [filtersLoading, setFiltersLoading] = useState(false);
+  const [initialLoadComplete, setInitialLoadComplete] = useState(false);
 
   useEffect(() => {
-    fetchIntegrations();
-    checkGmailConnection();
-    if (gmailConnected) {
+    // Reset loading state when component mounts
+    setLoading(true);
+    setInitialLoadComplete(false);
+
+    const fetchData = async () => {
+      const gmailStatus = await checkGmailConnection();
+      await fetchIntegrations(gmailStatus);
+      setInitialLoadComplete(true);
+    };
+
+    fetchData();
+  }, []);
+
+  // Check for Gmail connection status when component becomes visible (e.g., after OAuth redirect)
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (!document.hidden && initialLoadComplete) {
+        checkGmailConnection().then(gmailStatus => {
+          if (gmailStatus !== gmailConnected) {
+            fetchIntegrations(gmailStatus);
+          }
+        });
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+  }, [gmailConnected, initialLoadComplete]);
+
+  useEffect(() => {
+    if (gmailConnected && initialLoadComplete) {
       fetchGmailFilters();
     }
-  }, [gmailConnected]);
+  }, [gmailConnected, initialLoadComplete]);
 
-  const fetchIntegrations = async () => {
+  const fetchIntegrations = async (gmailStatus = null) => {
     try {
-      setLoading(true);
+      // Use the passed gmailStatus or current state
+      const isGmailConnected = gmailStatus !== null ? gmailStatus : gmailConnected;
+      
       // Gmail integration card
       const gmailIntegration = {
         id: 'gmail',
@@ -43,7 +76,7 @@ const IntegrationsPage = () => {
         description: 'Import leads from Gmail emails automatically',
         icon: '/assets/images/gmail-logo.svg',
         status: 'available',
-        connected: gmailConnected,
+        connected: isGmailConnected,
         lastSync: gmailData?.lastSync || null
       };
       setIntegrations([gmailIntegration]);
@@ -62,14 +95,17 @@ const IntegrationsPage = () => {
       if (response.data.connected) {
         setGmailConnected(true);
         setGmailData(response.data);
+        return true; // Return the connection status
       } else {
         setGmailConnected(false);
         setGmailData(null);
+        return false;
       }
     } catch (err) {
       console.log('Gmail not connected yet');
       setGmailConnected(false);
       setGmailData(null);
+      return false;
     }
   };
 
@@ -90,15 +126,18 @@ const IntegrationsPage = () => {
 
   const handleGmailDisconnect = async () => {
     try {
+      setLoading(true);
       const response = await api.post('/user/gmail/disconnect/');
       // The disconnect API returns a success message, so we can assume it worked
       setGmailConnected(false);
       setGmailData(null);
       setGmailFilters({ emails: [], subjects: [] });
-      fetchIntegrations();
+      await fetchIntegrations(false); // Pass false to indicate disconnected
     } catch (err) {
       setError('Failed to disconnect Gmail');
       console.error('Gmail disconnect error:', err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -182,12 +221,53 @@ const IntegrationsPage = () => {
     await saveGmailFilters();
   };
 
-
   const breadcrumbItems = [
     { name: 'Integrations', href: '/integrations' }
   ];
 
   const pageActions = [];
+
+  const handleOverlayMouseDown = (e) => {
+    if (e.target === e.currentTarget) {
+      e.currentTarget.dataset.closable = "true";
+    } else {
+      e.currentTarget.dataset.closable = "false";
+    }
+  };
+
+  const handleOverlayMouseUp = (e) => {
+    if (e.target === e.currentTarget && e.currentTarget.dataset.closable === "true") {
+      setShowGmailModal(false);
+    }
+  };
+
+  const handleCancel = () => {
+    setEmailInput("");
+    setSubjectInput("");
+    setShowGmailModal(false);
+  };
+
+  // Integration Card Skeleton Component
+  const IntegrationCardSkeleton = () => (
+    <div className="admin-card admin-integration-card">
+      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '1rem' }}>
+        <Skeleton width="48px" height="48px" borderRadius="8px" style={{ marginRight: '1rem' }} />
+        <div style={{ flex: 1 }}>
+          <Skeleton width="150px" height="1.5rem" style={{ marginBottom: '0.5rem' }} />
+          <Skeleton width="200px" height="1rem" />
+        </div>
+      </div>
+
+      <div style={{ marginBottom: '1rem' }}>
+        <Skeleton width="80px" height="1.5rem" borderRadius="16px" />
+      </div>
+
+      <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+        <Skeleton width="120px" height="2.5rem" borderRadius="4px" />
+        <Skeleton width="80px" height="2.5rem" borderRadius="4px" />
+      </div>
+    </div>
+  );
 
   if (loading) {
     return (
@@ -196,8 +276,42 @@ const IntegrationsPage = () => {
         breadcrumbItems={breadcrumbItems}
         pageActions={pageActions}
       >
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '400px' }}>
-          <PageSpinner message="Loading integrations..." />
+        <div className="admin-page">
+          {/* Page Header Skeleton */}
+          <div style={{ marginBottom: '2rem' }}>
+            {/* Heading skeleton */}
+            <Skeleton
+              width="200px"
+              height="2rem"
+              style={{ marginBottom: '1rem' }}
+            />
+
+            {/* Description skeleton */}
+            <Skeleton
+              width="300px"
+              height="1rem"
+              style={{ marginBottom: '1.25rem' }}
+            />
+
+            {/* Buttons skeleton */}
+            <div style={{
+              display: 'flex',
+              flexWrap: 'nowrap',
+              gap: '1rem',
+              marginTop: '1.25rem',
+              width: 'fit-content'
+            }}>
+              <Skeleton width="100px" height="2rem" borderRadius="16px" />
+              <Skeleton width="100px" height="2rem" borderRadius="16px" />
+            </div>
+          </div>
+
+          {/* Integration Cards Skeleton */}
+          <div className="admin-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1rem' }}>
+            {[1].map((item) => (
+              <IntegrationCardSkeleton key={item} />
+            ))}
+          </div>
         </div>
       </AppShell>
     );
@@ -218,6 +332,7 @@ const IntegrationsPage = () => {
             { label: 'Available', value: integrations.filter(i => i.status === 'available').length }
           ]}
           hideSearch={true}
+          loading={loading}
         />
 
         {error && (
@@ -288,9 +403,9 @@ const IntegrationsPage = () => {
                     <button
                       onClick={() => setShowGmailModal(true)}
                       className="admin-button admin-button-secondary"
-                      style={{ fontSize: '0.875rem' }}
+                      style={{ fontSize: '0.875rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
                     >
-                      ⚙️ Configure Filters
+                      <Settings size={16} /> Configure Filters
                     </button>
                     <button
                       onClick={handleGmailDisconnect}
@@ -316,7 +431,9 @@ const IntegrationsPage = () => {
 
         {/* Gmail Configuration Modal */}
         {showGmailModal && (
-          <div className="admin-modal-overlay" onClick={() => setShowGmailModal(false)}>
+          <div className="admin-modal-overlay"
+            onMouseDown={handleOverlayMouseDown}
+            onMouseUp={handleOverlayMouseUp}>
             <div className="admin-modal" onClick={(e) => e.stopPropagation()}>
               <div className="admin-modal-header">
                 <h2>Gmail Configuration</h2>
@@ -325,7 +442,7 @@ const IntegrationsPage = () => {
                   className="admin-button admin-button-ghost"
                   style={{ padding: '0.5rem' }}
                 >
-                  ✕
+                  <X size={18} />
                 </button>
               </div>
 
@@ -344,9 +461,9 @@ const IntegrationsPage = () => {
                     <button
                       onClick={addEmail}
                       className="admin-button admin-button-primary"
-                      style={{ fontSize: '0.875rem', padding: '0.5rem 1rem' }}
+                      style={{ fontSize: '0.875rem', padding: '0.5rem 1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
                     >
-                      Add
+                      <Plus size={16} /> Add
                     </button>
                   </div>
                   <div className="admin-input-help">
@@ -378,7 +495,7 @@ const IntegrationsPage = () => {
                               padding: '0.25rem'
                             }}
                           >
-                            ✕
+                            <X size={14} />
                           </button>
                         </div>
                       ))}
@@ -400,9 +517,9 @@ const IntegrationsPage = () => {
                     <button
                       onClick={addSubject}
                       className="admin-button admin-button-primary"
-                      style={{ fontSize: '0.875rem', padding: '0.5rem 1rem' }}
+                      style={{ fontSize: '0.875rem', padding: '0.5rem 1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
                     >
-                      Add
+                      <Plus size={16} /> Add
                     </button>
                   </div>
                   <div className="admin-input-help">
@@ -434,7 +551,7 @@ const IntegrationsPage = () => {
                               padding: '0.25rem'
                             }}
                           >
-                            ✕
+                            <X size={14} />
                           </button>
                         </div>
                       ))}
@@ -445,7 +562,7 @@ const IntegrationsPage = () => {
 
               <div className="admin-modal-footer">
                 <button
-                  onClick={() => setShowGmailModal(false)}
+                  onClick={handleCancel}
                   className="admin-button admin-button-secondary"
                   disabled={filtersLoading}
                 >

@@ -9,7 +9,7 @@ import {
   getSortedRowModel,
   flexRender,
 } from '@tanstack/react-table';
-import { ArrowUp, ArrowDown, ArrowUpDown, ChevronsLeft, ChevronLeft, ChevronRight, ChevronsRight } from "lucide-react";
+import { ArrowUp, ArrowDown, ArrowUpDown, ChevronsLeft, ChevronLeft, ChevronRight, ChevronsRight,FileText } from "lucide-react";
 
 const DataTable = ({
   data = [],
@@ -19,7 +19,8 @@ const DataTable = ({
   showPagination = true,
   emptyState = null,
   className = '',
-  density = 'normal', // 'compact' | 'normal' | 'comfortable'
+  density = 'normal', // 'compact' | 'normal' | 'comfortable',
+  onRowClick,
 }) => {
   const [sorting, setSorting] = useState([]);
   const [columnFilters, setColumnFilters] = useState([]);
@@ -55,6 +56,32 @@ const DataTable = ({
   };
 
   const cellStyle = densityClasses[density];
+
+  // New handler to prevent row click on interactive elements
+  const handleRowClick = useCallback((event, row) => {
+    const interactiveSelectors = [
+      'button',
+      'a',
+      'input',
+      'select',
+      '.admin-action-menu',
+      '[role="menuitem"]',
+      '[role="button"]'
+    ];
+
+    const isInteractive = interactiveSelectors.some(selector =>
+      event.target.closest(selector)
+    );
+
+    if (isInteractive) {
+      event.stopPropagation();
+      return;
+    }
+
+    if (onRowClick && typeof onRowClick === 'function') {
+      onRowClick(row.original);
+    }
+  }, [onRowClick]);
 
   if (loading) {
     return (
@@ -98,8 +125,6 @@ const DataTable = ({
                       </div>
                     )}
                   </th>
-
-
                 ))}
               </tr>
             ))}
@@ -107,16 +132,18 @@ const DataTable = ({
           <tbody>
             {table.getRowModel().rows.length > 0 ? (
               table.getRowModel().rows.map((row) => (
-                <tr key={row.id}>
+                <tr
+                  key={row.id}
+                  onClick={(e) => handleRowClick(e, row)}
+                  className={onRowClick ? "cursor-pointer" : ""}
+                >
                   {row.getVisibleCells().map((cell) => (
                     <td key={cell.id} style={cellStyle}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </td>
                   ))}
                 </tr>
+
               ))
             ) : (
               // Show empty state in a single row spanning all columns
@@ -132,7 +159,7 @@ const DataTable = ({
                 >
                   {emptyState || (
                     <div className="admin-empty-state">
-                      <div className="admin-empty-state-icon">📄</div>
+                      <div className="admin-empty-state-icon"><FileText size={22} strokeWidth={2} /></div>
                       <h3 className="admin-empty-state-title">No data found</h3>
                       <p className="admin-empty-state-description">
                         There are no items to display.

@@ -60,7 +60,7 @@ const Footer = ({ src, refersrc, title,data,media,noBgColor,footerLogin }) => {
   };
 
   const handleLogin = () => {
-    router.push('/login');
+    window.open('/login', '_blank');
   };
 
   return (
@@ -193,8 +193,7 @@ const Footer = ({ src, refersrc, title,data,media,noBgColor,footerLogin }) => {
                               style={{ 
                                 cursor: "pointer",
                                 fontSize: "0.9rem",
-                                opacity: 0.8,
-                                fontStyle: "italic"
+                                opacity: 0.8
                               }}
                               onClick={handleLogin}
                             >

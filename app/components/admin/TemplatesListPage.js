@@ -14,20 +14,29 @@ import {
 import { useTemplates } from '../../hooks/useTemplates';
 import { useToast } from '../Toast';
 import { Plus } from "lucide-react";
+import Image from 'next/image';
+import { Skeleton } from '../Skeleton';
 
 const columnHelper = createColumnHelper();
 
 const TemplatesListPage = () => {
   const router = useRouter();
   const [searchInput, setSearchInput] = useState('');
+  const [hasLoaded, setHasLoaded] = useState(false); // New state to prevent initial empty state flash
 
   const { showError, showSuccess } = useToast();
   const templatesHook = useTemplates();
 
   // Fetch data on mount
   useEffect(() => {
-    templatesHook.fetchTemplates();
+    templatesHook.fetchTemplates().finally(() => setHasLoaded(true));
   }, []);
+
+  // Debug templates state changes
+  useEffect(() => {
+    console.log('TemplatesListPage - templates updated:', templatesHook.templates);
+    console.log('TemplatesListPage - templates length:', templatesHook.templates.length);
+  }, [templatesHook.templates]);
 
   // Update local search input when searchQuery changes
   useEffect(() => {
@@ -107,8 +116,17 @@ const TemplatesListPage = () => {
     ];
   }, [handleAddTemplate]);
 
-  // Stats
+  // Stats with skeleton loading
   const pageStats = useMemo(() => {
+    if (templatesHook.loading || !hasLoaded) {
+      return [
+        {
+          label: 'Total Templates',
+          value: <Skeleton width="40px" height="1.5rem" />,
+          variant: 'info',
+        },
+      ];
+    }
     return [
       {
         label: 'Total Templates',
@@ -116,7 +134,7 @@ const TemplatesListPage = () => {
         variant: 'info',
       },
     ];
-  }, [templatesHook.templates.length]);
+  }, [templatesHook.templates.length, templatesHook.loading, hasLoaded]);
 
   // Breadcrumb
   const breadcrumbItems = [
@@ -139,11 +157,19 @@ const TemplatesListPage = () => {
           onSearchChange={handleSearchChange}
           searchPlaceholder="Search templates ..."
           searchLoading={templatesHook.searchLoading}
+          loading={templatesHook.loading || !hasLoaded}
         />
 
         {/* Content */}
-        {templatesHook.loading ? (
-          <TableSkeleton rows={5} columns={3} />
+        {templatesHook.loading || !hasLoaded ? (
+          <div style={{
+            border: '1px solid var(--admin-border)',
+            borderRadius: '8px',
+            padding: '1rem',
+            marginTop: '1rem'
+          }}>
+            <TableSkeleton rows={5} columns={2} />
+          </div>
         ) : (
           <DataTable
             data={templatesHook.templates}
@@ -154,7 +180,14 @@ const TemplatesListPage = () => {
             searchLoading={templatesHook.searchLoading}
             emptyState={
               <EmptyState
-                icon="📄"
+                icon={
+                  <Image
+                    src="/assets/images/icons/templates-icon.svg"
+                    alt="Templates"
+                    width={48}
+                    height={48}
+                  />
+                }
                 title="No templates found"
                 description={
                   templatesHook.searchQuery || templatesHook.searchLoading
