@@ -4,6 +4,11 @@ import { useEffect } from 'react';
 
 const ThirdPartyChatWidget = () => {
   useEffect(() => {
+    // Check if we're in the browser
+    if (typeof window === 'undefined') {
+      return;
+    }
+
     // Only load the script if it hasn't been loaded already
     if (document.querySelector('script[src*="roboreception.co.uk"]')) {
       return;
