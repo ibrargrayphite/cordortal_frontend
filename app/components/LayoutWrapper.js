@@ -5,7 +5,7 @@ import { renderComponent } from '../utils/renderComponent';
 import ChatWidget from './ChatWidget';
 import styles from '../Layout.module.css';
 
-const LayoutWrapper = ({ children, shared, location, chatBot, thirdPartyChatWidget }) => {
+const LayoutWrapper = ({ children, shared, location, chatBot, thirdPartyChatWidget, thirdPartyChatScript }) => {
   const pathname = usePathname();
   const isLoginPage = pathname === '/login' || pathname === '/login/';
   const isLeadsPage = pathname === '/leads' || pathname === '/leads/';
@@ -56,18 +56,10 @@ const LayoutWrapper = ({ children, shared, location, chatBot, thirdPartyChatWidg
         </div>
       )}
       {chatBot && <ChatWidget />}
-      {thirdPartyChatWidget && (
+      {thirdPartyChatWidget && thirdPartyChatScript && (
         <script
           dangerouslySetInnerHTML={{
-            __html: `
-              if (typeof window !== 'undefined' && !document.querySelector('script[src*="roboreception.co.uk"]')) {
-                var script = document.createElement('script');
-                script.type = 'text/javascript';
-                script.src = 'https://chat.roboreception.co.uk/widget/f774a99ae12d86a0c03ee1fcf5291718.js';
-                script.async = true;
-                document.head.appendChild(script);
-              }
-            `
+            __html: thirdPartyChatScript
           }}
         />
       )}
