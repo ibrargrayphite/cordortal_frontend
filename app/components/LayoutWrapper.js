@@ -55,8 +55,8 @@ const LayoutWrapper = ({ children, shared, location, chatBot, thirdPartyChatWidg
           }
         </div>
       )}
-      {chatBot && <ChatWidget />}
-      {thirdPartyChatWidget && thirdPartyChatScript && (
+      {!isAdminPage && chatBot && <ChatWidget />}
+      {!isAdminPage && thirdPartyChatWidget && thirdPartyChatScript && (
         <script
           dangerouslySetInnerHTML={{
             __html: thirdPartyChatScript
