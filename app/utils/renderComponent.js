@@ -29,6 +29,7 @@ export const renderComponent = (block) => {
     userReviews:block.userReviews,
     // for map
     src: block.src,
+    movedTo: block.movedTo,
     // for PriceCard and Downloadablelinks
     data: block.data,
     Package: block.Package,

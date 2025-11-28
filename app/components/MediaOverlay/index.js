@@ -7,7 +7,7 @@ import defaultMedia from "../../../public/assets/video/oaklandslandingPageVideo.
 import defaultMedia2 from "../../../public/assets/images/home/oaklandsSkelton.png"
 import Image from "next/image";
 
-const MediaOverlay = ({ media, media2,mediaType, headline, description, style, src, htmlContent }) => {
+const MediaOverlay = ({ media, media2,mediaType, headline, description, style, src, htmlContent, movedTo }) => {
   const mediaSource = media && media?.startsWith('https') ? media : defaultMedia;
   const mediaSource2 = media2 && media2?.startsWith('https') ? media2 : defaultMedia2;
   const [loading, setLoading] = useState(true);
@@ -32,6 +32,9 @@ const MediaOverlay = ({ media, media2,mediaType, headline, description, style, s
       setLoading(false); // Video has finished loading
     }
   }, [loading]); // Trigger when 'loading' changes to false
+
+  const currentDomain = process.env.NEXT_PUBLIC_DOMAIN;
+  const shouldBeLink = currentDomain?.includes('bailiffbridgedental') && movedTo;
 
   return (
     <div className="w-full">
@@ -76,7 +79,20 @@ const MediaOverlay = ({ media, media2,mediaType, headline, description, style, s
 
             {/* Overlay Content */}
             <div className={styles.overlayContent}>
-              <h1 className={styles.headingTextPrimary}>{headline}</h1>
+              {shouldBeLink ? 
+                <h1 className={styles.headingTextPrimary}>
+                  <a 
+                    href={movedTo} 
+                    target="_self" 
+                    rel="noopener noreferrer"
+                    className={styles.headingLink}
+                  >
+                    {headline}
+                  </a>
+                </h1> : 
+                <h1 className={styles.headingTextPrimary}>
+                  {headline}
+                </h1>}
               {/* <h1 className={styles.headingTextSecondary}>
               Live Better
               </h1> */}

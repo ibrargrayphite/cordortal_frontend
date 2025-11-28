@@ -84,6 +84,17 @@
   line-height: 1;
   margin-bottom: 60px;
 }
+
+.headingLink {
+  color: inherit;
+  text-decoration: none;
+  /* transition: color 0.3s ease; */
+}
+
+.headingLink:hover {
+  color: #008b8b;
+}
+
 .headingTextSecondary {
   font-size: 45px;
 }
