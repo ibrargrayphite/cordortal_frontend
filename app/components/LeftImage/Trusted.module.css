@@ -52,7 +52,7 @@
 }
 .headerGroup2 {
   display: flex;
-  justify-content: center;
+  justify-content: start;
   /* height: 350px; */
 }
 .rightArrowAlign {

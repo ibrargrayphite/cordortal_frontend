@@ -13,6 +13,7 @@ export const renderComponent = (block) => {
     headline: block.headline,
     description:block.description,
     media2:block.media2,
+    slider_images:block.slider_images,
     mediaType: block.mediaType,
     // data for services
     services: block.services,

@@ -6,8 +6,12 @@ import styles from "./MediaOverlay.module.css";
 import defaultMedia from "../../../public/assets/video/oaklandslandingPageVideo.mp4"
 import defaultMedia2 from "../../../public/assets/images/home/oaklandsSkelton.png"
 import Image from "next/image";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/swiper-bundle.css";
+import { Autoplay } from "swiper/modules";
 
-const MediaOverlay = ({ media, media2,mediaType, headline, description, style, src, htmlContent, movedTo }) => {
+const MediaOverlay = ({ media, media2,mediaType, headline, description, style, src, htmlContent, movedTo, slider_images }) => {
   const mediaSource = media && media?.startsWith('https') ? media : defaultMedia;
   const mediaSource2 = media2 && media2?.startsWith('https') ? media2 : defaultMedia2;
   const [loading, setLoading] = useState(true);
@@ -50,32 +54,64 @@ const MediaOverlay = ({ media, media2,mediaType, headline, description, style, s
           >
             {/* Always visible overlay */}
             <div className={styles.redOverlay}></div>
+            {console.log('mediaType===>', mediaType, media2)}
             {mediaType === "video" ? (
-              <video
-                id="media-element"
-                className={styles.media}
-                autoPlay
-                muted
-                playsInline
-                loop
-                style={{ display: loading ? "none" : "block" }}
-                loading="lazy"
-              >
-                <source src={mediaSource} type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            ) : (
-              <Image
-                priority={true}
-                width={100}
-                height={100}
-                id="media-element"
-                src={media2}
-                alt="media"
-                className={styles.media}
-                style={{ display: loading ? "none" : "block" }}
-              />
-            )}
+  <video
+    id="media-element"
+    className={styles.media}
+    autoPlay
+    muted
+    playsInline
+    loop
+    style={{ display: loading ? "none" : "block" }}
+    loading="lazy"
+  >
+    <source src={mediaSource} type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+            ) : mediaType === "slider" ? (
+              slider_images && Array.isArray(slider_images) && slider_images.length > 0 ? (
+                <Swiper
+                  modules={[Autoplay]}
+                  autoplay={{
+                    delay: 2000,
+                    disableOnInteraction: false,
+                  }}
+                  loop={true}
+                  className={styles.swiper}
+                >
+                  {slider_images.map((imageUrl, index) => {
+                    const imageSrc =
+                      imageUrl && imageUrl.startsWith("https") ? imageUrl : mediaSource2;
+
+                    return (
+                      <SwiperSlide key={index}>
+                        <Image
+                          priority={index === 0}
+                          width={100}
+                          height={100}
+                          src={imageSrc}
+                          alt={`media ${index + 1}`}
+                          className={styles.media}
+                        />
+                      </SwiperSlide>
+                    );
+                  })}
+                </Swiper>
+              ) : (
+                <Image
+                  priority={true}
+                  width={100}
+                  height={100}
+                  id="media-element"
+                  src={media2}
+                  alt="media"
+                  className={styles.media}
+                  style={{ display: loading ? "none" : "block" }}
+                />
+              )
+            ) : null}
+
 
             {/* Overlay Content */}
             <div className={styles.overlayContent}>

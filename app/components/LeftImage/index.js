@@ -23,7 +23,7 @@ const LeftImage = ({ media, description, htmlContent, isIconButton = false,src }
 
   return (
     <div>
-      <div className="container mx-auto w-full lg:max-w-[960px] xxl:max-w-[1320px]">
+      <div className="container mx-auto w-full lg:max-w-[1100px] xxl:max-w-[1320px]">
         <div className={`${styles.section2} flex flex-wrap`}>
           <div className={`${styles.headerGroup2} w-full md:w-1/2 md:pr-3`}>
             <Image
