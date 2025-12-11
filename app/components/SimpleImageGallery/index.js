@@ -11,13 +11,19 @@ const SimpleImageGallery = ({ media, noBgColor = true }) => {
           {media &&
             media.map((service, index) => (
               <div key={index} className="w-full sm:w-1/3 px-2">
-                <Image
-                  loading="lazy"
-                  width={100} height={100}
-                  src={service.image && service.image?.startsWith('https') ? service.image : defaultMedia.src}
-                  style={{ width: "100%", height: "auto" }}
-                  alt="Dental services image gallery featuring happy patients"
-                />
+                <div className="relative w-full h-[400px] xl:h-[650px] overflow-hidden">
+                  <Image
+                    loading="lazy"
+                    width={100} 
+                    height={100}
+                    src={service.image && service.image?.startsWith('https') ? service.image : defaultMedia.src}
+                    style={{ 
+                      width: "100%", 
+                      height: "100%",
+                    }}
+                    alt="Dental services image gallery featuring happy patients"
+                  />
+                </div>
               </div>
             ))}
         </div>
