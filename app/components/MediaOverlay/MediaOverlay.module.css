@@ -30,6 +30,21 @@
   object-fit: fill;
 }
 
+/* Swiper smooth transitions */
+.swiper {
+  width: 100%;
+  height: 95vh;
+}
+
+.swiper :global(.swiper-slide) {
+  opacity: 0 !important;
+  transition: opacity 1s ease-in-out !important;
+}
+
+.swiper :global(.swiper-slide-active) {
+  opacity: 1 !important;
+}
+
 .skeletonLoader {
   display: flex;
   justify-content: center;

@@ -8,8 +8,9 @@ import defaultMedia2 from "../../../public/assets/images/home/oaklandsSkelton.pn
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import "swiper/css/effect-fade";
 import "swiper/swiper-bundle.css";
-import { Autoplay } from "swiper/modules";
+import { Autoplay, EffectFade } from "swiper/modules";
 
 const MediaOverlay = ({ media, media2,mediaType, headline, description, style, src, htmlContent, movedTo, slider_images }) => {
   const mediaSource = media && media?.startsWith('https') ? media : defaultMedia;
@@ -72,9 +73,12 @@ const MediaOverlay = ({ media, media2,mediaType, headline, description, style, s
             ) : mediaType === "slider" ? (
               slider_images && Array.isArray(slider_images) && slider_images.length > 0 ? (
                 <Swiper
-                  modules={[Autoplay]}
+                  modules={[Autoplay, EffectFade]}
+                  effect="fade"
+                  fadeEffect={{ crossFade: true }}
+                  speed={1000}
                   autoplay={{
-                    delay: 2000,
+                    delay: 3000,
                     disableOnInteraction: false,
                   }}
                   loop={true}
