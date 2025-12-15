@@ -6,16 +6,23 @@ import CrossIcon from "../../../../public/assets/images/cross.svg";
 import locationIcon from "../../../../public/assets/images/location.png";
 import styles from "./Navbar.module.css";
 import { useTheme } from "../../../context/ThemeContext";
+import { useLocation } from "../../../context/LocationContext";
 import defaultMedia from "../../../../public/assets/images/solutions/implants.png";
 import Image from "next/image";
 import { Button } from "../../../components/ui/button";
 import { cn } from "../../../utils/utils";
 
-const NavBar = ({ media, src, name, menuItems, locations }) => {
+const NavBar = ({ media, src, name, menuItems, locations: propsLocations }) => {
   const theme = useTheme();
   const router = useRouter();
   const dropdownRef = useRef(null);
   const currentPath = router.pathname;
+  
+  // Location context for multi-location support
+  const { selectLocation, selectedLocation, hasMultipleLocations, isHydrated, locations: contextLocations } = useLocation();
+  
+  // Use context locations if available (ensures consistency), fallback to props
+  const locations = contextLocations?.length > 0 ? contextLocations : propsLocations;
 
   const [activeItem, setActiveItem] = useState("Home");
   const [expanded, setExpanded] = useState(false);
@@ -63,6 +70,48 @@ const NavBar = ({ media, src, name, menuItems, locations }) => {
 
   const handleBooking = (src) => {
     window.open(src, "_blank");
+  };
+
+  /**
+   * Smart location click handler - supports both existing external links and new context-based selection
+   * @param {Object} location - Location object from data.locations[]
+   */
+  const handleLocationClick = (location) => {
+    // Don't do anything if location is disabled
+    if (location.disable) return;
+
+    const link = location.link;
+    
+    // PRIORITY 1: Has slug or id → use context to switch location (re-render components)
+    // This takes priority because if slug/id exists, we want context-based switching
+    if (location.slug || location.id) {
+      selectLocation(location.slug || location.id);
+      setLocationDropdownVisible(false);
+      setExpanded(false);
+    }
+    // PRIORITY 2: External URL (starts with http/https) → open in new tab (for sites without slug/id)
+    else if (link?.startsWith('http')) {
+      window.open(link, "_blank");
+    }
+    // PRIORITY 3: Internal path (starts with /) → navigate within site
+    else if (link?.startsWith('/')) {
+      router.push(link);
+      setLocationDropdownVisible(false);
+      setExpanded(false);
+    }
+    // PRIORITY 4: Fallback - try to open link in new tab if it exists
+    else if (link) {
+      window.open(link, "_blank");
+    }
+  };
+  
+  /**
+   * Check if a location is currently selected
+   */
+  const isLocationSelected = (location) => {
+    if (!selectedLocation) return false;
+    return (location.slug && location.slug === selectedLocation.slug) ||
+           (location.id && location.id === selectedLocation.id);
   };
 
   // useEffect(() => {
@@ -128,7 +177,7 @@ const NavBar = ({ media, src, name, menuItems, locations }) => {
                 {item.htmlContent && (
                   <span dangerouslySetInnerHTML={{ __html: item.htmlContent }} />
                 )}
-                {item.subItems.length > 0 && (
+                {item.subItems?.length > 0 && (
                   <div className={styles[`${"aboutDropdown"}Content`]}>
                     {item.subItems.map((subItem) => (
                       <a
@@ -190,10 +239,11 @@ const NavBar = ({ media, src, name, menuItems, locations }) => {
                   {locations?.map((loc) => (
                     <a
                       key={loc.name + 2}
-                      className={loc.disable ? styles.disabled : ""}
-                      onClick={() => window.open(loc.link, "_blank")}
+                      className={`${loc.disable ? styles.disabled : ""} ${isLocationSelected(loc) ? styles.selectedLocation : ""}`}
+                      onClick={() => handleLocationClick(loc)}
                     >
-                      {loc.name}
+                      {loc.displayName || loc.shortName || loc.name}
+                      {isLocationSelected(loc) && <span className={styles.checkmark}>✓</span>}
                     </a>
                   ))}
                 </div>
@@ -252,10 +302,11 @@ const NavBar = ({ media, src, name, menuItems, locations }) => {
               {locations?.map((loc) => (
                 <a
                   key={loc.name + 1}
-                  className={`${loc.disable === true ? styles.disabled : ""}`}
-                  onClick={() => window.open(loc.link, "_blank")}
+                  className={`${loc.disable === true ? styles.disabled : ""} ${isLocationSelected(loc) ? styles.selectedLocation : ""}`}
+                  onClick={() => handleLocationClick(loc)}
                 >
-                  {loc.name}
+                  {loc.displayName || loc.shortName || loc.name}
+                  {isLocationSelected(loc) && <span className={styles.checkmark}>✓</span>}
                 </a>
               ))}
             </div>
@@ -313,7 +364,7 @@ const NavBar = ({ media, src, name, menuItems, locations }) => {
                   {item.htmlContent && (
                     <span dangerouslySetInnerHTML={{ __html: item.htmlContent }} />
                   )}
-                  {item.subItems.length > 0 && (
+                  {item.subItems?.length > 0 && (
                     <div className={styles[`${"aboutDropdown"}Content`]}>
                       {item.subItems.map((subItem) => (
                         <a
@@ -385,12 +436,11 @@ const NavBar = ({ media, src, name, menuItems, locations }) => {
                     }`}
                   >
                     {locations?.map((loc) => (
-                      <a key={loc.name+2} className={loc.disable?styles.disabled:""}
-                        onClick={() =>
-                          window.open(loc.link, "_blank")
-                        }
+                      <a key={loc.name+2} className={`${loc.disable?styles.disabled:""} ${isLocationSelected(loc) ? styles.selectedLocation : ""}`}
+                        onClick={() => handleLocationClick(loc)}
                       >
-                        {loc.name}
+                        {loc.displayName || loc.shortName || loc.name}
+                        {isLocationSelected(loc) && <span className={styles.checkmark}>✓</span>}
                       </a>
                     ))}
                   </div>

@@ -1,0 +1,156 @@
+.locationsPage {
+  padding-top: 100px; /* Account for fixed navbar */
+  min-height: 100vh;
+}
+
+/* Loading State */
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  padding-top: 100px;
+}
+
+.loadingSpinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid var(--main-accent-color, #254785);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Hero Section */
+.heroSection {
+  background: linear-gradient(135deg, var(--main-accent-color, #254785) 0%, var(--main-accent-dark, #728ABC) 100%);
+  padding: 4rem 1rem;
+  text-align: center;
+  color: white;
+}
+
+.pageTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.pageSubtitle {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+  .pageTitle {
+    font-size: 1.75rem;
+  }
+  
+  .pageSubtitle {
+    font-size: 1rem;
+  }
+}
+
+/* Locations Section */
+.locationsSection {
+  padding: 4rem 1rem;
+  background-color: var(--bg-color, #f7fbfc);
+}
+
+.noLocations {
+  text-align: center;
+  padding: 3rem;
+  color: var(--content-color, #343a40);
+}
+
+/* Locations Grid */
+.locationsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2rem;
+}
+
+@media (max-width: 480px) {
+  .locationsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Location Card */
+.locationCard {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+}
+
+.locationCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.cardContent {
+  padding: 1.5rem;
+  flex: 1;
+}
+
+.locationName {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--headline-color, #4C68A0);
+  margin-bottom: 0.5rem;
+}
+
+.locationAddress {
+  color: var(--content-color, #343a40);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 0.75rem;
+}
+
+.locationPhone {
+  color: var(--sub-headline-color, #1d3557);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.defaultBadge {
+  display: inline-block;
+  background-color: var(--main-accent-color, #254785);
+  color: white;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  margin-top: 0.75rem;
+}
+
+/* Card Action */
+.cardAction {
+  padding: 1rem 1.5rem;
+  background-color: var(--bg-color, #f7fbfc);
+  border-top: 1px solid #eee;
+}
+
+.viewButton {
+  color: var(--main-accent-color, #254785);
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.locationCard:hover .viewButton {
+  color: var(--main-accent-dark, #728ABC);
+}
+

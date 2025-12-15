@@ -1,12 +1,34 @@
+"use client";
+
 import React from 'react';
 import styles from "./HoursOfOperation.module.css";
+import { useLocation } from '../../context/LocationContext';
 
-const HoursOfOperation = ({ hoursData = [],lunchTime }) => {
+const HoursOfOperation = ({ hoursData: propHoursData, lunchTime: propLunchTime }) => {
+  // Get data from location context
+  const locationContext = useLocation();
+  
+  // Use props if provided (backward compatibility), otherwise use context
+  const hoursData = propHoursData ?? locationContext?.hoursData ?? [];
+  const lunchTime = propLunchTime ?? locationContext?.lunchTime ?? '';
+  const specialHours = locationContext?.specialHours ?? [];
+
+  // Check if today has special hours
+  const today = new Date().toISOString().split('T')[0];
+  const todaySpecial = specialHours.find(sh => sh.date === today);
 
   return (
     <div className="container mx-auto" style={{ paddingBottom: 25 }}>
       <h2 className={styles.heading}>Clinic Hours</h2>
-      {hoursData.map(({ day, time }, index) => (
+      
+      {/* Special hours alert for today */}
+      {todaySpecial && (
+        <div className={styles.specialAlert}>
+          <strong>⚠️ {todaySpecial.label}:</strong> {todaySpecial.time}
+        </div>
+      )}
+      
+      {hoursData?.map(({ day, time }, index) => (
         <div key={index} className="flex flex-wrap py-2">
           <div className='w-1/2 sm:w-1/3'>
             <strong>{day}:</strong>
@@ -16,11 +38,13 @@ const HoursOfOperation = ({ hoursData = [],lunchTime }) => {
           </div>
         </div>
       ))}
-      <div className="flex flex-wrap mt-3">
-        <div className={`w-full ${styles.closed}`}>
-          <strong>Closed for lunch:</strong> {lunchTime}
+      {lunchTime && (
+        <div className="flex flex-wrap mt-3">
+          <div className={`w-full ${styles.closed}`}>
+            <strong>Closed for lunch:</strong> {lunchTime}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

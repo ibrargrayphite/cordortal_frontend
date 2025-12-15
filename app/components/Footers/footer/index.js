@@ -10,12 +10,25 @@ import HoursOfOperation from "../../HoursOfOperations";
 import CustomButton from "../../CustomButton";
 import { useTheme } from "../../../context/ThemeContext";
 import { usePages } from '../../../context/PagesContext';
+import { useLocation } from '../../../context/LocationContext';
 import { isAuthenticated } from '../../../utils/auth';
 import { useState, useEffect } from 'react';
 
 const Footer = ({ src, refersrc, title,data,media,noBgColor,footerLogin }) => {
   const { pages } = usePages();
-  const ContactCardData = pages.data || {};
+  const locationContext = useLocation();
+  
+  // Use location context for contact data (with fallback to pages.data for backward compatibility)
+  const ContactCardData = {
+    phone: locationContext?.phone || pages.data?.phone || '',
+    email: locationContext?.email || pages.data?.email || '',
+    address: locationContext?.address || pages.data?.address || '',
+    media: pages.data?.media || '',
+    phoneMedia: pages.data?.phoneMedia || '',
+    emailMedia: pages.data?.emailMedia || '',
+    addressMedia: pages.data?.addressMedia || '',
+  };
+  
   const theme = useTheme();
   const router = useRouter();
   const [authenticated, setAuthenticated] = useState(false);
@@ -82,7 +95,8 @@ const Footer = ({ src, refersrc, title,data,media,noBgColor,footerLogin }) => {
           <div className="flex flex-wrap md:text-center lg:text-start">
             <div className="xxl:w-1/6" />
             <div className="w-full lg:w-1/3">
-              <HoursOfOperation hoursData={data?.hoursData} lunchTime={data?.lunchTime}/>
+              {/* HoursOfOperation now uses LocationContext for location-specific hours */}
+              <HoursOfOperation />
             </div>
             {/* for mobile view */}
             <div

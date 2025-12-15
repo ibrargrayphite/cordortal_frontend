@@ -4,6 +4,7 @@ import styles from './Layout.module.css';
 import { renderComponent } from './utils/renderComponent';
 import { ThemeProvider } from './context/ThemeContext';
 import { PagesProvider } from './context/PagesContext';
+import LocationProviderWrapper from './components/LocationProviderWrapper';
 import { fetchPagesData } from './utils/fetchPagesData';
 import localFont from 'next/font/local';
 import ChatWidget from './components/ChatWidget';
@@ -63,7 +64,8 @@ export default async function RootLayout({ children }) {
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
       </head>
       <PagesProvider pagesData={pagesData}>
-        <ThemeProvider>
+        <LocationProviderWrapper pagesData={pagesData}>
+          <ThemeProvider>
           <body
             style={{
               '--dynamic-font': activeFont.style.fontFamily,
@@ -96,6 +98,7 @@ export default async function RootLayout({ children }) {
             </ToastWrapper>
           </body>
         </ThemeProvider>
+        </LocationProviderWrapper>
       </PagesProvider>
     </html>
   );
