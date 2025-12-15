@@ -1,0 +1,245 @@
+.locationPage {
+  padding-top: 100px; /* Account for fixed navbar */
+  min-height: 100vh;
+}
+
+/* Loading State */
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  padding-top: 100px;
+}
+
+.loadingSpinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid var(--main-accent-color, #254785);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Not Found State */
+.notFoundContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  padding-top: 100px;
+  text-align: center;
+}
+
+.notFoundContainer h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--headline-color, #4C68A0);
+}
+
+.notFoundContainer p {
+  color: var(--content-color, #343a40);
+  margin-bottom: 2rem;
+}
+
+.backButton {
+  background-color: var(--main-accent-color, #254785);
+  color: white;
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.backButton:hover {
+  background-color: var(--main-accent-dark, #728ABC);
+}
+
+/* Hero Section */
+.heroSection {
+  background: linear-gradient(135deg, var(--main-accent-color, #254785) 0%, var(--main-accent-dark, #728ABC) 100%);
+  padding: 4rem 1rem;
+  text-align: center;
+  color: white;
+}
+
+.locationTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.locationAddress {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+  .locationTitle {
+    font-size: 1.75rem;
+  }
+  
+  .locationAddress {
+    font-size: 1rem;
+  }
+}
+
+/* Info Section */
+.infoSection {
+  padding: 4rem 1rem;
+  background-color: var(--bg-color, #f7fbfc);
+}
+
+.infoCard {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  height: 100%;
+}
+
+.sectionTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--headline-color, #4C68A0);
+  margin-bottom: 1.5rem;
+}
+
+/* Contact Items */
+.contactItem {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.contactLabel {
+  font-weight: 600;
+  color: var(--sub-headline-color, #1d3557);
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+}
+
+.contactValue {
+  color: var(--content-color, #343a40);
+}
+
+.contactLink {
+  color: var(--main-accent-color, #254785);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.contactLink:hover {
+  color: var(--main-accent-dark, #728ABC);
+  text-decoration: underline;
+}
+
+/* Booking Button */
+.bookingButtonWrapper {
+  margin-top: 1.5rem;
+}
+
+.bookingButton {
+  display: inline-block;
+  background-color: var(--main-accent-color, #254785);
+  color: white;
+  padding: 0.875rem 2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.bookingButton:hover {
+  background-color: var(--main-accent-dark, #728ABC);
+  transform: translateY(-2px);
+}
+
+/* Special Hours */
+.specialHours {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #eee;
+}
+
+.specialHours h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--sub-headline-color, #1d3557);
+  margin-bottom: 0.75rem;
+}
+
+.specialHourItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px dashed #eee;
+}
+
+.specialDate {
+  color: var(--content-color, #343a40);
+  font-weight: 500;
+}
+
+.specialTime {
+  color: #dc3545;
+  font-weight: 600;
+}
+
+/* Map Section */
+.mapSection {
+  padding: 4rem 1rem;
+  background: white;
+}
+
+.mapWrapper {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.mapWrapper iframe {
+  display: block;
+}
+
+.mapLinkWrapper {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.mapLink {
+  color: var(--main-accent-color, #254785);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.mapLink:hover {
+  text-decoration: underline;
+}
+
+/* Team Section */
+.teamSection {
+  padding: 4rem 1rem;
+  background-color: var(--bg-color, #f7fbfc);
+}
+
+.teamSection .sectionTitle {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Get In Touch Section */
+.getInTouchSection {
+  padding: 0;
+}
+

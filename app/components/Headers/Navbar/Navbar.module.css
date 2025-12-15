@@ -327,3 +327,20 @@ li.informationDropdown {
   }
 }
 
+/* Selected location styles */
+.selectedLocation {
+  background: rgba(31, 69, 177, 0.12) !important;
+  color: var(--main-accent-color, #254785) !important;
+  font-weight: 700 !important;
+}
+
+.selectedLocation:hover {
+  background: rgba(31, 69, 177, 0.18) !important;
+}
+
+.checkmark {
+  margin-left: 8px;
+  color: var(--main-accent-color, #254785);
+  font-weight: bold;
+}
+
