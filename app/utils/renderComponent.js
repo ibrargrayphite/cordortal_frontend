@@ -71,6 +71,10 @@ export const renderComponent = (block) => {
     locations:block.locations,
     // footer login button
     footerLogin: block.footerLogin,
-  
+    // for plans page
+    plans: block.plans,
+    // for plans services information component
+    content: block.content,
+    heading: block.heading,
   });
 };

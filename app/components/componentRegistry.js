@@ -41,6 +41,8 @@ const componentRegistry = {
   BillingCardOffer: dynamic(() => import("./BillingCardOffer")),
   CaseStudyCard: dynamic(() => import("./CaseStudyCard")),
   SeoInvisibleContent: dynamic(() => import("./SeoInvisibleContent")),
+  PlanCard: dynamic(() => import("./PlanCard")),
+  Information: dynamic(() => import("./Information")),
 };
 
 export default componentRegistry;

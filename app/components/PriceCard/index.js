@@ -9,16 +9,16 @@ const PriceCard = ({ Package = false, data }) => {
 
   return (
     <div className="container lg:max-w-[960px] xxl:max-w-[1320px] mx-auto">
-      <div className="flex flex-wrap justify-center">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
         {data.map((item, index) => (
           <div
             key={index}
-            className="w-full sm:w-7/12 lg:w-3/12 px-2 flex"
+            className="flex flex-col"
           >
             {/* Card */}
             <div className={`${styles.cardParent} flex flex-col flex-grow`}>
               {/* Inner content wrapper */}
-              <div className="flex flex-col flex-grow container">
+              <div className="flex flex-col flex-grow container p-4">
                 <p className={styles.cardHeading}>{item.headline}</p>
                 {/* Conditionally show cardPricing when Package is true */}
                 {Package && (

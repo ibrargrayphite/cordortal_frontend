@@ -28,7 +28,7 @@ const Faq = ({ data }) => (
               <ol className="pl-8">
                 {item.content.map((subItem, subIndex) => (
                   <li key={subIndex}>
-                    <strong>{subItem.headline}</strong>: {subItem.content}
+                    {subItem.headline && <strong>{subItem.headline}:</strong>} {subItem.content}
                   </li>
                 ))}
               </ol>

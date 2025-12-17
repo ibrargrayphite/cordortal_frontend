@@ -20,7 +20,7 @@ const Home = () => {
   const filtered = filterByPage(pages.pages, "Homepage"); // Use context data
   console.log('homePage', filtered)
   return (
-    <div className={styles.MarginTopDefault}>
+    <div>
       <ScrollHandler sectionScroll={null} scrollToCenter={false} />
       {filtered.length > 0 ? (
         filtered.map((page, pageIndex) => (

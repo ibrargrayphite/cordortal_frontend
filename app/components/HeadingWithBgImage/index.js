@@ -17,7 +17,7 @@ const HeadingWithBgImage = ({
   return (
     <>
       {withoutBgImageHeading ? (
-        <div className="container w-full xxl:max-w-[1320px] xl:mx-auto">
+        <div className="container w-full xxl:max-w-[1320px] mx-auto">
           <p
             className={
               headlineLarge ? styles.HeadlineLarge : styles.Headline
