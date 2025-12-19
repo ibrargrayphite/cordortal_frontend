@@ -14,13 +14,13 @@ const ServiceCard = ({
 
   return (
     <div className={noBgColor ? styles.noBgColor : styles.solutionsContainer0}>
-      <div className={`${styles.servicesParent} container w-full lg:max-w-[960px] xxl:max-w-[1320px] mx-auto`}>
-        <div className={styles.cardGrid}>
+      <div className={`pt-4 md:pt-2 lg:pt-16 container w-full lg:max-w-[960px] xxl:max-w-[1320px] mx-auto`}>
+        <div className={`${styles.cardGrid} gap-0`}>
           {services &&
             services.map((service, index) => (
               <div
                 key={index}
-                className={styles.cardGap}
+                className="m-2 md:m-3 lg:m-4"
                 onClick={() => {
                   if (!noClickableCard) {
                     router.push(`/services/${service?.slug}`);

@@ -331,7 +331,7 @@ const NavBar = ({ media, src, name, menuItems, locations: propsLocations }) => {
             ) : (
               <MenuIcon
                 height={24}
-                width={48}
+                width={30}
                 className={styles.mobileMenuIcon}
                 alt="menu"
               />

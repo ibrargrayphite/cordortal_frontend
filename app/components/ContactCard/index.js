@@ -10,7 +10,7 @@ export default function ContactCard({ data }) {
   const router = useRouter();
 
   return (
-    <div className={`${styles.footerContactCard}  lg:absolute xs:relative xs:right-0 lg:right-[-150px] lg:mr-[200px] max-lg:m-auto` }>
+    <div className={`${styles.footerContactCard} lg:absolute xs:relative xs:right-0 lg:right-[-150px] lg:mr-[200px] max-lg:m-auto` }>
       <Image
       loading="lazy"
         src={data.media && data.media?.startsWith('https') ? data.media : defaultMedia.src}
@@ -20,7 +20,7 @@ export default function ContactCard({ data }) {
         className={styles.brandLogo}
         onClick={() => router.push('/')}
       />
-      <div style={{ marginTop: 30 }} />
+      <div className="mt-2 md:mt-4 lg:mt-6" />
       
       {/* Address Section */}
       <div className={styles.address}>

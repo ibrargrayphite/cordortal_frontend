@@ -51,9 +51,9 @@ const HeadingWithBgImage = ({
           <div className="container xxl:max-w-[1320px] mx-auto">
             <div
               className={
-                headlineLarge
+                `${headlineLarge
                   ? styles.headingContainerLarge
-                  : styles.headingContainer
+                  : styles.headingContainer} pt-4 md:pt-10 lg:pt-16`
               }
             >
               {/* Background image (if needed in future) */}

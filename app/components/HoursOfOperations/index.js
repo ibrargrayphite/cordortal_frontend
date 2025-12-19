@@ -18,7 +18,7 @@ const HoursOfOperation = ({ hoursData: propHoursData, lunchTime: propLunchTime }
   const todaySpecial = specialHours.find(sh => sh.date === today);
 
   return (
-    <div className="container mx-auto" style={{ paddingBottom: 25 }}>
+    <div className="container mx-auto pb-4">
       <h2 className={styles.heading}>Clinic Hours</h2>
       
       {/* Special hours alert for today */}
@@ -29,11 +29,11 @@ const HoursOfOperation = ({ hoursData: propHoursData, lunchTime: propLunchTime }
       )}
       
       {hoursData?.map(({ day, time }, index) => (
-        <div key={index} className="flex flex-wrap py-2">
-          <div className='w-1/2 sm:w-1/3'>
+        <div key={index} className="flex flex-col sm:flex-row sm:flex-wrap py-2">
+          <div className='w-full sm:w-1/3 mb-1 sm:mb-0'>
             <strong>{day}:</strong>
           </div>
-          <div className='w-1/2 sm:w-2/3'>
+          <div className='w-full sm:w-2/3 break-words sm:whitespace-nowrap'>
             {time}
           </div>
         </div>

@@ -64,7 +64,7 @@ const HeaderDefault = ({ media, name, menuItems, button }) => {
               ) : (
                 <MenuIcon
                   height={24}
-                  width={48}
+                  width={30}
                   className={styles.mobileMenuIcon}
                   alt="menu"
                 />

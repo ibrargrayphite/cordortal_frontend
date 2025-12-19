@@ -107,7 +107,7 @@ const GetInTouch = ({headline,media}) => {
   };
 
   return (
-    <section className="w-full py-16 px-2">
+    <section className="w-full py-4 md:py-10 lg:py-16 px-2">
       <ToastContainer />
       <div className="mx-auto max-w-4xl">
         <div className="flex flex-col md:flex-row items-stretch bg-white/95 rounded-2xl shadow-2xl overflow-hidden border border-border">

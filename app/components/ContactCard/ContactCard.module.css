@@ -13,9 +13,11 @@
 }
 
 .brandLogo {
-  width: 100%;
+  width: 150px;
   cursor: pointer;
   max-height: 100px;
+  align-self: center;
+  object-fit: cover;
 }
 
 .contactCardTagline {
@@ -68,8 +70,8 @@
 
 @media only screen and (max-width: 500px) {
   .footerContactCard {
-    max-width: 300px;
-    padding: 30px;
+    max-width: 390px;
+    padding: 20px;
     /* width: --we; */
   }
   .addressDetails {

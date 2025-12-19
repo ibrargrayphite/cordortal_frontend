@@ -92,7 +92,7 @@ const Footer = ({ src, refersrc, title,data,media,noBgColor,footerLogin }) => {
           className={`w-full ${styles.contentMain}`}
           style={{ background: noBgColor?"":"#1f45b105", paddingTop: 30 }}
         >
-          <div className="flex flex-wrap md:text-center lg:text-start">
+          <div className="flex flex-wrap pl-2 md:text-start md:pl-12 lg:pl-12 2xl:pl-0">
             <div className="xxl:w-1/6" />
             <div className="w-full lg:w-1/3">
               {/* HoursOfOperation now uses LocationContext for location-specific hours */}
