@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import CustomButton from "../CustomButton";
 import styles from "./MediaOverlay.module.css";
@@ -30,13 +30,21 @@ const MediaOverlay = ({ media, media2,mediaType, headline, description, style, s
     window.open(src, "_blank");
   };
 
+  // Handle video ready to play
+  const handleVideoCanPlay = () => {
+    setLoading(false);
+  };
 
-  useEffect(() => {
-    if (mediaSource) {
-      // Only attempt autoplay after the video has loaded
-      setLoading(false); // Video has finished loading
-    }
-  }, [loading]); // Trigger when 'loading' changes to false
+  // Handle video error
+  const handleVideoError = () => {
+    setMediaError(true);
+    setLoading(false);
+  };
+
+  // For slider, set loading to false once swiper is initialized
+  const handleSliderInit = () => {
+    setLoading(false);
+  };
 
   const currentDomain = process.env.NEXT_PUBLIC_DOMAIN;
   const shouldBeLink = currentDomain?.includes('bailiffbridgedental') && movedTo;
@@ -45,14 +53,17 @@ const MediaOverlay = ({ media, media2,mediaType, headline, description, style, s
     <div className="w-full">
       <div className="grid grid-cols-1">
         <div className="col-span-1 px-0">
-          <div
-            className={styles.mediaOverlayContainer}
-            style={{
-              ...style,
-              backgroundImage: loading ? `url(${mediaSource2})` : "none", // Show the image while loading
-              // height: loading || mediaError ? "700px" : "auto",
-            }}
-          >
+            <div
+              className={styles.mediaOverlayContainer}
+              style={{
+                ...style,
+                // Keep background image visible when loading OR when mediaType is not video/slider
+                backgroundImage: (loading || (mediaType !== "video" && mediaType !== "slider")) 
+                  ? `url(${mediaSource2})` 
+                  : "none",
+                // height: loading || mediaError ? "700px" : "auto",
+              }}
+            >
             {/* Always visible overlay */}
             <div className={styles.redOverlay}></div>
             {console.log('mediaType===>', mediaType, media2)}
@@ -65,7 +76,8 @@ const MediaOverlay = ({ media, media2,mediaType, headline, description, style, s
     playsInline
     loop
     style={{ display: loading ? "none" : "block" }}
-    loading="lazy"
+    onCanPlay={handleVideoCanPlay}
+    onError={handleVideoError}
   >
     <source src={mediaSource} type="video/mp4" />
     Your browser does not support the video tag.
@@ -83,6 +95,7 @@ const MediaOverlay = ({ media, media2,mediaType, headline, description, style, s
                   }}
                   loop={true}
                   className={styles.swiper}
+                  onSwiper={handleSliderInit}
                 >
                   {slider_images.map((imageUrl, index) => {
                     const imageSrc =
@@ -114,7 +127,20 @@ const MediaOverlay = ({ media, media2,mediaType, headline, description, style, s
                   style={{ display: loading ? "none" : "block" }}
                 />
               )
+            ) : mediaType === "image" ? (
+              // Handle explicit image type
+              <Image
+                priority={true}
+                width={100}
+                height={100}
+                id="media-element"
+                src={mediaSource2}
+                alt="media"
+                className={styles.media}
+                onLoad={() => setLoading(false)}
+              />
             ) : null}
+            {/* When mediaType is undefined/null, the background image from CSS will show */}
 
 
             {/* Overlay Content */}
