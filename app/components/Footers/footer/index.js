@@ -152,8 +152,8 @@ const Footer = ({ src, refersrc, title,data,media,noBgColor,footerLogin }) => {
           </div>
           {/* for desktop */}
           <div className="md:flex flex-wrap hidden">
-            <div className="w-full lg:w-1/3"/>
-            <div className={`w-full lg:w-1/3 flex flex-col text-center ${styles.hideOnMobile}`}>
+            {/* <div className="w-full lg:w-1/3"/> */}
+            <div className={`w-full flex flex-col items-center justify-center ${styles.hideOnMobile}`}>
               <div className={`max-lg:mt-0 max-xl:mt-40 ${styles.leftButton}`}>
                 <CustomButton
                   headline="Book an Appointment"
@@ -176,68 +176,58 @@ const Footer = ({ src, refersrc, title,data,media,noBgColor,footerLogin }) => {
                 </ul>
               </div>
             </div>
-            <div className="flex-1" />
+            {/* <div className="flex-1" /> */}
           </div>
-          <div className="flex flex-wrap">
-            <div className="w-full lg:w-1/6" />
-            <div className={`w-full lg:w-8/12 ${styles.footerContent}`}>
-              <div className={styles.contentMain}>
-                <ul className={styles.footerLink}>
-                  <div className="w-full px-6 pb-6">
-                    <div className="flex flex-wrap">
-                      {footerLinks.map((link, index) => (
-                        <div key={index} className="w-1/2 lg:w-1/3">
-                          <li>
-                            <a
-                              style={{ cursor: "pointer" }}
-                              onClick={() =>
-                                handleNavigation(link.path, link.external || false)
-                              }
-                            >
-                              {link.label}
-                            </a>
-                          </li>
-                        </div>
-                      ))}
-                      {/* Login button - show if footerLogin is true and component is mounted */}
-                      {mounted && footerLogin && (
-                        <div className="w-1/2 lg:w-1/3">
-                          <li>
-                            <a
-                              style={{ 
-                                cursor: "pointer",
-                                fontSize: "0.9rem",
-                                opacity: 0.8
-                              }}
-                              onClick={handleLogin}
-                            >
-                              Login
-                            </a>
-                          </li>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </ul>
-              </div>
+          <div className={`container mx-auto lg:max-w-[960px] xxl:max-w-[1320px] ${styles.footerLinksWrapper}`}>
+            <div className={styles.footerLinksContainer}>
+              <ul className={styles.footerLinkContainer}>
+                {footerLinks.map((link, index) => (
+                  <li key={index} className={styles.footerLinkItem}>
+                    <a
+                      className={styles.footerLinkAnchor}
+                      style={{ cursor: "pointer" }}
+                      onClick={() =>
+                        handleNavigation(link.path, link.external || false)
+                      }
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+                {/* Login button - show if footerLogin is true and component is mounted */}
+                {mounted && footerLogin && (
+                  <li className={styles.footerLinkItem}>
+                    <a
+                      className={styles.footerLinkAnchor}
+                      style={{ 
+                        cursor: "pointer",
+                        fontSize: "0.9rem",
+                        opacity: 0.8
+                      }}
+                      onClick={handleLogin}
+                    >
+                      Login
+                    </a>
+                  </li>
+                )}
+              </ul>
             </div>
-            <div className="w-full lg:w-1/6" />
           </div>
         </div>
       </footer>
-      <div className={styles.copywrightText}>
-        Copyright 2024 All Rights Reserved by{" "}
-        <a
-          onClick={handleHome}
-          style={{
-            color: "#52575D",
-            textDecoration: "underline",
-            cursor: "pointer",
-          }}
-        >
-          {title}
-        </a>
-        .
+      <div className={styles.copyrightSection}>
+        <div className={styles.copyrightContent}>
+          <p className={styles.copyrightText}>
+            Copyright © {new Date().getFullYear()} All Rights Reserved by{" "}
+            <a
+              onClick={handleHome}
+              className={styles.copyrightLink}
+            >
+              {title}
+            </a>
+            .
+          </p>
+        </div>
       </div>
     </>
   );

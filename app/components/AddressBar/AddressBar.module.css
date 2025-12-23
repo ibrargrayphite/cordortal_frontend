@@ -72,7 +72,7 @@
     position: absolute;
     top: 100%;
     right: 0;
-    background: white;
+    background: color-mix(in srgb, var(--main-accent-color) 10%, white);
     border-radius: 4px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     margin-top: 4px;
@@ -97,7 +97,6 @@
     align-items: center;
     justify-content: space-between;
     transition: background-color 0.2s ease;
-    border-bottom: 1px solid #f0f0f0;
 }
 
 .dropdownItem:last-child {
@@ -105,11 +104,11 @@
 }
 
 .dropdownItem:hover {
-    background-color: rgba(31, 69, 177, 0.08);
+    background-color: color-mix(in srgb, var(--main-accent-color) 20%, white);
 }
 
 .selectedLocation {
-    background-color: rgba(31, 69, 177, 0.12) !important;
+    background-color: color-mix(in srgb, var(--main-accent-color) 40%, white) !important;
     color: var(--main-accent-color, #254785) !important;
     font-weight: 700 !important;
 }

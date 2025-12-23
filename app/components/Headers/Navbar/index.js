@@ -199,7 +199,7 @@ const NavBar = ({ media, src, name, menuItems, locations: propsLocations }) => {
                   onClick={() => handleNavigation("/emergency")}
                   variant="emergency"
                   className={cn(
-                    "border-2 border-red-500",
+                    "border-2 border-red-500 bg-[color-mix(in_srgb,var(--main-accent-color)_20%,white)]",
                     "hover:bg-red-500",
                     "hover:border-white"
                   )}
@@ -396,7 +396,7 @@ const NavBar = ({ media, src, name, menuItems, locations: propsLocations }) => {
                     onClick={() => handleNavigation("/emergency")}
                     variant="emergency"
                     className={cn(
-                      "border-2 border-red-500",
+                      "border-2 border-red-500 bg-[color-mix(in_srgb,var(--main-accent-color)_20%,white)]",
                       "hover:bg-red-500",
                       "hover:border-white"
                     )}
