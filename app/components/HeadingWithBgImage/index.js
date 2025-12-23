@@ -27,10 +27,10 @@ const HeadingWithBgImage = ({
           {(description || showAnchorCall || telephoneNumber || anchorTextEnd) && (
             <div className="flex flex-wrap">
               {/* left spacer */}
-              <div className="hidden lg:block flex-1" />
+              {/* <div className="hidden lg:block flex-1" /> */}
 
               {/* main content */}
-              <div className="w-full mx-auto flex items-center justify-center lg:w-9/12">
+              <div className="w-[95%] mx-auto flex items-center justify-center sm:w-[58%] md:w-[60%] lg:w-1/2 xl:w-[40%]">
                 <p className={styles.text}>
                   {description}{" "}
                   {showAnchorCall && (
@@ -42,7 +42,7 @@ const HeadingWithBgImage = ({
               </div>
 
               {/* right spacer */}
-              <div className="hidden lg:block flex-1" />
+              {/* <div className="hidden lg:block flex-1" /> */}
             </div>
           )}
         </div>
@@ -79,7 +79,7 @@ const HeadingWithBgImage = ({
               <div className="hidden lg:block flex-1" />
 
               {/* main content */}
-              <div className="w-full mx-auto flex items-center justify-center lg:w-9/12">
+              <div className="w-[95%] mx-auto flex items-center justify-center sm:w-[58%] md:w-[60%] lg:w-1/2 xl:w-[40%]">
                 <p
                   className={
                     description ? styles.textImage : styles.textImageHide

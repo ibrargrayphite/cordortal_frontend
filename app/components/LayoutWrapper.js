@@ -3,6 +3,7 @@
 import { usePathname } from 'next/navigation';
 import { renderComponent } from '../utils/renderComponent';
 import ChatWidget from './ChatWidget';
+import AddressBar from './AddressBar';
 import styles from '../Layout.module.css';
 
 const LayoutWrapper = ({ children, shared, location, chatBot, thirdPartyChatWidget, thirdPartyChatScript }) => {
@@ -36,7 +37,8 @@ const LayoutWrapper = ({ children, shared, location, chatBot, thirdPartyChatWidg
           button: shared.header?.button,
         })
       }
-      <main className='mt-[60px] md:mt-[80px]'>{children}</main>
+      {!isAdminPage && <AddressBar />}
+      <main className='mt-[96px] sm:mt-[96px] md:mt-[12px] lg:mt-[115px] xl:mt-[130px]'>{children}</main>
       {/* Only show footer if not on admin pages */}
       {!isAdminPage && (
         <div className={styles.footerContaner}>

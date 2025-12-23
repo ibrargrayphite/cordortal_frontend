@@ -210,7 +210,7 @@ const NavBar = ({ media, src, name, menuItems, locations: propsLocations }) => {
             </div>
 
             {/* Desktop location dropdown */}
-            <div className={styles.locationDropdown}>
+            {/* <div className={styles.locationDropdown}>
               <div
                 className={`${styles.informationDropdown} !mb-4 lg:!mb-0`}
                 ref={dropdownRef}
@@ -248,7 +248,7 @@ const NavBar = ({ media, src, name, menuItems, locations: propsLocations }) => {
                   ))}
                 </div>
               </div>
-            </div>
+            </div> */}
 
             {/* Book Online button */}
             <Button
@@ -266,7 +266,7 @@ const NavBar = ({ media, src, name, menuItems, locations: propsLocations }) => {
         {/* Mobile controls (only on < md) */}
         <div className={`flex lg:hidden items-center gap-2 ${styles.locationMob}`}>
           {/* Location dropdown (mobile) */}
-          <div
+          {/* <div
             style={{
               margin: "0px 6px",
               display: "flex",
@@ -310,7 +310,7 @@ const NavBar = ({ media, src, name, menuItems, locations: propsLocations }) => {
                 </a>
               ))}
             </div>
-          </div>
+          </div> */}
 
           {/* Mobile menu toggle */}
           <button
@@ -408,7 +408,7 @@ const NavBar = ({ media, src, name, menuItems, locations: propsLocations }) => {
                   </div> */}
                 </div>
               </div>
-              <div className={styles.locationDropdown}>
+              {/* <div className={styles.locationDropdown}>
                 <div
                   // style={{ margin: "0px 18px" }}
                   className={`${styles.informationDropdown} mb-4 lg:!mb-0`}
@@ -445,7 +445,7 @@ const NavBar = ({ media, src, name, menuItems, locations: propsLocations }) => {
                     ))}
                   </div>
                 </div>
-              </div>
+              </div> */}
             <Button
               onClick={() => handleBooking(src)}
               className={`${styles.customNavbarBtn} bg-main-accent`}

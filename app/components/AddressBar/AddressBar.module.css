@@ -1,0 +1,166 @@
+.addressBar {
+    position: fixed;
+    top: 90px;
+    /* Adjust based on header height */
+    left: 0;
+    right: 0;
+    z-index: 1099;
+    /* Just below header */
+    padding: 10px 0;
+    background: var(--headline-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.addressBarContainer {
+    position: relative;
+}
+
+.addressContent {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    width: 100%;
+}
+
+.addressWrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.locationIcon {
+    flex-shrink: 0;
+    filter: brightness(0) invert(1);
+    opacity: 1;
+}
+
+.addressText {
+    font-size: 14px;
+    font-weight: 500;
+    color: #ffffff;
+    line-height: 1.4;
+    cursor: pointer;
+}
+
+.dropdownWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.dropdownButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px 8px;
+    display: flex;
+    align-items: center;
+    color: #ffffff;
+}
+
+.chevronIcon {
+    transition: transform 0.2s ease;
+    color: #ffffff;
+}
+
+.chevronOpen {
+    transform: rotate(180deg);
+}
+
+.dropdownMenu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    margin-top: 4px;
+    min-width: 300px;
+    z-index: 1000;
+    overflow: hidden;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.dropdownItem {
+    width: 100%;
+    padding: 12px 16px;
+    text-align: left;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background-color 0.2s ease;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.dropdownItem:last-child {
+    border-bottom: none;
+}
+
+.dropdownItem:hover {
+    background-color: rgba(31, 69, 177, 0.08);
+}
+
+.selectedLocation {
+    background-color: rgba(31, 69, 177, 0.12) !important;
+    color: var(--main-accent-color, #254785) !important;
+    font-weight: 700 !important;
+}
+
+.checkmark {
+    margin-left: 8px;
+    color: var(--main-accent-color, #254785);
+    font-weight: bold;
+}
+
+@media (min-width: 991px) and (max-width: 1200px) {
+    .addressBar {
+        top: 79px;
+        /* Adjust for mobile header height */
+        padding: 8px 0;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 990px) {
+    .addressBar {
+        top: 93px;
+        /* Adjust for mobile header height */
+        padding: 8px 0;
+    }
+}
+
+@media (min-width: 640px) and (max-width: 767px) {
+    .addressBar {
+        top: 60px;
+        /* Adjust for mobile header height */
+        padding: 8px 0;
+    }
+}
+
+@media (max-width: 639px) {
+    .addressBar {
+        top: 60px;
+        /* Adjust for mobile header height */
+        padding: 8px 0;
+    }
+
+    .addressText {
+        font-size: 13px;
+    }
+
+    .addressContent {
+        gap: 8px;
+        justify-content: flex-end;
+    }
+
+    .dropdownMenu {
+        min-width: 250px;
+    }
+}
