@@ -58,7 +58,7 @@ api.interceptors.response.use(
         } else {
           message = error.response.data.detail;
         }
-      } else if (error.response.data.message) {
+      } else if (error.response.data.message && !Array.isArray(error.response.data.message)) {
         message = error.response.data.message;
       } else if (error.response.data.error) {
         message = error.response.data.error;
@@ -85,6 +85,11 @@ api.interceptors.response.use(
         default:
           message = `HTTP error! status: ${status}`;
       }
+    }
+    // For 400 errors with validation data, preserve the original error structure
+    if (status === 400 && error.response.data && typeof error.response.data === 'object' && !error.response.data.detail && !error.response.data.error && typeof error.response.data !== 'string') {
+      const validationError = error;
+      return Promise.reject(validationError);
     }
 
     return Promise.reject(new Error(message));
@@ -120,13 +125,33 @@ export const leadsAPI = {
   },
 
   createLead: async (leadData) => {
-    const response = await api.post('/leads/', leadData);
-    return response.data;
+    try {
+      const response = await api.post('/leads/', leadData);
+      return response.data;
+    } catch (error) {
+      // Preserve original error structure for validation errors
+      if (error.response?.status === 400) {
+        const validationError = error;
+        validationError.response = error.response;
+        throw validationError;
+      }
+      throw error;
+    }
   },
 
   updateLead: async (id, leadData) => {
-    const response = await api.put(`/leads/${id}/`, leadData);
-    return response.data;
+    try {
+      const response = await api.put(`/leads/${id}/`, leadData);
+      return response.data;
+    } catch (error) {
+      // Preserve original error structure for validation errors
+      if (error.response?.status === 400) {
+        const validationError = error;
+        validationError.response = error.response;
+        throw validationError;
+      }
+      throw error;
+    }
   },
 
   deleteLead: async (id) => {

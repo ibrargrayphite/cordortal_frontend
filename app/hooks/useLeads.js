@@ -19,6 +19,24 @@ export const useLeads = () => {
   
   const { showError, showSuccess } = useToast();
 
+  // Helper function to extract and format validation errors from API response
+  const getValidationErrorMessage = useCallback((error, defaultMessage) => {
+    if (error.response?.data && typeof error.response.data === 'object') {
+      const validationErrors = [];
+      for (const [field, messages] of Object.entries(error.response.data)) {
+        if (Array.isArray(messages)) {
+          const formattedField = field.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+          validationErrors.push(`${formattedField}: ${messages.join(', ')}`);
+        }
+      }
+      console.log('Validation errors extracted:', validationErrors);
+      if (validationErrors.length > 0) {
+        return validationErrors.join('. ');
+      }
+    }
+    return defaultMessage;
+  }, []);
+
   // Fetch leads with pagination and search
   const fetchLeads = useCallback(async (
     page = 1,
@@ -146,8 +164,8 @@ export const useLeads = () => {
       fetchLeads(currentPage, true, searchQuery);
       return savedLead;
     } catch (error) {
-      console.error('Create lead error:', error);
-      showError('Failed to create lead. Please try again.');
+      const errorMessage = getValidationErrorMessage(error, 'Failed to create lead. Please try again.');
+      showError(errorMessage);
       throw error;
     }
   }, [currentPage, searchQuery, fetchLeads, showSuccess, showError]);
@@ -164,7 +182,8 @@ export const useLeads = () => {
       return updatedLead;
     } catch (error) {
       console.error('Update lead error:', error);
-      showError('Failed to update lead. Please try again.');
+      const errorMessage = getValidationErrorMessage(error, 'Failed to update lead. Please try again.');
+      showError(errorMessage);
       throw error;
     }
   }, [leads, showSuccess, showError]);
