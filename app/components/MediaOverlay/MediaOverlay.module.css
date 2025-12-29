@@ -27,7 +27,7 @@
   /* Adjust video height */
   /* height: 550px;  */
   height: 95vh; /* Set a fixed height to avoid dynamic changes */
-  object-fit: fill;
+  object-fit: cover;
 }
 
 /* Swiper smooth transitions */

@@ -9,7 +9,7 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        default: "bg-primary text-primary-foreground hover:bg-subheadline",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:
@@ -21,9 +21,9 @@ const buttonVariants = cva(
         emergency:
           "border border-input bg-background hover:bg-accent hover:text-accent",
         getInTouchSubmit:
-          "text-primary-foreground bg-main-accent-dark hover:text-main-accent",
+          "text-primary-foreground bg-main-accent-dark hover:bg-subheadline",
         customButton:
-          "text-primary-foreground bg-main-accent-dark hover:text-main-accent-dark hover:bg-main-accent",
+          "text-primary-foreground bg-main-accent-dark hover:bg-subheadline",
       },
       size: {
         default: "h-10 px-4 py-2",
