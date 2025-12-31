@@ -60,13 +60,13 @@ const AddressBar = () => {
   return (
     <div className={styles.addressBar} ref={dropdownRef}>
       <div className={`container mx-auto xxl:max-w-[1320px] ${styles.addressBarContainer}`}>
-        <div className={styles.addressContent}>
+        <div className={styles.addressContent} onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
           <div className={styles.addressWrapper}>
             <Image
               src={locationIcon.src}
               alt="Location"
-              width={16}
-              height={16}
+              width={12}
+              height={12}
               className={styles.locationIcon}
             />
             <span className={styles.addressText} onClick={() => handleLocationClick(selectedLocation)}>{address}</span>
@@ -74,12 +74,11 @@ const AddressBar = () => {
           
           {hasMultipleLocations && (
             <button
-              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
               className={styles.dropdownButton}
               aria-label="Select location"
             >
               <ChevronDown 
-                size={16} 
+                size={24}
                 className={`${styles.chevronIcon} ${isDropdownOpen ? styles.chevronOpen : ''}`}
               />
             </button>

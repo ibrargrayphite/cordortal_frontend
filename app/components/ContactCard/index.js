@@ -20,7 +20,7 @@ export default function ContactCard({ data }) {
         className={styles.brandLogo}
         onClick={() => router.push('/')}
       />
-      <div className="mt-2 md:mt-4 lg:mt-6" />
+      <div className="mt-2" />
       
       {/* Address Section */}
       <div className={styles.address}>

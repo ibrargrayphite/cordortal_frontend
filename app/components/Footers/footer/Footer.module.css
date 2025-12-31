@@ -134,15 +134,15 @@
 .copywrightText {
   text-align: center;
   padding: 30px;
-  color: var(--content-color);
+  color: var(--bg-color);
   font-size: 1.063rem;
 }
 
 /* Copyright Section - Professional Styling */
 .copyrightSection {
-  background: var(--bg-color);
+  background: var(--subheadline-color);
   border-top: 1px solid rgba(0, 0, 0, 0.08);
-  padding: 1.5rem 0;
+  padding: 0.5rem 0;
   position: relative;
 }
 
@@ -154,7 +154,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: var(--bg-color);
+  background: var(--subheadline-color);
   opacity: 0.05;
   pointer-events: none;
   z-index: 0;
@@ -171,7 +171,7 @@
 
 .copyrightText {
   font-size: 0.813rem;
-  color: var(--content-color);
+  color: white;
   margin: 0;
   line-height: 1.8;
   font-weight: 400;
@@ -195,7 +195,7 @@
   /* ... existing mobile styles ... */
 
   .copyrightSection {
-    padding: 1.25rem 0;
+    padding: 0.25rem 0;
   }
 
   .copyrightContent {
@@ -242,15 +242,16 @@
 }
 
 .footerLinkAnchor {
-  color: var(--content-color);
+  color: var(--bg-color);
   text-decoration: none;
   transition: color 0.2s ease;
   display: inline-block;
   line-height: 1.8;
+  font-weight: 600;
 }
 
 .footerLinkAnchor:hover {
-  color: var(--main-accent-dark);
+  color: var(--subheadline-color);
 }
 
 /* ... existing code ... */

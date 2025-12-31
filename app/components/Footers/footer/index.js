@@ -161,7 +161,7 @@ const Footer = ({ src, refersrc, title,data,media,noBgColor,footerLogin }) => {
                   className={styles.customButton}
                 />
               </div>
-              <div style={{ marginTop: 20 }}>
+              <div style={{ marginTop: 8, marginBottom: 8 }}>
                 <ul className={styles.footerLink}>
                   <li>
                     <a
@@ -178,6 +178,7 @@ const Footer = ({ src, refersrc, title,data,media,noBgColor,footerLogin }) => {
             </div>
             {/* <div className="flex-1" /> */}
           </div>
+          <div className="w-full bg-headline">
           <div className={`container mx-auto lg:max-w-[960px] xxl:max-w-[1320px] ${styles.footerLinksWrapper}`}>
             <div className={styles.footerLinksContainer}>
               <ul className={styles.footerLinkContainer}>
@@ -212,6 +213,7 @@ const Footer = ({ src, refersrc, title,data,media,noBgColor,footerLogin }) => {
                 )}
               </ul>
             </div>
+          </div>
           </div>
         </div>
       </footer>

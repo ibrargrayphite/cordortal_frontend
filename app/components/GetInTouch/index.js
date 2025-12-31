@@ -125,12 +125,12 @@ const GetInTouch = ({headline,media}) => {
           <div className="w-full md:w-1/2 flex items-center justify-center p-8 md:p-12" style={{backgroundColor: 'var(--main-accent-color)'}}>
             <form onSubmit={handleSubmit} className="w-full max-w-md space-y-7">
               <div className="mb-6 text-center">
-                <h2 className="text-3xl font-bold tracking-tight text-main-accent-dark mb-2">{headline}</h2>
-                <p className="text-muted-foreground text-base">We'd love to hear from you. Fill out the form and our team will get back to you soon.</p>
+                <h2 className="text-3xl font-bold tracking-tight text-white mb-2">{headline}</h2>
+                <p className="text-white">We'd love to hear from you. Fill out the form and our team will get back to you soon.</p>
               </div>
               <div className="flex gap-4">
                 <div className="w-1/2">
-                  <label htmlFor="firstName" className="block text-sm font-medium mb-1 text-main-accent-dark">First Name</label>
+                  <label htmlFor="firstName" className="block text-sm font-medium mb-1 text-white">First Name</label>
                   <Input
                     id="firstName"
                     type="text"
@@ -142,7 +142,7 @@ const GetInTouch = ({headline,media}) => {
                   />
                 </div>
                 <div className="w-1/2">
-                  <label htmlFor="lastName" className="block text-sm font-medium mb-1 text-main-accent-dark">Last Name</label>
+                  <label htmlFor="lastName" className="block text-sm font-medium mb-1 text-white">Last Name</label>
                   <Input
                     id="lastName"
                     type="text"
@@ -156,7 +156,7 @@ const GetInTouch = ({headline,media}) => {
               </div>
               <div className="flex gap-4">
                 <div className="w-1/2">
-                  <label htmlFor="email" className="block text-sm font-medium mb-1 text-main-accent-dark">Email</label>
+                  <label htmlFor="email" className="block text-sm font-medium mb-1 text-white">Email</label>
                   <Input
                     id="email"
                     type="email"
@@ -170,7 +170,7 @@ const GetInTouch = ({headline,media}) => {
                   {emailError && <p className="text-xs text-red-500 mt-1">{emailError}</p>}
                 </div>
                 <div className="w-1/2">
-                  <label htmlFor="phone" className="block text-sm font-medium mb-1 text-main-accent-dark">Phone Number</label>
+                  <label htmlFor="phone" className="block text-sm font-medium mb-1 text-white">Phone Number</label>
                   <Input
                     id="phone"
                     type="text"
@@ -185,7 +185,7 @@ const GetInTouch = ({headline,media}) => {
                 </div>
               </div>
               <div>
-                <label htmlFor="message" className="block text-sm font-medium mb-1 text-main-accent-dark">Message</label>
+                <label htmlFor="message" className="block text-sm font-medium mb-1 text-bg-color">Message</label>
                 <textarea
                   id="message"
                   value={message}
