@@ -14,7 +14,7 @@ const ServiceCard = ({
 
   return (
     <div className={noBgColor ? styles.noBgColor : styles.solutionsContainer0}>
-      <div className={`pt-4 md:pt-2 lg:pt-16 container w-full lg:max-w-[960px] xxl:max-w-[1320px] mx-auto`}>
+      <div className={`pt-4 md:pt-2 lg:pt-5 container w-full lg:max-w-[960px] xxl:max-w-[1320px] mx-auto`}>
         <div className={`${styles.cardGrid} gap-0`}>
           {services &&
             services.map((service, index) => (

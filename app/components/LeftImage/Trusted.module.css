@@ -13,7 +13,7 @@
 .section2 {
   display: flex!important;
   /* gap: 21px!important; */
-  margin-top: 65px!important;
+  margin-top: 20px !important;
 }
 .buttonContainer {
   display: flex;

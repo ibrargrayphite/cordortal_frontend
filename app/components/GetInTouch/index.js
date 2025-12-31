@@ -122,7 +122,7 @@ const GetInTouch = ({headline,media}) => {
             />
           </div>
           {/* Form Side */}
-          <div className="w-full md:w-1/2 flex items-center justify-center p-8 md:p-12" style={{backgroundColor: 'var(--main-accent-color)'}}>
+          <div className="w-full md:w-1/2 flex items-center justify-center p-8 md:p-12" style={{backgroundColor: 'var(--main-accent-dark)'}}>
             <form onSubmit={handleSubmit} className="w-full max-w-md space-y-7">
               <div className="mb-6 text-center">
                 <h2 className="text-3xl font-bold tracking-tight text-white mb-2">{headline}</h2>

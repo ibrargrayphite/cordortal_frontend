@@ -8,15 +8,15 @@
 }
 
 .teamHeader {
-  padding: 60px 0 40px;
+  padding: 20px 0 40px;
   text-align: center;
 }
 
 .pageTitle {
-  font-size: 42px;
+  font-size: 45px;
   font-weight: 700;
-  color: #1b262c;
-  margin-bottom: 16px;
+  color: var(--headline-color);
+  /* margin-bottom: 16px; */
 }
 
 .locationSubtitle {
@@ -108,7 +108,7 @@
   }
 
   .pageTitle {
-    font-size: 28px;
+    font-size: 30px;
   }
 
   .locationSubtitle {

@@ -67,16 +67,16 @@
 .HeadlineLarge {
   color: var(--headline-color);
   text-align: center;
-  font-size: 50px;
+  font-size: 45px;
   font-weight: 700;
   /* for service detail before after headline  pt and lineheight need to check */
-  padding-top: 35px;
+  /* padding-top: 35px; */
   line-height: 1;
 }
 .text {
   color: var(--content-color);
   text-align: center;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 400;
   line-height: 130%; /* 177.778% */
   margin-bottom: 30px;
@@ -109,7 +109,7 @@
 }
 @media only screen and (max-width: 767px) {
   .Headline {
-    font-size: 25px;
+    font-size: 30px;
   }
   .HeadlineLarge{
     font-size: 30px;

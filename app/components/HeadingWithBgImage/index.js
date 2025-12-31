@@ -17,7 +17,7 @@ const HeadingWithBgImage = ({
   return (
     <>
       {withoutBgImageHeading ? (
-        <div className="container w-full xxl:max-w-[1320px] mx-auto">
+        <div className="container w-full xxl:max-w-[1320px] mx-auto pt-4 md:pt-10 lg:pt-10">
           <p
             className={
               headlineLarge ? styles.HeadlineLarge : styles.Headline
@@ -53,7 +53,7 @@ const HeadingWithBgImage = ({
               className={
                 `${headlineLarge
                   ? styles.headingContainerLarge
-                  : styles.headingContainer} pt-4 md:pt-10 lg:pt-16`
+                  : styles.headingContainer} pt-4 md:pt-10 lg:pt-10`
               }
             >
               {/* Background image (if needed in future) */}

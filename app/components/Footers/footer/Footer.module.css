@@ -43,7 +43,7 @@
 }
 
 .footerLink {
-  color: var(--content-color);
+  color: var(--subheadline-color);
   font-size: 1.063rem;
   padding: 0px;
 }

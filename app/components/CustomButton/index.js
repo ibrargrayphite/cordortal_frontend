@@ -16,7 +16,7 @@ const CustomButton = ({
         <div style={{ textAlign: "center", marginTop: 10, marginBottom: 20 }}>
           <Button
             variant="customButton"
-            className={`${styles.customButton} ${className} bg-main-accent-dark`}
+            className={`${styles.customButton} ${className} bg-main-accent`}
             onClick={onClick}
             style={style}
           >
@@ -26,7 +26,7 @@ const CustomButton = ({
       ) : (
         <Button
           variant="customButton"
-          className={`${styles.customButton} ${className} bg-main-accent-dark`}
+          className={`${styles.customButton} ${className} bg-main-accent`}
           onClick={onClick}
           style={style}
         >

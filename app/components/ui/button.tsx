@@ -21,7 +21,7 @@ const buttonVariants = cva(
         emergency:
           "border border-input bg-background hover:bg-accent hover:text-accent",
         getInTouchSubmit:
-          "text-primary-foreground bg-main-accent-dark hover:bg-subheadline",
+          "text-primary-foreground bg-main-accent hover:bg-subheadline",
         customButton:
           "text-primary-foreground bg-main-accent-dark hover:bg-subheadline",
       },
