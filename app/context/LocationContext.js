@@ -44,8 +44,8 @@ function resolveLocationData(location, orgData, sharedData) {
         phoneMedia: orgData?.phoneMedia || '',
         addressMedia: orgData?.addressMedia || '',
         bookingUrl: sharedData?.header?.src || '',
-        mapEmbedUrl: null,
-        mapLink: null,
+        mapEmbedUrl: orgData?.mapEmbedUrl || orgData?.contact?.mapEmbedUrl || null,
+        mapLink: orgData?.mapLink || orgData?.contact?.mapLink || null,
       },
       hours: {
         hoursData: sharedData?.footer?.data?.hoursData || [],
@@ -55,6 +55,7 @@ function resolveLocationData(location, orgData, sharedData) {
       team: [],
       seo: null,
       geo: null,
+      map: orgData?.map || null, // Organization-level map component
     };
   }
 
@@ -86,8 +87,8 @@ function resolveLocationData(location, orgData, sharedData) {
       phoneMedia: orgContact.phoneMedia,
       addressMedia: orgContact.addressMedia,
       bookingUrl: location.contact?.bookingUrl || location.link || sharedData?.header?.src,
-      mapEmbedUrl: location.contact?.mapEmbedUrl || null,
-      mapLink: location.contact?.mapLink || null,
+      mapEmbedUrl: location.contact?.mapEmbedUrl || orgData?.mapEmbedUrl || orgData?.contact?.mapEmbedUrl || null,
+      mapLink: location.contact?.mapLink || orgData?.mapLink || orgData?.contact?.mapLink || null,
     },
 
     hours: {
@@ -99,6 +100,7 @@ function resolveLocationData(location, orgData, sharedData) {
     team: location.team || [],
     seo: location.seo || null,
     geo: location.geo || null,
+    map: location.map || orgData?.map || null, // Location map component with org fallback
   };
 }
 
@@ -186,6 +188,8 @@ export function LocationProvider({ children, pagesData }) {
     email: resolvedData.contact.email,
     address: resolvedData.contact.address,
     bookingUrl: resolvedData.contact.bookingUrl,
+    mapEmbedUrl: resolvedData.contact.mapEmbedUrl,
+    mapLink: resolvedData.contact.mapLink,
     
     // Hours
     hours: resolvedData.hours,
@@ -195,6 +199,9 @@ export function LocationProvider({ children, pagesData }) {
     
     // Team
     team: resolvedData.team,
+    
+    // Map component
+    map: resolvedData.map,
     
     // Helpers
     hasMultipleLocations: locations.filter(l => !l.disable).length > 1,
@@ -225,11 +232,14 @@ export function useLocation() {
       email: '',
       address: '',
       bookingUrl: '',
+      mapEmbedUrl: null,
+      mapLink: null,
       hours: {},
       hoursData: [],
       lunchTime: '',
       specialHours: [],
       team: [],
+      map: null,
       hasMultipleLocations: false,
       selectLocation: () => {},
       getDefaultLocation: () => null,

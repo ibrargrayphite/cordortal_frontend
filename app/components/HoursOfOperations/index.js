@@ -39,7 +39,7 @@ const HoursOfOperation = ({ hoursData: propHoursData, lunchTime: propLunchTime }
         </div>
       ))}
       {lunchTime && (
-        <div className="flex flex-wrap mt-3 mx-2 md:mx-4 lg:mx-6">
+        <div className="flex flex-wrap mt-3">
           <div className={`italic text-main-accent-dark ${styles.closed}`}>
             <strong>Closed for lunch:</strong> {lunchTime}
           </div>
