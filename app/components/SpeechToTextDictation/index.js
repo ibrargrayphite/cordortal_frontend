@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { flushSync } from 'react-dom';
 import { Button } from '../ui/button';
 import styles from './SpeechToTextDictation.module.css';
 
@@ -8,9 +9,7 @@ const SpeechToTextDictation = ({
   value = '',
   onChange,
   placeholder = 'Start speaking or type here...',
-  wsUrl,
-  autoPostFinals = false,
-  apiBase,
+  tokenEndpoint = '/realtime/ephemeral/',
   disabled = false,
   className = '',
   ...props
@@ -21,345 +20,399 @@ const SpeechToTextDictation = ({
   const [liveText, setLiveText] = useState('');
   const [committedText, setCommittedText] = useState(value);
   
-  const audioContextRef = useRef(null);
-  const audioWorkletNodeRef = useRef(null);
+  const peerConnectionRef = useRef(null);
+  const dataChannelRef = useRef(null);
   const mediaStreamRef = useRef(null);
-  const websocketRef = useRef(null);
-  const isRecordingRef = useRef(false);
-  
-  // Frame tracking refs
-  const framesSinceCommitRef = useRef(0);
-  const commitInflightRef = useRef(false);
-  const minFramesToCommitRef = useRef(3);
-  const frameMsRef = useRef(40);
-  
-  // Use refs to track current text to avoid stale closures
   const committedTextRef = useRef(value);
-  const liveTextRef = useRef('');
+  const accumulatedLiveTextRef = useRef('');
+  const onChangeRef = useRef(onChange);
+  const textareaRef = useRef(null);
+  const sessionConfigSentRef = useRef(false);
 
-  // Generate WebSocket URL
-  const getWebSocketUrl = useCallback(() => {
-    if (wsUrl) return wsUrl;
-    
-    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-    const backendUrl = process.env.NEXT_PUBLIC_WS_URL || process.env.NEXT_PUBLIC_BASE_URL || window.location.origin;
-    
-    // Remove http/https protocol and add ws/wss
-    const cleanUrl = backendUrl.replace(/^https?:\/\//, '');
-    return `${protocol}//${cleanUrl}/ws/stt/`;
-  }, [wsUrl]);
+  // Keep onChange ref updated
+  useEffect(() => {
+    onChangeRef.current = onChange;
+  }, [onChange]);
 
-  // Generate API base URL
-  const getApiBase = useCallback(() => {
-    if (apiBase) return apiBase;
-    return process.env.NEXT_PUBLIC_API_BASE || process.env.NEXT_PUBLIC_BASE_URL || window.location.origin;
-  }, [apiBase]);
-
-  // Safe commit function
-  const requestCommit = useCallback((reason) => {
-    if (!websocketRef.current || websocketRef.current.readyState !== WebSocket.OPEN) {
-      console.log('Cannot commit: WebSocket not open');
-      return;
-    }
-    
-    if (commitInflightRef.current) {
-      console.log('Cannot commit: commit already in flight');
-      return;
-    }
-    
-    if (framesSinceCommitRef.current < minFramesToCommitRef.current) {
-      console.log(`Cannot commit: only ${framesSinceCommitRef.current} frames, need ${minFramesToCommitRef.current}`);
-      return;
-    }
-    
-    console.log(`Committing with reason: ${reason}, frames: ${framesSinceCommitRef.current}`);
-    commitInflightRef.current = true;
-    websocketRef.current.send(JSON.stringify({ type: 'commit', reason }));
-  }, []);
-
-  // Reset commit state
-  const resetCommitState = useCallback(() => {
-    framesSinceCommitRef.current = 0;
-    commitInflightRef.current = false;
-  }, []);
-
-  // Cleanup resources
-  const cleanup = useCallback(() => {
-    if (websocketRef.current) {
-      websocketRef.current.close();
-      websocketRef.current = null;
-    }
-    
-    if (mediaStreamRef.current) {
-      mediaStreamRef.current.getTracks().forEach(track => track.stop());
-      mediaStreamRef.current = null;
-    }
-    
-    if (audioWorkletNodeRef.current) {
-      audioWorkletNodeRef.current.disconnect();
-      audioWorkletNodeRef.current = null;
-    }
-    
-    if (audioContextRef.current && audioContextRef.current.state !== 'closed') {
-      audioContextRef.current.close();
-      audioContextRef.current = null;
-    }
-    
-    isRecordingRef.current = false;
-    setIsRecording(false);
-    setIsConnecting(false);
-    resetCommitState();
-  }, [resetCommitState]);
-
-  // Start recording
-  const startRecording = useCallback(async () => {
-    if (isRecordingRef.current || disabled) return;
-
+  // Get ephemeral token from backend
+  const getToken = useCallback(async () => {
     try {
-      setIsConnecting(true);
-      setError(null);
-
-      // Create audio context
-      audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)({
-        sampleRate: 48000
-      });
-
-      // Add audio worklet module
-      await audioContextRef.current.audioWorklet.addModule('/speech_to_text/pcm16-worklet.js');
-
-      // Get user media
-      mediaStreamRef.current = await navigator.mediaDevices.getUserMedia({
-        audio: {
-          echoCancellation: true,
-          noiseSuppression: true,
-          sampleRate: 48000
-        }
-      });
-
-      // Create audio worklet node
-      audioWorkletNodeRef.current = new AudioWorkletNode(audioContextRef.current, 'pcm16-worklet');
-      
-      // Connect audio
-      const source = audioContextRef.current.createMediaStreamSource(mediaStreamRef.current);
-      source.connect(audioWorkletNodeRef.current);
-
-      // Set up WebSocket
-      const wsUrl = getWebSocketUrl();
-      websocketRef.current = new WebSocket(wsUrl);
-      
-      websocketRef.current.binaryType = 'arraybuffer';
-      
-      websocketRef.current.onopen = () => {
-        console.log('WebSocket connected for speech-to-text');
-        
-        // Send configuration for English language
-        if (websocketRef.current.readyState === WebSocket.OPEN) {
-          websocketRef.current.send(JSON.stringify({
-            type: 'config',
-            language: 'en',
-            model: 'whisper-1'
-          }));
-        }
-        
-        setIsConnecting(false);
-        setIsRecording(true);
-        isRecordingRef.current = true;
-      };
-
-      websocketRef.current.onmessage = (event) => {
-        try {
-          const data = JSON.parse(event.data);
-          console.log('WebSocket message received:', data);
-          
-          switch (data.type) {
-            case 'transcript':
-              if (data.is_final) {
-                // Commit the text - add space before new text if there's existing content
-                const currentCommitted = committedTextRef.current;
-                const spacePrefix = currentCommitted && !currentCommitted.endsWith('\n') ? ' ' : '';
-                const newCommittedText = currentCommitted + spacePrefix + data.text;
-                
-                console.log('Final transcript - committing:', { 
-                  currentCommitted, 
-                  newText: data.text, 
-                  spacePrefix, 
-                  newCommittedText 
-                });
-                
-                // Update refs and state
-                committedTextRef.current = newCommittedText;
-                liveTextRef.current = '';
-                setCommittedText(newCommittedText);
-                setLiveText('');
-                
-                // Update parent component
-                if (onChange) {
-                  onChange(newCommittedText);
-                }
-                
-                // Reset commit state on final transcript
-                resetCommitState();
-                
-                // Auto-post if enabled
-                if (autoPostFinals && data.text.trim()) {
-                  postTranscript(data.text);
-                }
-              } else {
-                // Update live text - add space before new text if there's existing content
-                const currentCommitted = committedTextRef.current;
-                const spacePrefix = currentCommitted && !currentCommitted.endsWith('\n') ? ' ' : '';
-                const newLiveText = spacePrefix + data.text;
-                
-                console.log('Interim transcript - updating live text:', { 
-                  currentCommitted, 
-                  newText: data.text, 
-                  spacePrefix, 
-                  newLiveText 
-                });
-                
-                // Update refs and state
-                liveTextRef.current = newLiveText;
-                setLiveText(newLiveText);
-              }
-              break;
-              
-            case 'speech_started':
-              console.log('Speech started');
-              break;
-              
-            case 'speech_stopped':
-              console.log('Speech stopped');
-              // Auto-commit on VAD stop with debounce
-              const debounceMs = Math.max(frameMsRef.current, 60); // MIN_COMMIT_MS / 2 = 60ms
-              setTimeout(() => {
-                requestCommit('vad');
-              }, debounceMs);
-              break;
-              
-            case 'input_audio_buffer.committed':
-              console.log('Audio buffer committed');
-              resetCommitState();
-              break;
-              
-            case 'error':
-              console.error('Speech-to-text error:', data.error);
-              
-              // Ignore harmless commit empty error
-              if (data.error && data.error.code === 'input_audio_buffer_commit_empty') {
-                console.log('Ignoring harmless commit empty error');
-                return;
-              }
-              
-              const errorMessage = typeof data.error === 'object' 
-                ? JSON.stringify(data.error) 
-                : data.error;
-              setError(`Speech recognition error: ${errorMessage}`);
-              break;
-          }
-        } catch (err) {
-          console.error('Error parsing WebSocket message:', err);
-        }
-      };
-
-      websocketRef.current.onerror = (error) => {
-        console.error('WebSocket error:', error);
-        setError('Connection error. Please try again.');
-        cleanup();
-      };
-
-      websocketRef.current.onclose = () => {
-        console.log('WebSocket closed');
-        cleanup();
-      };
-
-      // Handle audio data from worklet
-      audioWorkletNodeRef.current.port.onmessage = (event) => {
-        if (websocketRef.current && websocketRef.current.readyState === WebSocket.OPEN) {
-          try {
-            // Track frames and compute thresholds dynamically on first frame
-            if (framesSinceCommitRef.current === 0) {
-              const FRAME_SAMPLES = event.data.length;
-              const SAMPLE_RATE = Number(process.env.NEXT_PUBLIC_STT_SAMPLE_RATE || 16000);
-              const FRAME_MS = (FRAME_SAMPLES / SAMPLE_RATE) * 1000;
-              const MIN_COMMIT_MS = Number(process.env.NEXT_PUBLIC_MIN_COMMIT_MS || 120);
-              
-              frameMsRef.current = FRAME_MS;
-              minFramesToCommitRef.current = Math.max(3, Math.ceil(MIN_COMMIT_MS / FRAME_MS));
-              
-              console.log('Frame tracking initialized:', {
-                FRAME_SAMPLES,
-                SAMPLE_RATE,
-                FRAME_MS,
-                MIN_COMMIT_MS,
-                minFramesToCommit: minFramesToCommitRef.current
-              });
-            }
-            
-            // Check backpressure (1MB threshold)
-            if (websocketRef.current.bufferedAmount > 1000000) {
-              console.log('WebSocket backpressure detected, skipping frame');
-              return;
-            }
-            
-            // Resume sending when backpressure drops below 512KB
-            if (websocketRef.current.bufferedAmount < 512000) {
-              // Backpressure cleared, continue normal operation
-            }
-            
-            // Send frame and increment counter
-            websocketRef.current.send(event.data);
-            framesSinceCommitRef.current += 1;
-            
-          } catch (err) {
-            console.error('Error sending audio data:', err);
-          }
-        }
-      };
-
-    } catch (err) {
-      console.error('Error starting recording:', err);
-      setError(`Failed to start recording: ${err.message}`);
-      cleanup();
-    }
-  }, [committedText, onChange, autoPostFinals, getWebSocketUrl, cleanup, disabled]);
-
-  // Stop recording
-  const stopRecording = useCallback(() => {
-    if (!isRecordingRef.current) return;
-
-    // Request commit with stop reason
-    requestCommit('stop');
-    
-    // Clean up after a short delay
-    setTimeout(() => {
-      cleanup();
-    }, 100);
-  }, [requestCommit, cleanup]);
-
-  // Post transcript to API
-  const postTranscript = useCallback(async (text) => {
-    try {
-      const apiBase = getApiBase();
-      const response = await fetch(`${apiBase}/api/transcripts/`, {
+      const backendUrl = process.env.NEXT_PUBLIC_BASE_URL || window.location.origin;
+      const response = await fetch(`${backendUrl}${tokenEndpoint}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ text }),
+      });
+      
+      if (!response.ok) {
+        throw new Error(`Failed to get token: ${response.statusText}`);
+      }
+      
+      const data = await response.json();
+      return data.token || data.ephemeral_token || data.client_secret?.value || data.client_secret;
+    } catch (err) {
+      console.error('Error fetching token:', err);
+      throw err;
+    }
+  }, [tokenEndpoint]);
+
+  // Optimized function to update transcription text with minimal delay
+  const updateTranscription = useCallback((text, isFinal = false) => {
+    if (!text || text.trim() === '') return;
+    
+    if (isFinal) {
+      // Update committed text immediately
+      const spacePrefix = committedTextRef.current && !committedTextRef.current.endsWith('\n') ? ' ' : '';
+      const newCommittedText = committedTextRef.current + spacePrefix + text;
+      committedTextRef.current = newCommittedText;
+      accumulatedLiveTextRef.current = '';
+      
+      // Use flushSync for immediate DOM update
+      flushSync(() => {
+        setCommittedText(newCommittedText);
+        setLiveText('');
+      });
+      
+      // Update textarea directly for instant visual feedback
+      if (textareaRef.current) {
+        textareaRef.current.value = newCommittedText;
+        textareaRef.current.setSelectionRange(newCommittedText.length, newCommittedText.length);
+      }
+      
+      // Call onChange immediately
+      if (onChangeRef.current) {
+        onChangeRef.current(newCommittedText);
+      }
+    } else {
+      // For deltas, accumulate immediately
+      accumulatedLiveTextRef.current += text;
+      const accumulated = accumulatedLiveTextRef.current;
+      const fullText = committedTextRef.current + accumulated;
+      
+      // CRITICAL: Use flushSync for immediate update
+      flushSync(() => {
+        setLiveText(accumulated);
+      });
+      
+      // Direct DOM update for instant visual feedback (bypasses React batching)
+      if (textareaRef.current && textareaRef.current.value !== fullText) {
+        textareaRef.current.value = fullText;
+        const length = fullText.length;
+        textareaRef.current.setSelectionRange(length, length);
+      }
+    }
+  }, []);
+
+  // Call onChange when committedText changes
+  useEffect(() => {
+    if (onChangeRef.current && committedText !== value) {
+      onChangeRef.current(committedText);
+    }
+  }, [committedText, value]);
+
+  // Send session config - extracted to separate function for reuse
+  const sendSessionConfig = useCallback(() => {
+    if (!dataChannelRef.current || sessionConfigSentRef.current) return;
+    
+    if (dataChannelRef.current.readyState === 'open') {
+      const sessionConfig = {
+        type: 'session.update',
+        session: {
+          modalities: ['audio', 'text'],
+          input_audio_format: 'pcm16',
+          output_audio_format: 'pcm16',
+          input_audio_transcription: {
+            model: 'gpt-4o-transcribe'
+          },
+          // MINIMIZED turn_detection delays for fastest response
+          turn_detection: {
+            type: 'server_vad',
+            threshold: 0.5,  // Higher threshold = less sensitive, faster detection
+            prefix_padding_ms: 50,  // Minimal padding
+            silence_duration_ms: 50  // Minimal silence - process immediately
+          },
+          tools: [],
+          tool_choice: 'none'
+        }
+      };
+      
+      dataChannelRef.current.send(JSON.stringify(sessionConfig));
+      sessionConfigSentRef.current = true;
+      console.log('📤 Session config sent');
+    }
+  }, []);
+
+  // Handle messages from OpenAI via data channel
+  const handleMessage = useCallback((event) => {
+    try {
+      const message = JSON.parse(event.data);
+      
+      // Handle session.updated - confirms session is ready
+      if (message.type === 'session.updated') {
+        setIsRecording(true);
+        setIsConnecting(false);
+        return;
+      }
+      
+      // Handle input audio transcription delta - these come during speech with gpt-4o-transcribe
+      if (message.type === 'conversation.item.input_audio_transcription.delta') {
+        let delta = '';
+        
+        if (typeof message.delta === 'string') {
+          delta = message.delta;
+        } else if (message.delta && typeof message.delta === 'object') {
+          delta = message.delta.text || message.delta.transcript || message.delta.delta || '';
+        } else if (message.text) {
+          delta = message.text;
+        }
+        
+        if (delta) {
+          updateTranscription(delta, false);
+          return;
+        }
+      }
+      
+      // Handle input audio transcription started
+      if (message.type === 'conversation.item.input_audio_transcription.started') {
+        console.log('🎤 Transcription started');
+      }
+      
+      // Handle input audio transcription completed
+      if (message.type === 'conversation.item.input_audio_transcription.completed') {
+        const transcript = message.transcript || message.text || '';
+        if (transcript) {
+          accumulatedLiveTextRef.current = '';
+          updateTranscription(transcript, true);
+          return;
+        }
+      }
+      
+      // Handle conversation.item.created - might have transcription
+      if (message.type === 'conversation.item.created') {
+        const item = message.item;
+        
+        if (item && item.role === 'user') {
+          if (item.input_audio_transcription) {
+            const transcription = item.input_audio_transcription;
+            const text = typeof transcription === 'string' 
+              ? transcription 
+              : (transcription.text || transcription.transcript || '');
+            
+            if (text) {
+              accumulatedLiveTextRef.current = '';
+              updateTranscription(text, true);
+              return;
+            }
+          }
+          
+          if (item.content && Array.isArray(item.content)) {
+            for (const contentItem of item.content) {
+              if (contentItem.type === 'input_audio' && contentItem.transcription) {
+                const text = typeof contentItem.transcription === 'string'
+                  ? contentItem.transcription
+                  : (contentItem.transcription.text || contentItem.transcription.transcript || '');
+                if (text) {
+                  accumulatedLiveTextRef.current = '';
+                  updateTranscription(text, true);
+                  return;
+                }
+              }
+            }
+          }
+        }
+      }
+      
+      // Handle conversation.item.updated
+      if (message.type === 'conversation.item.updated') {
+        const item = message.item;
+        if (item && item.role === 'user' && item.input_audio_transcription) {
+          const transcription = item.input_audio_transcription;
+          const text = typeof transcription === 'string' 
+            ? transcription 
+            : (transcription.text || transcription.transcript || '');
+          if (text) {
+            accumulatedLiveTextRef.current = '';
+            updateTranscription(text, true);
+            return;
+          }
+        }
+      }
+      
+      // Handle speech detection
+      if (message.type === 'input_audio_buffer.speech_started') {
+        accumulatedLiveTextRef.current = '';
+        flushSync(() => {
+          setLiveText('');
+        });
+        if (textareaRef.current) {
+          textareaRef.current.value = committedTextRef.current;
+        }
+      }
+      
+      // Handle errors
+      if (message.type === 'error') {
+        console.error('❌ OpenAI error:', message.error);
+        const errorMessage = message.error?.message || message.error || 'Unknown error';
+        setError(`Error: ${errorMessage}`);
+      }
+      
+    } catch (err) {
+      console.error('Error parsing message:', err);
+    }
+  }, [updateTranscription]);
+  
+
+  // Start recording with WebRTC
+  const startRecording = useCallback(async () => {
+    if (isConnecting || disabled) return;
+
+    try {
+      setIsConnecting(true);
+      setError(null);
+      accumulatedLiveTextRef.current = '';
+      setLiveText('');
+      sessionConfigSentRef.current = false;
+
+      const token = await getToken();
+      if (!token) {
+        throw new Error('No token received from backend');
+      }
+
+      // Get media stream - removed sampleRate constraint (let browser optimize)
+      mediaStreamRef.current = await navigator.mediaDevices.getUserMedia({
+        audio: {
+          echoCancellation: true,
+          noiseSuppression: true,
+          autoGainControl: true,
+        }
+      });
+
+      peerConnectionRef.current = new RTCPeerConnection({
+        iceServers: [{ urls: 'stun:stun.l.google.com:19302' }],
+      });
+
+      // Add audio tracks
+      mediaStreamRef.current.getAudioTracks().forEach(track => {
+        peerConnectionRef.current.addTrack(track, mediaStreamRef.current);
+      });
+
+      // Create data channel
+      dataChannelRef.current = peerConnectionRef.current.createDataChannel('oai-events', {
+        ordered: true,
+      });
+      
+      dataChannelRef.current.onmessage = handleMessage;
+      
+      dataChannelRef.current.onopen = () => {
+        // Send session config IMMEDIATELY when data channel opens
+        sendSessionConfig();
+      };
+
+      dataChannelRef.current.onerror = (err) => {
+        console.error('❌ Data channel error:', err);
+        setError('Data channel error');
+      };
+
+      dataChannelRef.current.onclose = () => {
+        console.log('🔴 Data channel closed');
+      };
+
+      // Create offer and set local description
+      const offer = await peerConnectionRef.current.createOffer();
+      await peerConnectionRef.current.setLocalDescription(offer);
+
+      const response = await fetch('https://api.openai.com/v1/realtime?model=gpt-4o-realtime-preview-2024-12-17', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/sdp',
+        },
+        body: offer.sdp,
       });
 
       if (!response.ok) {
-        console.error('Failed to post transcript:', response.statusText);
+        const errorText = await response.text();
+        throw new Error(`OpenAI API error: ${response.status} ${errorText}`);
       }
+
+      const answerSdp = await response.text();
+
+      await peerConnectionRef.current.setRemoteDescription({
+        type: 'answer',
+        sdp: answerSdp,
+      });
+
+      // Monitor connection state changes
+      peerConnectionRef.current.onconnectionstatechange = () => {
+        const state = peerConnectionRef.current.connectionState;
+        
+        if (state === 'connected') {
+          setIsConnecting(false);
+          // Ensure session config is sent if not already sent
+          sendSessionConfig();
+        } else if (state === 'failed' || state === 'disconnected' || state === 'closed') {
+          setError(`Connection ${state}`);
+          cleanup();
+        }
+      };
+
+      peerConnectionRef.current.oniceconnectionstatechange = () => {
+        const iceState = peerConnectionRef.current.iceConnectionState;
+        
+        if (iceState === 'connected' || iceState === 'completed') {
+          // Ensure session config is sent
+          sendSessionConfig();
+        } else if (iceState === 'failed') {
+          setError('ICE connection failed');
+          cleanup();
+        }
+      };
+
     } catch (err) {
-      console.error('Error posting transcript:', err);
+      console.error('❌ Error starting recording:', err);
+      setError(`Failed to start: ${err.message}`);
+      cleanup();
     }
-  }, [getApiBase]);
+  }, [isConnecting, disabled, getToken, handleMessage, sendSessionConfig]);
+
+  // Stop recording
+  const stopRecording = useCallback(() => {
+    cleanup();
+  }, []);
+
+  // Cleanup resources
+  const cleanup = useCallback(() => {
+    if (dataChannelRef.current) {
+      dataChannelRef.current.close();
+      dataChannelRef.current = null;
+    }
+
+    if (peerConnectionRef.current) {
+      peerConnectionRef.current.close();
+      peerConnectionRef.current = null;
+    }
+
+    if (mediaStreamRef.current) {
+      mediaStreamRef.current.getTracks().forEach(track => track.stop());
+      mediaStreamRef.current = null;
+    }
+
+    accumulatedLiveTextRef.current = '';
+    sessionConfigSentRef.current = false;
+    setIsRecording(false);
+    setIsConnecting(false);
+  }, []);
 
   // Update committed text when value prop changes
   useEffect(() => {
-    committedTextRef.current = value;
-    setCommittedText(value);
+    if (value !== committedTextRef.current && accumulatedLiveTextRef.current === '') {
+      committedTextRef.current = value;
+      setCommittedText(value);
+      if (textareaRef.current) {
+        textareaRef.current.value = value;
+      }
+    }
   }, [value]);
 
   // Cleanup on unmount
@@ -372,10 +425,8 @@ const SpeechToTextDictation = ({
   // Handle textarea changes
   const handleTextareaChange = (e) => {
     const newValue = e.target.value;
-    
-    // Update refs and state
     committedTextRef.current = newValue;
-    liveTextRef.current = '';
+    accumulatedLiveTextRef.current = '';
     setCommittedText(newValue);
     setLiveText('');
     
@@ -384,12 +435,13 @@ const SpeechToTextDictation = ({
     }
   };
 
-  // Get display text (committed + live) - use refs for real-time updates
-  const displayText = committedTextRef.current + liveTextRef.current;
+  // Use state values directly for display
+  const displayText = committedText + liveText;
 
   return (
     <div className={`${styles.container} ${isRecording ? styles.recording : ''} ${className}`}>
       <textarea
+        ref={textareaRef}
         {...props}
         value={displayText}
         onChange={handleTextareaChange}
