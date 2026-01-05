@@ -1,0 +1,319 @@
+.container {
+    width: 100%;
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 15px;
+  }
+  
+  .tableWrapper {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 0;
+    /* border-radius: 30px; */
+    overflow: hidden;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.3);
+    background: #fff;
+  }
+  
+  /* Left Column - Navigation */
+  .leftColumn {
+    background: var(--background);
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .navItem {
+    padding: 1em 1.5em;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--main-accent-color);
+    font-size: 20px;
+    font-weight: 600;
+    /* border-bottom: 1px solid hsl(var(--border)); */
+  }
+  
+  .navItem:last-child {
+    border-bottom: none;
+  }
+  
+  .navItem:hover {
+    background-color: var(--subheadline-color);
+    color: var(--bg-color);
+  }
+  
+  .navItemActive {
+    background-color: var(--subheadline-color);
+    color: var(--bg-color);
+  }
+  
+  .navItemActive:hover {
+    background-color: var(--subheadline-color);
+    color: var(--bg-color);
+  }
+  
+  .navItemText {
+    flex: 1;
+  }
+
+  /* Toggle Icon - Mobile Only */
+  .toggleIcon {
+    display: none;
+    font-size: 24px;
+    font-weight: 300;
+    color: var(--main-accent-color);
+    margin-right: 15px;
+    cursor: pointer;
+    user-select: none;
+    min-width: 20px;
+    text-align: center;
+    line-height: 1;
+    transition: transform 0.3s ease;
+  }
+
+  .navItem:hover .toggleIcon,
+  .navItemActive .toggleIcon {
+    color: var(--main-accent-color);
+  }
+  
+  /* Right Column - Content */
+  .rightColumn {
+    background: var(--main-accent-dark);
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  
+  /* Active Indicator - Attached to left wall of right column */
+  .activeIndicator {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    border-top: 12px solid transparent;
+    border-bottom: 12px solid transparent;
+    border-left: 12px solid var(--main-accent-color);
+    z-index: 10;
+    transition: top 0.3s ease;
+  }
+  
+  .contentWrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+    color: #fff;
+  }
+  
+  .contentHeading {
+    color: #fff;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    line-height: normal;
+  }
+  
+  .contentPricing {
+    color: var(--main-accent-color);
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+  
+  .contentDescription {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 141.176%;
+    margin-bottom: 20px;
+    opacity: 0.9;
+  }
+  
+  .packageDetail {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    opacity: 0.9;
+  }
+  
+  /* Services List */
+  .servicesList {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    /* gap: 15px; */
+  }
+  
+  .serviceItem {
+    padding: 8px 0;
+  }
+  
+  .serviceDetail {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.6;
+    margin: 0;
+  }
+  
+  .servicePricing {
+    color: var(--main-accent-color);
+    font-weight: 600;
+  }
+  
+  /* Button Wrapper - Right Aligned */
+  .buttonWrapper {
+    margin-top: auto;
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 30px;
+  }
+  
+  .customButton {
+    margin: 0;
+  }
+
+  /* Mobile Content - Accordion Style */
+  .mobileContent {
+    background: var(--main-accent-dark);
+    width: 100%;
+    overflow: hidden;
+    height: 0;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: height 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+                opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+                transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: height, opacity, transform;
+  }
+
+  .mobileContentOpen {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .mobileContent .contentWrapper {
+    padding: 25px 20px;
+  }
+  
+  /* Mobile Responsive */
+  @media (max-width: 768px) {
+    .tableWrapper {
+      grid-template-columns: 1fr;
+      /* border-radius: 20px; */
+    }
+  
+    .leftColumn {
+      max-height: none;
+      overflow-y: visible;
+    }
+  
+    .navItem {
+      padding: 15px 20px;
+      font-size: 16px;
+    }
+
+    .toggleIcon {
+      display: block;
+    }
+
+    .navItem:hover {
+      background-color: transparent;
+      color: hsl(var(--foreground));
+    }
+
+    .navItemActive {
+      background-color: var(--subheadline-color);
+      color: hsl(var(--background));
+    }
+
+    .navItemActive:hover {
+      background-color: var(--subheadline-color);
+    }
+  
+    .rightColumn {
+      display: none;
+    }
+
+    .activeIndicator {
+      display: none;
+    }
+  
+    .contentWrapper {
+      padding: 30px 25px;
+    }
+  
+    .contentHeading {
+      font-size: 26px;
+      margin-bottom: 15px;
+    }
+  
+    .contentPricing {
+      font-size: 36px;
+      margin-bottom: 15px;
+    }
+  
+    .contentDescription {
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+  
+    .packageDetail {
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+  
+    .serviceDetail {
+      font-size: 16px;
+    }
+  
+    .buttonWrapper {
+      padding-top: 20px;
+      justify-content: center;
+    }
+
+    .mobileContent .contentWrapper {
+      padding: 20px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .container {
+      padding: 0 10px;
+    }
+  
+    .tableWrapper {
+      /* border-radius: 15px; */
+    }
+  
+    .navItem {
+      padding: 12px 15px;
+      font-size: 15px;
+    }
+  
+    .contentWrapper {
+      padding: 25px 20px;
+    }
+
+    .mobileContent .contentWrapper {
+      padding: 18px 15px;
+    }
+  
+    .contentHeading {
+      font-size: 22px;
+    }
+  
+    .contentPricing {
+      font-size: 32px;
+    }
+  
+    .buttonWrapper {
+      justify-content: center;
+    }
+  }

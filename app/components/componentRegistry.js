@@ -43,6 +43,7 @@ const componentRegistry = {
   SeoInvisibleContent: dynamic(() => import("./SeoInvisibleContent")),
   PlanCard: dynamic(() => import("./PlanCard")),
   Information: dynamic(() => import("./Information")),
+  PriceTable: dynamic(() => import("./PriceTable")),
 };
 
 export default componentRegistry;

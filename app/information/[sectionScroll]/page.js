@@ -80,6 +80,7 @@ const Pricing = async ({ params }) => {
   const data = await fetchPagesData();
   const filteredLocations = filterByPage(data, pageName);
   const contentArray = filteredLocations.length > 0 ? filteredLocations[0].content : [];
+  console.log('data===========>>>>>>>>>>>>', data);
 
   return (
     <div className={styles.customMargin}>

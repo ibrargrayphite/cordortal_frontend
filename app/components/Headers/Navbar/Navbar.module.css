@@ -321,10 +321,22 @@ li.informationDropdown {
     height: 32px;
     width: 48px;
   }
+  .phoneIcon {
+    width: 24px !important;
+    height: 24px !important;
+    object-fit: contain;
+  }
 }
 @media (max-width: 991px) {
   .navBarContainer img {
     width: inherit;
+  }
+  .navBarContainer img.phoneIcon {
+    width: 30px !important;
+    height: 28px !important;
+  }
+  .phoneIconButton {
+    margin-right: 4px;
   }
 }
 
@@ -343,4 +355,28 @@ li.informationDropdown {
   margin-left: 8px;
   color: var(--main-accent-color, #254785);
   font-weight: bold;
+}
+
+.callButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--main-accent-color) !important;
+  color: #fff !important;
+}
+
+.callButtonDesktop {
+  opacity: 0.8;
+}
+
+.phoneIconButton {
+  transition: opacity 0.2s;
+}
+
+.phoneIconButton:hover {
+  opacity: 0.7;
+}
+
+.phoneIcon {
+  filter: brightness(0) invert(1); /* Makes icon white to match navbar */
 }

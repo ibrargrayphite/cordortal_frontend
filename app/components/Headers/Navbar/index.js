@@ -11,7 +11,7 @@ import defaultMedia from "../../../../public/assets/images/solutions/implants.pn
 import Image from "next/image";
 import { Button } from "../../../components/ui/button";
 import { cn } from "../../../utils/utils";
-
+import phoneIcon from "../../../../public/assets/images/footer/phone.png";
 const NavBar = ({ media, src, name, menuItems, locations: propsLocations }) => {
   const theme = useTheme();
   const router = useRouter();
@@ -19,7 +19,7 @@ const NavBar = ({ media, src, name, menuItems, locations: propsLocations }) => {
   const currentPath = router.pathname;
   
   // Location context for multi-location support
-  const { selectLocation, selectedLocation, hasMultipleLocations, isHydrated, locations: contextLocations } = useLocation();
+  const { selectLocation, selectedLocation, hasMultipleLocations, isHydrated, locations: contextLocations, phone } = useLocation();
   
   // Use context locations if available (ensures consistency), fallback to props
   const locations = contextLocations?.length > 0 ? contextLocations : propsLocations;
@@ -31,6 +31,17 @@ const NavBar = ({ media, src, name, menuItems, locations: propsLocations }) => {
   const toggleDropdown = (e) => {
     e.preventDefault();
     setLocationDropdownVisible(!locationDropdownVisible);
+  };
+
+  const handlePhoneClick = (e) => {
+    // On mobile, open dialer
+    if (window.innerWidth < 991) {
+      if (phone) {
+        window.location.href = `tel:${phone.replace(/\s/g, '')}`;
+      }
+    }
+    // On desktop, do nothing (prevent default)
+    e.preventDefault();
   };
 
   const handleClickOutside = (e) => {
@@ -250,6 +261,32 @@ const NavBar = ({ media, src, name, menuItems, locations: propsLocations }) => {
               </div>
             </div> */}
 
+           {phone && (
+              <Button
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                }}
+                className={`${styles.callButton} ${styles.callButtonDesktop}`}
+                style={{ 
+                  width: 200,
+                  cursor: "not-allowed",
+                  pointerEvents: "none"
+                }}
+                variant="default"
+                size="default"
+                disabled
+              >
+                <Image
+                  src={phoneIcon}
+                  alt="Phone"
+                  width={16}
+                  height={16}
+                  className={styles.phoneIcon}
+                />
+                {phone}
+              </Button>
+            )}
             {/* Book Online button */}
             <Button
               onClick={() => handleBooking(src)}
@@ -311,7 +348,32 @@ const NavBar = ({ media, src, name, menuItems, locations: propsLocations }) => {
               ))}
             </div>
           </div> */}
-
+          {/* Phone icon - Mobile (clickable) - Left of hamburger */}
+          {phone && (
+            <button
+              onClick={handlePhoneClick}
+              className={styles.phoneIconButton}
+              style={{
+                border: "none",
+                backgroundColor: "transparent",
+                outline: "none",
+                cursor: "pointer",
+                padding: "4px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+              aria-label={`Call ${phone}`}
+            >
+              <Image
+                src={phoneIcon}
+                alt="Call"
+                width={30}
+                height={24}
+                className={styles.phoneIcon}
+              />
+            </button>
+          )}
           {/* Mobile menu toggle */}
           <button
             onClick={() => setExpanded(expanded ? false : true)}
