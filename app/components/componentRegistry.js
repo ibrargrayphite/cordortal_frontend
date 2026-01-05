@@ -44,6 +44,7 @@ const componentRegistry = {
   PlanCard: dynamic(() => import("./PlanCard")),
   Information: dynamic(() => import("./Information")),
   PriceTable: dynamic(() => import("./PriceTable")),
+  FinanceCard: dynamic(() => import("./FinanceCard")),
 };
 
 export default componentRegistry;

@@ -269,7 +269,7 @@ const NavBar = ({ media, src, name, menuItems, locations: propsLocations }) => {
                 }}
                 className={`${styles.callButton} ${styles.callButtonDesktop}`}
                 style={{ 
-                  width: 200,
+                  width: 140,
                   cursor: "not-allowed",
                   pointerEvents: "none"
                 }}

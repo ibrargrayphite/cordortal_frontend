@@ -363,6 +363,7 @@ li.informationDropdown {
   justify-content: center;
   background: var(--main-accent-color) !important;
   color: #fff !important;
+  font-weight: 600 !important;
 }
 
 .callButtonDesktop {
