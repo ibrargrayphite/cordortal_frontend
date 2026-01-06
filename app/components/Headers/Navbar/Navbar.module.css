@@ -5,8 +5,9 @@
 }
 
 .locationIconStyle{
-  height: 32px!important;
-  width: 26px!important;
+  height: 26px!important;
+  width: 24px!important;
+  cursor: pointer;
 }
 .nav {
   display: flex;
@@ -175,19 +176,19 @@ li.informationDropdown {
 
 .informationDropdownContent {
   display: none;
-  border-radius: 9px;
   position: absolute;
   cursor: pointer;
   background-color: #fff;
   min-width: 160px;
   z-index: 1;
+  background-color: color-mix(in srgb, var(--main-accent-color) 10%, white);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .informationDropdownContent a {
   color: black;
   padding: 12px 16px;
-  border-radius: 9px;
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 600;
   text-decoration: none;
   display: block;
@@ -195,8 +196,7 @@ li.informationDropdown {
 }
 
 .informationDropdownContent a:hover {
-  border-radius: 9px;
-  background: rgba(31, 69, 177, 0.08);
+  background: color-mix(in srgb, var(--main-accent-color) 20%, white);
 }
 
 .informationDropdown:hover .informationDropdownContent,
@@ -226,13 +226,11 @@ li.informationDropdown {
 .locationMob {
   display: none;
 }
-.informationDropdown, .aboutDropdown, .emergencyButton{
-  margin: 0 18px;
-}
+
 @media  only screen and (max-width: 1399px) and (min-width: 991px) {
-  .informationDropdown, .aboutDropdown, .emergencyButton{
-    margin: 0 10px;
+  .informationDropdown, .aboutDropdown {
     line-height: 16px;
+    white-space: nowrap;
   }
 }
 
@@ -273,8 +271,9 @@ li.informationDropdown {
     height: 55px !important;
     object-fit: contain;
   }
-  .aboutDropdown {
-    /* margin: 0 !important; */
+  .mobilelocationicon{
+    height: 26px!important;
+    width: 24px!important;
   }
 
 }

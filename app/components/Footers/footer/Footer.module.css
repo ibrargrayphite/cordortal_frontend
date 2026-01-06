@@ -251,7 +251,7 @@
 }
 
 .footerLinkAnchor:hover {
-  color: var(--subheadline-color);
+  color: var(--main-accent-dark);
 }
 
 /* ... existing code ... */
