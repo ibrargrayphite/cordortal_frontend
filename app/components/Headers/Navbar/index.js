@@ -19,7 +19,7 @@ const NavBar = ({ media, src, name, menuItems, locations: propsLocations }) => {
   const currentPath = router.pathname;
   
   // Location context for multi-location support
-  const { selectLocation, selectedLocation, hasMultipleLocations, isHydrated, locations: contextLocations, phone } = useLocation();
+  const { selectLocation, selectedLocation, hasMultipleLocations, isHydrated, locations: contextLocations, phone, callbutton } = useLocation();
   
   // Use context locations if available (ensures consistency), fallback to props
   const locations = contextLocations?.length > 0 ? contextLocations : propsLocations;
@@ -261,7 +261,7 @@ const NavBar = ({ media, src, name, menuItems, locations: propsLocations }) => {
               </div>
             </div> */}
 
-           {phone && (
+           {phone && callbutton && (
               <Button
                 onClick={(e) => {
                   e.preventDefault();
@@ -349,7 +349,7 @@ const NavBar = ({ media, src, name, menuItems, locations: propsLocations }) => {
             </div>
           </div> */}
           {/* Phone icon - Mobile (clickable) - Left of hamburger */}
-          {phone && (
+          {phone && callbutton && (
             <button
               onClick={handlePhoneClick}
               className={styles.phoneIconButton}

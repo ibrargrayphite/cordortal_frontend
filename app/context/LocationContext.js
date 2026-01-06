@@ -170,6 +170,9 @@ export function LocationProvider({ children, pagesData }) {
     }
   }, [locations]);
 
+  // Get callbutton flag from orgData (defaults to false if missing)
+  const callbutton = orgData?.callbutton === true;
+
   // Context value
   const value = {
     // Raw data
@@ -202,6 +205,9 @@ export function LocationProvider({ children, pagesData }) {
     
     // Map component
     map: resolvedData.map,
+    
+    // Call button flag
+    callbutton,
     
     // Helpers
     hasMultipleLocations: locations.filter(l => !l.disable).length > 1,
@@ -240,6 +246,7 @@ export function useLocation() {
       specialHours: [],
       team: [],
       map: null,
+      callbutton: false,
       hasMultipleLocations: false,
       selectLocation: () => {},
       getDefaultLocation: () => null,
