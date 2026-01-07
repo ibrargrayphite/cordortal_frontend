@@ -1,0 +1,23 @@
+.heading{
+    font-size: 2rem;
+}
+
+.specialAlert {
+    background-color: #fff3cd;
+    border: 1px solid #ffc107;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    color: #856404;
+}
+
+@media only screen and (max-width: 767px) {
+    .heading{
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 10px;
+}
+.closed{
+    text-align: center;
+}
+}

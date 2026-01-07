@@ -22,14 +22,14 @@ export async function fetchPagesData() {
     
     cachedPagesData = await response.json();
     cacheTimestamp = now;
-    console.log('Pages data cached successfully');
+    console.log('Pages data cached successfully', cachedPagesData);
     
     return cachedPagesData;
   } catch (error) {
     console.error('Error fetching pages data:', error);
     // Return cached data if available, even if expired
     if (cachedPagesData) {
-      console.log('Returning cached data due to fetch error');
+      console.log('Returning cached data due to fetch error', cachedPagesData);
       return cachedPagesData;
     }
     // Return empty object if no cache available

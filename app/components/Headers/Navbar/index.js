@@ -72,7 +72,8 @@ const NavBar = ({ media, src, name, menuItems, locations: propsLocations }) => {
         !(
           href === "/about-us" ||
           href === "/services" ||
-          href === "/information"
+          href === "/information" ||
+          href === "/locations"
         )
       ) {
         setExpanded(false);

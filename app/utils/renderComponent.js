@@ -76,5 +76,16 @@ export const renderComponent = (block) => {
     // for plans services information component
     content: block.content,
     heading: block.heading,
+    // for HoursData component
+    hoursData: block.hoursData,
+    lunchTime: block.lunchTime,
+    // for ContactInfo component
+    email: block.email,
+    phone: block.phone,
+    address: block.address,
+    media: block.media,
+    addressMedia: block.addressMedia,
+    phoneMedia: block.phoneMedia,
+    emailMedia: block.emailMedia,
   });
 };

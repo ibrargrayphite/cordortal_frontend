@@ -45,6 +45,9 @@ const componentRegistry = {
   Information: dynamic(() => import("./Information")),
   PriceTable: dynamic(() => import("./PriceTable")),
   FinanceCard: dynamic(() => import("./FinanceCard")),
+  LocationCard: dynamic(() => import("./LocationCard")),
+  HoursData: dynamic(() => import("./HoursData")),
+  ContactInfo: dynamic(() => import("./ContactInfo")),
 };
 
 export default componentRegistry;
