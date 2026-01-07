@@ -54,23 +54,26 @@ const PriceTable = ({ Package = false, data }) => {
 
   useEffect(() => {
     // Update height when content changes or item opens/closes
-    if (isMobile && openItemIndex !== null && contentRefs.current[openItemIndex]) {
-      const contentElement = contentRefs.current[openItemIndex];
-      const contentWrapper = contentElement.querySelector(`.${styles.contentWrapper}`);
-      
-      if (contentWrapper) {
-        // Temporarily set height to auto to get the actual height
-        contentElement.style.height = 'auto';
-        const height = contentWrapper.scrollHeight;
-        contentElement.style.height = `${height}px`;
-      }
-    } else if (isMobile) {
-      // Close all other items
+    if (isMobile) {
+      // First, close all items that are not the current openItemIndex
       contentRefs.current.forEach((ref, index) => {
         if (ref && index !== openItemIndex) {
           ref.style.height = '0px';
         }
       });
+      
+      // Then, if there's an open item, set its height
+      if (openItemIndex !== null && contentRefs.current[openItemIndex]) {
+        const contentElement = contentRefs.current[openItemIndex];
+        const contentWrapper = contentElement.querySelector(`.${styles.contentWrapper}`);
+        
+        if (contentWrapper) {
+          // Temporarily set height to auto to get the actual height
+          contentElement.style.height = 'auto';
+          const height = contentWrapper.scrollHeight;
+          contentElement.style.height = `${height}px`;
+        }
+      }
     }
   }, [openItemIndex, isMobile]);
 
@@ -214,7 +217,7 @@ const PriceTable = ({ Package = false, data }) => {
             {/* Active Indicator - Attached to left wall */}
             <div ref={indicatorRef} className={styles.activeIndicator}></div>
             
-            <div className={styles.contentWrapper}>
+            <div key={selectedIndex} className={styles.contentWrapper}>
               {renderContent(selectedItem)}
             </div>
           </div>

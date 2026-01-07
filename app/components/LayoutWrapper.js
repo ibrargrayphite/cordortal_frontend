@@ -37,8 +37,8 @@ const LayoutWrapper = ({ children, shared, location, chatBot, thirdPartyChatWidg
           button: shared.header?.button,
         })
       }
-      {!isAdminPage && <AddressBar />}
-      <main className={`${isAdminPage ? "" : "mt-[88px] sm:mt-[88px] md:mt-[12px] lg:mt-[108px] xl:mt-[123px]"}`}>{children}</main>
+      {/* {!isAdminPage && <AddressBar />} */}
+      <main className={`${isAdminPage ? "" : "mt-[60px] md:mt-[80px]"}`}>{children}</main>
       {/* Only show footer if not on admin pages */}
       {!isAdminPage && (
         <div className={styles.footerContaner}>

@@ -8,6 +8,7 @@ import styles from "./Navbar.module.css";
 import { useTheme } from "../../../context/ThemeContext";
 import { useLocation } from "../../../context/LocationContext";
 import defaultMedia from "../../../../public/assets/images/solutions/implants.png";
+import phoneCallIcon from "../../../../public/assets/images/phone-call.png";
 import Image from "next/image";
 import { Button } from "../../../components/ui/button";
 import { cn } from "../../../utils/utils";
@@ -170,7 +171,7 @@ const NavBar = ({ media, src, name, menuItems, locations: propsLocations }) => {
           className={`hidden lg:flex items-center justify-end`}
           style={{ minHeight: "1vh", maxHeight: "63vh" }}
         >
-          <div className="me-auto flex flex-col lg:flex-row items-center">
+          <div className="me-auto flex flex-col lg:flex-row items-center lg:gap-2 xl:gap-4">
             {menuItems?.map((item) => (
               <div
                 key={item.label}
@@ -202,37 +203,19 @@ const NavBar = ({ media, src, name, menuItems, locations: propsLocations }) => {
                 )}
               </div>
             ))}
-
-            {/* Emergency button */}
-            <div className={`!mb-4 lg:!mb-0 ${styles.emergencyButton}`}>
-              <div style={{ display: "flex", gap: 10 }}>
-                <Button
-                  onClick={() => handleNavigation("/emergency")}
-                  variant="emergency"
-                  className={cn(
-                    "border-2 border-red-500 bg-[color-mix(in_srgb,var(--main-accent-color)_20%,white)]",
-                    "hover:bg-red-500",
-                    "hover:border-white"
-                  )}
-                >
-                  Emergency
-                </Button>
-              </div>
-            </div>
-
-            {/* Desktop location dropdown */}
-            {/* <div className={styles.locationDropdown}>
+{/* Desktop location dropdown */}
+<div className={styles.locationDropdown}>
               <div
                 className={`${styles.informationDropdown} !mb-4 lg:!mb-0`}
                 ref={dropdownRef}
               >
-                <a
+                {/* <a
                   style={{ fontSize: "16px" }}
                   className={` font-size-lg font-size-md-md font-size-sm-sm ${
                     styles.listStyle
                   } ${activeItem === "Location" ? styles.active : ""}`}
                   onClick={toggleDropdown}
-                >
+                > */}
                   <Image
                     loading="lazy"
                     width={100}
@@ -240,8 +223,9 @@ const NavBar = ({ media, src, name, menuItems, locations: propsLocations }) => {
                     className={styles.locationIconStyle}
                     src={locationIcon.src}
                     alt={`Exceptional Dental Service at ${name}`}
+                    onClick={toggleDropdown}
                   />
-                </a>
+                {/* </a> */}
                 <div
                   className={`${styles.informationDropdownContent} ${
                     locationDropdownVisible ? styles.visible : ""
@@ -259,7 +243,23 @@ const NavBar = ({ media, src, name, menuItems, locations: propsLocations }) => {
                   ))}
                 </div>
               </div>
-            </div> */}
+            </div>
+            {/* Emergency button */}
+            <div className={`!mb-4 lg:!mb-0 ${styles.emergencyButton}`}>
+              <div style={{ display: "flex", gap: 10 }}>
+                <Button
+                  onClick={() => handleNavigation("/emergency")}
+                  variant="emergency"
+                  className={cn(
+                    "border-2 border-red-500 bg-[color-mix(in_srgb,var(--main-accent-color)_20%,white)]",
+                    "hover:bg-red-500",
+                    "hover:border-white"
+                  )}
+                >
+                  Emergency
+                </Button>
+              </div>
+            </div>
 
            {phone && callbutton && (
               <Button
@@ -278,7 +278,7 @@ const NavBar = ({ media, src, name, menuItems, locations: propsLocations }) => {
                 disabled
               >
                 <Image
-                  src={phoneIcon}
+                  src={phoneCallIcon}
                   alt="Phone"
                   width={16}
                   height={16}
@@ -305,7 +305,7 @@ const NavBar = ({ media, src, name, menuItems, locations: propsLocations }) => {
         {/* Mobile controls (only on < md) */}
         <div className={`flex lg:hidden items-center gap-2 ${styles.locationMob}`}>
           {/* Location dropdown (mobile) */}
-          {/* <div
+          <div
             style={{
               margin: "0px 6px",
               display: "flex",
@@ -349,7 +349,7 @@ const NavBar = ({ media, src, name, menuItems, locations: propsLocations }) => {
                 </a>
               ))}
             </div>
-          </div> */}
+          </div>
           {/* Phone icon - Mobile (clickable) - Left of hamburger */}
           {phone && callbutton && (
             <button
