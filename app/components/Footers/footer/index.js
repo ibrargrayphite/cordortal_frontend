@@ -65,7 +65,9 @@ const Footer = ({ src, refersrc, title,data,media,noBgColor,footerLogin }) => {
   ];
 
   const handleBooking = (src) => {
-    window.open(src, "_blank");
+    if (src && src.trim && src.trim() !== '') {
+      window.open(src, "_blank");
+    }
   };
 
   const handleHome = () => {
@@ -74,6 +76,16 @@ const Footer = ({ src, refersrc, title,data,media,noBgColor,footerLogin }) => {
 
   const handleLogin = () => {
     window.open('/login', '_blank');
+  };
+
+  // Helper function to check if src is valid and non-empty
+  const isValidSrc = (src) => {
+    return src && typeof src === 'string' && src.trim() !== '';
+  };
+
+  // Helper function to check if refersrc is valid
+  const isValidRefersrc = (refersrc) => {
+    return refersrc && typeof refersrc === 'string' && refersrc.trim() !== '';
   };
 
   return (
@@ -102,15 +114,26 @@ const Footer = ({ src, refersrc, title,data,media,noBgColor,footerLogin }) => {
             <div
               className={`w-full lg:w-1/3 flex md:hidden flex-col items-center ${styles.bookingButton} ${styles.mobileBookingButton}`}
             >
-              <CustomButton
-                headline="Book an Appointment"
-                onClick={handleBooking}
-                className={styles.customButton}
-              />
+              {/* Optionally show booking button only if src exists and is valid */}
+              {isValidSrc(src) && (
+                <CustomButton
+                  headline="Book an Appointment"
+                  onClick={() => handleBooking(src)}
+                  className={styles.customButton}
+                />
+              )}
+              {/* Always show Refer Your Patient link - no conditions */}
               <div>
                 <ul className={styles.footerLink}>
                   <li>
-                    <a style={{ cursor: "pointer" }}>Refer Your Patient</a>
+                    <a 
+                      href={refersrc || '#'}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ cursor: "pointer", textDecoration: "none", color: "inherit" }}
+                    >
+                      Refer Your Patient
+                    </a>
                   </li>
                 </ul>
               </div>
@@ -154,18 +177,22 @@ const Footer = ({ src, refersrc, title,data,media,noBgColor,footerLogin }) => {
           <div className="md:flex flex-wrap hidden">
             {/* <div className="w-full lg:w-1/3"/> */}
             <div className={`w-full flex flex-col items-center justify-center ${styles.hideOnMobile}`}>
-              <div className={`max-lg:mt-0 max-xl:mt-40 ${styles.leftButton}`}>
-                <CustomButton
-                  headline="Book an Appointment"
-                  onClick={() => handleBooking(src)}
-                  className={styles.customButton}
-                />
-              </div>
+              {/* Optionally show booking button only if src exists and is valid */}
+              {isValidSrc(src) && (
+                <div className={`max-lg:mt-0 max-xl:mt-40 ${styles.leftButton}`}>
+                  <CustomButton
+                    headline="Book an Appointment"
+                    onClick={() => handleBooking(src)}
+                    className={styles.customButton}
+                  />
+                </div>
+              )}
+              {/* Always show Refer Your Patient link - no conditions */}
               <div style={{ marginTop: 8, marginBottom: 8 }}>
                 <ul className={styles.footerLink}>
                   <li>
                     <a
-                      href={refersrc}
+                      href={refersrc || '#'}
                       target="_blank"
                       rel="noopener noreferrer"
                       style={{ cursor: "pointer", textDecoration: "none", color: "inherit" }}

@@ -49,14 +49,16 @@ const CardRightImage = ({ description, media, headline,buttonName,buttonSrc }) =
                 className={styles.customButtonFirst}
               />
               </div>
-              <div className="flex justify-center xs:mt-4 md:mt-0 text-center">
-                <CustomButton
-                  headline={buttonName ? buttonName : "Book Now"}
-                  onClick={() => handleSecondaryAction(buttonSrc)}
-                  className={styles.customButton}
-                  icon={<FaArrowRight />}
-                />
-              </div>
+              {buttonSrc && (
+                <div className="flex justify-center xs:mt-4 md:mt-0 text-center">
+                  <CustomButton
+                    headline={buttonName ? buttonName : "Book Now"}
+                    onClick={() => handleSecondaryAction(buttonSrc)}
+                    className={styles.customButton}
+                    icon={<FaArrowRight />}
+                  />
+                </div>
+              )}
             </div>
           </div>
         </div>

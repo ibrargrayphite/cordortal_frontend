@@ -287,16 +287,18 @@ const NavBar = ({ media, src, name, menuItems, locations: propsLocations }) => {
                 {phone}
               </Button>
             )}
-            {/* Book Online button */}
-            <Button
-              onClick={() => handleBooking(src)}
-              className={`${styles.customNavbarBtn} bg-main-accent`}
-              style={{ width: 211, marginLeft: "14px" }}
-              variant="default"
-              size="default"
-            >
-              Book Online
-            </Button>
+            {/* Book Online button - Only show if src exists and is a non-empty string */}
+            {src && typeof src === 'string' && src.trim() !== '' && (
+              <Button
+                onClick={() => handleBooking(src)}
+                className={`${styles.customNavbarBtn} bg-main-accent`}
+                style={{ width: 211, marginLeft: "14px" }}
+                variant="default"
+                size="default"
+              >
+                Book Online
+              </Button>
+            )}
           </div>
         </div>
 
@@ -508,15 +510,18 @@ const NavBar = ({ media, src, name, menuItems, locations: propsLocations }) => {
                   </div>
                 </div>
               </div> */}
-            <Button
-              onClick={() => handleBooking(src)}
-              className={`${styles.customNavbarBtn} bg-main-accent`}
-              style={{ width: 211, marginLeft: "14px" }}
-              variant="default"
-              size="default"
-            >
-              Book Online
-            </Button>
+            {/* Book Online button - Only show if src exists and is a non-empty string */}
+            {src && typeof src === 'string' && src.trim() !== '' && (
+              <Button
+                onClick={() => handleBooking(src)}
+                className={`${styles.customNavbarBtn} bg-main-accent`}
+                style={{ width: 211, marginLeft: "14px" }}
+                variant="default"
+                size="default"
+              >
+                Book Online
+              </Button>
+            )}
           </div>
         </div>
       )}

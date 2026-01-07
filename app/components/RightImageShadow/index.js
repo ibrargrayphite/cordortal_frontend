@@ -23,11 +23,13 @@ const RightImageShadow = ({ headline, description, media,buttonName,buttonSrc })
         <div className="lg:pl-20 md:p-0 lg:pr-8">
           <h2 className={styles.headline}>{headline}</h2>
           <p className={styles.description}>{description}</p>
-          <CustomButton
-            headline={buttonName ? buttonName : "Book Now"}
-            onClick={() => handlePrimaryAction(buttonSrc)}
-            className={styles.customButtonFirst}
-          />
+          {buttonSrc && (
+            <CustomButton
+              headline={buttonName ? buttonName : "Book Now"}
+              onClick={() => handlePrimaryAction(buttonSrc)}
+              className={styles.customButtonFirst}
+            />
+          )}
         </div>
         </div>
 
