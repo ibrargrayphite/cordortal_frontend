@@ -48,16 +48,18 @@ const PriceCard = ({ Package = false, data }) => {
                       </div>
                     ))}
 
-                    {/* Button aligned bottom */}
-                    <div className="mt-auto">
-                      <Link href={item.src} target="_blank">
-                        <CustomButton
-                          headline="Get Started"
-                          //  onClick={() => handleBooking(item.src)}
-                          className={styles.customButton}
-                        />
-                      </Link>
-                    </div>
+                    {/* Button aligned bottom - Only show if src exists */}
+                    {item.src && (
+                      <div className="mt-auto">
+                        <Link href={item.src} target="_blank">
+                          <CustomButton
+                            headline="Get Started"
+                            //  onClick={() => handleBooking(item.src)}
+                            className={styles.customButton}
+                          />
+                        </Link>
+                      </div>
+                    )}
                   </>
                 )}
               </div>

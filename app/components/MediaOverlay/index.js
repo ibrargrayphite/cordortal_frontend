@@ -168,11 +168,13 @@ const MediaOverlay = ({ media, media2,mediaType, headline, description, style, s
                 onClick={handlePrimaryAction}
                 className={styles.customButtonFirst}
               />
-              <CustomButton
-                headline="Book an Appointment"
-                onClick={() => handleSecondaryAction(src)}
-                className={styles.customButton}
-              />
+              {src && (
+                <CustomButton
+                  headline="Book an Appointment"
+                  onClick={() => handleSecondaryAction(src)}
+                  className={styles.customButton}
+                />
+              )}
               <div
                 className={styles.comingSoonText}
                 dangerouslySetInnerHTML={{ __html: htmlContent }}

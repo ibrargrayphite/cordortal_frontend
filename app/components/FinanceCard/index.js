@@ -12,17 +12,19 @@ const FinanceCard = ({ buttonSrc, headline, description }) => {
       <div className={`${styles.cardParent} flex flex-col py-4 px-8 mt-8 md:mt-20 lg:mt-20`}>
           <p className={styles.cardHeading}>{headline}</p>
           <p className={styles.cardDescription}>{description}</p>
-          <div className="w-full flex justify-center items-center">
-          <Button
-            onClick={() => handleFinanceClick(buttonSrc)}
-            className={`${styles.customNavbarBtn} bg-main-accent`}
-            style={{ width: 211, marginLeft: "14px", marginBottom: "10px" }}
-            variant="default"
-            size="default"
-          >
-            Let's Start
-          </Button>
-          </div>
+          {buttonSrc && (
+            <div className="w-full flex justify-center items-center">
+              <Button
+                onClick={() => handleFinanceClick(buttonSrc)}
+                className={`${styles.customNavbarBtn} bg-main-accent`}
+                style={{ width: 211, marginLeft: "14px", marginBottom: "10px" }}
+                variant="default"
+                size="default"
+              >
+                Let's Start
+              </Button>
+            </div>
+          )}
         </div>
     </div>
   );

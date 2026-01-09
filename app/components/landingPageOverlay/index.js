@@ -44,20 +44,24 @@ const landingPageOverlay = ({ description , media, headline,headlineLarge,title,
             </div>
             <p className={styles.descriptionContent}>{description}</p>
             <div className="flex flex-wrap max-md:items-center max-md:justify-center">
-              <div className="me-2 mb-2">
-                <CustomButton
-                  headline={buttonName}
-                  onClick={() => handlePrimaryAction(buttonSrc)}
-                  className={styles.customButton}
-                />
-              </div>
-              <div className="mb-2">
-                <CustomButton
-                  headline="Get Started"
-                  onClick={() => handleSecondaryAction(src)}
-                  className={styles.customButton}
-                />
-              </div>
+              {buttonSrc && (
+                <div className="me-2 mb-2">
+                  <CustomButton
+                    headline={buttonName}
+                    onClick={() => handlePrimaryAction(buttonSrc)}
+                    className={styles.customButton}
+                  />
+                </div>
+              )}
+              {src && (
+                <div className="mb-2">
+                  <CustomButton
+                    headline="Get Started"
+                    onClick={() => handleSecondaryAction(src)}
+                    className={styles.customButton}
+                  />
+                </div>
+              )}
             </div>
           </div>
 

@@ -28,16 +28,20 @@ const LandingPageBanner = ({ description , media, headline,headlineLarge,title,b
                 </div>
                 <p className={styles.descriptionContent}>{description}</p>
                 <div className="flex xs:flex-col md:flex-row justify-center items-center">
-                <CustomButton
-                  headline={buttonName ? buttonName : "Book Now"}
-                  onClick={() => handlePrimaryAction(buttonSrc)}
-                  className={styles.customButtonFirst}
-                />
-                <CustomButton
-                  headline="Get Started"
-                  onClick={() => handleSecondaryAction(src)}
-                  className={styles.customButton}
-                />
+                {buttonSrc && (
+                  <CustomButton
+                    headline={buttonName ? buttonName : "Book Now"}
+                    onClick={() => handlePrimaryAction(buttonSrc)}
+                    className={styles.customButtonFirst}
+                  />
+                )}
+                {src && (
+                  <CustomButton
+                    headline="Get Started"
+                    onClick={() => handleSecondaryAction(src)}
+                    className={styles.customButton}
+                  />
+                )}
                 </div>
               </div>
             </div>

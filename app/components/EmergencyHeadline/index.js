@@ -31,15 +31,15 @@ const EmergencyHeadline = ({
           showAnchorCall={showAnchorCall}
           headlineLarge={headlineLarge}
         />
-        {AppointmentButtonHeadline && 
-        <Link href={src} target="_blank">
-        <CustomButton
-          headline={AppointmentButtonHeadline}
-          //  onClick={() => handleBooking(item.src)}
-          centerButton={centerButton}
-        />
-       </Link>
-        }
+        {AppointmentButtonHeadline && src && (
+          <Link href={src} target="_blank">
+            <CustomButton
+              headline={AppointmentButtonHeadline}
+              //  onClick={() => handleBooking(item.src)}
+              centerButton={centerButton}
+            />
+          </Link>
+        )}
       </div>
     </div>
   );

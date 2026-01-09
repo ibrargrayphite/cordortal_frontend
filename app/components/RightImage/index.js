@@ -38,11 +38,13 @@ const RightImage = ({
             <h1>{headline}</h1>
             <p className={styles.paragraph}>{description}</p>
             <div className={styles.buttonContainer}>
-              <CustomButton
-                headline={"Let’s Start"}
-                onClick={()=>handlePrimaryAction(buttonSrc)}
-                className={styles.customButtonFirst}
-              />
+              {buttonSrc && (
+                <CustomButton
+                  headline={"Let's Start"}
+                  onClick={()=>handlePrimaryAction(buttonSrc)}
+                  className={styles.customButtonFirst}
+                />
+              )}
               {isIconButton && (
                 <div
                   style={{
