@@ -16,7 +16,7 @@ import { useState, useEffect } from 'react';
 
 const Footer = ({ src, refersrc, title,data,media,noBgColor,footerLogin }) => {
   const { pages } = usePages();
-  const locationContext = useLocation();
+  const {locationContext, basicFooter} = useLocation();
   
   // Use location context for contact data (with fallback to pages.data for backward compatibility)
   const ContactCardData = {
@@ -75,13 +75,15 @@ const Footer = ({ src, refersrc, title,data,media,noBgColor,footerLogin }) => {
   const handleLogin = () => {
     window.open('/login', '_blank');
   };
+  // alert(basicFooter);
+  console.log(basicFooter, "basicFooter==========>>>");
 
   return (
     <>
       <footer>
         
         {
-         ContactCardData && Object.keys(ContactCardData).length > 1 ?
+         ContactCardData && Object.keys(ContactCardData).length > 1 && !basicFooter ?
          (<div className={styles.contactCard}>
           <ContactCard data={ContactCardData} />
         </div>):""
@@ -94,10 +96,9 @@ const Footer = ({ src, refersrc, title,data,media,noBgColor,footerLogin }) => {
         >
           <div className="flex flex-wrap pl-2 md:text-start md:pl-12 lg:pl-12 2xl:pl-0">
             <div className="xxl:w-1/6" />
-            <div className="w-full lg:w-1/3">
-              {/* HoursOfOperation now uses LocationContext for location-specific hours */}
+            {!basicFooter ? <div className="w-full lg:w-1/3">
               <HoursOfOperation />
-            </div>
+            </div> : ""}
             {/* for mobile view */}
             <div
               className={`w-full lg:w-1/3 flex md:hidden flex-col items-center ${styles.bookingButton} ${styles.mobileBookingButton}`}

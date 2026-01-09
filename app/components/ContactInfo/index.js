@@ -12,7 +12,7 @@ export default function ContactInfo({ email, phone, address, media, addressMedia
   const router = useRouter();
 
   return (
-    <div className={`${styles.footerContactCard} lg:absolute xs:relative xs:right-0 lg:right-[-150px] lg:mr-[200px] max-lg:m-auto` }>
+    <div className={`${styles.footerContactCard} mx-auto max-w-5xl mx-2 md:mx-4 lg:mx-auto my-4 md:my-10 lg:my-12` }>
       <Image
       loading="lazy"
         src={media && media?.startsWith('https') ? media : defaultMedia.src}

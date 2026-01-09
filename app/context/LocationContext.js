@@ -173,6 +173,9 @@ export function LocationProvider({ children, pagesData }) {
   // Get callbutton flag from orgData (defaults to false if missing)
   const callbutton = orgData?.callbutton === true;
 
+  // Get basic footer flag from orgData (defaults to false if missing)
+  const basicFooter = orgData?.basicFooter === true;
+
   // Context value
   const value = {
     // Raw data
@@ -213,6 +216,9 @@ export function LocationProvider({ children, pagesData }) {
     hasMultipleLocations: locations.filter(l => !l.disable).length > 1,
     selectLocation,
     getDefaultLocation: () => getDefaultLocation(locations),
+
+    // Basic footer flag
+    basicFooter,
   };
 
   return (
@@ -247,6 +253,7 @@ export function useLocation() {
       team: [],
       map: null,
       callbutton: false,
+      basicFooter: false,
       hasMultipleLocations: false,
       selectLocation: () => {},
       getDefaultLocation: () => null,

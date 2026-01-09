@@ -204,29 +204,21 @@ const NavBar = ({ media, src, name, menuItems, locations: propsLocations }) => {
                 )}
               </div>
             ))}
-{/* Desktop location dropdown */}
-<div className={styles.locationDropdown}>
+            {/* Desktop location dropdown */}
+            {/* <div className={styles.locationDropdown}>
               <div
                 className={`${styles.informationDropdown} !mb-4 lg:!mb-0`}
                 ref={dropdownRef}
               >
-                {/* <a
-                  style={{ fontSize: "16px" }}
-                  className={` font-size-lg font-size-md-md font-size-sm-sm ${
-                    styles.listStyle
-                  } ${activeItem === "Location" ? styles.active : ""}`}
+                <Image
+                  loading="lazy"
+                  width={100}
+                  height={32}
+                  className={styles.locationIconStyle}
+                  src={locationIcon.src}
+                  alt={`Exceptional Dental Service at ${name}`}
                   onClick={toggleDropdown}
-                > */}
-                  <Image
-                    loading="lazy"
-                    width={100}
-                    height={32}
-                    className={styles.locationIconStyle}
-                    src={locationIcon.src}
-                    alt={`Exceptional Dental Service at ${name}`}
-                    onClick={toggleDropdown}
-                  />
-                {/* </a> */}
+                />
                 <div
                   className={`${styles.informationDropdownContent} ${
                     locationDropdownVisible ? styles.visible : ""
@@ -244,7 +236,7 @@ const NavBar = ({ media, src, name, menuItems, locations: propsLocations }) => {
                   ))}
                 </div>
               </div>
-            </div>
+            </div> */}
             {/* Emergency button */}
             <div className={`!mb-4 lg:!mb-0 ${styles.emergencyButton}`}>
               <div style={{ display: "flex", gap: 10 }}>
@@ -304,7 +296,7 @@ const NavBar = ({ media, src, name, menuItems, locations: propsLocations }) => {
         {/* Mobile controls (only on < md) */}
         <div className={`flex lg:hidden items-center gap-2 ${styles.locationMob}`}>
           {/* Location dropdown (mobile) */}
-          <div
+          {/* <div
             style={{
               margin: "0px 6px",
               display: "flex",
@@ -348,7 +340,7 @@ const NavBar = ({ media, src, name, menuItems, locations: propsLocations }) => {
                 </a>
               ))}
             </div>
-          </div>
+          </div> */}
           {/* Phone icon - Mobile (clickable) - Left of hamburger */}
           {phone && callbutton && (
             <button

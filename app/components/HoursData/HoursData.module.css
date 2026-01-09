@@ -1,23 +1,247 @@
-.heading{
-    font-size: 2rem;
-}
-
-.specialAlert {
-    background-color: #fff3cd;
-    border: 1px solid #ffc107;
-    border-radius: 8px;
-    padding: 0.75rem 1rem;
+.hoursContainer {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    /* max-width: 100%; */
+  }
+  
+  .headerSection {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid color-mix(in srgb, var(--main-accent-color) 15%, white);
+  }
+  
+  .iconWrapper {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--main-accent-color) 10%, white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  
+  .clockIcon {
+    width: 24px;
+    height: 24px;
+    color: var(--main-accent-color);
+  }
+  
+  .heading {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--headline-color);
+    margin: 0;
+    line-height: 1.2;
+  }
+  
+  .specialAlert {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    background: linear-gradient(135deg, color-mix(in srgb, var(--main-accent-color) 8%, white) 0%, color-mix(in srgb, var(--main-accent-color) 12%, white) 100%);
+    border-left: 4px solid var(--main-accent-color);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .alertIcon {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  
+  .alertContent {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    flex: 1;
+  }
+  
+  .alertLabel {
+    color: var(--headline-color);
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+  
+  .alertTime {
+    color: var(--content-color);
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  
+  .hoursList {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
     margin-bottom: 1rem;
-    color: #856404;
-}
-
-@media only screen and (max-width: 767px) {
-    .heading{
-    text-align: center;
-    margin-top: 40px;
-    margin-bottom: 10px;
-}
-.closed{
-    text-align: center;
-}
-}
+  }
+  
+  .hoursItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.25rem;
+    border-radius: 10px;
+    background: color-mix(in srgb, var(--main-accent-color) 3%, white);
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+  }
+  
+  .hoursItem:hover {
+    background: color-mix(in srgb, var(--main-accent-color) 8%, white);
+    transform: translateX(4px);
+    border-color: color-mix(in srgb, var(--main-accent-color) 20%, white);
+  }
+  
+  .hoursItemToday {
+    background: color-mix(in srgb, var(--main-accent-color) 12%, white);
+    border: 2px solid var(--main-accent-color);
+    box-shadow: 0 2px 8px color-mix(in srgb, var(--main-accent-color) 20%, transparent);
+  }
+  
+  .dayColumn {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex: 1;
+  }
+  
+  .dayName {
+    font-weight: 600;
+    color: var(--headline-color);
+    font-size: 1rem;
+    min-width: 100px;
+  }
+  
+  .todayBadge {
+    background: var(--main-accent-dark);
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.25rem 0.6rem;
+    border-radius: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .timeColumn {
+    flex: 1;
+    text-align: right;
+  }
+  
+  .timeText {
+    color: var(--content-color);
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+  
+  .lunchSection {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem;
+    background: color-mix(in srgb, var(--subheadline-color) 8%, white);
+    border-radius: 12px;
+    margin-top: 1rem;
+    border: 1px solid color-mix(in srgb, var(--subheadline-color) 15%, white);
+  }
+  
+  .lunchIcon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: color-mix(in srgb, var(--subheadline-color) 15%, white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  
+  .lunchIcon svg {
+    width: 20px;
+    height: 20px;
+    color: var(--subheadline-color);
+  }
+  
+  .lunchContent {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    flex: 1;
+  }
+  
+  .lunchLabel {
+    color: var(--subheadline-color);
+    font-size: 0.9rem;
+    font-weight: 600;
+    font-style: italic;
+  }
+  
+  .lunchTime {
+    color: var(--content-color);
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+  
+  @media only screen and (max-width: 767px) {
+    .hoursContainer {
+      padding: 1.5rem;
+      border-radius: 12px;
+    }
+  
+    .headerSection {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.75rem;
+      text-align: center;
+      width: 100%;
+    }
+  
+    .iconWrapper {
+      align-self: center;
+    }
+  
+    .heading {
+      font-size: 1.5rem;
+      text-align: center;
+      width: 100%;
+    }
+  
+    .hoursItem {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+      padding: 1rem;
+    }
+  
+    .dayColumn {
+      width: 100%;
+      justify-content: space-between;
+    }
+  
+    .dayName {
+      min-width: auto;
+    }
+  
+    .timeColumn {
+      width: 100%;
+      text-align: left;
+    }
+  
+    .lunchSection {
+      flex-direction: column;
+      text-align: center;
+      padding: 1rem;
+    }
+  
+    .lunchContent {
+      align-items: center;
+    }
+  }
