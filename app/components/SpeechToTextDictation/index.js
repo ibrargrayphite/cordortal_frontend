@@ -124,21 +124,14 @@ const SpeechToTextDictation = ({
           output_audio_format: 'pcm16',
           input_audio_transcription: {
             model: 'gpt-4o-transcribe',
-            language: 'en',
-            prompt: `
-              You are transcribing a dentist explaining a patient's condition and treatment.
-              Use clear medical terminology.
-              Do not summarize or interpret.
-              Transcribe verbatim what is spoken.
-              Ignore any other languages or background conversations.
-              `.trim(),
+            language: 'en'
           },
           // MINIMIZED turn_detection delays for fastest response
           turn_detection: {
-            type: 'server_vad',
-            threshold: 0.5,  // Higher threshold = less sensitive, faster detection
-            prefix_padding_ms: 50,  // Minimal padding
-            silence_duration_ms: 50  // Minimal silence - process immediately
+            type: "semantic_vad",
+            eagerness: "medium", // optional
+            create_response: true, // only in conversation mode
+            interrupt_response: true, // only in conversation mode
           },
           input_audio_noise_reduction: {
             "type": "near_field"
