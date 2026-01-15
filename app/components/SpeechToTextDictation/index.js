@@ -129,12 +129,12 @@ const SpeechToTextDictation = ({
           // MINIMIZED turn_detection delays for fastest response
           turn_detection: {
             type: "semantic_vad",
-            eagerness: "medium", // optional
+            eagerness: "low", // optional
             create_response: true, // only in conversation mode
             interrupt_response: true, // only in conversation mode
           },
           input_audio_noise_reduction: {
-            "type": "near_field"
+            "type": "far_field"
           },
           tools: [],
           tool_choice: 'none'
