@@ -418,7 +418,16 @@ function TemplateForm({
   return (
     <div>
       <div className="mb-3 space-y-2">
-        <Label htmlFor="template-name" className="text-black dark:text-black">
+        <Label 
+          htmlFor="template-name" 
+          style={{
+            color: 'var(--admin-foreground, var(--subheadline-color))',
+            fontSize: '0.875rem',
+            fontWeight: '700',
+            textTransform: 'uppercase',
+            letterSpacing: '0.05em'
+          }}
+        >
           {mode === "template" || mode === "create" ? "Template Name" : "Consent Form Name"}
         </Label>
         <Input
@@ -432,7 +441,12 @@ function TemplateForm({
           maxLength={255}
           disabled={isSigned}
           required
-          className="bg-white text-black"
+          style={{
+            backgroundColor: 'var(--admin-card, var(--bg-color))',
+            color: 'var(--admin-foreground, var(--subheadline-color))',
+            borderColor: 'var(--admin-border)',
+            borderRadius: 'var(--admin-radius, 6px)'
+          }}
         />
       </div>
 

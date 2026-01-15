@@ -1,15 +1,15 @@
 .templateDetailContainer {
   min-height: 100vh;
-  background: #f8fafc;
+  background: var(--admin-background, var(--bg-color));
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .primaryActionButton {
-  background: #2563eb !important;
-  border: 1px solid #2563eb !important;
-  color: white !important;
+  background: var(--admin-primary, var(--main-accent-color)) !important;
+  border: 1px solid var(--admin-primary, var(--main-accent-color)) !important;
+  color: var(--admin-primary-foreground, #ffffff) !important;
   padding: 0.5rem 1rem;
-  border-radius: 6px;
+  border-radius: var(--admin-radius, 6px);
   font-size: 0.875rem;
   font-weight: 500;
   transition: all 0.2s ease;
@@ -49,10 +49,10 @@
 }
 
 .modernHeader {
-  background: white;
+  background: var(--admin-card, var(--bg-color));
   padding: 1.5rem 2rem;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-radius: var(--admin-radius, 12px);
+  box-shadow: var(--admin-shadow-md, 0 2px 8px rgba(0, 0, 0, 0.08));
   margin-bottom: 1.5rem;
   display: flex;
   justify-content: space-between;
@@ -102,7 +102,7 @@
 .simpleContentHeader {
   margin-bottom: 2rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--admin-border);
 }
 
 .templateInfo {
@@ -116,7 +116,7 @@
 .templateTitle {
   font-size: 1.25rem;
   font-weight: 600;
-  color: #374151;
+  color: var(--admin-foreground, var(--subheadline-color));
 }
 
 .templateDetailsSection {
@@ -124,15 +124,15 @@
 }
 
 .templateDetailsCard {
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  background: var(--admin-card, var(--bg-color));
+  border-radius: var(--admin-radius, 12px);
+  box-shadow: var(--admin-shadow-sm, 0 4px 6px rgba(0, 0, 0, 0.05));
   overflow: hidden;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--admin-border);
 }
 
 .templateDetailsHeader {
-  background: #f8fafc;
+  background: var(--admin-muted, #f8fafc);
   padding: 1.5rem;
   display: flex;
   justify-content: space-between;
@@ -168,22 +168,22 @@
 
 .templateDetailLabel {
   font-weight: 600;
-  color: #374151;
+  color: var(--admin-foreground, var(--subheadline-color));
   font-size: 0.875rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .templateDetailValue {
-  color: #1f2937;
+  color: var(--admin-foreground, var(--subheadline-color));
   font-size: 1rem;
   font-weight: 500;
 }
 
 .templateBody {
-  background: #f8fafc;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
+  background: var(--admin-muted, #f8fafc);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius, 8px);
   padding: 1rem;
   margin-top: 0.5rem;
 }
@@ -192,7 +192,7 @@
   font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
   font-size: 0.875rem;
   line-height: 1.6;
-  color: #374151;
+  color: var(--admin-foreground, var(--subheadline-color));
   margin: 0;
   white-space: pre-wrap;
   word-wrap: break-word;
@@ -206,11 +206,11 @@
 }
 
 .saveButton {
-  background: #10b981;
-  border: 1px solid #10b981;
-  color: #ffffff;
+  background: var(--admin-primary, var(--main-accent-color));
+  border: 1px solid var(--admin-primary, var(--main-accent-color));
+  color: var(--admin-primary-foreground, #ffffff);
   padding: 0.75rem 1.5rem;
-  border-radius: 6px;
+  border-radius: var(--admin-radius, 6px);
   font-size: 0.875rem;
   font-weight: 500;
   transition: all 0.2s ease;
@@ -220,24 +220,26 @@
 }
 
 .saveButton:hover {
-  background: #059669;
-  border-color: #059669;
+  background: var(--admin-primary, var(--main-accent-color));
+  border-color: var(--admin-primary, var(--main-accent-color));
+  opacity: 0.9;
   transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(16, 185, 129, 0.2);
+  box-shadow: var(--admin-shadow-md);
 }
 
 .saveButton:disabled {
-  background: #9ca3af;
-  border-color: #9ca3af;
+  background: var(--admin-muted-foreground, var(--content-color));
+  border-color: var(--admin-border);
+  opacity: 0.5;
   transform: none;
   box-shadow: none;
 }
 
 .cancelButton {
-  background: #ffffff;
-  color: #6b7280;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
+  background: var(--admin-card, var(--bg-color));
+  color: var(--admin-muted-foreground, var(--content-color));
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius, 8px);
   padding: 0.75rem 1.5rem;
   font-weight: 500;
   font-size: 0.875rem;
@@ -249,9 +251,9 @@
 }
 
 .cancelButton:hover {
-  background: #c7ccd2;
-  border-color: #97a5b7;
-  box-shadow: 0 6px 12px rgba(107, 114, 128, 0.25);
+  background: var(--admin-muted);
+  border-color: var(--admin-border);
+  box-shadow: var(--admin-shadow-md);
 }
 
 .buttonLoaderContainer {
@@ -263,17 +265,21 @@
 /* Full Page Editor Styles */
 .fullPageEditorContainer {
   margin: 2rem 0;
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  overflow: hidden;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  overflow: visible;
+  box-shadow: none;
+  padding: 0;
 }
 
 .editorHeader {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  background: #f8fafc;
-  border-bottom: 1px solid #e5e7eb;
+  gap: 1rem;
+  background: transparent;
+  border-bottom: none;
+  margin-bottom: 0;
 }
 
 .editorTitle,
@@ -282,20 +288,26 @@
   margin: 0;
   font-size: 1rem;
   font-weight: 600;
-  color: #374151;
-  border-right: 1px solid #e5e7eb;
+  color: var(--admin-foreground, var(--subheadline-color));
+  border: none;
   display: flex;
   align-items: center;
+  gap: 0.5rem;
+  background: var(--admin-muted, #f8fafc);
+  border-radius: var(--admin-radius, 8px) var(--admin-radius, 8px) 0 0;
+  border: 1px solid var(--admin-border);
+  border-bottom: none;
 }
 
-.previewTitle {
-  border-right: none;
+.editorTitle i,
+.previewTitle i {
+  color: var(--admin-primary, var(--main-accent-color));
 }
 
 .editorContainer {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0;
+  gap: 1rem;
   height: 100%;
   /* Use full height instead of fixed vh */
   align-items: stretch;
@@ -303,8 +315,10 @@
 }
 
 .editorSection {
-  background: #ffffff;
-  border-right: 1px solid #e5e7eb;
+  background: var(--admin-card, var(--bg-color));
+  border: 1px solid var(--admin-border);
+  border-top: none;
+  border-radius: 0 0 var(--admin-radius, 8px) var(--admin-radius, 8px);
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -312,6 +326,8 @@
   min-height: 500px;
   /* Ensure minimum editor height */
   width: 100%; /* Ensure full width */
+  box-shadow: var(--admin-shadow-sm);
+  overflow: hidden;
 }
 
 /* Full width editor for consent forms */
@@ -320,7 +336,7 @@
 }
 
 .fullWidthEditor .editorSection {
-  border-right: none; /* Remove right border for single column */
+  border: 1px solid var(--admin-border); /* Keep border for rounded corners */
 }
 
 .fullWidthEditorHeader {
@@ -328,7 +344,7 @@
 }
 
 .fullWidthEditorHeader .previewTitle {
-  border-right: 1px solid #e5e7eb; /* Add right border for two column header */
+  border-right: 1px solid var(--admin-border); /* Add right border for two column header */
 }
 
 .fullWidthEditorHeader .editorTitle {
@@ -336,11 +352,16 @@
 }
 
 .previewSection {
-  background: #ffffff;
+  background: var(--admin-card, var(--bg-color));
+  border: 1px solid var(--admin-border);
+  border-top: none;
+  border-radius: 0 0 var(--admin-radius, 8px) var(--admin-radius, 8px);
   display: flex;
   flex-direction: column;
   height: 100%;
   /* Use full height instead of min-height */
+  box-shadow: var(--admin-shadow-sm);
+  overflow: hidden;
 }
 
 .previewContainer {
@@ -348,7 +369,7 @@
   padding: 1rem;
   overflow-y: auto;
   overflow-x: hidden;
-  background: #ffffff;
+  background: var(--admin-card, var(--bg-color));
   border: none;
   user-select: none;
   -webkit-user-select: none;
@@ -361,7 +382,7 @@
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-size: 1rem;
   line-height: 1.6;
-  color: #374151;
+  color: var(--admin-foreground, var(--subheadline-color));
   word-wrap: break-word;
   user-select: none;
   -webkit-user-select: none;
@@ -377,7 +398,7 @@
 .htmlPreview h6 {
   margin: 1rem 0 0.5rem 0;
   font-weight: 600;
-  color: #1f2937;
+  color: var(--admin-foreground, var(--subheadline-color));
 }
 
 .htmlPreview h1 {
@@ -411,15 +432,15 @@
 }
 
 .htmlPreview a {
-  color: #3b82f6;
+  color: var(--admin-primary, var(--main-accent-color));
   text-decoration: underline;
 }
 
 /* Template Preview for View Mode */
 .templatePreviewContainer {
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 6px;
+  background: var(--admin-card, var(--bg-color));
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius, 6px);
   padding: 1rem;
   /* Reduced padding for more editor space */
   margin-top: 0.5rem;
@@ -436,7 +457,7 @@
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-size: 1rem;
   line-height: 1.6;
-  color: #374151;
+  color: var(--admin-foreground, var(--subheadline-color));
   word-wrap: break-word;
 }
 
@@ -448,7 +469,7 @@
 .templatePreview h6 {
   margin: 1rem 0 0.5rem 0;
   font-weight: 600;
-  color: #1f2937;
+  color: var(--admin-foreground, var(--subheadline-color));
 }
 
 .templatePreview h1 {
@@ -482,30 +503,31 @@
 }
 
 .templatePreview a {
-  color: #3b82f6;
+  color: var(--admin-primary, var(--main-accent-color));
   text-decoration: underline;
 }
 
 /* Form Styles */
 .form-label {
   font-weight: 600;
-  color: #374151;
+  color: var(--admin-foreground, var(--subheadline-color));
   margin-bottom: 0.5rem;
   font-size: 0.875rem;
 }
 
 .form-control {
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius, 6px);
   padding: 0.75rem;
   font-size: 0.875rem;
   transition: all 0.2s ease;
-  background: #ffffff;
+  background: var(--admin-card, var(--bg-color));
+  color: var(--admin-foreground, var(--subheadline-color));
 }
 
 .form-control:focus {
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  border-color: var(--admin-primary, var(--main-accent-color));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--admin-primary, var(--main-accent-color)) 20%, transparent);
   outline: none;
 }
 
@@ -551,27 +573,32 @@
 
   .editorContainer {
     grid-template-columns: 1fr;
+    gap: 1rem;
     min-height: 80vh;
     height: auto;
   }
 
-  .editorSection {
-    border-right: none;
-    border-bottom: 1px solid #e5e7eb;
-    min-height: 500px;
-  }
-
-  .previewSection {
-    min-height: 500px;
-  }
-
   .editorHeader {
     grid-template-columns: 1fr;
+    gap: 0;
+  }
+  
+  .editorTitle,
+  .previewTitle {
+    border-radius: var(--admin-radius, 8px) var(--admin-radius, 8px) 0 0;
+    border-bottom: 1px solid var(--admin-border);
   }
 
-  .editorTitle {
-    border-right: none;
-    border-bottom: 1px solid #e5e7eb;
+  .editorSection {
+    border-top: 1px solid var(--admin-border);
+    border-radius: 0 0 var(--admin-radius, 8px) var(--admin-radius, 8px);
+    min-height: 500px;
+  }
+  
+  .previewSection {
+    border-top: 1px solid var(--admin-border);
+    border-radius: 0 0 var(--admin-radius, 8px) var(--admin-radius, 8px);
+    min-height: 500px;
   }
 }
 

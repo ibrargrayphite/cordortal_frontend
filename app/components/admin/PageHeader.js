@@ -107,7 +107,7 @@ const PageHeader = ({
                   className="admin-page-title" 
                   style={{
                     fontSize: '1.75rem',
-                    fontWeight: 700,
+                    fontWeight: 800,
                     color: 'var(--admin-foreground, var(--headline-color))',
                     marginBottom: '0.5rem',
                     margin: 0,
