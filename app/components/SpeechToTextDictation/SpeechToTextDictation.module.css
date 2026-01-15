@@ -2,11 +2,12 @@
   position: relative;
   width: 100%;
   flex: 1;
-  background: white;
-  border: 1px solid #d1d5db;
+  background: var(--admin-background, #ffffff);
+  border: 1px solid var(--admin-border, #d1d5db);
   border-radius: 8px;
   padding: 1rem;
-  padding-right: 4rem; /* Make space for the mic button */
+  padding-bottom: 3.5rem; /* Make space for the mic button at bottom */
+  overflow: visible; /* Allow button shadow/overlap to extend beyond border */
   display: flex;
   flex-direction: column;
 }
@@ -15,7 +16,8 @@
   width: 100%;
   flex: 1;
   min-height: 300px;
-  padding: 0;
+  padding: 1rem;
+  padding-bottom: 3.5rem; /* Extra padding at bottom for mic button */
   border: none;
   border-radius: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -24,47 +26,47 @@
   resize: vertical;
   transition: all 0.2s ease;
   background: transparent;
-  color: #374151 !important;
+  color: var(--admin-foreground, var(--headline-color)) !important;
   outline: none;
 }
 
 .textarea::placeholder {
-  color: #9ca3af !important;
+  color: var(--admin-muted-foreground, var(--subheadline-color)) !important;
 }
 
 /* Force text color to be visible */
 .textarea {
-  color: #374151 !important;
+  color: var(--admin-foreground, var(--headline-color)) !important;
 }
 
 .textarea * {
-  color: #374151 !important;
+  color: var(--admin-foreground, var(--headline-color)) !important;
 }
 
 /* Override any inherited styles */
 .container textarea {
-  color: #374151 !important;
+  color: var(--admin-foreground, var(--headline-color)) !important;
 }
 
 .container textarea::placeholder {
-  color: #9ca3af !important;
+  color: var(--admin-muted-foreground, var(--subheadline-color)) !important;
 }
 
 /* More specific overrides for any parent styles */
 .container textarea[class*="textarea"] {
-  color: #374151 !important;
+  color: var(--admin-foreground, var(--headline-color)) !important;
 }
 
 /* Ensure text is visible in all states */
 .container textarea:focus,
 .container textarea:active,
 .container textarea:hover {
-  color: #374151 !important;
+  color: var(--admin-foreground, var(--headline-color)) !important;
 }
 
 .container:focus-within {
-  border-color: #2563eb;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  border-color: var(--admin-primary, var(--main-accent-color));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--admin-primary, var(--main-accent-color)) 10%, transparent);
 }
 
 .container.recording {
@@ -74,18 +76,18 @@
 
 .textarea:disabled {
   background-color: transparent;
-  color: #6b7280;
+  color: var(--admin-muted-foreground, var(--subheadline-color));
   cursor: not-allowed;
 }
 
 .container:has(.textarea:disabled) {
-  background-color: #f9fafb;
+  background-color: var(--admin-muted, #f9fafb);
 }
 
 .recordingIndicator {
   position: absolute;
-  top: 0.75rem;
-  right: 4.5rem; /* Position next to mic button */
+  bottom: 0.5rem;
+  right: 4rem; /* Position next to mic button */
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -120,8 +122,8 @@
 
 .controls {
   position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
+  bottom: 0.5rem; /* Position inside container, near bottom */
+  right: 0.5rem; /* Position inside container, near right edge */
   z-index: 20;
 }
 
@@ -135,8 +137,10 @@
   border-radius: 50%;
   font-weight: 500;
   transition: all 0.2s ease;
-  border: none;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 2px solid var(--admin-background, #ffffff); /* White border to create overlap effect */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2), 0 0 0 1px var(--admin-border, #d1d5db); /* Shadow extends beyond border */
+  background: var(--admin-primary, var(--main-accent-color)) !important;
+  color: var(--admin-primary-foreground, #ffffff) !important;
 }
 
 .recordButton:hover {
