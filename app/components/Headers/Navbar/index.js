@@ -18,10 +18,10 @@ const NavBar = ({ media, src, name, menuItems, locations: propsLocations }) => {
   const router = useRouter();
   const dropdownRef = useRef(null);
   const currentPath = router.pathname;
-  
+
   // Location context for multi-location support
   const { selectLocation, selectedLocation, hasMultipleLocations, isHydrated, locations: contextLocations, phone, callbutton } = useLocation();
-  
+
   // Use context locations if available (ensures consistency), fallback to props
   const locations = contextLocations?.length > 0 ? contextLocations : propsLocations;
 
@@ -94,7 +94,7 @@ const NavBar = ({ media, src, name, menuItems, locations: propsLocations }) => {
     if (location.disable) return;
 
     const link = location.link;
-    
+
     // PRIORITY 1: Has slug or id → use context to switch location (re-render components)
     // This takes priority because if slug/id exists, we want context-based switching
     if (location.slug || location.id) {
@@ -117,14 +117,14 @@ const NavBar = ({ media, src, name, menuItems, locations: propsLocations }) => {
       window.open(link, "_blank");
     }
   };
-  
+
   /**
    * Check if a location is currently selected
    */
   const isLocationSelected = (location) => {
     if (!selectedLocation) return false;
     return (location.slug && location.slug === selectedLocation.slug) ||
-           (location.id && location.id === selectedLocation.id);
+      (location.id && location.id === selectedLocation.id);
   };
 
   // useEffect(() => {
@@ -180,9 +180,8 @@ const NavBar = ({ media, src, name, menuItems, locations: propsLocations }) => {
               >
                 <a
                   style={{ fontSize: "16px" }}
-                  className={`${styles.listStyle} ${
-                    activeItem === item.label ? styles.active : ""
-                  }`}
+                  className={`${styles.listStyle} ${activeItem === item.label ? styles.active : ""
+                    }`}
                   onClick={() => handleNavigation(item.href)}
                 >
                   {item.label}
@@ -254,14 +253,14 @@ const NavBar = ({ media, src, name, menuItems, locations: propsLocations }) => {
               </div>
             </div>
 
-           {phone && callbutton && (
+            {phone && callbutton && (
               <Button
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
                 }}
                 className={`${styles.callButton} ${styles.callButtonDesktop}`}
-                style={{ 
+                style={{
                   width: 140,
                   cursor: "not-allowed",
                   pointerEvents: "none"
@@ -411,61 +410,59 @@ const NavBar = ({ media, src, name, menuItems, locations: propsLocations }) => {
               >
                 <a
                   style={{ fontSize: "16px" }}
-                  className={`${styles.listStyle} ${
-                    activeItem === item.label ? styles.active : ""
-                  }`}
+                  className={`${styles.listStyle} ${activeItem === item.label ? styles.active : ""
+                    }`}
                   onClick={() => handleNavigation(item.href)}
                 >
                   {item.label}
                 </a>
-                  {item.htmlContent && (
-                    <span dangerouslySetInnerHTML={{ __html: item.htmlContent }} />
-                  )}
-                  {item.subItems?.length > 0 && (
-                    <div className={styles[`${"aboutDropdown"}Content`]}>
-                      {item.subItems.map((subItem) => (
-                        <a
-                          key={subItem.label}
-                          onClick={() => handleNavigation(subItem.href)}
-                        >
-                          {subItem.label.replace("{name}", name)}
-                        </a>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ))}
-              {/* hardcoded emergency button */}
-              <div 
+                {item.htmlContent && (
+                  <span dangerouslySetInnerHTML={{ __html: item.htmlContent }} />
+                )}
+                {item.subItems?.length > 0 && (
+                  <div className={styles[`${"aboutDropdown"}Content`]}>
+                    {item.subItems.map((subItem) => (
+                      <a
+                        key={subItem.label}
+                        onClick={() => handleNavigation(subItem.href)}
+                      >
+                        {subItem.label.replace("{name}", name)}
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+            {/* hardcoded emergency button */}
+            <div
               // style={{ margin: "0px 18px" }} 
               className={`lg:!mb-0 ${styles.emergencyButton}`}>
-                <div style={{ display: "flex", gap: 10 }}>
-                  <a
-                    style={{ fontSize: "16px" }}
-                    className={`font-size-lg font-size-md-md font-size-sm-sm ${
-                      styles.listStyle
+              <div style={{ display: "flex", gap: 10 }}>
+                <a
+                  style={{ fontSize: "16px" }}
+                  className={`font-size-lg font-size-md-md font-size-sm-sm ${styles.listStyle
                     } ${activeItem === "Blogs" ? styles.active : ""}`}
-                    onClick={() => handleNavigation("/emergency")}
-                  >
-                    {/* Emergency{" "} */}
-                  </a>
-                  <Button
-                    onClick={() => handleNavigation("/emergency")}
-                    variant="emergency"
-                    className={cn(
-                      "border-2 border-red-500 bg-[color-mix(in_srgb,var(--main-accent-color)_20%,white)]",
-                      "hover:bg-red-500",
-                      "hover:border-white"
-                    )}
-                  >
-                    Emergency
-                  </Button>
-                  {/* <div>
+                  onClick={() => handleNavigation("/emergency")}
+                >
+                  {/* Emergency{" "} */}
+                </a>
+                <Button
+                  onClick={() => handleNavigation("/emergency")}
+                  variant="emergency"
+                  className={cn(
+                    "border-2 border-red-500 bg-[color-mix(in_srgb,var(--main-accent-color)_20%,white)]",
+                    "hover:bg-red-500",
+                    "hover:border-white"
+                  )}
+                >
+                  Emergency
+                </Button>
+                {/* <div>
                     <Image priority={true}  src={Emergency} height={10} />
                   </div> */}
-                </div>
               </div>
-              {/* <div className={styles.locationDropdown}>
+            </div>
+            {/* <div className={styles.locationDropdown}>
                 <div
                   // style={{ margin: "0px 18px" }}
                   className={`${styles.informationDropdown} mb-4 lg:!mb-0`}

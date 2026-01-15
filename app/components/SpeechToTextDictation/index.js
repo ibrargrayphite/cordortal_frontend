@@ -19,7 +19,7 @@ const SpeechToTextDictation = ({
   const [error, setError] = useState(null);
   const [liveText, setLiveText] = useState('');
   const [committedText, setCommittedText] = useState(value);
-  
+
   const peerConnectionRef = useRef(null);
   const dataChannelRef = useRef(null);
   const mediaStreamRef = useRef(null);
@@ -44,11 +44,11 @@ const SpeechToTextDictation = ({
           'Content-Type': 'application/json',
         },
       });
-      
+
       if (!response.ok) {
         throw new Error(`Failed to get token: ${response.statusText}`);
       }
-      
+
       const data = await response.json();
       return data.token || data.ephemeral_token || data.client_secret?.value || data.client_secret;
     } catch (err) {
@@ -60,26 +60,26 @@ const SpeechToTextDictation = ({
   // Optimized function to update transcription text with minimal delay
   const updateTranscription = useCallback((text, isFinal = false) => {
     if (!text || text.trim() === '') return;
-    
+
     if (isFinal) {
       // Update committed text immediately
       const spacePrefix = committedTextRef.current && !committedTextRef.current.endsWith('\n') ? ' ' : '';
       const newCommittedText = committedTextRef.current + spacePrefix + text;
       committedTextRef.current = newCommittedText;
       accumulatedLiveTextRef.current = '';
-      
+
       // Use flushSync for immediate DOM update
       flushSync(() => {
         setCommittedText(newCommittedText);
         setLiveText('');
       });
-      
+
       // Update textarea directly for instant visual feedback
       if (textareaRef.current) {
         textareaRef.current.value = newCommittedText;
         textareaRef.current.setSelectionRange(newCommittedText.length, newCommittedText.length);
       }
-      
+
       // Call onChange immediately
       if (onChangeRef.current) {
         onChangeRef.current(newCommittedText);
@@ -89,12 +89,12 @@ const SpeechToTextDictation = ({
       accumulatedLiveTextRef.current += text;
       const accumulated = accumulatedLiveTextRef.current;
       const fullText = committedTextRef.current + accumulated;
-      
+
       // CRITICAL: Use flushSync for immediate update
       flushSync(() => {
         setLiveText(accumulated);
       });
-      
+
       // Direct DOM update for instant visual feedback (bypasses React batching)
       if (textareaRef.current && textareaRef.current.value !== fullText) {
         textareaRef.current.value = fullText;
@@ -114,7 +114,7 @@ const SpeechToTextDictation = ({
   // Send session config - extracted to separate function for reuse
   const sendSessionConfig = useCallback(() => {
     if (!dataChannelRef.current || sessionConfigSentRef.current) return;
-    
+
     if (dataChannelRef.current.readyState === 'open') {
       const sessionConfig = {
         type: 'session.update',
@@ -123,20 +123,24 @@ const SpeechToTextDictation = ({
           input_audio_format: 'pcm16',
           output_audio_format: 'pcm16',
           input_audio_transcription: {
-            model: 'gpt-4o-transcribe'
+            model: 'gpt-4o-transcribe',
+            language: 'en'
           },
           // MINIMIZED turn_detection delays for fastest response
           turn_detection: {
-            type: 'server_vad',
-            threshold: 0.5,  // Higher threshold = less sensitive, faster detection
-            prefix_padding_ms: 50,  // Minimal padding
-            silence_duration_ms: 50  // Minimal silence - process immediately
+            type: "semantic_vad",
+            eagerness: "low", // optional
+            create_response: true, // only in conversation mode
+            interrupt_response: true, // only in conversation mode
+          },
+          input_audio_noise_reduction: {
+            "type": "far_field"
           },
           tools: [],
           tool_choice: 'none'
         }
       };
-      
+
       dataChannelRef.current.send(JSON.stringify(sessionConfig));
       sessionConfigSentRef.current = true;
       console.log('📤 Session config sent');
@@ -147,18 +151,18 @@ const SpeechToTextDictation = ({
   const handleMessage = useCallback((event) => {
     try {
       const message = JSON.parse(event.data);
-      
+
       // Handle session.updated - confirms session is ready
       if (message.type === 'session.updated') {
         setIsRecording(true);
         setIsConnecting(false);
         return;
       }
-      
+
       // Handle input audio transcription delta - these come during speech with gpt-4o-transcribe
       if (message.type === 'conversation.item.input_audio_transcription.delta') {
         let delta = '';
-        
+
         if (typeof message.delta === 'string') {
           delta = message.delta;
         } else if (message.delta && typeof message.delta === 'object') {
@@ -166,18 +170,18 @@ const SpeechToTextDictation = ({
         } else if (message.text) {
           delta = message.text;
         }
-        
+
         if (delta) {
           updateTranscription(delta, false);
           return;
         }
       }
-      
+
       // Handle input audio transcription started
       if (message.type === 'conversation.item.input_audio_transcription.started') {
         console.log('🎤 Transcription started');
       }
-      
+
       // Handle input audio transcription completed
       if (message.type === 'conversation.item.input_audio_transcription.completed') {
         const transcript = message.transcript || message.text || '';
@@ -187,25 +191,25 @@ const SpeechToTextDictation = ({
           return;
         }
       }
-      
+
       // Handle conversation.item.created - might have transcription
       if (message.type === 'conversation.item.created') {
         const item = message.item;
-        
+
         if (item && item.role === 'user') {
           if (item.input_audio_transcription) {
             const transcription = item.input_audio_transcription;
-            const text = typeof transcription === 'string' 
-              ? transcription 
+            const text = typeof transcription === 'string'
+              ? transcription
               : (transcription.text || transcription.transcript || '');
-            
+
             if (text) {
               accumulatedLiveTextRef.current = '';
               updateTranscription(text, true);
               return;
             }
           }
-          
+
           if (item.content && Array.isArray(item.content)) {
             for (const contentItem of item.content) {
               if (contentItem.type === 'input_audio' && contentItem.transcription) {
@@ -222,14 +226,14 @@ const SpeechToTextDictation = ({
           }
         }
       }
-      
+
       // Handle conversation.item.updated
       if (message.type === 'conversation.item.updated') {
         const item = message.item;
         if (item && item.role === 'user' && item.input_audio_transcription) {
           const transcription = item.input_audio_transcription;
-          const text = typeof transcription === 'string' 
-            ? transcription 
+          const text = typeof transcription === 'string'
+            ? transcription
             : (transcription.text || transcription.transcript || '');
           if (text) {
             accumulatedLiveTextRef.current = '';
@@ -238,7 +242,7 @@ const SpeechToTextDictation = ({
           }
         }
       }
-      
+
       // Handle speech detection
       if (message.type === 'input_audio_buffer.speech_started') {
         accumulatedLiveTextRef.current = '';
@@ -249,19 +253,19 @@ const SpeechToTextDictation = ({
           textareaRef.current.value = committedTextRef.current;
         }
       }
-      
+
       // Handle errors
       if (message.type === 'error') {
         console.error('❌ OpenAI error:', message.error);
         const errorMessage = message.error?.message || message.error || 'Unknown error';
         setError(`Error: ${errorMessage}`);
       }
-      
+
     } catch (err) {
       console.error('Error parsing message:', err);
     }
   }, [updateTranscription]);
-  
+
 
   // Start recording with WebRTC
   const startRecording = useCallback(async () => {
@@ -301,9 +305,9 @@ const SpeechToTextDictation = ({
       dataChannelRef.current = peerConnectionRef.current.createDataChannel('oai-events', {
         ordered: true,
       });
-      
+
       dataChannelRef.current.onmessage = handleMessage;
-      
+
       dataChannelRef.current.onopen = () => {
         // Send session config IMMEDIATELY when data channel opens
         sendSessionConfig();
@@ -346,7 +350,7 @@ const SpeechToTextDictation = ({
       // Monitor connection state changes
       peerConnectionRef.current.onconnectionstatechange = () => {
         const state = peerConnectionRef.current.connectionState;
-        
+
         if (state === 'connected') {
           setIsConnecting(false);
           // Ensure session config is sent if not already sent
@@ -359,7 +363,7 @@ const SpeechToTextDictation = ({
 
       peerConnectionRef.current.oniceconnectionstatechange = () => {
         const iceState = peerConnectionRef.current.iceConnectionState;
-        
+
         if (iceState === 'connected' || iceState === 'completed') {
           // Ensure session config is sent
           sendSessionConfig();
@@ -429,7 +433,7 @@ const SpeechToTextDictation = ({
     accumulatedLiveTextRef.current = '';
     setCommittedText(newValue);
     setLiveText('');
-    
+
     if (onChange) {
       onChange(newValue);
     }
@@ -453,14 +457,14 @@ const SpeechToTextDictation = ({
           ...props.style
         }}
       />
-      
+
       {isRecording && (
         <div className={styles.recordingIndicator}>
           <div className={styles.recordingDot}></div>
           <span>Recording...</span>
         </div>
       )}
-      
+
       <div className={styles.controls}>
         <Button
           type="button"
@@ -479,7 +483,7 @@ const SpeechToTextDictation = ({
           )}
         </Button>
       </div>
-      
+
       {error && (
         <div className={styles.errorMessage}>
           <i className="fas fa-exclamation-triangle"></i>
