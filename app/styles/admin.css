@@ -1,5 +1,17 @@
 /* Admin Dashboard Specific Styles */
 
+/* Animation for external link icon */
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+}
+
 /* Design System Tokens for Admin */
 :root {
   --admin-primary: #3b82f6;
@@ -138,7 +150,7 @@
 .admin-nav-arrow {
   margin-left: auto;
   font-size: 0.75rem;
-  color: var(--admin-foreground);
+  color: var(--admin-background);
   font-weight: bold;
   opacity: 0.8;
   transition: opacity 0.2s ease;
@@ -215,19 +227,22 @@
   transition: all 0.2s ease;
   text-decoration: none;
   color: var(--admin-muted-foreground);
+  position: relative;
 }
 
 .admin-nav-item:hover {
   background-color: var(--admin-muted);
   color: var(--admin-foreground);
-  border: 1px solid var(--admin-border);
 }
 
 .admin-nav-item.active {
-  background-color: var(--admin-muted);
-  color: var(--admin-foreground);
-  box-shadow: var(--admin-shadow-sm);
-  border: 1px solid var(--admin-border);
+  background-color: var(--admin-primary, var(--main-accent-color));
+  color: var(--admin-primary-foreground, #ffffff);
+  box-shadow: var(--admin-shadow-lg);
+}
+
+.admin-nav-item.active .admin-nav-icon {
+  filter: brightness(0) invert(1); /* Make icon white when active */
 }
 
 .admin-nav-icon {
@@ -475,22 +490,32 @@
 
 .admin-table th {
   text-align: left;
-  padding: 0.75rem;
-  font-weight: 600;
+  padding: 0.875rem 1rem;
+  font-weight: 700;
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--admin-muted-foreground);
+  color: var(--admin-foreground);
   border-bottom: 1px solid var(--admin-border);
+  background-color: transparent;
 }
 
 .admin-table td {
-  padding: 0.75rem;
+  padding: 1rem;
   border-bottom: 1px solid var(--admin-border);
+  vertical-align: middle;
+}
+
+.admin-table tbody tr {
+  transition: background-color 0.15s ease;
 }
 
 .admin-table tbody tr:hover {
   background-color: var(--admin-table-hover);
+}
+
+.admin-table tbody tr:last-child td {
+  border-bottom: none;
 }
 
 .admin-badge {
@@ -523,6 +548,35 @@
 .admin-badge-info {
   background-color: #dbeafe;
   color: #1e40af;
+}
+
+/* Enhanced badges with backend colors - using inline styles in components instead */
+/* These classes are kept for reference but primary styling is done inline */
+
+/* Enhanced stat pill */
+.admin-stat-pill {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(59, 130, 246, 0.04));
+  border: 1px solid rgba(59, 130, 246, 0.15);
+  padding: 0.5rem 1rem;
+  border-radius: calc(var(--admin-radius) * 0.75);
+  box-shadow: var(--admin-shadow-sm);
+  transition: all 0.2s ease;
+}
+
+.admin-stat-pill:hover {
+  box-shadow: var(--admin-shadow-md);
+  transform: translateY(-1px);
+}
+
+/* Enhanced table row hover with backend colors */
+.admin-table tbody tr {
+  transition: background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* Enhanced table header */
+.admin-table th {
+  position: relative;
+  transition: background-color 0.15s ease;
 }
 
 /* Mobile responsive */
@@ -742,6 +796,7 @@
   justify-content: space-between;
   padding: 1.5rem;
   border-bottom: 1px solid var(--admin-border);
+  background-color: color-mix(in srgb, var(--admin-primary, var(--main-accent-color)) 15%, transparent);
 }
 
 .admin-modal-header h2 {

@@ -172,7 +172,7 @@ const NavBar = ({ media, src, name, menuItems, locations: propsLocations }) => {
           className={`hidden lg:flex items-center justify-end`}
           style={{ minHeight: "1vh", maxHeight: "63vh" }}
         >
-          <div className="me-auto flex flex-col lg:flex-row items-center lg:gap-2 xl:gap-4">
+          <div className="me-auto flex flex-col lg:flex-row items-center lg:gap-2 xl:gap-4 whitespace-nowrap">
             {menuItems?.map((item) => (
               <div
                 key={item.label}

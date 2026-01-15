@@ -307,7 +307,7 @@ const IntegrationsPage = () => {
           </div>
 
           {/* Integration Cards Skeleton */}
-          <div className="admin-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1rem' }}>
+          <div className="admin-grid admin-container" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1rem' }}>
             {[1].map((item) => (
               <IntegrationCardSkeleton key={item} />
             ))}
@@ -354,7 +354,7 @@ const IntegrationsPage = () => {
           </div>
         )}
 
-        <div className="admin-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1rem' }}>
+        <div className="admin-grid admin-container" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1rem' }}>
           {integrations.map((integration) => (
             <div key={integration.id} className="admin-card admin-integration-card">
               <div style={{ display: 'flex', alignItems: 'center', marginBottom: '1rem' }}>

@@ -73,7 +73,15 @@ function LeadDetailClient() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const leadId = searchParams.get("id");
+  const tabParam = searchParams.get("tab");
   const { showError, showSuccess, showWarning } = useToast();
+
+  // Set active tab from URL parameter
+  useEffect(() => {
+    if (tabParam === 'notes' || tabParam === 'consent') {
+      setActiveTab(tabParam);
+    }
+  }, [tabParam]);
   const [selectedTemplateId, setSelectedTemplateId] = useState(null);
   const [showCancelView, setShowCancelView] = useState(false);
 

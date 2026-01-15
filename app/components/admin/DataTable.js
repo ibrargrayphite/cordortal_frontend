@@ -9,7 +9,7 @@ import {
   getSortedRowModel,
   flexRender,
 } from '@tanstack/react-table';
-import { ArrowUp, ArrowDown, ArrowUpDown, ChevronsLeft, ChevronLeft, ChevronRight, ChevronsRight,FileText } from "lucide-react";
+import { ArrowUp, ArrowDown, ArrowUpDown, ChevronsLeft, ChevronLeft, ChevronRight, ChevronsRight,FileText, FastForwardIcon, ChevronLast, ChevronFirst } from "lucide-react";
 
 const DataTable = ({
   data = [],
@@ -50,9 +50,9 @@ const DataTable = ({
   });
 
   const densityClasses = {
-    compact: { padding: '0.5rem' },
-    normal: { padding: '0.75rem' },
-    comfortable: { padding: '1rem' }
+    compact: { padding: '0.75rem 1rem' },
+    normal: { padding: '1rem' },
+    comfortable: { padding: '1.25rem' }
   };
 
   const cellStyle = densityClasses[density];
@@ -95,10 +95,20 @@ const DataTable = ({
   }
 
   return (
-    <div className={`admin-card ${className}`}>
+    <div 
+      className={`admin-card ${className}`}
+      style={{
+        background: 'var(--admin-card)',
+        border: '1px solid var(--admin-border)',
+        borderRadius: 'var(--admin-radius)',
+        boxShadow: 'var(--admin-shadow-sm)',
+        padding: 0,
+        overflow: 'hidden',
+      }}
+    >
       {/* Table */}
       <div style={{ overflowX: 'auto' }}>
-        <table className="admin-table" style={{ minWidth: '100%' }}>
+        <table className="admin-table" style={{ minWidth: '100%', backgroundColor: 'var(--admin-card)' }}>
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
@@ -108,9 +118,24 @@ const DataTable = ({
                     style={{
                       ...cellStyle,
                       userSelect: 'none',
-                      cursor: header.column.getCanSort() ? 'pointer' : 'default'
+                      cursor: header.column.getCanSort() ? 'pointer' : 'default',
+                      backgroundColor: 'transparent',
+                      color: 'var(--admin-muted-foreground, var(--content-color))',
+                      fontWeight: 700,
+                      fontSize: '0.75rem',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.05em',
+                      transition: 'background-color 0.15s ease',
                     }}
                     onClick={header.column.getToggleSortingHandler()}
+                    onMouseEnter={(e) => {
+                      if (header.column.getCanSort()) {
+                        e.currentTarget.style.backgroundColor = 'var(--admin-muted)';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = 'transparent';
+                    }}
                   >
                     {header.isPlaceholder ? null : (
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
@@ -136,6 +161,17 @@ const DataTable = ({
                   key={row.id}
                   onClick={(e) => handleRowClick(e, row)}
                   className={onRowClick ? "cursor-pointer" : ""}
+                  style={{
+                    transition: 'background-color 0.15s ease, box-shadow 0.15s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = 'rgba(59, 130, 246, 0.03)';
+                    e.currentTarget.style.boxShadow = 'inset 2px 0 0 var(--admin-primary, var(--main-accent-color))';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                    e.currentTarget.style.boxShadow = 'none';
+                  }}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <td key={cell.id} style={cellStyle}>
@@ -179,9 +215,9 @@ const DataTable = ({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          marginTop: '1rem',
           gap: '1rem',
-          flexWrap: 'wrap'
+          flexWrap: 'wrap',
+          padding: '1rem'
         }}>
           {/* Page Info and Page Size */}
           <div style={{
@@ -234,7 +270,7 @@ const DataTable = ({
               style={{ padding: '0.5rem' }}
               title="Go to first page"
             >
-              ⏮
+              <ChevronFirst size={16} />
             </button>
             {/* Previous Page Button */}
             <button
@@ -244,7 +280,7 @@ const DataTable = ({
               style={{ padding: '0.5rem' }}
               title="Previous page"
             >
-              ←
+              <ChevronLeft size={16} />
             </button>
             {/* Page Numbers */}
             <div style={{ display: 'flex', gap: '0.25rem', margin: '0 0.5rem' }}>
@@ -281,7 +317,26 @@ const DataTable = ({
                       key={i}
                       onClick={() => table.setPageIndex(i)}
                       className={`admin-button ${i === currentPage ? 'admin-button-primary' : 'admin-button-secondary'}`}
-                      style={{ padding: '0.5rem', minWidth: '2rem' }}
+                      style={{
+                        padding: '0.5rem',
+                        minWidth: '2rem',
+                        ...(i === currentPage ? {
+                          backgroundColor: 'var(--admin-primary, var(--main-accent-color))',
+                          color: 'var(--admin-primary-foreground, var(--primary-foreground))',
+                          borderColor: 'var(--admin-primary, var(--main-accent-color))',
+                          boxShadow: 'var(--admin-shadow-sm)',
+                        } : {})
+                      }}
+                      onMouseEnter={(e) => {
+                        if (i === currentPage) {
+                          e.currentTarget.style.boxShadow = 'var(--admin-shadow-md)';
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (i === currentPage) {
+                          e.currentTarget.style.boxShadow = 'var(--admin-shadow-sm)';
+                        }
+                      }}
                     >
                       {i + 1}
                     </button>
@@ -318,7 +373,7 @@ const DataTable = ({
               style={{ padding: '0.5rem' }}
               title="Next page"
             >
-              →
+              <ChevronRight size={16} />
             </button>
             {/* To End Button */}
             <button
@@ -328,7 +383,7 @@ const DataTable = ({
               style={{ padding: '0.5rem' }}
               title="Go to last page"
             >
-              ⏭
+              <ChevronLast size={16} />
             </button>
           </div>
         </div>

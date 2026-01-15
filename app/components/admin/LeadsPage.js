@@ -69,8 +69,11 @@ const LeadsPage = () => {
   }, []);
 
   // Event handlers
-  const handleViewLead = useCallback((leadId) => {
-    router.push(`/leads/detail?id=${leadId}`);
+  const handleViewLead = useCallback((leadId, tab = null) => {
+    const url = tab 
+      ? `/leads/detail?id=${leadId}&tab=${tab}`
+      : `/leads/detail?id=${leadId}`;
+    router.push(url);
   }, [router]);
 
   const handleAddLead = useCallback(() => {
@@ -155,7 +158,7 @@ const LeadsPage = () => {
         row => `${row.first_name || ''} ${row.last_name || ''}`.trim() || row.email,
         {
           id: 'full_name',
-          header: () => <span style={{ fontWeight: 'bold' }}>Name</span>,
+          header: () => <span>NAME</span>,
           enableSorting: true,
           cell: ({ row }) => {
             const lead = row.original;
@@ -168,19 +171,29 @@ const LeadsPage = () => {
                     width: '40px',
                     height: '40px',
                     borderRadius: '50%',
-                    backgroundColor: 'var(--admin-primary)',
-                    color: 'var(--admin-primary-foreground)',
+                    background: 'linear-gradient(135deg, var(--admin-primary, var(--main-accent-color)), var(--admin-secondary, var(--main-accent-dark)))',
+                    color: 'var(--admin-primary-foreground, var(--primary-foreground))',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     fontSize: '0.875rem',
-                    fontWeight: '600'
+                    fontWeight: '600',
+                    boxShadow: 'var(--admin-shadow-sm)',
+                    transition: 'all 0.2s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.boxShadow = 'var(--admin-shadow-md)';
+                    e.currentTarget.style.transform = 'scale(1.05)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.boxShadow = 'var(--admin-shadow-sm)';
+                    e.currentTarget.style.transform = 'scale(1)';
                   }}
                 >
                   {fullName[0]?.toUpperCase() || '?'}
                 </div>
                 <div>
-                  <div style={{ fontWeight: '500' }}>{fullName}</div>
+                  <div style={{ fontWeight: '500', color: 'var(--admin-foreground, var(--headline-color))' }}>{fullName}</div>
                 </div>
               </div>
             );
@@ -188,21 +201,21 @@ const LeadsPage = () => {
         }
       ),
       columnHelper.accessor('email', {
-        header: () => <span style={{ fontWeight: 'bold' }}>Email</span>,
+        header: () => <span>EMAIL</span>,
         enableSorting: true,
         cell: ({ getValue }) => (
           <CopyableText text={getValue()} type="email" showIcon={false} />
         ),
       }),
       columnHelper.accessor('phone', {
-        header: () => <span style={{ fontWeight: 'bold' }}>Phone</span>,
+        header: () => <span>PHONE</span>,
         enableSorting: true,
         cell: ({ getValue }) => (
           <CopyableText text={getValue()} type="phone" showIcon={false} />
         ),
       }),
       columnHelper.accessor('source', {
-        header: () => <span style={{ fontWeight: 'bold' }}>Source</span>,
+        header: () => <span>SOURCE</span>,
         enableSorting: true,
         cell: ({ getValue }) => (
           <StatusBadge variant="source">
@@ -211,22 +224,30 @@ const LeadsPage = () => {
         ),
       }),
       columnHelper.accessor('notes_count', {
-        header: () => <span style={{ fontWeight: 'bold' }}>Notes</span>,
+        header: () => <span>NOTES</span>,
         enableSorting: true,
-        cell: ({ getValue }) => (
-          <StatusBadge variant="notes" count={getValue() || 0} />
+        cell: ({ getValue, row }) => (
+          <StatusBadge 
+            variant="notes" 
+            count={getValue() || 0} 
+            onClick={() => handleViewLead(row.original.id, 'notes')}
+          />
         ),
       }),
       columnHelper.accessor('consent_count', {
-        header: () => <span style={{ fontWeight: 'bold' }}>Consent Forms</span>,
+        header: () => <span>CONSENT FORMS</span>,
         enableSorting: true,
-        cell: ({ getValue }) => (
-          <StatusBadge variant="consent" count={getValue() || 0} />
+        cell: ({ getValue, row }) => (
+          <StatusBadge 
+            variant="consent" 
+            count={getValue() || 0} 
+            onClick={() => handleViewLead(row.original.id, 'consent')}
+          />
         ),
       }),
       columnHelper.display({
         id: 'actions',
-        header: () => <span style={{ fontWeight: 'bold' }}>Actions</span>,
+        header: () => <span>ACTIONS</span>,
         enableSorting: false,
         cell: ({ row }) => {
           const lead = row.original;
@@ -301,7 +322,7 @@ const LeadsPage = () => {
       breadcrumbItems={breadcrumbItems}
       actions={{ onAddLead: handleAddLead }}
     >
-      <div className="admin-container">
+      <div className="admin-container" style={{ padding: '1.5rem' }}>
         {/* Page Header with Skeleton Loading */}
         <PageHeader
           title="Lead Management"
@@ -352,18 +373,19 @@ const LeadsPage = () => {
           </div>
         ) : (
           <>
-            <DataTable
-              data={leadsHook.leads}
-              columns={leadColumns}
-              searchValue={searchInput}
-              sorting={sorting}
-              onSearchChange={handleSearchChange}
-              searchPlaceholder="Search leads by name, email, or phone..."
-              showPagination={false}
-              pageSize={leadsHook.pageSize || 10}
-              searchLoading={leadsHook.isSearching}
-              onRowClick={(lead) => handleViewLead(lead.id)}
-              emptyState={
+            <div style={{ marginTop: '1rem' }}>
+              <DataTable
+                data={leadsHook.leads}
+                columns={leadColumns}
+                searchValue={searchInput}
+                sorting={sorting}
+                onSearchChange={handleSearchChange}
+                searchPlaceholder="Search leads by name, email, or phone..."
+                showPagination={false}
+                pageSize={leadsHook.pageSize || 10}
+                searchLoading={leadsHook.isSearching}
+                onRowClick={(lead) => handleViewLead(lead.id)}
+                emptyState={
                 <EmptyState
                   icon={
                     <Image
@@ -391,7 +413,8 @@ const LeadsPage = () => {
                 // }
                 />
               }
-            />
+              />
+            </div>
 
             {/* Custom Pagination Controls */}
             {!leadsHook.loading && leadsHook.totalPages > 1 && (
@@ -507,7 +530,26 @@ const LeadsPage = () => {
                             key={i}
                             onClick={() => leadsHook.handlePageChange(i)}
                             className={`admin-button ${i === currentPage ? 'admin-button-primary' : 'admin-button-secondary'}`}
-                            style={{ padding: '0.5rem', minWidth: '2rem' }}
+                            style={{
+                              padding: '0.5rem',
+                              minWidth: '2rem',
+                              ...(i === currentPage ? {
+                                backgroundColor: 'var(--admin-primary, var(--main-accent-color))',
+                                color: 'var(--admin-primary-foreground, var(--primary-foreground))',
+                                borderColor: 'var(--admin-primary, var(--main-accent-color))',
+                                boxShadow: 'var(--admin-shadow-sm)',
+                              } : {})
+                            }}
+                            onMouseEnter={(e) => {
+                              if (i === currentPage) {
+                                e.currentTarget.style.boxShadow = 'var(--admin-shadow-md)';
+                              }
+                            }}
+                            onMouseLeave={(e) => {
+                              if (i === currentPage) {
+                                e.currentTarget.style.boxShadow = 'var(--admin-shadow-sm)';
+                              }
+                            }}
                           >
                             {i}
                           </button>

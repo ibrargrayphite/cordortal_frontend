@@ -87,6 +87,7 @@ const ActionMenu = ({
               zIndex: 9999,
               padding: "0.25rem",
               color: "var(--admin-menu-text)",
+              width: "150px",
             }}
             role="menu"
           >
