@@ -10,7 +10,7 @@ import Image from "next/image";
 
 import styles from "./landingPageOverlay.module.css";
 
-const landingPageOverlay = ({ description , media, headline,headlineLarge,title,buttonName,buttonSrc}) => {
+const landingPageOverlay = ({ description , media, headline,headlineLarge,title,buttonName,buttonSrc, src}) => {
   const theme = useTheme();
   const { pages } = usePages();
   const router = useRouter();

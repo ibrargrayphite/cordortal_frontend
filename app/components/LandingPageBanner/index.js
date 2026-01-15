@@ -4,7 +4,7 @@ import CustomButton from "../CustomButton";
 import { useTheme } from "../../context/ThemeContext";
 import styles from "./LandingPageBanner.module.css";
 
-const LandingPageBanner = ({ description , media, headline,headlineLarge,title,buttonName,buttonSrc}) => {
+const LandingPageBanner = ({ description , media, headline,headlineLarge,title,buttonName,buttonSrc, src}) => {
   const theme = useTheme();
 
   const router = useRouter(); // Use Next.js router
