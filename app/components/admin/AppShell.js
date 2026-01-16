@@ -10,7 +10,7 @@ import '../../styles/admin.css';
 import Image from "next/image";
 import { FaUser } from 'react-icons/fa';
 import { FaSun, FaMoon } from "react-icons/fa";
-import { LogOut, ChevronRight, Menu, Phone, User } from "lucide-react";
+import { LogOut, ChevronRight, Menu, Phone, User, ChevronFirst, ChevronLast, Users, FileText, Settings } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../ui/dropdown-menu';
 import UserProfileModal from './UserProfileModal';
 
@@ -65,12 +65,7 @@ const Sidebar = ({ isOpen, onClose, currentPath, orgData, isCollapsed }) => {
       name: 'Leads',
       href: '/leads',
       icon: <span className="admin-nav-icon">
-        <Image
-          src="/assets/images/icons/leads-icon.svg"
-          alt="Leads"
-          width={isCollapsed ? 24 : 20}
-          height={isCollapsed ? 24 : 20}
-        />
+        <Users size={20} />
       </span>,
       current: currentPath === '/leads' || currentPath.startsWith('/leads/detail'),
     },
@@ -94,12 +89,7 @@ const Sidebar = ({ isOpen, onClose, currentPath, orgData, isCollapsed }) => {
       name: 'Consent Form Templates',
       href: '/templates',
       icon: <span className="admin-nav-icon">
-        <Image
-          src="/assets/images/icons/templates-icon.svg"
-          alt="Templates"
-          width={isCollapsed ? 24 : 20}
-          height={isCollapsed ? 24 : 20}
-        />
+        <FileText size={20} />
       </span>
       ,
       current: currentPath.startsWith('/templates'),
@@ -108,12 +98,13 @@ const Sidebar = ({ isOpen, onClose, currentPath, orgData, isCollapsed }) => {
       name: 'Integrations',
       href: '/integrations',
       icon: <span className="admin-nav-icon">
-        <Image
+        {/* <Image
           src="/assets/images/icons/integrations-icon.svg"
           alt="Integrations"
           width={isCollapsed ? 24 : 20}
           height={isCollapsed ? 24 : 20}
-        />
+        /> */}
+        <Settings size={20} />
       </span>
       ,
       current: currentPath.startsWith('/integrations'),
@@ -352,11 +343,11 @@ const Sidebar = ({ isOpen, onClose, currentPath, orgData, isCollapsed }) => {
             >
               <span className="admin-nav-icon">{item.icon}</span>
               {!isCollapsed && item.name}
-              {item.current && (
+              {/* {item.current && (
                 <span className="admin-nav-arrow">
                   <ChevronRight size={16} />
                 </span>
-              )}
+              )} */}
             </button>
             
             {/* Consent Forms Dropdown */}

@@ -5,18 +5,34 @@ import { Search, Loader2 } from "lucide-react";
 import { Skeleton } from '../Skeleton';
 
 const StatPill = ({ label, value, variant = "default", loading = false }) => {
-  const variantClasses = {
-    default: "admin-badge",
-    success: "admin-badge admin-badge-success",
-    warning: "admin-badge admin-badge-warning",
-    error: "admin-badge admin-badge-error",
-    info: "admin-badge admin-badge-info",
+  // Light teal rectangular badge with rounded corners matching the design
+  // Using CSS variables from admin/website theme
+  const statPillStyle = {
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '0.25rem',
+    padding: '0.5rem 1rem',
+    borderRadius: 'var(--admin-radius)', // Rounded rectangle using admin radius
+    backgroundColor: 'color-mix(in srgb, var(--admin-primary, var(--main-accent-color)) 15%, transparent)',
+    fontSize: '0.875rem',
+    fontWeight: 500,
+    boxShadow: '0 1px 3px color-mix(in srgb, var(--admin-primary, var(--main-accent-color)) 20%, transparent), 0 0 8px color-mix(in srgb, var(--admin-primary, var(--main-accent-color)) 10%, transparent)',
   };
 
   return (
-    <div className={variantClasses[variant]}>
-      <span style={{ fontWeight: 600 }}>{label}:</span>
-      <span style={{ marginLeft: "0.25rem" }}>
+    <div style={statPillStyle}>
+      <span style={{ 
+        color: 'var(--admin-primary, var(--main-accent-color))', 
+        fontWeight: 500,
+        textShadow: '0 0 2px color-mix(in srgb, var(--admin-primary, var(--main-accent-color)) 30%, transparent)',
+      }}>
+        {label}:
+      </span>
+      <span style={{ 
+        color: 'var(--admin-primary, var(--main-accent-color))',
+        fontWeight: 600,
+        textShadow: '0 0 2px color-mix(in srgb, var(--admin-primary, var(--main-accent-color)) 30%, transparent)',
+      }}>
         {loading ? <Skeleton width="40px" height="1rem" /> : value}
       </span>
     </div>
@@ -87,9 +103,30 @@ const PageHeader = ({
               </div>
             ) : (
               <>
-                <h1 className="admin-page-title">{title}</h1>
+                <h1 
+                  className="admin-page-title" 
+                  style={{
+                    fontSize: '1.75rem',
+                    fontWeight: 800,
+                    color: 'var(--admin-foreground, var(--headline-color))',
+                    marginBottom: '0.5rem',
+                    margin: 0,
+                    letterSpacing: '-0.02em',
+                  }}
+                >
+                  {title}
+                </h1>
                 {description && (
-                  <p className="admin-page-description">{description}</p>
+                  <p 
+                    className="admin-page-description"
+                    style={{
+                      color: 'var(--admin-muted-foreground, var(--subheadline-color))',
+                      fontSize: '0.9375rem',
+                      lineHeight: 1.5,
+                    }}
+                  >
+                    {description}
+                  </p>
                 )}
               </>
             )}
@@ -118,6 +155,24 @@ const PageHeader = ({
                       ? "admin-button-secondary"
                       : "admin-button-primary"
                       }`}
+                    style={action.variant !== "secondary" ? {
+                      backgroundColor: 'var(--admin-primary, var(--main-accent-color))',
+                      color: 'var(--admin-primary-foreground, var(--primary-foreground))',
+                      borderColor: 'var(--admin-primary, var(--main-accent-color))',
+                      boxShadow: 'var(--admin-shadow-lg)',
+                    } : {}}
+                    onMouseEnter={(e) => {
+                      if (action.variant !== "secondary" && !action.disabled) {
+                        e.currentTarget.style.boxShadow = 'var(--admin-shadow-lg)';
+                        e.currentTarget.style.transform = 'translateY(-1px)';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (action.variant !== "secondary" && !action.disabled) {
+                        e.currentTarget.style.boxShadow = 'var(--admin-shadow-lg)';
+                        e.currentTarget.style.transform = 'translateY(0)';
+                      }
+                    }}
                   >
                     {action.icon && (
                       <span style={{ marginRight: "0.5rem" }}>{action.icon}</span>
@@ -210,6 +265,15 @@ const PageHeader = ({
                       style={{
                         paddingLeft: "2.5rem",
                         minWidth: "250px",
+                        transition: 'all 0.2s ease',
+                      }}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = 'var(--admin-primary, var(--main-accent-color))';
+                        e.target.style.boxShadow = '0 0 0 3px color-mix(in srgb, var(--admin-primary, var(--main-accent-color)) 10%, transparent)';
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = 'var(--admin-border)';
+                        e.target.style.boxShadow = 'none';
                       }}
                       disabled={searchLoading}
                     />

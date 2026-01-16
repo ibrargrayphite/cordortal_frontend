@@ -251,20 +251,23 @@ const IntegrationsPage = () => {
   const IntegrationCardSkeleton = () => (
     <div className="admin-card admin-integration-card">
       <div style={{ display: 'flex', alignItems: 'center', marginBottom: '1rem' }}>
-        <Skeleton width="48px" height="48px" borderRadius="8px" style={{ marginRight: '1rem' }} />
+        <div style={{ width: '48px', height: '48px', marginRight: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <Skeleton width="32px" height="32px" borderRadius="4px" />
+        </div>
         <div style={{ flex: 1 }}>
-          <Skeleton width="150px" height="1.5rem" style={{ marginBottom: '0.5rem' }} />
-          <Skeleton width="200px" height="1rem" />
+          <Skeleton width="150px" height="1.25rem" style={{ marginBottom: '0.5rem' }} />
+          <Skeleton width="250px" height="0.875rem" />
         </div>
       </div>
 
       <div style={{ marginBottom: '1rem' }}>
         <Skeleton width="80px" height="1.5rem" borderRadius="16px" />
+        <Skeleton width="200px" height="0.875rem" style={{ marginTop: '0.5rem' }} />
       </div>
 
       <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-        <Skeleton width="120px" height="2.5rem" borderRadius="4px" />
-        <Skeleton width="80px" height="2.5rem" borderRadius="4px" />
+        <Skeleton width="140px" height="2.5rem" borderRadius="4px" />
+        <Skeleton width="90px" height="2.5rem" borderRadius="4px" />
       </div>
     </div>
   );
@@ -277,37 +280,19 @@ const IntegrationsPage = () => {
         pageActions={pageActions}
       >
         <div className="admin-page">
-          {/* Page Header Skeleton */}
-          <div style={{ marginBottom: '2rem' }}>
-            {/* Heading skeleton */}
-            <Skeleton
-              width="200px"
-              height="2rem"
-              style={{ marginBottom: '1rem' }}
-            />
-
-            {/* Description skeleton */}
-            <Skeleton
-              width="300px"
-              height="1rem"
-              style={{ marginBottom: '1.25rem' }}
-            />
-
-            {/* Buttons skeleton */}
-            <div style={{
-              display: 'flex',
-              flexWrap: 'nowrap',
-              gap: '1rem',
-              marginTop: '1.25rem',
-              width: 'fit-content'
-            }}>
-              <Skeleton width="100px" height="2rem" borderRadius="16px" />
-              <Skeleton width="100px" height="2rem" borderRadius="16px" />
-            </div>
-          </div>
+          <PageHeader
+            title="Integrations"
+            description="Connect external services to import leads automatically"
+            stats={[
+              { label: 'Connected', value: 0 },
+              { label: 'Available', value: 0 }
+            ]}
+            hideSearch={true}
+            loading={true}
+          />
 
           {/* Integration Cards Skeleton */}
-          <div className="admin-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1rem' }}>
+          <div className="admin-grid admin-container" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1rem' }}>
             {[1].map((item) => (
               <IntegrationCardSkeleton key={item} />
             ))}
@@ -354,7 +339,7 @@ const IntegrationsPage = () => {
           </div>
         )}
 
-        <div className="admin-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1rem' }}>
+        <div className="admin-grid admin-container" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1rem' }}>
           {integrations.map((integration) => (
             <div key={integration.id} className="admin-card admin-integration-card">
               <div style={{ display: 'flex', alignItems: 'center', marginBottom: '1rem' }}>

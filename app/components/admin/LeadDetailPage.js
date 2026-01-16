@@ -73,7 +73,15 @@ function LeadDetailClient() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const leadId = searchParams.get("id");
+  const tabParam = searchParams.get("tab");
   const { showError, showSuccess, showWarning } = useToast();
+
+  // Set active tab from URL parameter
+  useEffect(() => {
+    if (tabParam === 'notes' || tabParam === 'consent') {
+      setActiveTab(tabParam);
+    }
+  }, [tabParam]);
   const [selectedTemplateId, setSelectedTemplateId] = useState(null);
   const [showCancelView, setShowCancelView] = useState(false);
 
@@ -1265,41 +1273,65 @@ function LeadDetailClient() {
     >
       <div className={`${styles.modernLeadContainer} ${fadeIn ? styles.fadeIn : ""}`}>
 
-        {/* Top Navigation Tabs */}
-        <div className={styles.topNavTabs}>
-          <div className={styles.tabsContainer}>
-            <button
-              className={`${styles.topTab} ${activeTab === "notes" ? styles.active : ""}`}
-              onClick={() => setActiveTab("notes")}
-            >
-              <i className="fas fa-sticky-note me-2"></i>
-              <span>Notes</span>
-              {notes.length > 0 && (
-                <span className={styles.tabBadge}>
-                  {searchQuery ? `${notes.length}/${notes.length}` : notes.length}
-                </span>
-              )}
-            </button>
-            <button
-              className={`${styles.topTab} ${activeTab === "consent" ? styles.active : ""}`}
-              onClick={() => setActiveTab("consent")}
-            >
-              <i className="fas fa-file-signature me-2"></i>
-              <span>Consent Forms</span>
-              {consentForms.length > 0 && (
-                <span className={styles.tabBadge}>
-                  {consentSearchQuery ? `${filteredConsentForms.length}/${consentForms.length}` : consentForms.length}
-                </span>
-              )}
-            </button>
-          </div>
-        </div>
-
         {/* Main Content Area */}
         <div className={styles.contentWrapper}>
           <div className={styles.mainLayout}>
             {/* Left Sidebar for Data */}
             <div className={styles.dataSidebar}>
+              {/* Lead Profile Section */}
+              <div className={styles.leadProfileSection}>
+                <div className={styles.leadAvatar}>
+                  {(() => {
+                    if (lead.first_name || lead.last_name) {
+                      const first = (lead.first_name || '')[0] || '';
+                      const last = (lead.last_name || '')[0] || '';
+                      return (first + last).toUpperCase() || '?';
+                    }
+                    return (lead.email || '')[0]?.toUpperCase() || '?';
+                  })()}
+                </div>
+                <div className="flex flex-col items-start">
+                <div className={styles.leadName}>
+                  {lead.first_name && lead.last_name 
+                    ? `${lead.first_name} ${lead.last_name}`
+                    : lead.full_name || lead.email || 'Unknown Lead'}
+                </div>
+                {lead.phone && (
+                  <div className={styles.leadPhone}>
+                    <i className="fas fa-phone me-1"></i>
+                    {lead.phone}
+                  </div>
+                )}
+                </div>
+              </div>
+
+              {/* Navigation Tabs */}
+              <div className={styles.sidebarTabs}>
+                <button
+                  className={`${styles.sidebarTab} ${activeTab === "notes" ? styles.active : ""}`}
+                  onClick={() => setActiveTab("notes")}
+                >
+                  <i className="fas fa-sticky-note me-2"></i>
+                  <span>Notes</span>
+                  {notes.length > 0 && (
+                    <span className={styles.tabBadge}>
+                      {searchQuery ? `${notes.length}/${notes.length}` : notes.length}
+                    </span>
+                  )}
+                </button>
+                <button
+                  className={`${styles.sidebarTab} ${activeTab === "consent" ? styles.active : ""}`}
+                  onClick={() => setActiveTab("consent")}
+                >
+                  <i className="fas fa-file-signature me-2"></i>
+                  <span>Consent Forms</span>
+                  {consentForms.length > 0 && (
+                    <span className={styles.tabBadge}>
+                      {consentSearchQuery ? `${filteredConsentForms.length}/${consentForms.length}` : consentForms.length}
+                    </span>
+                  )}
+                </button>
+              </div>
 
               {activeTab === "notes" && (
                 <>
@@ -1709,10 +1741,10 @@ function LeadDetailClient() {
                         )}
                         <div className={styles.editActions}>
                           <Button
-                            variant="default"
+                            variant="outline"
                             onClick={() => handleUpdateNote(selectedNote.id, selectedNote.notes)}
                             disabled={editingNote === selectedNote.id || !selectedNote.notes.trim()}
-                            className={styles.primaryActionButton}
+                            className={styles.saveNoteButton}
                           >
                             {editingNote === selectedNote.id ? (
                               <>
@@ -1727,9 +1759,9 @@ function LeadDetailClient() {
                           <DropdownMenu onOpenChange={(isOpen) => isOpen && fetchTemplates()} className="ms-2">
                             <DropdownMenuTrigger asChild>
                               <Button
-                                variant="outline"
+                                variant="default"
                                 disabled={savingTemplate}
-                                className={styles.primaryActionButton}
+                                className={styles.generateConsentButton}
                               >
                                 {savingTemplate ? (
                                   <>
@@ -1793,10 +1825,10 @@ function LeadDetailClient() {
                         )}
                         <div className={styles.editActions}>
                           <Button
-                            variant="primary"
+                            variant="outline"
                             onClick={handleCreateNote}
                             disabled={saving || !newNote.trim()}
-                            className={theme.successButton}
+                            className={styles.saveNoteButton}
                           >
                             {saving ? (
                               <>
@@ -1811,9 +1843,9 @@ function LeadDetailClient() {
                           <DropdownMenu onOpenChange={(isOpen) => isOpen && fetchTemplates()} className="ms-2">
                             <DropdownMenuTrigger asChild>
                               <Button
-                                variant="outline"
+                                variant="default"
                                 disabled={savingTemplate}
-                                className={styles.primaryActionButton}
+                                className={styles.generateConsentButton}
                               >
                                 {savingTemplate ? (
                                   <>

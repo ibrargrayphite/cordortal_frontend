@@ -14,9 +14,9 @@ const TemplateForm = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="admin-container">
-        <div className="admin-card !bg-white !text-black">
-          {/* Skeleton for header */}
+        <div className="admin-container">
+          <div className="admin-card">
+            {/* Skeleton for header */}
           <div style={{ marginBottom: '1.5rem' }}>
             <Skeleton width="300px" height="1.5rem" />
             <Skeleton width="400px" height="1rem" style={{ marginTop: '0.5rem' }} />
@@ -157,7 +157,7 @@ const TemplateCreatePage = () => {
         breadcrumbItems={breadcrumbItems}
       >
         <div className="admin-container">
-          <div className="admin-card !bg-white !text-black">
+          <div className="admin-card">
             {/* Skeleton for header */}
             <div style={{ marginBottom: '1.5rem' }}>
               <Skeleton width="300px" height="1.5rem" />
@@ -200,12 +200,19 @@ const TemplateCreatePage = () => {
       breadcrumbItems={breadcrumbItems}
     >
       <div className="admin-container">
-        <div className="admin-card !bg-white !text-black">
+        <div className="admin-card">
           <div style={{ marginBottom: '1.5rem' }}>
-            <h1 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '0.5rem' }}>
+            <h1 style={{ 
+              fontSize: '1.5rem', 
+              fontWeight: '800',
+              color: 'var(--admin-foreground, var(--subheadline-color))'
+            }}>
               Create New Template
             </h1>
-            <p style={{ color: '#6b7280', fontSize: '0.875rem' }}>
+            <p style={{ 
+              color: 'var(--admin-muted-foreground, var(--content-color))', 
+              fontSize: '0.875rem' 
+            }}>
               {leadId
                 ? 'Create a consent form template for this lead.'
                 : 'Create a reusable template for consent forms.'

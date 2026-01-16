@@ -84,7 +84,7 @@ const CopyableText = ({
       <span
         style={{
           minWidth: 0,
-          flex: 1,
+          flex: 0.80,
           overflow: 'hidden',
           textOverflow: 'ellipsis',
           whiteSpace: 'nowrap'
