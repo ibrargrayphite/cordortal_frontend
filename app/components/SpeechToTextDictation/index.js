@@ -5,11 +5,14 @@ import { flushSync } from 'react-dom';
 import { Button } from '../ui/button';
 import styles from './SpeechToTextDictation.module.css';
 
+const GEMINI_MODEL = 'models/gemini-live-2.5-flash-native-audio';
+// const GEMINI_MODEL = 'models/gemini-2.0-flash-exp';
+
 const SpeechToTextDictation = ({
   value = '',
   onChange,
   placeholder = 'Start speaking or type here...',
-  tokenEndpoint = '/realtime/ephemeral/',
+  tokenEndpoint = '/realtime/gemini-ephemeral/',
   disabled = false,
   className = '',
   ...props
@@ -19,15 +22,23 @@ const SpeechToTextDictation = ({
   const [error, setError] = useState(null);
   const [liveText, setLiveText] = useState('');
   const [committedText, setCommittedText] = useState(value);
+  const [connectionTimeLeft, setConnectionTimeLeft] = useState(null);
 
-  const peerConnectionRef = useRef(null);
-  const dataChannelRef = useRef(null);
-  const mediaStreamRef = useRef(null);
+  const wsRef = useRef(null);
+  const audioContextRef = useRef(null);
+  const processorRef = useRef(null);
+  const sourceRef = useRef(null);
+
+  // Session management refs
+  const sessionResumptionTokenRef = useRef(null);
+  const generationCompleteRef = useRef(false);
+
   const committedTextRef = useRef(value);
   const accumulatedLiveTextRef = useRef('');
   const onChangeRef = useRef(onChange);
   const textareaRef = useRef(null);
-  const sessionConfigSentRef = useRef(false);
+
+  const mediaStreamRef = useRef(null);
 
   // Keep onChange ref updated
   useEffect(() => {
@@ -40,234 +51,126 @@ const SpeechToTextDictation = ({
       const backendUrl = process.env.NEXT_PUBLIC_BASE_URL || window.location.origin;
       const response = await fetch(`${backendUrl}${tokenEndpoint}`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
       });
 
-      if (!response.ok) {
-        throw new Error(`Failed to get token: ${response.statusText}`);
-      }
+      if (!response.ok) throw new Error(`Failed to get token: ${response.statusText}`);
 
       const data = await response.json();
-      return data.token || data.ephemeral_token || data.client_secret?.value || data.client_secret;
+      return data?.token || data?.ephemeral_token || data?.ephemeralToken || data?.accessToken || data?.access_token || data?.client_secret?.value || data?.client_secret;
     } catch (err) {
       console.error('Error fetching token:', err);
       throw err;
     }
   }, [tokenEndpoint]);
 
-  // Optimized function to update transcription text with minimal delay
+  // Update transcription
   const updateTranscription = useCallback((text, isFinal = false) => {
     if (!text || text.trim() === '') return;
 
     if (isFinal) {
-      // Update committed text immediately
       const spacePrefix = committedTextRef.current && !committedTextRef.current.endsWith('\n') ? ' ' : '';
       const newCommittedText = committedTextRef.current + spacePrefix + text;
       committedTextRef.current = newCommittedText;
       accumulatedLiveTextRef.current = '';
 
-      // Use flushSync for immediate DOM update
       flushSync(() => {
         setCommittedText(newCommittedText);
         setLiveText('');
       });
 
-      // Update textarea directly for instant visual feedback
       if (textareaRef.current) {
         textareaRef.current.value = newCommittedText;
         textareaRef.current.setSelectionRange(newCommittedText.length, newCommittedText.length);
       }
 
-      // Call onChange immediately
-      if (onChangeRef.current) {
-        onChangeRef.current(newCommittedText);
-      }
+      if (onChangeRef.current) onChangeRef.current(newCommittedText);
     } else {
-      // For deltas, accumulate immediately
       accumulatedLiveTextRef.current += text;
       const accumulated = accumulatedLiveTextRef.current;
-      const fullText = committedTextRef.current + accumulated;
+      flushSync(() => setLiveText(accumulated));
 
-      // CRITICAL: Use flushSync for immediate update
-      flushSync(() => {
-        setLiveText(accumulated);
-      });
-
-      // Direct DOM update for instant visual feedback (bypasses React batching)
-      if (textareaRef.current && textareaRef.current.value !== fullText) {
-        textareaRef.current.value = fullText;
-        const length = fullText.length;
-        textareaRef.current.setSelectionRange(length, length);
+      if (textareaRef.current) {
+        const fullText = committedTextRef.current + accumulated;
+        if (textareaRef.current.value !== fullText) {
+          textareaRef.current.value = fullText;
+          textareaRef.current.setSelectionRange(fullText.length, fullText.length);
+        }
       }
     }
   }, []);
 
-  // Call onChange when committedText changes
-  useEffect(() => {
-    if (onChangeRef.current && committedText !== value) {
-      onChangeRef.current(committedText);
-    }
-  }, [committedText, value]);
-
-  // Send session config - extracted to separate function for reuse
-  const sendSessionConfig = useCallback(() => {
-    if (!dataChannelRef.current || sessionConfigSentRef.current) return;
-
-    if (dataChannelRef.current.readyState === 'open') {
-      const sessionConfig = {
-        type: 'session.update',
-        session: {
-          modalities: ['audio', 'text'],
-          input_audio_format: 'pcm16',
-          output_audio_format: 'pcm16',
-          input_audio_transcription: {
-            model: 'gpt-4o-transcribe',
-            language: 'en'
-          },
-          // MINIMIZED turn_detection delays for fastest response
-          turn_detection: {
-            type: "semantic_vad",
-            eagerness: "low", // optional
-            create_response: true, // only in conversation mode
-            interrupt_response: true, // only in conversation mode
-          },
-          input_audio_noise_reduction: {
-            "type": "far_field"
-          },
-          tools: [],
-          tool_choice: 'none'
-        }
-      };
-
-      dataChannelRef.current.send(JSON.stringify(sessionConfig));
-      sessionConfigSentRef.current = true;
-      console.log('📤 Session config sent');
-    }
-  }, []);
-
-  // Handle messages from OpenAI via data channel
+  // Handle WebSocket messages from Gemini
   const handleMessage = useCallback((event) => {
     try {
-      const message = JSON.parse(event.data);
+      const msg = JSON.parse(event.data);
 
-      // Handle session.updated - confirms session is ready
-      if (message.type === 'session.updated') {
-        setIsRecording(true);
-        setIsConnecting(false);
-        return;
-      }
-
-      // Handle input audio transcription delta - these come during speech with gpt-4o-transcribe
-      if (message.type === 'conversation.item.input_audio_transcription.delta') {
-        let delta = '';
-
-        if (typeof message.delta === 'string') {
-          delta = message.delta;
-        } else if (message.delta && typeof message.delta === 'object') {
-          delta = message.delta.text || message.delta.transcript || message.delta.delta || '';
-        } else if (message.text) {
-          delta = message.text;
-        }
-
-        if (delta) {
-          updateTranscription(delta, false);
-          return;
+      // Handle session resumption updates
+      if (msg.sessionResumptionUpdate) {
+        const update = msg.sessionResumptionUpdate;
+        if (update.resumable && update.new_handle) {
+          sessionResumptionTokenRef.current = update.new_handle;
+          console.log('✅ Session resumption token updated:', update.new_handle);
         }
       }
 
-      // Handle input audio transcription started
-      if (message.type === 'conversation.item.input_audio_transcription.started') {
-        console.log('🎤 Transcription started');
+      // Handle GoAway message - connection will terminate
+      if (msg.goAway) {
+        const timeLeftMs = msg.goAway.time_left?.seconds * 1000 || 0;
+        setConnectionTimeLeft(timeLeftMs);
+        console.warn('⚠️ Server will disconnect in:', msg.goAway.time_left);
+        setError(`Connection will close in ${Math.ceil(timeLeftMs / 1000)} seconds`);
       }
 
-      // Handle input audio transcription completed
-      if (message.type === 'conversation.item.input_audio_transcription.completed') {
-        const transcript = message.transcript || message.text || '';
-        if (transcript) {
-          accumulatedLiveTextRef.current = '';
-          updateTranscription(transcript, true);
-          return;
-        }
+      // Handle generation complete
+      if (msg.serverContent?.generation_complete) {
+        generationCompleteRef.current = true;
+        console.log('✅ Generation complete');
       }
 
-      // Handle conversation.item.created - might have transcription
-      if (message.type === 'conversation.item.created') {
-        const item = message.item;
-
-        if (item && item.role === 'user') {
-          if (item.input_audio_transcription) {
-            const transcription = item.input_audio_transcription;
-            const text = typeof transcription === 'string'
-              ? transcription
-              : (transcription.text || transcription.transcript || '');
-
-            if (text) {
-              accumulatedLiveTextRef.current = '';
-              updateTranscription(text, true);
-              return;
-            }
-          }
-
-          if (item.content && Array.isArray(item.content)) {
-            for (const contentItem of item.content) {
-              if (contentItem.type === 'input_audio' && contentItem.transcription) {
-                const text = typeof contentItem.transcription === 'string'
-                  ? contentItem.transcription
-                  : (contentItem.transcription.text || contentItem.transcription.transcript || '');
-                if (text) {
-                  accumulatedLiveTextRef.current = '';
-                  updateTranscription(text, true);
-                  return;
-                }
-              }
-            }
+      if (msg.serverContent?.modelTurn?.parts) {
+        const parts = msg.serverContent.modelTurn.parts;
+        for (const part of parts) {
+          if (part.text) {
+            updateTranscription(part.text, true); // Consider standard text parts as final for now or accumulate
           }
         }
       }
 
-      // Handle conversation.item.updated
-      if (message.type === 'conversation.item.updated') {
-        const item = message.item;
-        if (item && item.role === 'user' && item.input_audio_transcription) {
-          const transcription = item.input_audio_transcription;
-          const text = typeof transcription === 'string'
-            ? transcription
-            : (transcription.text || transcription.transcript || '');
-          if (text) {
-            accumulatedLiveTextRef.current = '';
-            updateTranscription(text, true);
-            return;
-          }
-        }
+      // Note: The original code used msg.type === 'transcription.result' which is not standard Gemini Live API
+      // The Gemini Live API sends 'serverContent' with 'modelTurn'.
+      // However, if using a proxy that transforms it, the original code might be valid.
+      // But the User asked for "Gemini Live API" which typically uses `serverContent`.
+      // I will keep the original logic just in case, but assume the user might be using the official protocol.
+      // Actually, let's stick to the user's parsing logic if they are sure, but the crash implies connection issues.
+      // I will add a check for the standard fields too.
+
+      if (msg.type === 'transcription.result') {
+        if (msg.is_final) updateTranscription(msg.text, true);
+        else updateTranscription(msg.text, false);
       }
 
-      // Handle speech detection
-      if (message.type === 'input_audio_buffer.speech_started') {
-        accumulatedLiveTextRef.current = '';
-        flushSync(() => {
-          setLiveText('');
-        });
-        if (textareaRef.current) {
-          textareaRef.current.value = committedTextRef.current;
-        }
+      if (msg.type === 'error') {
+        console.error('❌ Gemini error:', msg);
+        setError(msg.message || 'Gemini error');
       }
-
-      // Handle errors
-      if (message.type === 'error') {
-        console.error('❌ OpenAI error:', message.error);
-        const errorMessage = message.error?.message || message.error || 'Unknown error';
-        setError(`Error: ${errorMessage}`);
-      }
-
     } catch (err) {
-      console.error('Error parsing message:', err);
+      console.error('Message parse error', err);
     }
   }, [updateTranscription]);
 
+  // Convert Float32Array to PCM16 and Base64
+  const floatToPCM16 = (float32Array) => {
+    const buffer = new ArrayBuffer(float32Array.length * 2);
+    const view = new DataView(buffer);
+    for (let i = 0; i < float32Array.length; i++) {
+      let sample = Math.max(-1, Math.min(1, float32Array[i]));
+      view.setInt16(i * 2, sample < 0 ? sample * 0x8000 : sample * 0x7fff, true);
+    }
+    return btoa(String.fromCharCode(...new Uint8Array(buffer)));
+  };
 
-  // Start recording with WebRTC
+  // Start recording and streaming audio
   const startRecording = useCallback(async () => {
     if (isConnecting || disabled) return;
 
@@ -275,171 +178,171 @@ const SpeechToTextDictation = ({
       setIsConnecting(true);
       setError(null);
       accumulatedLiveTextRef.current = '';
-      setLiveText('');
-      sessionConfigSentRef.current = false;
+      generationCompleteRef.current = false;
 
       const token = await getToken();
-      if (!token) {
-        throw new Error('No token received from backend');
-      }
+      if (!token) throw new Error('No Gemini token');
 
-      // Get media stream - removed sampleRate constraint (let browser optimize)
-      mediaStreamRef.current = await navigator.mediaDevices.getUserMedia({
-        audio: {
-          echoCancellation: true,
-          noiseSuppression: true,
-          autoGainControl: true,
-        }
-      });
-
-      peerConnectionRef.current = new RTCPeerConnection({
-        iceServers: [{ urls: 'stun:stun.l.google.com:19302' }],
-      });
-
-      // Add audio tracks
-      mediaStreamRef.current.getAudioTracks().forEach(track => {
-        peerConnectionRef.current.addTrack(track, mediaStreamRef.current);
-      });
-
-      // Create data channel
-      dataChannelRef.current = peerConnectionRef.current.createDataChannel('oai-events', {
-        ordered: true,
-      });
-
-      dataChannelRef.current.onmessage = handleMessage;
-
-      dataChannelRef.current.onopen = () => {
-        // Send session config IMMEDIATELY when data channel opens
-        sendSessionConfig();
-      };
-
-      dataChannelRef.current.onerror = (err) => {
-        console.error('❌ Data channel error:', err);
-        setError('Data channel error');
-      };
-
-      dataChannelRef.current.onclose = () => {
-        console.log('🔴 Data channel closed');
-      };
-
-      // Create offer and set local description
-      const offer = await peerConnectionRef.current.createOffer();
-      await peerConnectionRef.current.setLocalDescription(offer);
-
-      const response = await fetch('https://api.openai.com/v1/realtime?model=gpt-4o-realtime-preview-2024-12-17', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/sdp',
+      // Build session configuration with compression and resumption
+      const setupConfig = {
+        model: GEMINI_MODEL,
+        generationConfig: {
+          responseModalities: ['TEXT'], // We want TEXT back, not AUDIO for dictation
+          speechConfig: {
+            voiceConfig: { prebuiltVoiceConfig: { voiceName: "Puck" } }
+          }
         },
-        body: offer.sdp,
-      });
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`OpenAI API error: ${response.status} ${errorText}`);
-      }
-
-      const answerSdp = await response.text();
-
-      await peerConnectionRef.current.setRemoteDescription({
-        type: 'answer',
-        sdp: answerSdp,
-      });
-
-      // Monitor connection state changes
-      peerConnectionRef.current.onconnectionstatechange = () => {
-        const state = peerConnectionRef.current.connectionState;
-
-        if (state === 'connected') {
-          setIsConnecting(false);
-          // Ensure session config is sent if not already sent
-          sendSessionConfig();
-        } else if (state === 'failed' || state === 'disconnected' || state === 'closed') {
-          setError(`Connection ${state}`);
-          cleanup();
-        }
+        // Enable context window compression for unlimited session duration
+        // (Optional: remove if causing issues, but keeping purely as config)
+        // contextWindowCompression: {
+        //   slidingWindow: {},
+        // },
       };
 
-      peerConnectionRef.current.oniceconnectionstatechange = () => {
-        const iceState = peerConnectionRef.current.iceConnectionState;
-
-        if (iceState === 'connected' || iceState === 'completed') {
-          // Ensure session config is sent
-          sendSessionConfig();
-        } else if (iceState === 'failed') {
-          setError('ICE connection failed');
-          cleanup();
+      // Remove undefined handle if no previous session
+      if (sessionResumptionTokenRef.current) {
+        setupConfig.sessionResumption = {
+          handle: sessionResumptionTokenRef.current
         }
+      }
+
+      // Determine if token is API Key or OAuth Token
+      const isApiKey = token.startsWith('AIza');
+      const authParam = isApiKey ? `key=${token}` : `access_token=${token}`;
+      console.log(`🔑 Using ${isApiKey ? 'API Key' : 'Access Token'} for authentication`);
+
+      const ws = new WebSocket(
+        `wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1alpha.GenerativeService.BidiGenerateContent?${authParam}`
+      );
+      console.log('🔌 WebSocket created');
+
+      wsRef.current = ws;
+
+      ws.onopen = async () => {
+        console.log('📡 WebSocket connected, sending setup...');
+
+        // Send setup message with session configuration
+        ws.send(JSON.stringify({
+          setup: setupConfig,
+        }));
+
+        setIsRecording(true);
+        setIsConnecting(false);
+
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        mediaStreamRef.current = stream;
+
+        const audioContext = new AudioContext({ sampleRate: 16000 });
+        audioContextRef.current = audioContext;
+
+        const source = audioContext.createMediaStreamSource(stream);
+        sourceRef.current = source;
+
+        const processor = audioContext.createScriptProcessor(4096, 1, 1);
+        processorRef.current = processor;
+
+        source.connect(processor);
+        processor.connect(audioContext.destination);
+
+        processor.onaudioprocess = (e) => {
+          const pcm16 = floatToPCM16(e.inputBuffer.getChannelData(0));
+          if (ws.readyState === WebSocket.OPEN) {
+            // Realtime API expects specific format:
+            ws.send(JSON.stringify({
+              realtime_input: {
+                media_chunks: [{
+                  mime_type: "audio/pcm;rate=16000",
+                  data: pcm16
+                }]
+              }
+            }));
+          }
+        };
+      };
+
+      ws.onmessage = handleMessage;
+      ws.onerror = (e) => {
+        console.error("WebSocket Error:", e);
+        setError('Gemini WebSocket error');
+      };
+      ws.onclose = (e) => {
+        console.log("WebSocket Closed:", e.code, e.reason);
+        cleanup();
       };
 
     } catch (err) {
-      console.error('❌ Error starting recording:', err);
-      setError(`Failed to start: ${err.message}`);
+      setError(err.message);
       cleanup();
     }
-  }, [isConnecting, disabled, getToken, handleMessage, sendSessionConfig]);
+  }, [getToken, handleMessage, disabled, isConnecting]);
 
-  // Stop recording
-  const stopRecording = useCallback(() => {
-    cleanup();
-  }, []);
+  const stopRecording = useCallback(() => cleanup(), []);
 
   // Cleanup resources
   const cleanup = useCallback(() => {
-    if (dataChannelRef.current) {
-      dataChannelRef.current.close();
-      dataChannelRef.current = null;
+    if (processorRef.current) {
+      processorRef.current.disconnect();
+      processorRef.current.onaudioprocess = null;
     }
+    sourceRef.current?.disconnect();
+    audioContextRef.current?.close();
 
-    if (peerConnectionRef.current) {
-      peerConnectionRef.current.close();
-      peerConnectionRef.current = null;
-    }
-
+    // Stop tracks to release microphone
     if (mediaStreamRef.current) {
       mediaStreamRef.current.getTracks().forEach(track => track.stop());
       mediaStreamRef.current = null;
     }
 
-    accumulatedLiveTextRef.current = '';
-    sessionConfigSentRef.current = false;
+    wsRef.current?.close();
+
+    processorRef.current = null;
+    sourceRef.current = null;
+    audioContextRef.current = null;
+    wsRef.current = null;
+    console.log('🛑 Stopped recording');
+
     setIsRecording(false);
     setIsConnecting(false);
+    setConnectionTimeLeft(null);
   }, []);
+
+  // Attempt to resume session if available
+  const resumeSession = useCallback(async () => {
+    if (!sessionResumptionTokenRef.current) return false;
+
+    console.log('🔄 Attempting to resume session...');
+    try {
+      await startRecording();
+      return true;
+    } catch (err) {
+      console.error('Failed to resume session:', err);
+      sessionResumptionTokenRef.current = null;
+      return false;
+    }
+  }, [startRecording]);
 
   // Update committed text when value prop changes
   useEffect(() => {
     if (value !== committedTextRef.current && accumulatedLiveTextRef.current === '') {
       committedTextRef.current = value;
       setCommittedText(value);
-      if (textareaRef.current) {
-        textareaRef.current.value = value;
-      }
+      if (textareaRef.current) textareaRef.current.value = value;
     }
   }, [value]);
 
-  // Cleanup on unmount
   useEffect(() => {
-    return () => {
-      cleanup();
-    };
+    return () => cleanup();
   }, [cleanup]);
 
-  // Handle textarea changes
   const handleTextareaChange = (e) => {
     const newValue = e.target.value;
     committedTextRef.current = newValue;
     accumulatedLiveTextRef.current = '';
     setCommittedText(newValue);
     setLiveText('');
-
-    if (onChange) {
-      onChange(newValue);
-    }
+    if (onChange) onChange(newValue);
   };
 
-  // Use state values directly for display
   const displayText = committedText + liveText;
 
   return (
@@ -452,10 +355,7 @@ const SpeechToTextDictation = ({
         placeholder={placeholder}
         disabled={disabled}
         className={styles.textarea}
-        style={{
-          color: '#374151',
-          ...props.style
-        }}
+        style={{ color: '#374151', ...props.style }}
       />
 
       {isRecording && (
